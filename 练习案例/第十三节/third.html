@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+	<head>
+		<!--声明当前页面编码集(中文编码<gbk,gb2312>,国际编码<utf-8>)-->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="keywords" content="关键词,关键词">
+		<meta name="description" content="">
+		<title>不同步的动画封装</title>
+        <style type="text/css">
+			*{padding:0px;margin:0px;}
+			#box{width:100px;height:100px;background:green;line-height:100px;text-align:center;color:#fff;}
+		</style>
+	</head>
+<body>
+	
+	<div id="box">盒子</div>
+
+	<script>
+		function $(id){
+			return document.getElementById(id);
+		};
+		window.onload = function(){
+			var boxDom = $("box");
+			boxDom.onmouseover = function(){
+				/*Run(this,"width",200,10);
+				//会覆盖宽度的变化
+				Run(this,"height",200,10);*/
+				//由外到内进行完，并不是同时进行的！！！
+				Run(this,"width",200,10,function(){
+					Run(this,"height",200,10,function(){
+					Run(this,"marginLeft",200,10);
+					});
+				});
+			};
+			//全局的定时器
+			var timer = null;
+			//封装动画
+			function Run(obj,attr,target,speed,callback){
+				//清除上一次结束动画
+				clearInterval(obj.timer);
+				obj.timer = setInterval(function(){
+					//这里不要放在定时器外面，要每次更新pos的值
+					var pos = parseInt(getStyle(obj,attr));
+					//当pos达到目标位置时清除定时器
+					if(pos==target){
+						clearInterval(obj.timer);
+						//进行判断有没有传入回调函数
+						if(callback)callback.call(obj);
+					}else{
+						//每次从上次的位置移动
+						obj.style[attr] = pos+speed+"px";
+					}
+				},30);
+			};
+		};
+		function getStyle(obj,attr){
+			return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+		};
+	</script>
+</body>
+
+</html>

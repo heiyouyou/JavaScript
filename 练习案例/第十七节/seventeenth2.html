@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			^表示开始；$表示结束；如：/^ab$/表示匹配的字符串要以这个字符类型开始并且结束
+		
+		var str = "ab"
+		var reg = /^ab$/;
+		alert(reg.test(str));*/
+
+		//匹配QQ号码(5-10位，不能以0开头)：
+		/*var qq = "012458798";
+		var reg = /^[1-9]\d{4,9}$/;
+		alert(reg.test(qq));*/
+
+		//匹配注册账号(字母开头长度8-12不包括空格符)
+		/*var login = "a2433fsdfew;";
+		var reg = /^[a-zA-Z]\S{7,11}$/;
+		alert(reg.test(login));*/
+
+		//匹配邮箱(以字母、下划线_、横杆-开头加上@符号再次以字母、下划线_、横杆-拼接)：
+		/*var email = "1337238043@qq_-.com.cn.cnn";
+		var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;//或/^[\w-]+@[\w-]+(\.[\w-]+)+$/
+		alert(reg.test(email));*/
+
+		//匹配电话号码(数字1开头位数11位)
+		/*var tel = "15678390130";
+		var reg = /^1\d{10}$/;
+		alert(reg.test(tel));*/
+		
+		//匹配身份证号码(不能以数字0开头，有15位、17位加一个X或x、18位的)
+		/*var card = "450881199406095334";
+		//注意空格也算要匹配的字符，所以|之间不能有空格
+		var reg = /^[1-9]\d{14}$|^[1-9]\d{16}x|X$|^[1-9]\d{17}$/;
+		alert(reg.test(card));*/
+
+		//匹配中文(asiic码（[\u4E00-\u9FA5]）)
+		/*var chinese = "号华海中介费哈肯德基罕见的开发了空间";
+		var reg = /^[\u4E00-\u9FA5]+$/;
+		alert(reg.test(chinese));*/
+		
+		//正则封装
+		var json = {
+			"QQ":/^[1-9]\d{4,9}$/,
+			"ID":/^[1-9]\d{14}$|^[1-9]\d{16}x|X$|^[1-9]\d{17}$/,
+			"email":/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+			"tel":/^1\d{10}$/,
+			"CN":/^[\u4E00-\u9FA5]+$/,
+			"login":/^[a-zA-Z]\S{7,11}$/
+		};
+		var QQ = "1337238043";
+		var reg = json["QQ"];
+		alert(reg.test(QQ));
+	</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>对正则的认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#box p{margin:10px 0;text-indent:1em;}
+</style>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			正则表达式的两种形式：var reg = //;或var reg = new RegExp();
+			正则表达式的转义字符：
+				\n 换行 \t 制表符  \r回车 ……
+				\d:匹配数字   \D:匹配非数字
+				\s:用于匹配单个空格符，包括tab键和换行符
+				\S:用于匹配除\s匹配的字符之外的所有字符；
+				\w:用于匹配字母，数字或下划线字符；'[A-Za-z0-9_]'
+				\W:用于匹配所有与\w不匹配的字符；'[^A-Za-z0-9_]'
+
+				标识：//区分大小写
+				i(不区分大小写)
+				g(匹配字符串中的所有符合字符)
+			量词：+ ------指一个或多个的连续字符
+		*/
+		/*var str = "\n";
+		//斜杠里填的是要匹配的字符或字符类型
+		//var reg = /ddd/;
+		var reg = /\S/;
+		//test():匹配成功返回true,否则返回false，括号填要与reg匹配的字符串
+		if(reg.test(str)){
+			alert("不是纯数字");
+		}else{
+			alert("是纯数字");
+		}*/
+
+		/*var str = "123adsad";
+		var reg = /\W/;
+		//search()用来匹配括号里面的字符类型reg，如果匹配成功就返回对应字符串str里第一个字符的下标，如果匹配不成功就返回-1相当于indexOf()
+		alert(str.search(reg));*/
+
+		/*var str = "adadsa2018797aasd-242423=ad;'asd";
+		//var reg = /\d/;//只能匹配一个数字字符
+		//var reg = /A/i;//可以匹配连续多个数字的字符，但只能用来匹配第一次连续的数字
+		var reg = /\d+/g;//可以匹配连续多个数字的字符，并且可以匹配多次连续的数字字符
+		//match()用来匹配括号里的字符类型reg，如果匹配成功返回匹配字符的数组，否则返回null对象
+		alert(str.match(reg));*/
+
+		var str = "free很帅！free很勤奋！free认真！"
+		var reg = /\w+/g;
+		//replace(reg,新字符串)，用来替换匹配成功的字符串的某些字符，然后通过return返回出去新的str，第一个参数是要匹配的字符串，第二参数是匹配成功后要替换成的新字符串
+		alert(str.replace(reg,"hei"));
+	</script>
+</body>
+</html>

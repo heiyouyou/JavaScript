@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			寄生式继承：通过在一个函数内的过渡对象实现继承并且返回新对象的方式称之为寄生式继承；寄生式继承依附于原型链继承实现的。
+			寄生组合式继承：结合构造函数继承实现的继承。
+		*/
+		/*function extend(obj){
+			//空的一个过渡构造函数（类）
+			var Fn = function(){};//或者function Fn(){};
+			//将过渡的原型对象指向传入的对象
+			Fn.prototype = obj;
+			//返回一个过渡对象
+			return new Fn();
+		};	
+		//值类型属性被复制，引用类型的属性被共用
+		var Books = {
+			name:"js",//值类型
+			books:["css","Java"]//引用类型
+		};
+		//返回的新对象继承了传入对象的属性和方法
+		var instance1 = extend(Books);
+		//没改变
+		alert(instance1.name);
+		alert(instance1.books);
+		//发生了改变
+		instance1.name = "wells";
+		instance1.books.push("jquery");
+		alert(instance1.name);
+		alert(instance1.books);
+		var instance2 = extend(Books);
+		alert(instance2.name);
+		alert(instance2.books);
+		//原型指向了Object
+		alert(instance2.constructor);*/
+
+		/*function extend(obj){
+			//空的一个过渡构造函数（类）
+			var Fn = function(){};//或者function Fn(){};
+			//将过渡的原型对象指向传入的对象
+			Fn.prototype = obj;
+			//返回一个过渡对象
+			return new Fn();
+		};
+		//一个传入子类和父类的函数
+		function extendPrototype(subClass,superClass){
+			//返回了一个继承了父类原型的过渡对象（新对象）
+			var p = extend(superClass.prototype);
+			//将构造器重新指向子类
+			p.constructor = subClass;
+			//子类原型指向了一个过渡对象（新对象）
+			subClass.prototype = p;
+			//或者：subClass.prototype.constructor = subClass;
+		};
+		//定义父类
+		function SuperClass(name){
+			this.name = name;
+			this.colors = ['red','blue','yellow'];
+		};
+		//父类原型
+		SuperClass.prototype.getName = function(){
+			console.log(this.name);
+		};
+		//定义子类
+		function SubClass(name,time){
+			//构造函数继承
+			SuperClass.call(this,name);
+			//子类新增属性
+			this.time = time;
+		};
+		//寄生组合式继承
+		extendPrototype(SubClass,SuperClass);
+		//子类原型的新增方法
+		SubClass.prototype.getTime = function(){
+			console.log(this.time);
+		};
+		//父类的实例
+		var instance1 = new SuperClass("js");
+		//子类的实例
+		var instance2 = new SubClass("css",2016);
+		instance1.colors.push("pink");
+		console.log(instance1.colors);
+		console.log(instance2.colors);
+		instance2.getName();
+		instance2.getTime();
+		instance1.getName();
+		//父类对象不能使用子类的属性和方法
+		//instance1.getTime();
+		alert(instance2.constructor);
+		*/
+		//或者可以这样写：
+		//寄生继承原型
+		function extend(subType, superType) {
+			function F(){};
+			F.prototype = superType.prototype;
+			var prototype = new F;
+			prototype.constructor = subType;
+			subType.prototype = prototype;
+		}
+		//超类方法
+		function SuperType(name) {
+			this.name = name;
+			this.colors = ["red", "blue", "green"];
+		}
+		SuperType.prototype.sayName = function() {
+			return this.name;
+		}
+		//子类方法
+		function SubType(name, age) {
+			SuperType.call(this, name);
+			this.age = age;
+		}
+		//继承超类的原型
+		extend(SubType, SuperType);
+		//子类方法
+		SubType.prototype.sayAge = function() {
+			return this.age;
+		}
+		var instance1 = new SubType("Shelby");
+		var instance2 = new SubType("Court", 28);
+		instance1.colors.push('black');
+		alert(instance1.colors); //red,blue,green,black
+		alert(instance2.colors); //red,blue,green
+		alert(instance1 instanceof SubType); //true
+		alert(instance1 instanceof SuperType); //true
+	</script>
+</body>
+</html>

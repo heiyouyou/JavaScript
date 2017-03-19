@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>淘宝无缝banner</title>
+<style type="text/css">
+	*{margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background-attachment: fixed;background:url("images/1.png");background-color:#dfdfe1;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	/*banner start*/
+	#banner{width:520px;height:280px;margin:100px auto;box-shadow:;position:relative;overflow:hidden;box-shadow:0 0 7px 0 rgba(0, 0, 0, 0.2);}
+	#banner .pic ul{width:1000%;margin-left:-520px;}
+	#banner .pic ul li{float:left;}
+	#banner .pic ul li img{width:520px;height:280px;}
+	#banner .tab{width:70px;background:rgba(255,255,255,.3);position:absolute;bottom:10px;left:50%;margin-left:-35px;border-radius:7px;}
+	#banner .tab ul li{width:10px;height:10px;background:#ccc;border-radius:50%;float:left;cursor:pointer;margin:2px;}
+	#banner .tab ul li.on{background:#f60;}
+	#banner .btn div{width:24px;height:36px;background:rgba(0,0,0,0.3);font-size:26px;font-weight:300;color:#e5e5e5;line-height:36px;text-align:center;cursor:pointer;position:absolute;top:50%;margin-top:-18px;display:none;}
+	#leftBtn{left:0;}
+	#rightBtn{right:0;}
+	#banner .btn div.hover{background:rgba(0,0,0,0.6);};
+	/*end banner*/
+</style>
+</head>
+<body>
+	<!-- banner start -->
+	<div id="banner">
+		<div class="pic">
+			<ul>
+				<!-- 最后一张过渡 -->
+				<li><a href="javascript"><img src="images/5.jpg" alt="1"></a></li>
+				<li><a href="javascript"><img src="images/1.jpg" alt="1"></a></li>
+				<li><a href="javascript"><img src="images/2.jpg" alt="1"></a></li>
+				<li><a href="javascript"><img src="images/3.jpg" alt="1"></a></li>
+				<li><a href="javascript"><img src="images/4.jpg" alt="1"></a></li>
+				<li><a href="javascript"><img src="images/5.jpg" alt="1"></a></li>
+				<!-- 第一张过渡 -->
+				<li><a href="javascript"><img src="images/1.jpg" alt="1"></a></li>
+			</ul>
+		</div>
+		<div class="tab">
+			<ul>
+				<li class="on"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<div class="btn">
+			<div id="leftBtn">&lt;</div>
+			<div id="rightBtn">&gt;</div>
+		</div>
+	</div>
+	<!-- end banner -->
+	<!-- 引入js官方类库jQuery -->
+	<script src="js/jquery-1.12.2.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var $banner = $("#banner");
+			//获取按钮个数
+			var $tabLi = $("#banner .tab ul li");
+			//获取每张图片的宽度
+			var imgWidth = $("#banner .pic ul li").width();
+			/*或者var imgWidth = $("#banner .pic ul li").css("width");*/
+			//获取图片盒子
+			var $picUl = $("#banner .pic ul");
+			//获取到左右两个耳朵
+			var $btnDiv = $("#banner .btn div");
+			//定义一个图片盒子移动距离的全局变量
+			var $index = 0;
+			//定义一个自动播放的定时器
+			var timer = null;
+			//定义一个动画执行的时间差
+			var nowTime = 0;
+			//为每个按钮绑定事件
+			$tabLi.click(function(){
+				//获取点击按钮的索引
+				$index = $(this).index();
+				//为当前点击的按钮添加样式以及剔除没有点击按钮的某种样式
+				$(this).addClass("on").siblings().removeClass("on");
+				//为图片盒子添加移动的动画效果
+				$picUl.animate({"margin-left":-imgWidth*($index+1)+"px"},300);
+				//$picUl.css("margin-left",-imgWidth);
+				/*或者$picUl.css("marginLeft",-imgWidth+"px");*/
+			});
+			/*hover(fn1,fn2)方法是同时绑定 mouseenter（鼠标进入）和 mouseleave（鼠标离开）事件；先执行进入的fn1后执行离开的fn2！！！*/
+			//为左右耳朵绑定事件
+			$btnDiv.hover(function(){
+				$(this).addClass("hover");
+			},function(){
+				$(this).removeClass("hover");
+			}).click(function(){
+				//当点击的前后时间差大于500才执行动画
+				if(new Date() - nowTime>500){
+					//将上一次点击获取到的时间赋值给nowTime
+					nowTime = new Date();
+					//拿到左右耳朵索引进行判断
+					var i = $(this).index()
+					if(i){//点击右耳朵
+						$index++;
+					}else{//点击左耳朵
+						$index--;
+					}
+					fn();
+				}
+			}).mousedown(function(){//剔除默认样式
+				return false;
+			});
+			//封装样式变化的动画方法
+			function fn(){
+				//定义一个按钮样式变化的同步变量
+				var $liIndex = $index;
+				if($liIndex == $tabLi.length){
+					$liIndex = 0;
+				}else if($liIndex<0){//
+					$liIndex = $tabLi.length-1;
+				}
+				//关联耳朵点击时按钮样式同样也变化
+				$tabLi.eq($liIndex).addClass("on").siblings().removeClass("on");
+				//关联耳朵点击时图片盒子移动
+				$picUl.animate({"margin-left":-imgWidth*($index+1)+"px"},300,function(){
+					if($index == $tabLi.length){
+						$picUl.css("margin-left",-imgWidth+"px");
+						$index = 0;
+					}else if($index<0){
+						$picUl.css("margin-left",-imgWidth*$tabLi.length+"px");
+						$index = $tabLi.length-1;
+					}
+				});
+			};
+			//先自行执行一次播放
+			autoPlay();
+			//自动播放的方法
+			function autoPlay(){
+				timer = setInterval(function(){
+					$index++;
+					fn();
+				},2000)
+			};
+			//悬浮在banner图上触发的样式
+			$banner.hover(function(){
+				$btnDiv.show();
+				clearInterval(timer);
+			},function(){
+				$btnDiv.hide();
+				autoPlay();
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>下拉选项框三级联动</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	省：<select style="width:100px;" id="pre" onchange="chg(this)">
+			<option value="-1">请选择：</option>
+		</select>
+	市：<select style="width:100px;" id="city" onchange="chg1(this)">
+		</select>
+	区：<select style="width:100px;" id="area">
+		</select>
+	<script type="text/javascript">
+		//定义省份
+		var pres = ["广西","广东","北京","上海"];
+		//定义市
+		var cities = [
+			["南宁市","柳州市","桂林市"],
+			["广州市","深圳市","佛山市"],
+			["朝阳市","东城市","海淀市"],
+			["浦东","高区","浦西"],
+		];
+		//定义区
+		var areas = [
+			[
+				["南宁一","南宁二","南宁三"],
+				["柳州一","柳州二","柳州三"],
+				["雁山区","叠彩区","七星区"]
+			],
+			[
+				["白云区","番禺区","广州区"],
+				["宝山区","龙岗区","南山区"],
+				["顺德区","山水区","禅城区"]
+			],
+			[
+				["朝阳一","朝阳二","朝阳三"],
+				["东城一","东城二","东城三"],
+				["海淀区","海淀区","海淀区"]
+			],
+			[
+				["浦东一","浦东二","浦东三"],
+				["高区一","高区二","高区三"],
+				["浦西一","浦西二","浦西三"],
+			]
+		];
+		var preEle = document.getElementById("pre");
+		var cityEle = document.getElementById("city");
+		var areaEle = document.getElementById("area");
+		//遍历创建省option元素并添加内容
+		for(var i=0;i<pres.length;i++){
+			//Option(a,b)a表示option元素的文本内容，b表示value值
+			var op = new Option(pres[i],i);
+			//添加option元素
+			preEle.options.add(op)
+		};
+		//定义一个全局省份索引
+		var val = 0;
+		//省份控制城市和区域事件
+		function chg(obj){
+			//拿到省的value值
+			val = obj.value;
+			//判断是否是点击省份选择option
+			if(val>-1){
+				//选定默认市
+				var cs = cities[val];
+				//选定默认区
+				var as = areas[val][0];
+				//每次点击下一个省份时都进行清空上一次省份的城市和区域，防止拼接
+				cityEle.options.length = 0;
+				areaEle.options.length = 0;
+				//遍历创建对应省的市份
+				for(var i=0;i<cs.length;i++){
+					var op = new Option(cs[i],i);
+					cityEle.options.add(op);
+				};
+				//遍历创建对应省对应市的区域
+				for(var i=0;i<as.length;i++){
+					var op = new Option(as[i],i);
+					areaEle.options.add(op);
+				};
+			}else{//如果是点击了省份中“请选择”，就进行清空城市和区域
+				cityEle.options.length = 0;
+				areaEle.options.length = 0;
+			}
+		};
+		//城市控制区域事件
+		function chg1(obj){
+			//拿到城市对应的value值
+			var index = obj.value;
+			//拿到对应市的区域
+			var as = areas[val][index];
+			//每次点击下一个城市就进行清空上一次城市的区域，防止拼接
+			areaEle.options.length = 0;
+			//遍历创建对应省对应市的区域
+			for(var i=0;i<as.length;i++){
+				var op = new Option(as[i],i);
+				areaEle.options.add(op);
+			};
+		};
+	</script>
+</body>
+</html>

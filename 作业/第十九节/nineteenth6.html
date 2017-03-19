@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	#box{width:100px;height:100px;background:#111;}
+	.on{padding:20px;border:10px solid blue;}
+</style>
+</head>
+<body>
+	<input type="radio" checked="checked">	
+	<div id="box">
+		<a class="a">a</a>
+		<span class="span">span</span>
+		<div class="box1"><p class="p">p</p></div>
+		<p></p>
+	</div>
+	<script src="js/jquery-1.12.2.min.js"></script>
+	<script type="text/javascript">
+		var $box = $("#box");
+		//可以通过css()给元素添加样式（内联样式）；添加一种样式可以像以下这样写；第一个参数表示某种样式，第二个参数表示样式的值
+		//$box.css("width","200px");
+		//或者$box.css("width",200);
+		//也可以像以下传入一个样式的json对象
+		$box.css({
+			width:"100px",
+			height:"200px",
+			background:"red"
+		});
+		//css()可以只传入一个参数，表示获取某种样式，相当于js封装的getStyle()这个方法的功能
+		//alert($box.css("height"));
+
+		//attr()传入一个参数表示获取属性（自定义）；两个参数表示设置属性（可以是自定义的）
+		//alert($box.attr("id"));
+		//$box.attr("wells","free");
+		//alert($("input[type='radio']").attr("checked"));//弹出checked
+		//获取系统自带属性的时候用prop()
+		//alert($("input[type='radio']").prop("checked"));//弹出true
+
+		//addClass()添加类样式方法
+		//$("#box").addClass("on");
+		//removeClass()移除某种类样式
+		//$("#box").removeClass("on");
+		//toggleClass()作用：有某种样式就剔除这种样式；没有某种样式就添加这种样式
+		//$("#box").toggleClass("on");
+
+		//children()返回一个类数组；children()只考虑子元素而不考虑所有后代元素。
+		//alert($("#box").children().length);
+		//可以拿到下标为2的子元素
+		//alert($("#box").children()[2]);
+		//children()里的参数可以是各种选择器（如：id或class或标签名）
+		//可以找到子类中的子类
+		//alert($("#box").children(".box1").children("p").html());
+
+		/*find()是可以找对象下所有的后代元素；*/
+		//$("#box").find("p").html("abcdef");
+		/*类似选择器的关系*/
+		//$("#box").find("div p").html("abcdef");
+		//parent()获取对象的父类parent()；虽然可以写参数（选择器），但建议不要写参数；
+		//$("#box").find("div p").parent().html("我是父类");
+		//parents()可以获取元素的祖先元素：
+		//第一种:找到每个p元素的所有祖先元素。
+		//$("#box").find("div p").parents().css("width","500px");
+		//第二种：找到每个p元素的id为box的祖先元素。
+		//$("#box").find("div p").parents("#box").css("width","500px");
+		
+	</script>
+</body>
+</html>

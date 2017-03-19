@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>js给元素设置属性的各种方法</title>
+<style type="text/css" id="css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#box{width:100px;background:red;}
+	.on{height:100px;}
+</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script type="text/javascript">
+		//给元素添加样式的方法
+		var boxDom = document.getElementById("box");
+		var cssDom = document.getElementById("css");
+		//第一种
+		//boxDom.style.height = "100px";//这种是加在内联样式中
+
+		//第二种
+		//boxDom.className = "on";//这种通过类名添加样式是比较常用的方法
+		
+		//第三种
+		//cssDom.innerHTML += "#box{height:100px;border:1px solid #111;}";//注意这里要有+号，没有加号会将cssDom之前的内容全部覆盖掉，加号表示与之前的内容拼接的意思
+
+		//第四种
+		//boxDom.style.cssText = "height:100px;border:1px solid #111;margin:20px auto;"//这种加样式也是加在内联样式中，可以添加多个样式
+	</script>
+</body>
+</html>

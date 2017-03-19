@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+	<!--声明当前页面编码集(中文编码<gbk,gb2312>,国际编码<utf-8>)-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="keywords" content="关键词,关键词">
+	<meta name="description" content="">
+	<title>同步进行的动画封装方法</title>
+	<style type="text/css">
+		*{padding:0px;margin:0px;}
+		#box{width:100px;height:100px;background:green;line-height:100px;text-align:center;color:#fff;}
+	</style>
+</head>
+<body>
+	
+	<div id="box">盒子</div>
+
+	<script>
+		function $(id){
+			return document.getElementById(id);
+		};
+		window.onload = function(){
+			var boxDom = $("box");
+			boxDom.onmouseover = function(){
+				Run(this,{width:150,height:500,lineHeight:500},10)
+			};
+			//全局的定时器
+			var timer = null;
+			//封装动画
+			function Run(obj,json,speed){
+				//清除上一次结束动画
+				clearInterval(obj.timer);
+				obj.timer = setInterval(function(){
+					//定义一个开着的锁，用来进行判断是否清除定时器
+					var mark = true;
+					//先将json里的值全拿出来才会跳出循环执行下一次定时器
+					for(var attr in json){
+						//这里不要放在定时器外面，要每次更新pos的值
+						var pos = parseInt(getStyle(obj,attr));
+						//拿到json对象里的目标值
+						var target = json[attr];
+						//当pos达不到目标位置时继续改变属性值
+						if(pos!=target){
+							//每次从上次的位置改变
+							obj.style[attr] = pos+speed+"px";
+							//只要传入的attr没有达到目标值，mark始终为false
+							mark = false;
+						}					
+					}
+					//如果为真进行清除定时器
+					if(mark)clearInterval(timer);
+				},30);
+			};
+		};
+		function getStyle(obj,attr){
+			return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+		};
+	</script>
+</body>
+
+</html>

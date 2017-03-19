@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>获取样式值的方法</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#box{width:100px;height:100px;border:1px solid yellow;background:red;margin:10px auto;}
+</style>
+</head>
+<body>
+	<div id="box" style="width:200px;"></div>
+	<script type="text/javascript">
+		var boxDom = document.getElementById("box");
+		//alert(boxDom.style.width);//这种输出或获取的是内联样式中的width的值，如果内联样式中没有样式则会输出空白的弹框
+
+		//alert(getComputedStyle(boxDom).width);//getComputedStyle()这种方法是传入相应的对象可以得到相应的样式属性值,可是这种方法是支持ie9+
+
+		//alert(boxDom.currentStyle.width);//这种方法是通过对象调用，只支持ie678
+
+		//以下是获取样式值的兼容性写法
+		//alert(getStyle(boxDom,"backgrou ndColor"));//如果这里的第二个实参出现了空格,就会输出undefined,注意background是一个复合属性
+		function getStyle(obj,value){
+			//value = value.trim();//这种方法只能将字符串的前后空格去掉不能将中间的空格去掉
+			var values = value.split(" ");//split与join结合使用就可以将所有空格去掉
+			var value = values.join("");
+			if(obj.currentStyle){//这里表示哪个浏览器支持就往下执行if语句里的代码，要不然就执行else里的语句
+				return obj.currentStyle[value];//注意这里不能点只能用[]包裹变量，且必须传入的是字符串
+			}else{
+				return getComputedStyle(obj)[value];
+			}
+		}
+	</script>
+</body>
+</html>

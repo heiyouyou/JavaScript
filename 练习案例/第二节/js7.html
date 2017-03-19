@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:10px;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<ul id="list">
+	
+	</ul>
+	<script type="text/javascript">
+		window.onload = function(){
+			var ulDom = document.getElementById("list");
+			ulDom.innerHTML = "<li>1</li><li>2</li><li>3</li>";
+			var liDoms = ulDom.getElementsByTagName("li");
+			for(var i=0;i<liDoms.length;i++){
+				liDoms[i].index = i; 
+				liDoms[i].onclick = function(){
+					alert(this.index);
+				};
+			}
+			//alert(Array.isArray(liDoms));
+			/*for(var i=0;i<liDoms.length;i++){
+				liDoms[i].index = i;
+				liDoms[i].onclick = function(){
+					alert(this.index);			
+				};
+			}
+			/*
+			document.body.innerHTML = "<ul id='l2'>dddd</ul>"
+			l2.onclick = function(){
+				alert(2);
+			}
+			*/
+		};
+	</script>
+</body>
+</html>

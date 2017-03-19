@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>setTimeout的应用</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="texts"></div>
+	<script type="text/javascript">
+	function Ptext(arr,id,time){//第一个表示数组，第二个表示id,第三个表示定时器的执行时间
+		/*var arr = [];//定义一个空数组来接收由字符串组成的数组
+		//为空数组添加字符串
+		arr.unshift("热爱运动的好孩子！！！");
+		arr.unshift("是一个学生");
+		arr.unshift("heiheiyou");*/
+		var pos = 1;//定义substring的截取结束索引endIndex
+		var strlen = arr[0].length;//先获取数组arr下标为0的字符串长度
+		var index = 0;//记录字符串数组arr的下标
+		var len =arr.length;//记录字符串数组arr的长度
+		var timer = null;//定义一个空的定时器
+		var oText = document.getElementById(id);//获取装文本的盒子id
+		oText.style.cssText = "width:500px;margin:10px auto;background:red;color:#fff;";
+		var p = "";//定义一个空字符串来装每个arr[i]完全输出完后的字符串
+		var row = 0;//记录开始输出的完整字符串的行数
+		function printText(){
+			if(row<index){//当row小于arr的下标index就开始将arr[index]完整字符串赋值给p
+				p = p + arr[row++];
+			}
+			oText.innerHTML =p + arr[index].substring(0,pos);
+			if(strlen==pos){
+				index++;
+				pos = 1;//重新赋值以清空上次截取字符串留下的结束下标pos
+				if(index<len){//当index小于arr的长度时才执行，否则就清空定时器timer
+					strlen = arr[index].length;//并且重新将变化后的字符串arr[index]赋值给strlen
+					timer = setTimeout(printText,time);
+				}else{
+					clearTimeout(timer);
+				}
+			}else{
+				pos++;//只要pos不大于字符串的长度就继续截取执行定时器setTimeout()
+				timer = setTimeout(printText,time);
+			}
+		}
+		printText();
+	}
+	Ptext(["我是一个","狠狠狠狠","想学好语言的好孩子！！！"],"texts",400);
+	</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Attributes的使用</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="box" class="box" style="width:100px;height:100px;" hei="heihei" width="100"></div>
+	<script type="text/javascript">
+		var oBox = document.getElementById("box");
+		//alert(oBox.attributes.length);//attributes是获取对象属性的一个类数组
+		//alert(oBox.attributes[1].name);//可以获取到属性的名字
+		//alert(oBox.attributes[3].name)//可以获取到自定义的属性名
+
+		//可以通过以下方法获取属性的值
+		//alert(oBox.id);
+		//alert(oBox["id"]);
+		//alert(oBox.className);
+		//alert(oBox.style);
+		//alert(oBox.hei);//对象通过.或[]是无法获取自定义属性的值
+		//alert(oBox["hei"]);
+		//alert(oBox.getAttribute("id"));//方法里传入一个属性名
+		//alert(oBox.getAttribute("style"));
+		//alert(oBox.style.width);
+		//alert(oBox.getAttribute("class"));
+		//alert(oBox.getAttribute("hei"));//可以获取到自定义的属性值
+		
+		//给属性设置值的方法
+		//oBox.setAttribute("id","wrap");//第一个参数是属性名，第二个参数是要修改的属性值,这个方法是默认返回undefined的！！！
+		//oBox.setAttribute("hei","你好啊！！！");//可以修改自定义属性的值
+		//alert(oBox.getAttribute("hei"));
+		//alert(oBox.getAttribute("id"));
+		//oBox.id = "wrap";
+		//alert(oBox.getAttribute("id"));
+		//oBox.hei = "aaaaa";//同样不能通过.或[]是无法修改自定义属性的值
+		//alert(oBox.getAttribute("hei"));
+		//oBox.removeAttribute("hei");//传入对象元素的属性名可以删除属性
+		//alert(oBox.getAttribute("hei"));//输出null
+
+		//jQurey中attr()方法的封装
+		function attr(obj,key,value){
+			if(value){//只要value不是是false类的值，就可以走if语句里的东西
+				obj.setAttribute(key,value);
+				return obj.getAttribute(key);
+			}else{
+				return obj.getAttribute(key);
+			}
+		}
+		alert(attr(oBox,"style","wrap"));
+	</script>
+</body>
+</html>

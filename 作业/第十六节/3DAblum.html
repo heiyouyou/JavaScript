@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>3D翻转相册</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background:#111;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#box{perspective:800px;}
+	#wrap{width:120px;height:180px;margin:auto;position:relative;transform-style:preserve-3d;transform:rotateX(-10deg);background:linear-gradient(rgba(142,134,134,.3),rgba(43,26,26,.3));box-shadow:0 0 #fff inset;}
+	#wrap img{width:100%;height:100%;position:absolute;border-radius:4px;box-shadow:0 0 1em #111;-webkit-box-reflect:below 10px -webkit-linear-gradient(top,rgba(0,0,0,0) 40%,rgba(0,0,0,0.5))/*倒影的线性渐变*/;cursor:pointer;transform:rotateY(0deg) translateZ(0px);}
+	#wrap .mark{width:1200px;height:1200px;position:absolute;top:102%;left:50%;border-radius:50%;margin-left:-600px;margin-top:-600px;transform:rotateX(90deg);background:-webkit-radial-gradient(center center,600px 600px,rgba(242,79,242,0.4),rgba(0,0,0,0))/*背景色的径向渐变*/;}
+</style>
+</head>
+<body>
+	<div id="box">
+		<div id="wrap">
+			<img src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/AF1gfZwRfbMnPc_qqkyObg==/1055812637659484059.jpg_262x176x1.jpg"/>
+			<img src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/bgH3j-q7XmY_fd9oTYaEDw==/2862319038188594034.jpg_262x176x1.jpg"/>
+			<img src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/45TC3fp8aFOE-Nx7I6_n9w==/6608528876841564219.jpg_262x176x1.jpg"/>
+			<img src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/mUYjZASI2TURARzrQwgyMA==/6630731315140896644.jpg_393x262x1.jpg"/>
+			<img src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/ZPwUSs4NrGFalBfvcjeTaw==/6619543784328815905.jpg_393x262x1.jpg"/>
+			<img src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/oBwvnKN6L7XgVMC977sM_Q==/808114658236743085.jpg_262x393x1.jpg"/>
+			<img src="images/7.jpg"/>
+			<img src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/ZvXPBmFUtqJBm7bLCkn5Nw==/2097833001524835925.jpg_393x262x1.jpg"/>
+			<img src="images/9.jpg"/>
+			<img src="images/10.jpg"/>
+			<img src="images/11.jpg"/>
+			<div class="mark"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var wrapDom = document.getElementById("wrap");
+			var imgDoms = wrap.querySelectorAll("img");
+			//声明鼠标移动前后的坐标以及坐标差
+			var nowX,nowY,lastX,lastY,minusX,minusY;
+			//每张图片旋转的角度差
+			var Deg = 360/imgDoms.length
+			//声明旋转的初始角度
+			var rOY = 0;
+			//先赋值-10是为了防止移动那一刻x轴旋转角度发生快速的变化
+			var rOX = -10;
+			//定义一个鼠标抬起时的定时器用来增加缓冲惯性
+			var timer = null;
+			for(var i=0;i<imgDoms.length;i++){
+				//每张图片旋转的角度
+				imgDoms[i].style.transform = "rotateY("+i*Deg+"deg) translateZ(350px)";
+				//延迟每张图片出现的时间，第一张最后出现，最后一张首先出现
+				imgDoms[i].style.transition = "transform 1s "+(imgDoms.length-i-1)*0.2+"s";
+			};
+			//首先执行让盒子居中
+			mTop();
+			//动态改变盒子随着页面窗口大小变化时在浏览器窗口的居中的位置
+			window.onresize = mTop;
+				function mTop(){
+					var height = window.innerHeight;
+					wrapDom.style.marginTop = ""+height/2-180+"px";
+				};
+			//拖拽事件有三步：点击、移动、抬起
+			document.onmousedown = function(e){
+				var ev = e||window.event;
+				//鼠标点击那一刻获取坐标作为一开始的上一次坐标值
+				lastX = e.clientX;
+				lastY = e.clientY;
+				//鼠标移动
+				this.onmousemove = function(e){
+					var ev = e||window.event;
+					//鼠标移动那一刻坐标作为第一次当前坐标，往后就是鼠标重新移动结束那一刻作为坐标
+					//再次移动时清除上一次动画
+					clearInterval(timer);
+					nowX = ev.clientX;
+					nowY = ev.clientY;
+					//绕Y轴旋转的速度
+					minusX = nowX - lastX;
+					//绕X轴旋转的速度
+					minusY = nowY - lastY;
+					//增加摩擦系数减缓旋转的速度,并且从上一次的角度继续旋转
+					rOY += minusX*0.2;
+					//取负是为了调整鼠标移动时绕x轴旋转的方向
+					rOX -= minusY*0.2;
+					console.log(minusX+"===="+minusY);
+					wrapDom.style.transform = "rotateX("+rOX+"deg) rotateY("+rOY+"deg)";
+					//鼠标上次结束移动时的坐标作为上次坐标
+					lastX = nowX;
+					lastY = nowY;
+				};
+				//鼠标抬起
+				this.onmouseup = function(){
+					//清空上一次鼠标移动的事件
+					this.onmousemove = null;
+					//当鼠标抬起时让旋转有一个缓冲停止效果
+					timer = setInterval(function(){
+						//让距离越来越小，乘以摩擦系数
+						minusX *= 0.95;
+						minusY *= 0.95;
+						console.log(minusX);
+						rOY +=minusX;
+						rOY -=minusY;
+						wrapDom.style.transform = "rotateX("+rOX+"deg) rotateY("+rOY+"deg)";
+						//考虑到会往反方向移动所以加绝对值Math.abs()，等小于0.5清除定时器
+						if(Math.abs(minusX)<0.5&&Math.abs(minusY)<0.5){
+							clearInterval(timer);
+						}
+					},13)
+				}
+				//剔除鼠标点击拖拽图片出现的残像
+				return false;
+			}
+		};
+	</script>
+</body>
+</html>

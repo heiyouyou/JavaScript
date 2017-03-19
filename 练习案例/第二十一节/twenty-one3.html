@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			简单工厂模式：又叫静态工厂模式，由一个工厂对象决定创建某一种产品对象类的实例，主要用来创建同一类对象，然后返回出去该类对象
+		*/
+		var Baseketball = function(){
+			this.infor = "科比2016年4月14日退役！！！";
+		};
+		Baseketball.prototype = {
+			getMember:function(){
+				console.log("每个人都很怀念科比");
+			},
+			getBallSize:function(){
+				console.log("篮球对他说再见了………")
+			}
+		};
+		var Football = function(){
+			this.infor = "足球盛行于意大利";
+		};
+		Football.prototype = {
+			getMember:function(){
+				console.log("每个队伍11人");
+			},
+			getBallSize:function(){
+				console.log("足球很大");
+			}
+		}; 
+		/*var ball = new Baseketball();
+		alert(ball.infor);
+		ball.getMember();
+		ball.getBallSize();*/
+		//借用运动工厂生产需要的球类
+		var SportsFactory = function(name){
+			switch(name){
+				case "NBA":
+					//借用篮球类创建对象返回出去
+					return new Baseketball();
+				case "WordCup":
+					return new Football();
+			}
+		};
+		var football = new SportsFactory("WordCup");
+		alert(football instanceof Football);//true
+		alert(football.infor);//足球盛行于意大利
+		football.getMember();//每个队伍11人
+	</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			面向对象编程（oop）的特点：
+			抽象：抓住核心问题（抽出对象）
+			封装：只能通过对象去执行方法（封装方法已达到共享）
+			继承：从已有的对象上继承成为新的对象
+			多态：多个对象的不同形态（例如usb接口）
+		*/
+		//new Array() new Date() new Object() new RegExp()这些都是系统对象
+		/*var obj1 = new Object();
+		obj1.name = "小明";
+		obj1.showname = function(){
+			alert(this.name);	
+		};
+		obj1.showname();
+
+		var obj2 = new Object();
+		obj2.name = "小红";
+		obj2.showname = function(){
+			alert(this.name);	
+		};
+		obj2.showname();
+		//两个对象比较既要比较值也要比较内存地址，只要通过new创建出来的对象都是不相等的
+		alert(obj1 === obj2);//输出false*/
+
+		/*
+		//设计模式：工厂模式（封装函数---->生产了obj），一般的模式都是属于这样子
+		function person(name){
+			//原料
+			var obj = new Object();
+			//加工
+			obj.name = name;
+			obj.showname = function(){
+				alert(this.name);		
+			};
+			//出厂
+			return obj;
+		};
+		var p1 = new person("小红");//可以这样 var p1 = person("小红");但是不符合创建对象的形式
+		var p2 = new person("小明");
+		alert(p1.name);
+		p2.showname();*/
+
+		/*构造函数(创建了一类对象，代码达到复用)的特点：
+		1.用new调用一个函数
+		2.这个函数创造的对象就是this
+		3.并且默认返回的就是该this对象（隐式返回）*/
+		/*function Person(name){
+			this.name = name;
+			this.showname = function(){
+				alert(this.name);		
+			};
+		};
+		var p1 = new Person("小红");
+		var p2 = new Person("小明");
+		alert(p1.name);
+		p2.showname();
+		//alert(p1.showname === p2.showname);//返回false*/
+
+		var arr = [1,3,4];
+		var arr1 = [2,4,6];
+		/*原型：prototype(只能绑定在构造函数上并且创造出一个原型对象)
+			特点：去改写对象下面的方法或者属性，为了让原本公用的方法或者属性在内存中只存在一份,让调用的对象一起指向同一个方法的内存地址
+		*/
+		/*Array.prototype.sum = function(){
+			var s = 0;
+			for(var i=0;i<this.length;i++){
+				s += this[i];
+			}
+			return s;
+		};
+		alert(arr1.sum());
+		alert(arr.sum());
+		alert(arr1.sum === arr.sum);//弹出true*/
+
+		function Person(name){
+			this.name = name;
+		};
+		Person.prototype.zh = "很帅！！！";
+		var p1 = new Person("小红");
+		var p2 = new Person("小明");
+		alert(p1.zh);
+		alert(p2.zh);
+		alert(p1.zh == p2.zh);//弹出true
+	</script>
+</body>
+</html>

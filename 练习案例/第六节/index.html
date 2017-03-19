@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>json的简介</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		//{···}这种形式就属于json而且属于object数据类,型,js中的六大数据类型都可以当做值来赋值var json = {name = 'Jery', age = 18}与var json1 = {'name' = 'Jery', 'age' = 18}是一样的,只是属性的双引号为了兼容其他浏览器，所以必须加上！！！
+		var json = {
+			"username":"黑有有",//冒号表示赋值，逗号表示结束,属性值默认是一个字符串的数据类型了“username”
+			"age":18,
+			"say":function(){alert("说英语！！");},//这里相当于var say = function(){alert("说英语");};
+			"obj":{
+				hobby:['a','b','c']
+			},
+			"a.b":"hehehhe"//注意到最后的一个属性值时不再用逗号来结束,用逗号来结束在ie678会报错
+		};
+		//alert(json.username);
+		//json.say();
+		//alert(json.say());
+		//alert(json.obj.hobby[2]);
+		//json.a.b//这样会报错的,要用以下形式写
+		//alert(json["a.b"]);//[“ ”]里面的内容必须是一个字符串！
+		//alert(json.age);
+		for(var key in json){//这里的意思是在json这个对象里的属性
+			//alert(typeof key);
+			//alert(key+"====="+json[key])json里的key已经是字符串了，相当于var key  = "username"
+		}
+		//alert(json.username+"===="+json["age"]+"===="+json.say());
+		//for(var key in document){
+			//console.log(key+"===="+document[key]);//在控制台打印所有dom的属性值
+		//}
+	</script>
+</body>
+</html>

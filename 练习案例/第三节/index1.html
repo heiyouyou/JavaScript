@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>不定参</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		//arguments 不定参,代表实参的一个集合，类数组，用于动态的为函数添加多个形参
+		function sum(){
+			//alert(arguments.length);不定参数的长度
+			//alert(Array.isArray(arguments));返回false
+			var s = 0;
+			for(var i=0;i<arguments.length;i++){
+				s = s+arguments[i];
+			}
+			alert(s);
+			alert(arguments[0]+"======"+arguments[arguments.length-1]);
+		}
+		sum(1,2,3,4);
+	</script>
+</body>
+</html>

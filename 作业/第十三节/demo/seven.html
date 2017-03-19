@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>数组中join的用途</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#box{width:500px;max-height:200px;margin:50px auto 0;background:#ddd;overflow:auto;}
+	#search{width:500px;margin:10px auto 0;text-align:center;}
+	#search #txt{padding:20px;}
+	#btn{padding:20px;}
+</style>
+</head>
+<body>
+	<div id="box">
+		如果你是一个正直、善良和快乐的人、或你愿意去做这样的一个人？那么，你就是一个有作为、有价值的人、你就一定能够温暖人心，因为，你本身就是一个天使、一个温暖而又有素养的人。如果你有一颗公益的心灵、现在或曾经是一位热爱公益活动的、光荣的志愿者，或你正在及曾经在偏僻的大山和贫困乡村支教过、及在广大的城市和农村参加过一两次或多次的公益实践活动、就像徐本禹那样，那么，你就是一个正直、善良和快乐的人、一个最有作为、最有价值的人、一个最温暖人心的人。
+		人世间最大的温暖人心，是为人们营造一片蓝蓝的天空、及送给人们清新的空气、干净整洁的环境和健康和谐的生活氛围，而不是去污染环境、制造空气污染与雾霾、及给人们带来了一些不和谐的迹象，即便是为了这而参加过一两次无偿献血、少开了一两次车、少浪费了一两度电、一两升水和粮食、及不随地吐痰和乱扔垃圾等也是一件件温暖人心的事情啊！因为，这减少了环境污染、保护了生态与增强了人们的身心健康。
+		温暖人心，如果你是一个有心人、一个有道德修养、品质良好的人、一个全心全意为人民服务的人、一个富有同情心、正直勇敢、一身正气、肯于牺牲奉献的人，那么，你就一定能够温暖人心。
+		温暖人心并不需要拥有多大的权力、地位、知识和财富、而是要有一颗心、一颗愿意去温暖人心的心，如果一个人没有心、成天的感到不知足、满足、怨天尤人的、连知足常乐与同情心都没有、连精神和灵魂都快要堕落了，那么，他基本上就是一个病人，需要别人来照顾、包容与帮助他、温暖他的心灵了，他又怎能去温暖他人温暖人心呢？当然，这种病人一般还不承认自己有毛病，因为他的灵魂过于自私自利、总是怀抱着一颗自私自利之心成天的在洋洋得意、自我满足、狂妄自大、目中无人、苟且偷生中过度可悲的一生，于是人们只好尽量的去包容、帮助他、不和他一般见识，其实、这就是人们在给他温暖、在温暖人心、在温暖他的心（可是这些可怜的人可能还不知道）。
+	</div>
+	<div id="search">
+		<input id="txt" type="text" placeholder="请输入要查找的关键字···"/>
+		<input id="btn" type="button" value="查找"/>
+	</div>
+	<script type="text/javascript">
+		//封装获取ID的方法
+		function $(id){
+			return document.getElementById(id);
+		};
+		var oBox = $("box");
+		var oTxt = $("txt");
+		var oBtn = $("btn");
+		var text = oBox.innerHTML;//通过innerHTML获取div中的内容
+		//alert(text);
+		//点击按钮查找的方法
+		oBtn.onclick = function(){
+			var value = oTxt.value;//通过按钮的属性value获取输入框的内容
+			//alert(value);
+			//var arr = text.split(value);//split()方法可以将一个字符串变成数组，以传入的参数先判断字符串里有没有这个字符存在，有的话就以该字符为界限符生成数组，没有就当做生成一个长度为1的数组。当没有传入任何参数给split()时，字符串就会变成一个长度为1的数组
+			//alert(arr);
+			//alert(arr.length);
+			//var str = arr.join("<span style='color:red;'>"+value+"</span>");//join()这个方法可以将数组变成字符串，就是以传入的参数代替数组中的界限符逗号生成字符串
+			//alert(typeof str);
+			//alert(str);
+			//oBox.innerHTML = str;//可以将查找到的关键字的文本str替换原来的文本text
+			//alert(Array.isArray(arr));//arr是一个数组
+
+			search(text,value);//查找方法的调用
+		};
+		//输入框取得焦点就执行方法
+		oTxt.onfocus = function(){
+			document.onkeyup = function(){//键盘按下去就执行方法
+				var value = oTxt.value;
+				search(text,value);
+			};
+		};
+		//查找方法的封装
+		function search(a_text,b_value){
+			if(b_value){//当value什么也没输入时就是空(相当于“”(false类:null undefined '' "" 0(数字了零) false NaN))，只有输入东西才会执行以下代码
+				var arr = a_text.split(b_value);
+				var str = arr.join("<span style='color:red;background:#fff;'>"+b_value+"</span>");
+				oBox.innerHTML = str;
+			}else{
+				oBox.innerHTML = a_text;//当什么也没有输入查找时就换成原来的内容text
+			}
+		};
+	</script>
+</body>
+</html>

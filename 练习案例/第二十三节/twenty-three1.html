@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>仿淘宝放大镜效果</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background:gray;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	#wrap{width:400px;height:500px;margin:50px 0 50px 50px;background:gray;box-shadow:0 0 12px pink;}
+	#wrap .pic{width:400px;height:400px;position:relative;border-bottom:1px solid rgba(255,192,203,.6);}
+	#wrap .pic .pic-cover{position:absolute;}
+	#wrap .pic .pic-cover .cover{background:url(images/cover.png);position:absolute;top:0;left:0;cursor:move;width:200px;height:200px;display:none;}
+	#wrap .pic .pic-cover .show{width:400px;height:400px;background:pink;position:absolute;top:0;right:-410px;background-image:url(images/6.jpg);background-repeat:no-repeat;display:none;}
+	#wrap .tab{width:100%;height:54px;margin-top:20px;}
+	#wrap .tab ul li{width:50px;height:50px;float:left;margin:0 13px;border:2px solid transparent;cursor:pointer;position:relative;overflow:hidden;}
+	#wrap .tab ul li.on{border-color:#f60;transition:all .5s ease;}
+	#wrap .tab ul li img{position:absolute;}
+</style>
+</head>
+<body>
+	<div style="height:500px;"></div>
+	<!-- wrap start -->
+	<div id="wrap">
+		<div class="pic">
+			<div class="pic-cover">
+				<img src="images/6.jpg" width="400" height="400"/>
+				<div class="cover"></div>
+				<div class="show"></div>
+			</div>
+		</div>
+		<div class="tab">
+			<ul>
+				<li class="on"><img src="images/6.jpg" alt="1"/></li>
+				<li><img src="images/2.jpg" alt="1"/></li>
+				<li><img src="images/3.jpg" alt="1"/></li>
+				<li><img src="images/1.jpg" alt="1"/></li>
+				<li><img src="images/5.jpg" alt="1"/></li>
+			</ul>
+		</div>
+	</div>
+	<!-- end wrap -->
+	<!--引入js官方类库jQuery-->
+	<script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var $tabLi = $("#wrap .tab ul li");
+			var $picimg = $("#wrap .pic .pic-cover img");
+			var $picCover = $("#wrap .pic .pic-cover");
+			var $tabimg = $("#wrap .tab ul li img");
+			var $cover = $("#wrap .pic .pic-cover .cover");
+			var $show = $("#wrap .pic .pic-cover .show");
+			//定义一个全局的索引
+			var $index = 0;
+			//定义一个全局的小图片属性以及比例系数数组
+			var imgArr = [];
+			//初始化小图片的样式和位置
+			init();
+			//给每个小图片对应的li绑定事件
+			$tabLi.hover(function(){
+				//拿到每个小图片对应的li的索引
+				$index = $(this).index();
+				//给每个小图片对应的li添加样式以及移除样式
+				$(this).addClass("on").siblings().removeClass("on");
+				//获取每张小图片的src属性
+				var src = $(this).find("img").attr("src");
+				//给放大部分进行添加背景图片
+				$show.css("background-image","url("+src+")");
+				//将大图片动态设置属性src并且等比例放大
+				$picimg.attr({
+					src:src,
+					width:imgArr[$index].width*400,
+					height:imgArr[$index].height*400
+				});
+				//使装大图片的盒子进行横向纵向居中
+				$picCover.css({
+					top:(400-imgArr[$index].height*400)/2,
+					left:(400-imgArr[$index].width*400)/2
+				});
+			});
+			//大图片盒子初始居中
+			$picCover.css({
+				top:(400-imgArr[$index].height*400)/2,
+				left:(400-imgArr[$index].width*400)/2
+			});
+			//大图片初始等比例缩放
+			$picimg.attr({
+				width:imgArr[$index].width*400,
+				height:imgArr[$index].height*400
+			});
+			//初始化小图片的样式和位置
+			function init(){
+				//对每张小图片遍历
+				$tabimg.each(function(i){
+					//获取每张小图片的真实宽度
+					var imgWidth = $(this).width();
+					//获取每张小图片的真实高度
+					var imgHeight = $(this).height();
+					console.log(imgWidth+"==="+imgHeight);
+					//获取每个小图片li的宽度
+					var imgLiWidth = $tabLi.width();
+					//获取每个小图片li的高度
+					var imgLiHeight = $tabLi.height();
+					//等比例缩小成小图片
+					if(imgWidth>=imgHeight){//当图片是横向长方形或者是正方形时
+						$(this).css({
+							width:imgLiWidth,
+							height:imgLiWidth/imgWidth*imgHeight,
+							//小图片始终纵向居中于li
+							top:(imgLiHeight-imgLiWidth/imgWidth*imgHeight)/2
+						});
+						//获取小图片对应大图片等比例放大时的比例系数以及原始图片的大小
+						imgArr[i] = {width:1,height:imgHeight/imgWidth,imgW:imgWidth,imgH:imgHeight}
+					}else{//当小图片是纵向长方形时
+						$(this).css({
+							width:imgLiHeight/imgHeight*imgWidth,
+							height:imgLiHeight,
+							//小图片始终横向居中于li
+							left:(imgLiWidth-imgLiHeight/imgHeight*imgWidth)/2
+						});
+						//获取小图片对应大图片等比例放大时的比例系数以及原始图片大小
+						imgArr[i] = {width:imgWidth/imgHeight,height:1,imgW:imgWidth,imgH:imgHeight}
+					}
+				});
+			};
+			//大图片移动事件
+			$picCover.mouseover(function(){
+				$cover.show();
+				$show.show();
+				//获取遮盖层随不同图片等比例缩放的比例系数
+				var w = $picCover.width()*$show.width()/imgArr[$index].imgW;
+				var h = $picCover.height()*$show.height()/imgArr[$index].imgH;
+				//遮盖层添加样式
+				$cover.css({
+					width:w,
+					height:h
+				});
+				$(this).mousemove(function(e){
+					var ev = e||window.event;
+					//获取鼠标移动时相对于html文档偏移的坐标值
+					var x = ev.pageX;//clientX获取的是相对于浏览器窗口左边可视距离
+					var y = ev.pageY;//clientY获取的是相对于浏览器窗口顶部可视距离
+					//获取大图片盒子相对于html文档的偏移坐标值
+					var picCoverX = $picCover.offset().left;
+					var picCoverY = $picCover.offset().top;
+					console.log(picCoverY+"==="+picCoverX);
+					//获取遮盖层相对于大图片盒子偏移的坐标值
+					var minusX = x - picCoverX-$cover.width()/2;
+					var minusY = y - picCoverY-$cover.height()/2;
+					//获取遮盖层可以移动的最大坐标值
+					var maxX = $picCover.width()-$cover.width();
+					var maxY = $picCover.height()-$cover.height();
+					//判断可以移动的最大范围
+					if(minusX<0)minusX=0;
+					if(minusY<0)minusY=0;
+					if(minusX>maxX)minusX=maxX;
+					if(minusY>maxY)minusY=maxY;
+					//遮盖层坐标
+					$cover.css({
+						top:minusY,
+						left:minusX
+					});
+					//随鼠标在$picCover上面移动获取放大部分背景定位移动比例
+					var bitX = minusX/$picCover.width();
+					var bitY = minusY/$picCover.height();
+					//获取真实图片的大小
+					var imgWidth = imgArr[$index].imgW;
+					var imgHeight = imgArr[$index].imgH;
+					//添加背景定位
+					$show.css("background-position",-bitX*imgWidth+"px "+(-bitY*imgHeight)+"px");
+				});
+			}).mouseout(function(){//鼠标离开大图片盒子时触发事件
+				$cover.hide();
+				$show.hide();
+			});
+			//阻止冒泡
+			$show.mouseover(function(e){
+				//或者return false;
+				var ev = e||window.event;
+				//ev.cancelBubble = true;这个没有阻止效果
+				ev.stopPropagation();
+			});
+		});
+		/*
+			问题：
+			2.如果原始图片等于图片盒子的大小（400*400）；右侧放大部分是无法实现放大的
+			3.本案例放大的原理其实是：使得右侧大图片的背景定位发生移动，而不是真正将图片放大
+		*/
+	</script>
+</body>
+</html>

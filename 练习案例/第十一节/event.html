@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>event事件</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		//event事件对象 当一个事件发生的时候，存储这个事件的相关信息
+
+		//当直接输出一个event事件时：谷歌chrome输出的是undefined，ie输出的是null,火狐报错(is not  defined)
+		//alert(event);
+
+		/*只有在事件发生时，event才具有目的性
+		IE：只能直接event
+		chrome ：可以直接event或者事件函数的第一个参数
+		firefox ：事件函数的第一个参数
+		写事件函数的时候  event||window.event 是为了兼容IE678,event是一个对象,有很多属性，常用的比如 clientX,clientY;
+		*/
+			
+		/*document.onclick = function(event){
+			var ev = event||window.event;
+			alert(ev);
+		};*/	
+		/*document.onclick = function(s){
+			var ev = s||window.event;//或者s||event
+			for(var key in ev){
+				document.write(key+"==="+ev[key]+"<br/>");
+			}
+		};*/
+
+		document.onmousemove = function(event){
+			var ev = event||event;
+			//获取鼠标移动时的坐标
+			var x = ev.clientX;
+			var y = ev.clientY;
+			//动态创建元素
+			var oDiv = document.createElement("div");
+			oDiv.style.cssText = "width:10px;height:10px;background:pink;position:absolute;top:"+y+"px;left:"+x+"px;";
+			//给body添加对象元素div用appendChild不能用innerHTML(这是用来拼接文本的)
+			document.body.appendChild(oDiv);
+		};
+	</script>
+</body>
+</html>

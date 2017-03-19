@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>360换机官网首页</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	/*百分比定义宽高*/
+	html,body{width:100%;height:100%;}
+</style>
+<link href="css/360.css" rel="stylesheet">
+</head>
+<body>
+	<!-- header start -->
+	<div id="header">
+		<div class="h-logo">
+		</div>
+		<div class="h-nav">
+			<ul>
+				<li><a class="h-c" href="javascript:void(0);">首页</a></li>
+				<li><a href="javascript:void(0);">常见问题</a></li>
+				<li><a href="javascript:void(0);">论坛</a></li>
+				<li><a href="javascript:void(0);">360首页>></a></li>
+			</ul>
+			<div id="wrap"></div>
+		</div>
+	</div>
+	<!-- end header -->
+	<!-- sub_nav start -->
+	<div id="sub_nav">
+		<a class="weibo" href="javascript:void(0);" target="_blank">官方微博</a>
+		<ul>
+			<li class="nav_cho">安全换机</li>
+			<li>无网对传</li>
+			<li>隐私粉碎</li>
+			<li>一键转移</li>
+		</ul>
+	</div>
+	<a href="javascript:;void(0)" class="video"><span></span>观看视频</a>
+	<!-- end sub_nav -->
+	<!-- dl_area start -->
+	<div id="dl_area">
+		<a class="dl_phone" href="javascript:void(0);" target="_new">下载到手机</a>
+		<a class="dl_pc" href="javascript:void(0);" target="_new"></a>
+		<img src="images/ercode.png" width="100%" height="100%" alt="1">
+	</div>
+	<!-- end dl_area -->
+	<!-- bg start -->
+	<div id="bg">
+		<div style="background-image:url(images/1.jpg);">
+			<p>首款保护换机安全的软件换手机必备</p>
+			<div class="pic" style="background-image:url(http://p1.qhimg.com/d/inn/cd884077/1.png)"></div>
+		</div>
+		<div style="background-image:url(images/2.jpg);">
+			<p>还支持聊天记录、连接过的WiFi热点</p>
+			<div class="pic" style="background-image:url(http://p1.qhimg.com/d/inn/2974a127/2.png)"></div>
+		</div>
+		<div style="background-image:url(images/3.jpg);">
+			<p>手机资料直接对传，安全快捷</p>
+			<div class="pic" style="background-image:url(http://p1.qhimg.com/d/inn/b8261ff5/3.png)"></div>
+		</div>
+		<div style="background-image:url(images/4.jpg);">
+			<p>彻底销毁隐私数据，避免人财两失</p>
+			<div class="pic" style="background-image:url(http://p1.qhimg.com/d/inn/d5443a65/4.png)"></div>
+		</div>
+	</div>
+	<!-- end bg -->
+	<!--引入js官方类库jQuery-->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<!-- 引入滚轮类库 -->
+	<script src="js/jquery.mousewheel.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var $navLi = $("#header .h-nav ul li");
+			var $wrap = $("#wrap");
+			var $navUl = $("#header .h-nav ul");
+			var $subLi = $("#sub_nav ul li");
+			/*header start*/
+			//清除浏览器缓存
+			var timer = setInterval(function(){
+				$(document).scrollTop(0);
+				if($(document).scrollTop()==0){
+					clearInterval(timer);
+				}
+			},50);
+			//给每个单导航li添加事件
+			$navLi.mouseover(function(){
+				//给指定的a链接添加样式以及剔除其他a链接的样式
+				$(this).find("a").addClass("h-c").parent().siblings().find("a").removeClass("h-c");
+				//拿到每个li相对于父类ul的坐标偏移量
+				var Left = $(this).position().left;
+				//拿到每个li自身宽度
+				var Width = $(this).width();
+				//改变移动框的横向坐标left和宽度width
+				$wrap.stop(true).animate({
+					left:Left+7,
+					width:Width+28
+				},300);
+			});
+			//离开单导航ul
+			$navUl.mouseleave(function(){
+				$(this).next().stop(true).animate({left:7,width:56,},300);
+				$(this).find("li:first-child a").addClass("h-c").parent().siblings().find("a").removeClass("h-c");
+			});
+			/*end header*/
+			/*sub_nav start*/
+			//获取窗口初始的高度
+			var W_height = $(window).height();
+			//定义一个滚动/切换索引
+			var $index = 0;
+			//侧边栏li添加事件
+			$subLi.click(function(){
+				//获取点击li的下标
+				$index = $(this).index();
+				$(this).addClass("nav_cho").siblings().removeClass("nav_cho");
+				$("html,body").stop(true).animate({"scrollTop":W_height*$index},500);
+			});
+			//窗口变化事件
+			$(window).resize(function(){
+				W_height = $(window).height();
+				//或者$("html,body").animate({"scrollTop":W_height*$index},100);
+				$(document).scrollTop(W_height * $index);
+			})
+			//滚轮事件效果
+			$(document).mousewheel(function(){
+				//拿到滚轮向下滚还是向上滚的判断量
+				var dr = arguments[1];
+				//小于0向下滚，大于0向上滚
+				if(dr<0){
+					$index++;
+					//边界判断
+					$index %=4;
+				}else{
+					$index--;
+					if($index<0)$index=3;
+				}
+				$subLi.eq($index).addClass("nav_cho").siblings().removeClass("nav_cho");
+				$("html,body").stop(true).animate({"scrollTop":W_height*$index},800);
+			});
+			/*end sub_nav*/
+		});
+	</script>
+</body>
+</html> 

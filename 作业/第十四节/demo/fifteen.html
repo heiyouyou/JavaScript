@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第十五节知识点总结</title>
+<link href="css/Style2.css" rel="stylesheet"/>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	@media screen and (max-width:900px){/*当屏幕小于900px用下面这套样式*/
+		.main{width:100%;}
+		.main p{font-size:14px!important;}
+		aside{display:none;}	
+	}
+	article .btn_a{float:right;padding:10px 4px;margin-right:200px;color:#555;border:1px solid #eee;}
+	article .btn_a:hover{background:#f49484;color:#fff;}
+	#top{margin-top:20px;}
+	nav{position:relative;}
+	#list{position:absolute;top:0;left:100%;background:#2A2A2A;display:none;}
+</style>
+</head>
+<body>
+	<header>
+		<div class="header-left">
+			<div class="left-text"><a class="text" href="#">简</a></div>
+			<a class="btn" href="#" style="background:url(images/1.png) no-repeat center;"></a>
+			<a class="btn" href="#" style="background:url(images/2.png) no-repeat center;"></a>
+		</div>
+		<div class="header-right">
+			<a class="login" href="#"><i class="fa fa-sign-in"></i>登录</a>
+			<a class="sign" href="#">注册</a>
+		</div>
+	</header>
+	<aside>
+		<nav id="nav">
+			<a class="nav"  href="#">案例</a>
+			<ul id="list">
+				<li><a class="nav" href="fifteen_banner.html" target="_blank">案例一</a></li>
+			</ul>
+		</nav>
+	</aside>
+	<article>
+		<a class="btn_a" id="top" href="#bottom" name="top">底部</a>
+		<div class="main">
+			<div class="main_top">
+				<a class="person_img" href="javascript:void(0);">
+					<img src="http://upload.jianshu.io/users/upload_avatars/1616121/0fbc955a608e?imageMogr/thumbnail/90x90/quality/100" width="40" height="40" alt="100">
+				</a>
+				<p>
+					<a class="author" href="javascript:void(0);"><span >作者</span>黑有有</a>
+					<span>2016.3.12</span>
+				</p>
+				<a class="follow" href="javascript:void(0);">添加关注</a>
+			</div>
+			<h1 style="font-family:楷体;font-size:32px;padding:20px 0;">第十五节知识点总结</h1>
+			<p class="hid" style="margin-bottom:30px;">
+				<span>字数154654</span>
+				<span>阅读131</span>
+				<span>评论43</span>
+				<span>喜欢4324</span>
+			</p>
+			<div class="main_content">
+				<h1 class="title">hover版的手风琴banner图</h1>
+				<pre>
+					&lt;style type="text/css"&gt;
+						* {margin:0;padding:0;}
+						body{font-size:12px;font-family:"微软雅黑";}
+						ul,li{list-style:none;}
+						a{text-decoration:none;}
+						img{vertical-align:top;}
+						.box{width:900px;height:300px;background:#ccc;margin:100px auto;overflow:hidden;}
+						.box .list{width:1000%;}
+						.box .list li{float:left;width:180px;transition:all .5s ease;position:relative;}
+						/*先整体变成50px*/
+						.box .list:hover li{width:50px;}
+						/*.box .list:hover li 与.box .list li:hover等级一样，但是后来的覆盖了前面的*/
+						/*再单独变成700px*/
+						.box .list li:hover{width:700px;}
+						.box .list li .mark{width:100%;position:absolute;bottom:0;left:0;background:rgba(255,255,255,.5);height:0;transition:height .5s ease;}
+						.box .list li .mark a{color:#111;font-size:16px;height:100%;padding-left:10px;display:block;}
+						.box .list li:hover .mark{height:60px;}
+						/*注意了：当每个装有图片的固定宽度li浮动后，而且每个li里面的图片都有溢出时，这时浮动后后面的图片会将前面图片溢出部分覆盖住*/
+					&lt;/style&gt;
+					&lt;div class="box"&gt;
+						&lt;ul class="list"&gt;
+							&lt;li&gt;&lt;a href="javascript:void(0);"&gt;&lt;img src="images/1.jpg" width="900" height="300" alt="1"&gt;&lt;/a&gt;&lt;div class="mark"&gt;&lt;a href="javascript:void(0);"&gt;潭州大楼1111&lt;/a&gt;&lt;/div&gt;
+							&lt;/li&gt;
+							&lt;li&gt;&lt;a href="javascript:void(0);"&gt;&lt;img src="images/2.jpg" width="900" height="300" alt="1"&gt;&lt;/a&gt;&lt;div class="mark"&gt;&lt;a href="javascript:void(0);"&gt;潭州大楼1111&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="javascript:void(0);"&gt;&lt;img src="images/3.jpg" width="900" height="300" alt="1"&gt;&lt;/a&gt;&lt;div class="mark"&gt;&lt;a href="javascript:void(0);"&gt;潭州大楼1111&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="javascript:void(0);"&gt;&lt;img src="images/4.jpg" width="900" height="300" alt="1"&gt;&lt;/a&gt;&lt;div class="mark"&gt;&lt;a href="javascript:void(0);"&gt;潭州大楼1111&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="javascript:void(0);"&gt;&lt;img src="images/5.jpg" width="900" height="300" alt="1"&gt;&lt;/a&gt;&lt;div class="mark"&gt;&lt;a href="javascript:void(0);"&gt;潭州大楼1111&lt;/a&gt;&lt;/li&gt;
+						&lt;/ul&gt;
+					&lt;/div&gt;
+				</pre>
+				<h1 class="title">hover版的3D翻转banner图</h1>
+				<pre>		
+					* {margin:0;padding:0;}
+					body{font-size:12px;font-family:"微软雅黑";}
+					ul,li{list-style:none;}
+					a{text-decoration:none;}
+					.box{width:800px;height:360px;margin:500px auto;perspective:800px;}
+					.box ul li{width:200px;height:360px;float:left;background:rgba(0,0,0,.5);position:relative;transform-style:preserve-3d;transform:translateZ(-180px);}
+					.box ul li:nth-child(4){z-index:-1;}
+					.box ul li div{position:absolute;width:200px;height:360px;}
+					/*上*/
+					.box ul li div:nth-child(1){top:-360px;transform-origin:bottom;transform:translateZ(180px) rotateX(90deg);}
+					/*下*/
+					.box ul li div:nth-child(2){bottom:-360px;transform-origin:top;transform:translateZ(180px) rotateX(-90deg) ;}
+					/*前*/
+					.box ul li div:nth-child(3){transform:translateZ(180px);}
+					/*后*/
+					/*先让每个长方形li的后面的一个面翻转180（不分正负）当转到前面时就不是反了！！*/
+					.box ul li div:nth-child(4){transform:translateZ(-180px) rotateX(-180deg);}
+					.box:hover ul li{transform:translateZ(-180px) rotateX(-180deg);}
+					/*为每个长方形li的每个面放背景图片，每一个对应面组成一张图片*/
+					.box ul li div:nth-child(1){background:url("images/1.png") no-repeat;}
+					.box ul li div:nth-child(2){background:url("images/2.png") no-repeat;}
+					.box ul li div:nth-child(3){background:url("images/3.png") no-repeat;}
+					.box ul li div:nth-child(4){background:url("images/4.png") no-repeat;;}
+					/*为每个长方形li的每个面进行背景定位，每一个长方形的所有面定位都是一样的*/
+					.box ul li:nth-child(1) div{background-position:0 0;}
+					.box ul li:nth-child(2) div{background-position:-200px 0;}
+					.box ul li:nth-child(3) div{background-position:-400px 0;}
+					.box ul li:nth-child(4) div{background-position:-600px 0;}
+					/*给每个长方形设置延迟执行的时间 第一个时间数是执行动画所需时间，第二个时间是延迟执行的时间*/
+					.box ul li:nth-child(1) {transition:all 1s ease 0s;}
+					.box ul li:nth-child(2)	{transition:all 1s ease .3s;}
+					.box ul li:nth-child(3) {transition:all 1s ease .6s;}
+					.box ul li:nth-child(4) {transition:all 1s ease .9s;}
+					/*注意了：transform:translateZ(-180px) rotateX(-180deg);transform中的属性不能分开写，分开写后面的会覆盖前面的，前面的没有效果，还有就是translate要写在rotate前才会有预料的效果*/
+					&lt;/style&gt;
+					&lt;/head&gt;
+					&lt;body&gt;
+					&lt;div class="box"&gt;
+						&lt;ul&gt;
+							&lt;li&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+							&lt;/li&gt;
+						&lt;/ul&gt;
+					&lt;/div&gt;
+				</pre>
+				<h1 class="title">js标准版的3D翻转banner图</h1>
+				<pre>
+					&lt;style type="text/css" id="css"&gt;
+					* {margin:0;padding:0;}
+					body{font-size:12px;font-family:"微软雅黑";}
+					ul,li{list-style:none;}
+					a{text-decoration:none;}
+					.box{width:800px;height:360px;margin:500px auto;perspective:800px;position:relative;}
+					.box ul li{width:200px;height:360px;float:left;background:rgba(0,0,0,.5);position:relative;transform-style:preserve-3d;transform:translateZ(-180px);}
+					/*降低最后一个长方形的层级*/
+					.box ul li:nth-child(4){z-index:-1;}
+					.box ul li div{position:absolute;width:200px;height:360px;}
+					/*上*/
+					.box ul li div:nth-child(1){top:-360px;transform-origin:bottom;transform:translateZ(180px) rotateX(90deg);}
+					/*下*/
+					.box ul li div:nth-child(2){bottom:-360px;transform-origin:top;transform:translateZ(180px) rotateX(-90deg) ;}
+					/*前*/
+					.box ul li div:nth-child(3){transform:translateZ(180px);}
+					/*后*/
+					.box ul li div:nth-child(4){transform:translateZ(-180px) rotateX(-180deg);}
+					/*为每个长方形li的每个面放背景图片，每一个对应面组成一张图片*/
+					.box ul li div:nth-child(1){background:url("images/1.png") no-repeat;}
+					.box ul li div:nth-child(2){background:url("images/2.png") no-repeat;}
+					.box ul li div:nth-child(3){background:url("images/3.png") no-repeat;}
+					.box ul li div:nth-child(4){background:url("images/4.png") no-repeat;;}
+					/*为每个长方形li的每个面进行背景定位，每一个长方形的所有面定位都是一样的*/
+					.box ul li:nth-child(1) div{background-position:0 0;}
+					.box ul li:nth-child(2) div{background-position:-200px 0;}
+					.box ul li:nth-child(3) div{background-position:-400px 0;}
+					.box ul li:nth-child(4) div{background-position:-600px 0;}
+					/*给每个长方形设置延迟执行的时间 第一个时间数是执行动画所需时间，第二个时间是延迟执行的时间*/
+					.box ul li:nth-child(1) {transition:all 1s ease 0s;}
+					.box ul li:nth-child(2)	{transition:all 1s ease .3s;}
+					.box ul li:nth-child(3) {transition:all 1s ease .6s;}
+					.box ul li:nth-child(4) {transition:all 1s ease .9s;}
+					/*注意了：transform:translateZ(-180px) rotateX(-180deg);transform中的属性不能分开写，分开写后面的会覆盖前面的，前面的没有效果，还有就是translate要写在rotate前才会有预料的效果*/
+					.box ol{position:absolute;right:10px;bottom:10px;}
+					.box ol li{width:20px;height:20px;border-radius:50%;float:left;margin-left:10px;background:#ccc;text-align:center;line-height:20px;cursor:pointer;}
+					.box ol li.on{color:#fff;background:orange;}
+					&lt;/style&gt;
+					&lt;/head&gt;
+					&lt;body&gt;
+					&lt;div class="box"&gt;
+						&lt;ul id="td"&gt;
+							&lt;li&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+							&lt;/li&gt;
+							&lt;li&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+								&lt;div>&lt;/div&gt;
+							&lt;/li&gt;
+						&lt;/ul&gt;
+						&lt;ol&gt;
+							&lt;li class="on">1&lt;/li&gt;
+							&lt;li>2&lt;/li&gt;
+							&lt;li>3&lt;/li&gt;
+							&lt;li>4&lt;/li&gt;
+						&lt;ol&gt;
+					&lt;/div&gt;
+					&lt;script type="text/javascript"&gt;
+						var olDom = document.getElementsByTagName("ol");
+						var btns = olDom[0].getElementsByTagName("li");
+						var ulDom = document.querySelector("#td");
+						var lis = ulDom.getElementsByTagName("li");
+						var cssDom = document.getElementById("css");
+						for(var i=0;i&lt;btns.length;i++){
+							/*btns[i].index = i;
+							btns[i].onclick = function(){
+								for(var i=0;i&lt;btns.length;i++){
+									btns[i].className = "";
+									lis[i].style.transform = "translateZ(-180px) rotateX("+this.index*-90+"deg)";
+								}*/
+							//闭包获取索引
+							(function(i){
+								btns[i].onclick = function(){
+									for(var j=0;j&lt;btns.length;j++){
+										btns[j].className = "";
+									}
+									this.className = "on";
+									cssDom.innerHTML +=".box ul li{transform:translateZ(-180px) rotateX("+i*90+"deg);}"
+								}
+							})(i);
+						}
+					&lt;/script&gt;
+				</pre>
+				<h1 class="title">js增强版的3D翻转banner图</h1>
+				<pre>
+					&lt;style type="text/css" id="css"&gt;
+					* {margin:0;padding:0;}
+					body{font-size:12px;font-family:"微软雅黑";}
+					ul,li{list-style:none;}
+					a{text-decoration:none;}
+					.box{width:800px;height:360px;margin:100px auto;perspective:800px;position:relative;}
+					.box ul li{height:360px;float:left;background:rgba(0,0,0,.5);position:relative;transform-style:preserve-3d;transform:translateZ(-180px);}
+					.box ul li div{position:absolute;height:360px;}
+					/*上*/
+					.box ul li div:nth-child(1){top:-360px;transform-origin:bottom;transform:translateZ(180px) rotateX(90deg);}
+					/*下*/
+					.box ul li div:nth-child(2){bottom:-360px;transform-origin:top;transform:translateZ(180px) rotateX(-90deg) ;}
+					/*前*/
+					.box ul li div:nth-child(3){transform:translateZ(180px);}
+					/*后*/
+					.box ul li div:nth-child(4){transform:translateZ(-180px) rotateX(-180deg);}
+					/*为每个长方形li的每个面放背景图片，每一个对应面组成一张图片*/
+					.box ul li div:nth-child(1){background:url("images/1.png") no-repeat;}
+					.box ul li div:nth-child(2){background:url("images/2.png") no-repeat;}
+					.box ul li div:nth-child(3){background:url("images/3.png") no-repeat;}
+					.box ul li div:nth-child(4){background:url("images/4.png") no-repeat;;}
+					/*注意了：transform:translateZ(-180px) rotateX(-180deg);transform中的属性不能分开写，分开写后面的会覆盖前面的，前面的没有效果，还有就是translate要写在rotate前才会有预料的效果*/
+					.box ol{position:absolute;right:10px;bottom:10px;}
+					.box ol li{width:20px;height:20px;border-radius:50%;float:left;margin-left:10px;background:#ccc;text-align:center;line-height:20px;cursor:pointer;}
+					.box ol li.on{color:#fff;background:orange;}
+					&lt;/style&gt;
+					&lt;body&gt;
+					&lt;input type="text" id="txt" value="4"&gt;
+					&lt;input type="button" id="btn" value="切割"&gt;
+					&lt;div class="box" id="banner"&gt;
+						&lt;ul id="td"&gt;
+						&lt;/ul&gt;
+						&lt;ol&gt;
+							&lt;li class="on"&gt;1&lt;/li&gt;
+							&lt;li&gt;2&lt;/li&gt;
+							&lt;li&gt;3&lt;/li&gt;
+							&lt;li&gt;4&lt;/li&gt;
+						&lt;ol&gt;
+					&lt;/div&gt;
+					&lt;script type="text/javascript"&gt;
+						var olDom = document.getElementsByTagName("ol");
+						var btns = olDom[0].getElementsByTagName("li");
+						var ulDom = document.querySelector("#td");
+						var lis = ulDom.getElementsByTagName("li");
+						var cssDom = document.getElementById("css");
+						var txtDom = document.getElementById("txt");
+						var btnDom = document.getElementById("btn");
+						var bannerDom = document.getElementById("banner");
+						//拿到banner图的宽度
+						var bWidth = bannerDom.offsetWidth;
+						init(4);
+						btnDom.onclick = function(){
+							var valued = txtDom.value*1;
+							init(valued);
+						}
+						for(var i=0;i&lt;btns.length;i++){
+							//闭包获取索引
+							(function(i){
+								btns[i].onclick = function(){
+									for(var j=0;j&lt;btns.length;j++){
+										btns[j].className = "";
+									}
+									this.className = "on";
+									cssDom.innerHTML +=".box ul li{transform:translateZ(-180px) rotateX("+i*90+"deg);}";
+								}
+							})(i);
+						}
+						//num长方体个数
+						function init(num){
+							var liHtml = "",pHtml = "",tHtml = "",zHtml = "",z=0;
+							//获取每个长方体的宽度
+							var liw = bWidth/num;
+							for(var i=0;i&lt;num;i++){
+								//只要长方体li对应的下标大于长度的一半就改变z-index
+								if(i&gt;num/2){
+									z--;
+									tHtml+=".box ul li:nth-child("+(i+1)+") {z-index:"+z+";}";
+								}
+								//动态创建多个长方体
+								liHtml +="&lt;li&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/li&gt;";
+								//动态改变每个长方体的每个面的背景图定位
+								pHtml +=".box ul li:nth-child("+(i+1)+") div{background-position:"+(-i*liw)+"px;}";
+								//动态改变每个li长方体的旋转延迟时间
+								tHtml +=".box ul li:nth-child("+(i+1)+") {transition:1s "+0.4*i/num+"s;}";
+							}
+							//为ul动态添加多个li
+							ulDom.innerHTML = liHtml;
+							//动态添加多个样式
+							cssDom.innerHTML += zHtml+pHtml+tHtml+".box ul li,.box ul li div{width:"+liw+"px;}";
+							/*for(var i=0;i&lt;num;i++){
+								lis[i].style.cssText = "width:"+liw+"px;transition:1s "+0.4*i/num+"s;";
+							}*/
+						};
+					&lt;/script&gt;
+				</pre>
+			</div>
+		</div>
+		<a class="btn_a" href="#top" name="bottom">顶部</a>
+	</article>
+	<script type="text/javascript">
+		var oNav = document.getElementById("nav");
+		var oList = document.getElementById("list");
+		oNav.onmouseover = function(){
+			oList.style.display = "block";
+		}
+		oNav.onmouseout = function(){
+			oList.style.display = "none";
+		}
+	</script>
+</body>
+</html>

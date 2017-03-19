@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>循环语句的应用</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		for(var i=0;i<4;i++){
+			//console.log(i);
+			//document.write(i+"<br/>");//在页面打印出来
+		}
+		for(var i=0;i<10;i++){
+			if(i==4){
+				//continue;
+				//break;
+			}
+			console.log(i);
+			//document.write(i+"<br/>");
+		}
+		var a = 0; 
+		/*
+		while(a<4){
+			//alert(a);
+			//a++;
+		}
+		*/
+		do{
+			document.write(a+"<br/>");
+			a++;
+		}while(false);
+	</script>
+</body>
+</html>

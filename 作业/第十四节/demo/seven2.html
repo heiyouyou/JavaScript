@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>全选与反选的案例</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="box" style="text-align:center;margin-top:20px;">
+		<input type="button" id="btn1" value="全选"/>
+		<input type="button" id="btn2" value="反选"/>
+		<label><input type="checkbox" name="a"/>篮球</label>
+		<label><input type="checkbox" name="a"/>羽毛球</label>
+		<label><input type="checkbox" name="a"/>网球</label>
+		<label><input type="checkbox" name="a"/>游泳</label>
+		<label><input type="checkbox" name="a"/>赛车</label>
+		<label><input type="checkbox" name="a"/>旅游</label>
+	</div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oBox = document.getElementById("box");
+			var oBtn1 = document.getElementById("btn1");
+			var oBtn2 = document.getElementById("btn2");
+			var boxDom = document.getElementsByTagName("input");
+			//alert(boxDom.length);
+			oBtn1.onclick = function(){
+				for(var i =0;i<boxDom.length;i++){
+					boxDom[i].checked = true;//通过给checked属性赋值true可以让复选框选中
+				}
+			}
+			oBtn2.onclick = function(){
+				for(var i =0;i<boxDom.length;i++){
+					boxDom[i].checked = !boxDom[i].checked;// !表示当复选框没有选中，就取反赋值true让复选框选中；当复选框选中，就取反赋值false让复选框没有选中
+				}
+			}
+		};
+	</script>
+</body>
+</html>

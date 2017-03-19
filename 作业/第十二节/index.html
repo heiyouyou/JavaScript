@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第十二节知识点总结</title>
+<link href="css/Style1.css" rel="stylesheet"/>
+<link rel="stylesheet" href="http://at.alicdn.com/t/font_1458007164_389264.css"/>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	@media screen and (max-width:900px){/*当屏幕小于900px用下面这套样式*/
+		.main{width:100%;}
+		.main p{font-size:14px!important;}
+		aside{display:none;}	
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<header id="header">
+			<div class="header-left">
+				<a class="btn" href="#"><i class="iconfont ">&#xe615;</i></a>
+				<a class="btn" href="#"><i class="iconfont ">&#xe614;</i></a>
+			</div>
+ 			<div class="right_text">
+				<a class="right_a" href="demo/login.html" target="_blank">
+					<i class="iconfont icon-denglu"></i>
+					登录
+				</a>
+				<a class="right_a" href="demo/sign.html" target="_blank">
+					<i class="iconfont icon-zhuce"></i>
+					注册
+				</a>
+			</div>
+		</header>
+		<aside>
+			<a class="nav fir-a"  href="javascript:void(0);">有</a>
+			<nav id="nav">
+				<a class="nav"  href="javascript:void(0);">案例</a>
+				<ul id="list">
+					<li><a class="nav" href="demo/tab.html" target="_blank">选项卡</a></li>
+					<li><a class="nav" href="demo/3D.html" target="_blank">3D翻牌</a></li>
+				</ul>
+			</nav>
+			<a class="nav" id="model"  href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			<div id="model_box">
+				<a class="nav" id="white" href="javascript:void(0);"><i class="iconfont">&#xe610;</i></a>
+				<a class="nav" id="black" href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			</div>
+		</aside>
+		<article id="article">
+			<a class="btn_a" id="top" href="javascript:void(0);"><i class="iconfont">&#xe609;</i></a>
+			<div class="main" id="main">
+				<div class="main_top">
+					<a class="person_img" href="javascript:void(0);">
+						<img src="http://upload.jianshu.io/users/upload_avatars/1616121/0fbc955a608e?imageMogr/thumbnail/90x90/quality/100" width="40" height="40" alt="100">
+					</a>
+					<p>
+						<a class="author" href="javascript:void(0);"><span >作者</span>黑有有</a>
+						<span id="timeShow"></span>
+					</p>
+					<a class="follow" href="javascript:void(0);"><i class="iconfont icon-guanzhu"></i>添加关注</a>
+				</div>
+				<h1 style="font-family:楷体;font-size:32px;padding:20px 0;">第十二节知识点总结</h1>
+				<p class="hid" style="margin-bottom:30px;">
+					<span>字数154654</span>
+					<span>阅读131</span>
+					<span>评论43</span>
+					<span>喜欢4324</span>
+				</p>
+				<div class="main_content" id="main_content">
+					<h1 class="title">选项卡的几种常用方法</h1>
+					<pre>
+						&lt;script type="text/javascript"&gt;
+							//js版的选项卡
+							/*function $(id){
+								return document.getElementById(id);
+							};
+							var liDoms = $("card").children;
+							var divDoms = $("content").children;
+							for(var i=0;i&lt;liDoms.length;i++){
+								liDoms[i].index = i;
+								liDoms[i].onmouseover = function(){
+									this.className = "on";//this指代当前悬停的元素对象
+									sibling(this,function(){
+										this.className = "";//这里的this指代除了传进的对象之外的兄弟元素
+									});
+									divDoms[this.index].style.display = "block";
+									sibling(divDoms[this.index],function(){
+										this.style.display = "none";//这里的this指代除了divDoms[this.index]之外的兄弟元素
+									});
+								};
+							}
+							//封装jQuery里面的siblings()方法
+							function sibling(obj,callback){
+								/*var pDoms = obj.parentNode.children;
+								for(var i=0;i&lt;pDoms.length;i++){
+									if(pDoms[i]!=obj){
+										callback.call(pDoms[i]);
+									}
+								}*/
+								/*var pDoms = obj.parentNode.children;
+								var tabs = [].slice.call(pDoms);//数组里的slice方法
+								tabs.filter(function(others){//filter()ie678不支持，others指代除了传入的obj对象元素之外的兄弟元素
+									if(others!= obj){
+										callback.call(others);
+									}
+								})
+							};*/
+							//数组中的slice的原型方法
+							/*Array.prototype.slice = function(){
+								var arr = [];
+								for(var i=0;i&lt;this.length;i++){//这里的this指代call里面的数组对象
+									arr.push(this[i]);
+								}
+								return arr;
+							}*/
+							//jquery版的选项卡
+							$("#card").children().mouseover(function(){
+								//获取当前点击的li对象
+								var $li = $(this);
+								//获取当前点击的索引
+								var index = $li.index();
+								//addClass()添加类样式，removeClass()剔除类样式
+								$li.addClass("on").siblings().removeClass("on");
+								//eq()匹配索引，show()没有淡入淡出的效果
+								$("#content").children().eq(index).show().siblings().hide();
+							});
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">事件解绑的应用</h1>
+					<p class="text-p">
+						event事件对象：当一个事件发生的时候，存储这个事件的相关信息
+						当直接输出一个event事件时：谷歌chrome输出的是undefined，ie输出的是null,火狐报错(is not defined)；
+						只有在事件发生时，event才具有目的性
+						IE：只能直接event；
+						chrome ：可以直接event或者事件函数的第一个参数；
+						firefox ：事件函数的第一个参数；
+						写事件函数的时候，event||window.event是为了兼容IE678，event是一个对象，有很多属性，常用的比如：clientX，clientY等
+					</p>
+					<pre>
+						&lt;script type="text/javascript"&gt;
+							var box1 = document.getElementById("box1");
+							var box2 = document.getElementById("box2");
+							var box3 = document.getElementById("box3");
+							//这样子无法用removeEventListener("click",fn,false)或detachEvent("onclick",fn)解绑
+							box3.onclick = fn;
+							//可以这样解绑box3.onclick = fn;
+							box3.onclick = null;
+							/*box3.attachEvent("onclick",fn);
+							//ie678的事件解绑方法，参数要与绑定的相同
+							box3.detachEvent("onclick",fn);*/
+							box3.addEventListener("click",fn,false);
+							//其他浏览器的事件解绑，同样参数要与绑定的相同
+							box3.removeEventListener("click",fn,false);
+							//box3.removeEventListener("click",fn,true);//这样写无法解绑事件
+							function fn(){
+								alert(1);
+							};
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">键盘事件与键盘码的应用</h1>
+					<pre>
+						&lt;script type="text/javascript"&gt;
+							//记住只有被聚焦（或有焦点）的对象对应的键盘事件才能够触发执行
+							var oTxt = document.getElementById("txt");
+							oTxt.onkeyup = function(){
+								alert(this.value);
+							}
+							//onkeydown先于onkeypress触发；onkeypress只会响应字母数字符号回车键，其他的例如F1-F12、ctrl/shift/alt等不会响应
+							document.onkeypress = function(){
+								console.log(1);
+							};
+							document.onkeydown = function(){
+								console.log(2);
+							};
+						&lt;/script&gt;
+						<h1>案例</h1>
+						&lt;script type="text/javascript"&gt;
+							/*document.onkeyup = function(ev){
+								var e = ev||event;
+								alert(e.keyCode);//keyCode键盘码
+								//回车键13 shift键16 ctrl键17 空格键32 alt18 数字键1-9：97~105
+							};*/
+							var oTxt = document.getElementById("txt");
+							var oBtn = document.getElementById("btn");
+							var oDiv = document.getElementById("div1");
+							//点击事件
+							oBtn.onclick = fn;
+							oTxt.onkeyup = function(ev){
+								var e = ev||event;
+								//当按回车键时提交内容
+								if(e.keyCode == 13){
+									fn();
+								}
+							};
+							function fn(){
+								//拿到输入框的文本
+								var text = oTxt.value;
+								//当提交或回车时清除输入的文本
+								oTxt.value = "";
+								if(text.trim()){//trim()去除字符串的前后空格
+									//创建一个元素
+									var p = document.createElement("p");
+									p.innerHTML = text;
+									oDiv.appendChild(p);
+								}
+							};
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">默认事件的剔除</h1>
+					<pre>
+						&lt;script type="text/javascript">
+							//剔除文档的右键菜单显示
+							/*document.oncontextmenu = function(){
+								return false ;//默认返回true，当返回false时，当前文档鼠标右键菜单显示不出来
+							};*/
+							//剔除浏览器空格键翻页的效果
+							/*document.onkeydown = function(ev){
+								var e = ev||event;
+								if(e.keyCode == 32){
+									return false;
+								}
+							};*/
+							//自定义右键菜单原理
+							var oBox = document.getElementById("box");
+							document.oncontextmenu = function(ev){
+								var e = ev||event;
+								var x = e.clientX;
+								var y = e.clientY;
+								oBox.style.cssText = "display:block;top:"+y+"px;left:"+x+"px;";
+								return false;
+							};
+							document.onclick = function(){
+								oBox.style.cssText = "display:none;";
+							};
+						&lt;/script>
+					</pre>
+				</div>
+			</div>
+			<a class="btn_a" id="bottom" href="javascript:void(0);"><i class="iconfont">&#xe60a;</i></a>
+		</article>
+	</div>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/js1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(window).scroll(function(){
+				var height = $(this).scrollTop();
+				if($(this).scrollTop()>=300){
+					$("#bottom").show();
+					$("#top").hide();
+					$("#header").animate({"height":0,"opacity":0},300);
+				}else{
+					$("#bottom").hide();
+					$("#top").show();
+					$("#header").stop(true,true).animate({"height":"51px","opacity":1},400);
+				}
+			});
+			$("html,body").load().stop(true,true).animate({"scrollTop":0},100);//页面一刷新就置顶 
+			$("#bottom").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":0},300);
+			});
+			var windowHeight = parseInt($("body").css("height"));//获取整个页面的高度
+			$("#top").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":windowHeight},300);
+			});
+		});
+		/*nav start*/
+		var oNav = $("#nav");
+		var oList = $("#list");
+		oNav.mouseover(function(){oList.show();});
+		oNav.mouseout(function(){oList.hide();});
+		/*end nav*/
+	</script>
+</body>
+</html>

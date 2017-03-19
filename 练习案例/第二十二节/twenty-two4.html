@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	#box{width:200px;margin:150px auto;}
+	#box ul{border:1px solid red;}
+	#box ul li{width:200px;background:red;height:50px;margin-top:10px;}
+</style>
+</head>
+<body>
+	<div id="box">
+		<ul id="ul">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var ulDom = document.getElementById("box");
+		/*
+			mouseenter：当鼠标指针穿过元素时，会发生 mouseenter 事件。该事件大多数时候会与mouseleave 事件一起使用。
+			与 mouseover 事件不同，只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。如果鼠标指针穿过任何子元素，同样会触发 mouseover 事件。
+			mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件。
+			该事件大多数时候会与 mouseover 事件一起使用。
+			注释：与 mouseleave 事件不同，不论鼠标指针离开被选元素还是任何子元素，都会触发 mouseout 事件。只有在鼠标指针离开被选元素时，才会触发 mouseleave 事件。
+		*/
+		/*ulDom.onmouseover = function(){
+			console.log(1);
+		};
+		ulDom.onmouseout = function(){
+			console.log(2);
+		};*/
+		ulDom.onmouseenter = function(){
+			console.log(1);
+		};
+		ulDom.onmouseleave = function(){
+			console.log(2);
+		};
+	</script>
+</body>
+</html>

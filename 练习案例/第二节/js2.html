@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>显示类型的数据转换</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var str = "299";
+		var num = Number(str);//输出299
+		var str1 = "gdfg229dfg43434";
+		//alert(Number(str1));//输出NaN,而且还是一个number类型
+		//alert(parseInt(str1));//输出NaN
+		var str2 = "+200";
+		var str2 = "-200";
+		//alert(Number(str2));
+		//alert(parseInt(str2));
+		var str3 = false;
+		//alert(Number(str3));//输出0
+		//alert(parseInt(str3));输出NaN
+		var str4 = true;
+		//alert(Number(str4));输出1
+		var str5 = null;
+		//alert(Number(str5));输出0
+		var str6 = new Date();
+		//alert(Number(str6));输出一堆由系统时间换算成的毫秒数
+		var str7 = {};
+		//alert(Number(str7));输出的是NaN
+		var str8 = '';//当为""或[]或""或''输出的都是0
+		//alert(Number(str8));
+		var num1 = "-233.4ffff";
+		//alert(Number(num1));//只要出现非数字,输出的就是NaN
+		//alert(parseInt(num1));输出-233
+		//alert(parseFloat(num1));输出-233.4
+		var num2 = 200.45;
+		//alert(Math.floor(num2));向下取整
+		//alert(Math.ceil(num2));向上取整
+		//alert(Math.round(num2));四舍五入取整
+		var num3 = "2/2";
+		//alert(parseInt(num3));//输出2
+		//alert(parseFloat(num3));//输出2,从第一位判断，是数字直到遇到非数字就会输出是数字部分，有时是小数
+		//alert(eval(num3));//输出1
+		if(parseInt(num3)==parseFloat(num3)){
+			//alert("整数");
+		}else{
+			alert("不是整数");
+		}
+	</script>
+</body>
+</html>

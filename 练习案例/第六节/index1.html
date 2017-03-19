@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oBox = document.getElementById("box");
+			//oBox.style.width = "100px";这样写太冗余和写死了，想要多个对象调用这套样式会写重复的代码
+			//oBox.style.height = "100px";
+			//oBox.style.border = "1px solid red";
+			/*function css(json,obj){
+				for(var key in json){
+					var value = json[key];
+					if(typeof value == "number"){value+="px";}//为了解决key值没有带单位的一个判断条件
+					obj.style[key] = value;//这里不能写成obj.style.key = value;因为key是一个变量不能用点符号要用[]来包裹住，只有对象的属性才能点
+				}
+			}
+			css({
+				width:"100px",
+				height:100,
+				border:"1px solid red",
+				"background":"yellow",
+				margin:"10px auto"
+			},oBox);*/
+			Object.prototype.css  = function(json){//这个原型声明对象的方法,这里把它理解为 var css = function(json){····}
+				for(var key in json){
+					//var json = {width:"100px",height:"100px",border:"1px solid red","background":"yellow",margin:"10px auto"}
+					this.style[key] = json[key];//this代表oBox这个对象
+				}
+			};
+			oBox.css({
+				width:"100px",
+				height:"100px",
+				border:"1px solid red",
+				"background":"yellow",
+				margin:"10px auto"
+			});
+		};
+		
+	</script>
+</body>
+</html>

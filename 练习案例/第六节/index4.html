@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+	   /*
+		var arr = ['a','b','c','d','e',0,5,2,'A'];
+		arr.sort();//按字符编码(ascii)进行排序
+		alert(arr);*/
+		//alert(Array.isArray(arr));//ie678不支持
+		//var arr = [1,2,3];
+		//alert(arr.constructor);//arr调用构造函数输出“function Array(){naive code}”
+		//alert(isArray(arr));
+		/*function isArray(param){
+			return typeof param == "object" && param.constructor.toString().toLowerCase().indexOf("array")!=-1;//toString()方法可以将对象变成字符串，返回true就是表示为数组
+		}*/
+		//var arr = [1,2,3,5,4,78,69,48];
+		//arr.reverse();//数组的反转方法
+		//arr.sort();//这样按字符编码排序的，上面的数组就会不是按升序排序了
+		/*
+		arr.sort(function(a,b){//数组按升序排序的方法，第一个值表示被比较数，第二个值是与之比较数，记住这个方法!!!
+			return a-b;//当改成b-a，数组就可以按照降序排序
+		});
+		alert(arr);*/
+		/*
+		var json1 = {username:"heihei",age:23};
+		var json2 = {username:"wells",age:45};
+		var json3 = {username:"余",age:12};
+		var arr = [];
+		arr.unshift(json1,json2,json3);
+		//alert(arr);
+		arr.sort(function(a,b){//a,b表示对象
+			var ageA = a["age"];
+			var ageB = b.age;
+			return ageA-ageB;
+		});
+		//alert(arr);
+		alert(JSON.stringify(arr));//这个方法可以为数组值为对象进行排序输出*/
+
+		var arr = [2,4,5];
+		var arr1 = ['d',3,'e'];
+		var str = '343';
+		var str1 = 'fdsf';
+		str.concat(str1);
+		//alert(str.concat(str1));//返回的是字符串拼接结果
+		//arr.concat(arr1);//返回的是数组拼接的结果
+		//alert(arr.concat(arr1,arr1));可以传入多个数组拼接
+		alert(arr.join('a'));//以传入的值将数组的逗号变成该值为界限符，并且返回划分后的值为字符串,就是将数组变为字符串的方法
+	</script>
+</body>
+</html

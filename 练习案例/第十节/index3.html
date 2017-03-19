@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>对scrollHeight的认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#box{border:1px solid red;width:100px;height:100px;background:yellow;margin:5px;overflow:auto;padding:10px;}
+</style>
+</head>
+<body>
+	<div id="box">
+		收到回复大三了会计法和落脚点是返回的卡拉是返回来打卡上发的
+		收到回复大三了会计法和落脚点是返回的卡拉是返回来打卡上发的
+		收到回复大三了会计法和落脚点是返回的卡拉是返回来打卡上发的
+		收到回复大三了会计法和落脚点是返回的卡拉是返回来打卡上发的
+		收到回复大三了会计法和落脚点是返回的卡拉是返回来打卡上发的
+		收到回复大三了会计法和落脚点是返回的卡拉是返回来打卡上发的
+	</div>
+	<script type="text/javascript">
+		var boxDom = document.getElementById("box");
+		//alert(boxDom.clientHeight);//是height+padding;只是输出数字不带单位的
+		//alert(boxDom.offsetHeight);//是height+padding+border;只是输出数字不带单位的
+		//alert(boxDom.scrollHeight);//是height+padding+滚动条滚动最大距离，但是建议开发中不要用，因为每个浏览器的滚动条滚动最大距离都不同
+		/*function getStyle(obj,attr){
+			return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];	
+		}
+		alert(getStyle(boxDom,"width"));*/
+	</script>
+</body>
+</html>

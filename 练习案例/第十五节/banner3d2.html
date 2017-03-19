@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>js初级版3Dbanner图</title>
+<style type="text/css" id="css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	.box{width:800px;height:360px;margin:100px auto;perspective:800px;position:relative;}
+	.box ul li{width:200px;height:360px;float:left;background:rgba(0,0,0,.5);position:relative;transform-style:preserve-3d;transform:translateZ(-180px);}
+	/*降低最后一个长方形的层级*/
+	.box ul li:nth-child(4){z-index:-1;}
+	.box ul li div{position:absolute;width:200px;height:360px;}
+	/*上*/
+	.box ul li div:nth-child(1){top:-360px;transform-origin:bottom;transform:translateZ(180px) rotateX(90deg);}
+	/*下*/
+	.box ul li div:nth-child(2){bottom:-360px;transform-origin:top;transform:translateZ(180px) rotateX(-90deg) ;}
+	/*前*/
+	.box ul li div:nth-child(3){transform:translateZ(180px);}
+	/*后*/
+	.box ul li div:nth-child(4){transform:translateZ(-180px) rotateX(-180deg);}
+	/*为每个长方形li的每个面放背景图片，每一个对应面组成一张图片*/
+	.box ul li div:nth-child(1){background:url("images/1.png") no-repeat;}
+	.box ul li div:nth-child(2){background:url("images/2.png") no-repeat;}
+	.box ul li div:nth-child(3){background:url("images/3.png") no-repeat;}
+	.box ul li div:nth-child(4){background:url("images/4.png") no-repeat;;}
+	/*为每个长方形li的每个面进行背景定位，每一个长方形的所有面定位都是一样的*/
+	.box ul li:nth-child(1) div{background-position:0 0;}
+	.box ul li:nth-child(2) div{background-position:-200px 0;}
+	.box ul li:nth-child(3) div{background-position:-400px 0;}
+	.box ul li:nth-child(4) div{background-position:-600px 0;}
+	/*给每个长方形设置延迟执行的时间 第一个时间数是执行动画所需时间，第二个时间是延迟执行的时间*/
+	.box ul li:nth-child(1) {transition:all 1s ease 0s;}
+	.box ul li:nth-child(2)	{transition:all 1s ease .3s;}
+	.box ul li:nth-child(3) {transition:all 1s ease .6s;}
+	.box ul li:nth-child(4) {transition:all 1s ease .9s;}
+	/*注意了：transform:translateZ(-180px) rotateX(-180deg);transform中的属性不能分开写，分开写后面的会覆盖前面的，前面的没有效果，还有就是translate要写在rotate前才会有预料的效果*/
+	.box ol{position:absolute;right:10px;bottom:10px;}
+	.box ol li{width:20px;height:20px;border-radius:50%;float:left;margin-left:10px;background:#ccc;text-align:center;line-height:20px;cursor:pointer;}
+	.box ol li.on{color:#fff;background:orange;}
+</style>
+</head>
+<body>
+	<div class="box" id="box">
+		<ul id="td">
+			<li>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</li>
+			<li>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</li>
+			<li>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</li>
+			<li>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</li>
+		</ul>
+		<ol>
+			<li class="on">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		<ol>
+	</div>
+	<script type="text/javascript">
+		var olDom = document.getElementsByTagName("ol");
+		var btns = olDom[0].getElementsByTagName("li");
+		var ulDom = document.querySelector("#td");
+		var lis = ulDom.getElementsByTagName("li");
+		var cssDom = document.getElementById("css");
+		var boxDom = document.getElementById("box");
+		var index=0;
+		for(var i=0;i<btns.length;i++){
+			/*btns[i].index = i;
+			btns[i].onclick = function(){
+				for(var i=0;i<btns.length;i++){
+					btns[i].className = "";
+					lis[i].style.transform = "translateZ(-180px) rotateX("+this.index*-90+"deg)";
+				}*/
+			//闭包获取索引
+			(function(i){
+				btns[i].onclick = function(){
+					for(var j=0;j<btns.length;j++){
+						btns[j].className = "";
+					}
+					this.className = "on";
+					cssDom.innerHTML +=".box ul li{transform:translateZ(-180px) rotateX("+i*90+"deg);}";
+					index = i;
+				}
+			})(i);
+		}
+		var timer = setInterval(autoPlay,2000);
+		function autoPlay(){
+			index++;
+			for(var j=0;j<btns.length;j++){
+				btns[j].className = "";
+			}
+			index = index>=btns.length?0:index++; 
+			btns[index].className = "on";
+			cssDom.innerHTML +=".box ul li{transform:translateZ(-180px) rotateX("+index*90+"deg);}";
+			console.log(index);
+		};
+		boxDom.onmouseover = function(){
+			clearInterval(timer);
+		};
+		boxDom.onmouseout = function(){
+			timer = setInterval(autoPlay,2000);
+		};
+	</script>
+</body>
+</html>

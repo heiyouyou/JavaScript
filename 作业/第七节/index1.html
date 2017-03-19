@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>this关键字与链式调用的认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+		<div id="box"></div>
+	<script type="text/javascript">
+		  //json中关键字this的使用（this就是知道当前调用此方法的对象）
+		/*
+		var json = {
+			username:"heihei",//key:value,形式
+			age:18,
+			//say是函数可以理解成var say = function(){alert(this.username+"===="+this.age);}
+			say:function(){
+				alert(this.username+"===="+this.age);//this指代调用了say方法的json
+			}
+		};
+		//alert(json.say);//输出一坨
+		//json.say();//输出heihei====18
+
+		var a = "a";
+		var f = function(){
+			var b = "b";
+			var c = function(){
+				var d = "d";
+				return d;
+			};
+			return c;
+		};
+		//f();什么也不弹出
+		//alert(f());//输出函数c的一坨 相当于f() = c
+		//alert(f()());//输出函数c的返回值d,先f()执行的得出函数c,然后c()再执行用alert语句弹出返回值d 相当于f()() = d
+		*/
+		//链式调用
+		function method(id){
+			var dom = document.getElementById(id);
+			var json = {
+				html:function(html){
+					dom.innerHTML = html;//innerHTML可以动态给box添加内容文本
+					return this;
+				},	
+				css:function(key,value){//key表示属性，value表示值
+					dom.style[key] = value;//注意不能这样写dom.style.key,因为key是变量只有属性才能被点.
+					return this;//通过返回当前对象可以重复调用css这个方法个给box添加样式
+				}
+			};
+			return json;//通过return返回一个json对象给函数method()这样就可以用它来调用方法和属性了
+		}
+		method("box").html("<p style='line-height:300px;background:#ddd;color:#111;padding:20px 0;text-align:center;'>我是潭州的学员</p>").css("width","300px").css("height","300px").css("background","red").css("color","#fff").css("margin","20px auto").css("font-size","14px");//只有对象才可以调用方法和属性,这种链式调用是给元素(对象)添加内联样式
+	</script>
+</body>
+</html>

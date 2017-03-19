@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第一节作业</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:14px;font-family:"微软雅黑";background:#222;word-wrap:break-word;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;color:red;background:#fff;border-radius:10px;padding:0 5px;}
+	.box{width:1200px;margin:0 auto;background:#ddd;padding:10px;overflow:hidden;}
+	.box p{margin-top:10px;border-bottom:1px dashed #c81263;padding-bottom:5px;}
+	pre{font-size:14px;font-family:"微软雅黑";}
+</style>
+</head>
+<body>
+	<div class="box">
+		<h1 style="text-align:center;">第一节课笔记集锦</h1>
+		<a href="#bottom" name="top">到达底部</a>
+		<p>
+			JS里面获取元素的方法有很多，我们先了解一种最简单常见的获ID：document.getElementById("id");	//注意大小写
+		</p>
+		<p>
+			JS的事件
+			:通过 鼠标、键盘、页面变化 等都会产生事件,比如：onclick ondbclick onmouseover onmouseout onmousemove onmousedown  onmouseup onmousepress onkeyup onkeydown(键盘
+			按下去) onkeypress onresieze(页面大小改变) onload
+		</p>
+		<p>
+			function 名字(){ };比如：function hide(){
+			document.getElementById("list").style.display = "none";
+			};
+		</p>
+		<p>
+			函数是不会主动执行的，执行函数的方法有很多种…
+			直接调用 aaa();比如：function hide(){
+				document.getElementById("list").style.display = "none";
+				};
+				hide();<br/>
+			事件调用 元素.事件 = aaa;
+			比如：document.getElementById("li-a").onmouseover = show;//注意这里show没有圆括号，有圆括号表示随着浏览器的加载而执行，而没有圆括号是表示需要
+			触发事件才能执行！！！
+		</p>
+		<p>
+			<pre>
+				document.getElementById("li-a").onmouseover = show;
+				document.getElementById("li-a").onmouseout = hide;
+				function show(){
+					document.getElementById("list").style.display = "block";
+				};
+				function hide(){
+					document.getElementById("list").style.display = "none";
+				};
+				以上的代码等同于：
+				var liaDom =  document.getElementById("li-a");
+				var lDom = document.getElementById("list");
+				liaDom.onmouseover = function(){//匿名函数
+					lDom.style.display = "block";
+				};
+				liaDom.onmouseout = function(){
+					lDom.style.display = "none";
+				};
+			</pre>
+		</p>
+		<p>
+			一般为了解决脚本语言放置head结束标签前，脚本语言要用window.onload = function(){ };（用来优先加载所有dom元素）来包裹住,注意有时也会在body结束标签用它来包裹住，为了解决
+			由于标签元素和脚本语言之间有很大的障碍尺寸(如：很大的图片)，而没能加载完dom元素(图片、文字、标签等等)，所以要加window.onload = function(){ };
+		</p>
+		<p>
+			<pre>
+				js对HTML元素属性的操作读、写过程注意事项：
+				1. 驼峰命名(函数或变量由多个单词组成时，第一个单词首字母小写，剩余的单词首字母大写)如：alert(oBox.style.marginLeft);不能写成alert(oBox.style.margin-left);	
+				2. class不能直接写，而是写成className	
+				3. 操作的样式较多，一般用css代替		
+				4. 相对路径地址、颜色值不能在if语句用来判断，地址只能判断绝对路径。document.write(oImg.src);//打印出来~	
+				5. input的type可以改变但是不兼容IE6 7 8，
+				元素的浮动属性是不兼容IE6 7 8（ie：styleFloat  非ie:cssFloat）
+				采用其他的方式规避这些不兼容的效果。
+			</pre>
+		</p>
+		<p>
+			<pre>
+				js中要想获取在标签中自定义的属性，如：
+				&lt;input type="text" value="潭州学院-Jery老师" id="box" class="inp" Jery="很帅" style="margin-left:30px;"/&gt;
+				&lt;input type="button" value="按钮" id="btn"/&gt;
+				&lt;script type="text/javascript"&gt;
+					window.onload = function(){
+						var oBox =  document.getElementById("box");
+						var oBtn = document.getElementById("btn");
+						//oBox.Jery = "Jery老师很帅";
+						oBtn.onclick = function(){
+							//alert(oBox.value);
+							//alert(oBox.id);
+							//alert(oBox.className);
+							//alert(oBox.Jery);
+							//alert(oBox.getAttribute("Jery")); js中获取在标签中自定义属性值的方法
+							//obj.attr("");jQuery中获取在标签中自定义属性值得方法
+							//alert(oBox.style.marginLeft);
+						};
+					};	
+				&lt;/script&gt;
+			</pre>
+		</p>
+		<p>
+			<pre>
+				元素属性[]的用法:
+				var a;
+				if(!flag){
+					a = "width";
+				}else{
+					a = "height";
+				}
+				oWarp.style[a] =  "100px";这种是元素调用变量的方法，不能写成oWarp.style.a =  "100px";
+
+				for(var key in oWarp){
+					console.log(key+"===="+oWarp[key]);
+				}//这个是用来在控制台打印出在元素oWarp所有的dom元素
+			</pre>
+		</p>
+		<p>
+			<pre>
+				function Jery(){
+					alert("同学们好！");
+				};
+				Jery();
+				等同于：
+				(function(){
+					alert("同学们好！");	
+				})();//闭包结构
+			</pre>
+		</p>
+		<p>
+			<strong>
+			收获：第一节课让我感觉到有两点①Jery老师是一个相对严格的老师，但却是个很为学生着想的老师！！！
+			②js这门课真的不是一般难！！！这个道路真是任重而道远，但是我不会放弃的！！！因为我的信念比它还要难摧毁！！！
+			</strong>
+		</p>
+		<a href="#top" name="bottom">返回顶部</a>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>jsonp实现跨域请求</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	#box{width:500px;margin:100px auto;}
+	#txt{width:500px;height:30px;text-indent:1em;font-size:14px;}
+	#list li{line-height:30px;border-bottom:1px solid gray;text-indent:1em;font-size:14px;}
+	#list li a{color:#000;display:block;}
+</style>
+</head>
+<body>
+	<div id="box">
+		<input type="text" id="txt"/>
+		<ul id="list">
+		
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var oTxt = document.getElementById("txt");
+		var oList = document.getElementById("list");
+		//按键按下获取文本框的值
+		oTxt.onkeyup = function(){
+			var val = this.value;
+			//创建元素
+			var oS = document.createElement("script");
+			oS.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+val+"&cb=wells";
+			//添加元素
+			document.body.appendChild(oS);
+			//移除元素
+			document.body.removeChild(oS);
+		};
+		//定义一个回调函数
+		function wells(mJson){
+			var data = mJson.s;
+			var str = "";
+			for(var i=0;i<data.length;i++){
+				str +="<li><a href='https://www.baidu.com/s?wd="+data[i]+"' target='_new'>"+data[i]+"</a></li>"
+			}
+			//拼接到ul盒子里
+			oList.innerHTML = str;
+		};
+		//事件委托
+		oList.onmouseover = function(ev){
+			var e = ev||event;
+			//兼容ie写法
+			var target = e.target || srcElement;
+			target.style.background = "#ccc";
+		};
+		oList.onmouseout = function(ev){
+			var e = ev||event;
+			//获取目标对象
+			var target = e.target || srcElement;
+			target.style.background = "";
+		};
+		//wells({q:"a",p:false,s:["爱奇艺","爱奇艺vip免费试用","阿里巴巴批发网","acfun","安居客","阿里巴巴","阿里云","澳门风云3","爱情保卫战","阿里旺旺"]});
+
+	</script>
+</body>
+</html>

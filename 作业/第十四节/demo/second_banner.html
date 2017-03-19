@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>banner图的制作</title>
+<style type="text/css">
+	*{margin: 0;padding: 0;}
+	body{font-size: 12px;font-family: "微软雅黑";background:#ddd;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	/*banner start*/
+	.banner{width:520px;height:280px;margin:100px auto;position:relative;}
+	/*img-list start*/
+	.banner #img-list img{width:520px;height:280px;}
+	.banner #img-list a{display:inline-block;}
+	.banner #img-list li{position:absolute;top:0;left:0;opacity:0;transition: all .5s ease;}
+	.banner #img-list li:nth-child(1){position:absolute;top:0;left:0;opacity:1;}
+	/*img-list end*/
+	/*btn-list start*/
+	.banner #btn-list{position:absolute;bottom:10px;right:34%;background:rgba(0, 0, 0, 0.3);padding:5px 15px 5px 5px;border-radius:20px;}
+	.banner #btn-list
+	li{width:20px;float:left;margin-left:10px;background:#fff;text-align:center;line-height:20px;border-radius:50%;cursor:pointer;}
+	.banner #btn-list li.none{background:#E96106;color:#fff;}
+	/*btn-list end*/
+	.prev,.next{position:absolute;top:35%;z-index:10;color:#fff;font-size:40px;font-weight:700;padding:10px;background:rgba(0, 0, 0, 0.3);opacity:0;transition: all 1s ease;}
+	.prev{left:10px;}
+	.next{right:10px;}
+	.banner:hover .prev{opacity:1;transition: all 1s ease;}
+	.banner:hover .next{opacity:1;transition: all 1s ease;}
+	/*end banner*/
+</style>
+</head>
+<body>
+	<div class="banner" id="banner">
+		<a class="prev" id="prev" href="javascrip:void(0);">&lt;</a>
+		<a class="next" id="next" href="javascrip:void(0);">&gt;</a>
+		<ul id="img-list">
+			<li><a href="javascrip:void(0);"><img src="images/1.jpg" alt="1"></a></li>
+			<li><a href="javascrip:void(0);"><img src="images/2.jpg" alt="2"></a></li>
+			<li><a href="javascrip:void(0);"><img src="images/3.jpg" alt="3"></a></li>
+			<li><a href="javascrip:void(0);"><img src="images/4.gif" alt="4"></a></li>
+			<li><a href="javascrip:void(0);"><img src="images/5.jpg" alt="5"></a></li>
+		</ul>
+		<ul id="btn-list">
+			<li class="none"><strong>1</strong></li>
+			<li><strong>2</strong></li>
+			<li><strong>3</strong></li>
+			<li><strong>4</strong></li>
+			<li><strong>5</strong></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+	window.onload = function(){//先加载完页面的所有dom元素才执行以下脚本
+		//先获取元素id
+		var bannerDom = document.getElementById("banner");
+		var prev = document.getElementById("prev");
+		var next = document.getElementById("next");
+		var index = 0;
+		var timer = null;//定义一个定时器变量
+		//获取ul和li个数组成数组
+		var uls = bannerDom.getElementsByTagName("ul");
+		var imgs = uls[0].getElementsByTagName("li");
+		var btns = uls[1].getElementsByTagName("li");
+		//遍历获取btns的元素下标(索引)
+		for (var i= 0; i<btns.length ; i++ )
+		{
+			btns[i].index = i; 
+			//鼠标放在li上时触发效果
+			btns[i].onmouseover = function(){
+				show(this.index);
+			}
+		}
+		function show(a){
+			for (var i = 0; i<btns.length; i++){
+				//动态添加类样式
+				btns[i].className="";//先把所有的类样式清除
+				btns[a].className="none";//通过下标添加类样式
+				imgs[i].style.opacity="0";
+				imgs[a].style.opacity="1";
+			}
+			index = a;
+		};
+		//下一页
+
+		next.onmousedown = function(){
+			index++;
+			if(index>=imgs.length){//当达到最大边界时执行
+				index = 0;//跳到第一张
+				show(index);
+			}else{
+				show(index);
+			}
+		};
+		//上一页
+		prev.onmousedown = function(){
+			index--;
+			if(index<0){
+				index = imgs.length-1;
+				show(index);
+			}else{
+				show(index);
+			}
+		};
+		console.log(index);	
+		//自动播放
+		function autoPlay(){
+			timer = setInterval(function(){//setInterval定时器设置
+				index++;
+				console.log(index);//在控制台显示下标
+				if (index>=imgs.length){
+					index = 0;
+					show(index);
+				}else{
+					show(index);
+				}
+			},2000);//2000ms
+		};
+		autoPlay();
+		//鼠标放上去时,清除定时器
+		bannerDom.onmouseover = function(){
+			clearInterval(timer);
+		}
+		//鼠标移开时，执行定时器
+		bannerDom.onmouseout = function(){
+			autoPlay();
+		}
+	};
+	</script>
+</body>
+</html>

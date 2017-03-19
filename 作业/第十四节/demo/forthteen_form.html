@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>表格的添加删除</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	div{width:900px;margin:40px auto;}
+	table{width:100%;border-collapse:collapse;}
+	table td{border:1px solid gray;}
+</style>
+</head>
+<body>
+	<div>
+		<table>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>a222</td>
+				<td>a333</td>
+				<td>a444</td>
+				<td>a555</td>
+				<td><a href="javascript:void(0);" onclick="del(event,this);">删除</a></td>
+			</tr>			
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>b222</td>
+				<td>b333</td>
+				<td>b444</td>
+				<td>b555</td>
+				<td><a href="javascript:void(0);" onclick="del(event,this);">删除</a></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>c222</td>
+				<td>c333</td>
+				<td>c444</td>
+				<td>c555</td>
+				<td><a href="javascript:void(0);" onclick="del(event,this);">删除</a></td>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+		//拿到table下面的所有td
+		var tDoms = document.querySelector("table").querySelectorAll("td");
+		for(var i=0;i<tDoms.length;i++){
+			//点击按钮删除或添加样式,获取每个td下的第一个input框
+			if(tDoms[i].children[0]){//有input框就为真
+				tDoms[i].children[0].addEventListener("click",function(e){
+					var mark = this.checked;
+					if(mark){
+						this.parentNode.parentElement.style.background = "yellow";
+					}else{
+						this.parentNode.parentElement.removeAttribute("style");
+					}
+					e.stopPropagation();
+				});
+			}
+			//给每一个tr动态绑定一个监听事件
+			tDoms[i].addEventListener("click",function(){
+				//alert(this.innerHTML);//可以拿到当前对象里面的内容和标签，而innerText只能拿到文本，并且火狐不支持！！！
+
+				//先获取到tr里面的复选框有没有选中
+				var mark = this.parentElement.querySelector("input").checked;
+				//没选中的时候取反，让点击任何一个td都能添加上样式或取消样式
+				if(!mark){
+					this.parentNode.style.background = "yellow";
+					//让复选框选中
+					this.parentElement.querySelector("input").checked = true;
+				}else{
+					this.parentNode.style.background = "";
+					this.parentElement.querySelector("input").checked = false;
+				} 
+			});
+		}
+		//删除tr的方法
+		function del(e,obj){
+			var tr = obj.parentNode.parentNode;
+			var table = tr.parentElement;
+			//移除指定的tr
+			table.removeChild(tr);
+			stopBubble(e);
+		}
+		//阻止冒泡的兼容所有浏览器的写法
+		function stopBubble(e){
+			if(e && e.stopPropagation){
+				e.stopPropagation();			
+			}else{
+				event.cancelBubble = "true";
+			}
+		};
+	</script>
+</body>
+</html>

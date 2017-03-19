@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	<button id="btn">点我</button>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		/*
+			jQuery为开发插件提供了两个方法
+			$.extend();
+			$.fn.extend();
+		*/
+		//$.extend(obj)传入一个对象时，是为jQuery类添加方法或属性；只有jQuery（或者$）自己本身才能调用，它的实例不能调用，添加的方法为静态方法
+		/*$.extend({
+			min:function(a,b){
+				return a>b?b:a;
+			},
+			max:function(a,b){
+				return a>b?a:b;
+			}
+		});
+		alert($.min(1,2));//1
+		alert(jQuery.max(1,2));//2
+		alert($("#btn").min(1,2));//报错*/
+		//$.extend(obj1,obj2,obj3)传入多个对象时（多继承的原理），obj1是被扩展的对象，obj2和obj3是要被合并的对象，并且返回扩展后的obj1对象
+		/*var json = {name:"wells",age:19};
+		var json1 = {name:"Free",age:30,hobby:"baseketball"};
+		var json2 = {name:"Wells-Free",age:"20",tel:13242342};
+		var obj = $.extend(json,json1,json2);
+		console.log(obj);//Object {name: "Wells-Free", age: "20", hobby: "baseketball", tel: 13242342}
+		console.log(JSON.stringify(obj)+"==="+JSON.stringify(json));//{"name":"Wells-Free","age":"20","hobby":"baseketball","tel":13242342}==={"name":"Wells-Free","age":"20","hobby":"baseketball","tel":13242342}*/
+
+		/*
+			$.fn.extend(obj)即是jQuery.prototype.extend(obj)；传入的对象是对jQuery类原型对象的扩展，只要是jQuery对象/实例（$对象）就可以使用已经被扩展的属性或方法，当然jQuery原型对象本身也可以使用
+		*/
+		$.fn.extend({
+			Alert:function(){
+				alert("好好守爱学习");
+				return $(this);
+			},
+			On:function(){
+				$(this).on("click",function(){
+					alert(3);
+				});
+			}
+		});
+		$("#btn").Alert().On();//好好守爱学习、3
+		$.fn.Alert();//好好守爱学习
+	</script>
+</body>
+</html>

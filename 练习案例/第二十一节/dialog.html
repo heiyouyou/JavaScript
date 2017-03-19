@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:16px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+<link href="iconfont/iconfont.css" rel="stylesheet"/>
+<link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+	
+<!--
+	<div class="overlay"></div>
+	<div class="dialog">
+		<div class="header">
+			<span>标题</span>
+		</div>
+		<div class="content">
+			真的要关闭吗？
+		</div>
+		<div class="button">
+			<a href="javascript:void(0);">确认</a>
+			<a href="javascript:void(0);">取消</a>
+		</div>
+	</div>
+-->
+	<!-- 引入js官方类库jQuery -->
+	<script src="js/jquery-1.12.2.min.js"></script>
+	<!-- 引入自定义弹出组件库 -->
+	<script src="js/dialog.js"></script>
+	<script type="text/javascript">
+		//json对象$.tzDialog调用自己内部的方法
+		//创建剔除所有按钮的弹出框
+		$.tzDialog.CancelAll({
+			title:"灰色弹出框",
+			content:"你舍得吗？",
+			width:400,
+			background:"#bbb",
+			border:"5px solid red",
+			drag:false
+		});
+		//创建保留确认按钮的弹出框
+		$.tzDialog.SureBtn({
+			title:"粉红色弹出框",
+			content:"你舍得吗？",
+			width:400,
+			background:"pink",
+			//回调函数点击按钮后执行
+			callback:function(ok){
+				if(ok){
+					alert("欢迎再次使用！！！");
+				}else{
+					alert("感谢客官手下留情！！！");
+				};
+			}
+		});
+		//创建保留取消按钮的弹出框
+		$.tzDialog.CancelBtn({
+			title:"橙色弹出框",
+			content:"你舍得吗？",
+			width:400,
+			height:300,
+			background:"orange",
+			callback:function(ok){
+				if(ok){//为true值就执行
+					alert("欢迎再次使用！！！");
+				}else{//为false值就执行
+					alert("感谢客官手下留情！！！");
+					//this.style.cssText = "background:blue;";//为什么无效且报错？？？
+				};
+			}
+		});
+		//创建保留所有按钮的弹出框
+		$.tzDialog.AllBtn({
+			title:"红色弹出框",
+			content:"你舍得吗？",
+			background:"red",
+			overlayClick:false,
+			padding:30,
+			border:"10px solid white",
+			//回调函数点击按钮后执行
+			callback:function(ok){
+				if(ok){
+					alert("欢迎再次使用！！！");
+				}else{
+					alert("感谢客官手下留情！！！");
+					//this.style.background = "blue";//为什么无效且报错？？？
+				};
+			}
+		});
+	</script>
+</body>
+</html>

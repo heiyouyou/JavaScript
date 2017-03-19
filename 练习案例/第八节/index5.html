@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>setInterval应用</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<p style="text-align:center;">还剩<span id="time" style="color:red;font-size:14px;">5</span>秒返回首页</p>
+	<script src="js/jQuery1.js"></script>
+	<script type="text/javascript">
+		var num = 5;
+		var timer = setInterval(show,1000);
+		function show(){
+			num--;
+			$("#time").innerHTML = num;
+			if(num ==0){
+				clearInterval(timer);//当页面没有完全跳转过去时，定时器还在执行，所以要进行清除
+				//window.location.href = "http://www.baidu.com";//这个方法是在当前页面跳转到填的路径
+				window.open("http://www.baidu.com");//这个方法是在新窗口打开页面
+			}
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>函数的练习</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+	
+		/*var a = 1;
+		var b = 2;
+		function c(){
+			alert(a);//输出undefined
+			var a = 4;
+		}
+		c();*/
+	
+	/*
+	var a = 0;
+	function fn(){
+		alert(a);//输出undefined
+		var a = 1;
+		alert(a);//输出1
+	};
+	fn();
+	*/
+	/*
+	var a = 0;
+	function fn(){
+		alert(a);输出0
+		a = 1;
+		alert(a);//输出1
+		var b = 2;
+	};
+	fn();*/
+
+	/*
+	fn();
+	alert(a);//输出1
+	var a = 0;
+	alert(a);//输出0
+	function fn(){
+		a = 1;
+		var b = 2;
+	};*/
+	/*
+	fn();
+	alert(a);//输出1
+	a = 0;//这里相当于var a = 0;
+	alert(a);//输出0
+	function fn(){
+		a = 1;
+		var b = 2;
+	};*/
+
+	/*
+	fn();
+	alert(a);//输出1
+	function fn(){
+		a = 1;//这里相当于window.a = 1;是一个全局变量
+		var b =2;
+	};*/
+
+	/*fn();
+	alert(a);//undefined
+	var a = 0;
+	function fn(){
+		alert(a);//输出undefined
+		alert(b);//输出undefined
+		alert(fn);//一坨
+		var a = 1;
+		var b = 2;
+		function c(){
+			alert(a);
+		};
+		return c;
+	};
+	alert(fn());//先再次重新执行fn(),最后再弹出返回值c*/
+
+	/*
+	fn(a);//这里的实参a是undefined
+	alert(a);//输出undefined
+	var a = 4;
+	var b = 2;
+	function fn(a){
+		//var a = undefined
+		var a = 1;
+		alert(a);//输出1
+		a = 3;
+	};
+	fn(a);//输出1*/
+	/*
+	var a = 1;
+	var b = 2;
+	//var c;
+	function fn(){
+		c = 3;//这里相当于window.c = 3是一个全局变量，但是不能这样写，有些浏览器是不兼容的,为了兼容所有浏览器在全局域写上var c
+		return c;
+	};
+	fn();
+	alert(c);
+	alert(fn());*/
+
+	/*alert(a);//输出undefined
+	var a//为了结局兼容性问题，一般会将必要的变量升级为全局变量火狐浏览器不支持
+	if(true){
+		//var a = 1;
+		a = 1;
+		function a(){alert(3);};
+	}
+	alert(a);//输出一坨*/
+	/*alert(i);//输出undefined
+	//var i = 0;
+	for(var i=0;i<4;i++){
+		var a = 3;
+	}
+	alert(a);//输出3*/
+	</script>
+</body>
+</html>

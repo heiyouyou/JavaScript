@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>作业一</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<script type="text/javascript">
+		var str = "潭州学院是一家在线教育公司。学院目前开设以下课程，包括软件教育类、工业类、设计类、电商类、语言类、中小学教育、网络营销等学科，及农业种植、亲子教育、手工DIY、电脑维修、花卉、美甲等各类兴趣爱好学科，教学品类众多，是一家跨品类在线教育公司。学院位于长沙市，拥有西子一间、美联天骄城、星沙富尤工业园三大教学场地。通过潭州学院在线学习平台学习的学员来自国内各省市、港澳台地区及国外地区。潭州学院教学，主要以在线教育学习。以SEO研究中心原有的课程基础，老师的专研文化精神，开启多门课程。通过扎实的技术支持，通过互联网YY教学，远程桌面共享。可以清晰看到老师桌面操作。课后可以语音解答。在其余时间可以在QQ群交流。以及老师QQ在线可以一对一问题解答。";
+		var index = 0,j = 0;
+		while(str.indexOf("潭州",index)!=-1){//找不到潭州就返回-1,不再执行
+			alert("出现潭州的位置有:"+str.indexOf("潭州",index));
+			index = str.indexOf("潭州",index)+2;
+			j++;
+			alert("第"+j+"次出现潭州");
+		}
+			//alert("总共出现潭州的次数:"+j+"次");
+		alert("总共出现潭州的次数:"+(str.split("潭州").length-1)+"次");//以潭州来做成数组
+	</script>
+</body>
+</html>

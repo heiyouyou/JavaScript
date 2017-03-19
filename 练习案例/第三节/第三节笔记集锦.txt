@@ -1,0 +1,193 @@
+oImg.src = "images/"+num+".jpg";//通过src属性动态改变它的路径
+oSpan.innerHTML = num;//innerHTML可以动态的为其添加内容或标签
+
+function Jery(){alert(1);};alert(Jery);这种形式属于函数声明式
+
+		function sum(a,b){
+			var a = 1;
+			var b 
+			alert(a+b);//1+undefined == NaN;
+		}
+		sum(1);
+
+		/*对象作为参数传递{}
+		function obj(a,b){
+			alert(a.age-b);//24-2==22
+		}
+		obj({username:"hei",age:24},2);*/
+
+function fn(s){
+	var s = function test(){alert(1);};//传入实参时默认首先执行了这一步
+	s();
+}
+fn(function test(){alert(1);});
+
+function sum(){
+	function a(){
+		alert(1);
+	};
+	alert(a);//输出一坨
+	a();//输出1
+};
+sum();
+
+		function $(fn){
+			var fn = function(){alert(1);};
+			window.onload = fn;//这样子：fn()也是输出1
+		}
+		$(function(){alert(1);});*/
+
+所有js中的六大数据类型都可以当参数传递；多个“，”隔开；记住：函数就是一个数据类型，可以当参数进行传递，并且只有在打起（）的时候才会执行这个方法里面的代码！
+
+
+//arguments 不定参,代表实参的一个集合，类数组，用于动态的为函数添加多个形参
+		function sum(){
+			//alert(arguments.length);不定参数的长度
+			//alert(Array.isArray(arguments));返回false
+			var s = 0;
+			for(var i=0;i<arguments.length;i++){
+				s = s+arguments[i];
+			}
+			alert(s);
+			alert(arguments[0]+"======"+arguments[arguments.length-1]);
+		}
+		sum(1,2,3,4);
+
+		function fn(){
+			var sum = 1+2;
+			//return 默认的返回值为undefined,这是在内存中进行的
+			//return sum;
+		}
+		//alert(fn);输出一坨
+		//fn();函数执行出空白的页面
+		//alert(fn());函数先执行再打印出来返回的值
+		function fn1(){
+			var sum = 1+2;
+			return function(){
+				alert("hei");
+				return "you";
+			};
+		}
+		//alert(fn1);输出一坨
+		//alert(fn1());输出function(){alert("hei");};
+		//fn1()();函数打起圆括号，表示执行，输出hei
+		//alert(fn1()());返回值只能通过alert语句输出
+		function fn2(){
+			alert(1);
+			alert(2);
+			return;//这里return用于函数中代码的调试而终止后面代码的执行
+			alert(3);
+		}
+		//fn2();
+		//alert(typeof typeof []);//输出String,经过typeof转变后数据类型都默认变成了String
+
+
+
+/*
+		$(function(){
+			var oTxt1 = document.getElementById("txt1");
+			var oTxt2 = document.getElementById("txt2");
+			var oTxt3 = document.getElementById("txt3");
+			var oBtn = document.getElementById("btn");
+			oBtn.onclick = function(){
+				//oTxt3.value = oTxt1.value+oTxt2.value;//这样子只能得到字符串的拼接结果
+				//oTxt3.value = Number(oTxt1.value)+Number(oTxt2.value);显示转换数据类型
+				oTxt3.value = oTxt1.value*1+oTxt2.value*1;//隐式转换数据类型
+			};
+		});
+		function $(param){
+			window.onload = param;	
+		}
+		*/
+		$(function(){
+			var oTxt1 = $("txt1");
+			//alert(oTxt1);可以取得返回出来的值
+			var oTxt2 = $("txt2");
+			var oTxt3 = $("txt3");
+			var oBtn = $("btn");
+			oBtn.onclick = function(){
+				oTxt3.value = oTxt1.value*1+oTxt2.value*1;//隐式转换数据类型
+			};
+		});
+		function $(param){
+			if(typeof param == "function"){
+				window.onload = param;
+			}else if(typeof param == "string"){
+				return document.getElementById(param);//在内存中的东西要想拿出来要通过return返回出来
+			}	
+		}
+		//以上的练习可以做一个简陋的计算器
+
+
+/*浏览器解析js代码步骤：1.找定义：var function(){}2.执行：表达式：alert();++/--/!=/==除了var function,都可以称之为表达式*/
+	/*
+		alert(a);//输出undefined
+		alert(b);//输出一坨
+		var a = 10;
+		a = 10;
+		function b(){
+			alert(1);
+		};
+		*/
+		/*
+		//a = 10;输出10
+		alert(a);
+		a = 10;//报错
+		*/
+
+//先找var a, function a(){alert(2)};然后第一个var a被覆盖成var a = function a(){alert(2)};然后接下来的第二个var a覆盖不了函数，再然后function a(){alert(4);};覆盖function a(){alert(2)}最终第一个var a = function a(){alert(4);};,然后执行第一个alert(a)输出function a(){alert(4);};，接下来第一个var a重新赋值为1，到第二个var a又被重新赋值为3
+		/*
+		alert(a);输出一坨
+		var a = 1;
+		alert(a);输出1
+		function a(){
+			alert(2);
+		};
+		alert(a);输出1
+		var a = 3;
+		alert(a);输出3
+		function a(){
+			alert(4);
+		};
+		alert(a);输出3
+		*/
+
+		/*
+		var a = 1;
+		function a(){alert(2);};
+		alert(a);输出1
+		*/
+
+		/*
+		var a = 1;
+		alert(a);//输出1
+		a();//报错
+		function a(){alert(2);};
+		*/
+
+		/*
+		alert(s);输出undefined
+		s();报错
+		var s = function(){
+			alert(1);
+		};
+		*/
+
+		//方法的定义式
+		//f();定义式的函数执行写在定义方法前会报错
+		var f = function(){
+			alert(1);
+		};
+		f();
+		//方法的声明式，无论方法的执行写在定义前还是后都是可以执行的
+		s();
+		function s(){
+			alert(2);
+		}
+		s();
+作用域:（五星级）	
+浏览器在读js代码时候的步骤：		
+第一步：先找 var function		
+第二步：再逐行执行代码	注意：如果函数名和var定义的变量相同，var会被函数覆盖(var a = function a(){};这样子覆盖的)
+作用域链：从内往外找(先找子类函数作用域，再找父类作用域)
+先要找函数内的变量；

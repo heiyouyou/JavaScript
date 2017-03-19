@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>作业首页</title>
+<link rel="stylesheet" href="iconfont/ic/iconfont.css"/>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	/*end header*/
+	header{height:82px;background:#24292C;}
+	.header-box{width:1000px;height:100%;margin:0 auto;background:#24292C;}
+	.header-box .left-text{width:200px;height:100%;float:left;}
+	.header-box .left-text a{display:block;font-size:56px;color:#fff;font-weight:100;text-align:center;line-height:82px;letter-spacing:5px;}
+	.header-box .center{width:500px;height:100%;float:left;background:#24292C;}
+	.header-box .center .list{margin-left:100px;}
+	.header-box .center .list li{float:left;line-height:82px;padding:5px 20px 0;cursor:pointer;}
+	.header-box .center .list li .last-logo{display:inline-block;width:15px;height:21px;background:url(images/icon4-24.png) no-repeat;background-position:6px 12px;line-height:21px;}
+	.header-box .center .list li:hover .last-logo{background-position:-17px 12px;}
+	.header-box .center .list li a{font-size:16px;color:#999;}
+	.header-box .center .list li:hover a{color:#fff;}
+	.header-box .right{width:300px;height:100%;float:left;position:relative;background:#24292C;}
+	.header-box .right .search{position:absolute;z-index:2;width:240px;height:30px;border:10px;background:#111;margin-top:30px;padding:4px 5px 0 11px;border-radius:16px;}
+	.header-box .right .search .btn{width:18px;height:18px;float:left;background:url(images/icon4-24.png) no-repeat 0 -77px;padding:4px 0;}
+	.header-box .right .search .search-box{width:180px;height:18px;float:left;color:#fff;text-indent:1em;background:#111;border:none;line-height:18px;padding:4px 0;}
+	.header-box .right .search .new{float:left;padding:3px 8px;background:#888;color:#303539;border-radius:20px;margin-top:2px;}
+	.header-box .right .taglist{position:absolute;top:88%;left:4px;z-index:1;height:568px;background:url(images/icon4-24.png) no-repeat 116px -14px;padding:10px 0;margin-top:-860px;opacity:0;}
+	.header-box .right .taglist .selc{width:100%;height:100%;background-color:#191919;}
+	.header-box .right .taglist .selc .m-subscribetags span,.header-box .right .taglist .selc .m-subscribetags p{color:#888;padding-left:14px;line-height:30px;}
+	/*end header*/
+	/*nav-box start*/
+	.g-hdview{height:0;background:#fff;overflow:hidden;transition:all 1s ease;}
+	.g-hdview .m-vw-nav{width:920px;height:100%;margin:0 auto;}
+	.g-hdview .m-vw-nav .list-tab li{float:left;margin-left:10px;}
+	.g-hdview .m-vw-nav .list-tab li a{display:block;text-align:center;line-height:87px;padding:0 89px;color:#24292c;font-size:20px;border-bottom: 3px solid transparent;}
+	.g-hdview .m-vw-nav .list-tab li:hover a{border-color:#9AC600;}
+	/*end nav-box*/
+	/*banner-box start*/
+	.banner-box{min-height:568px;background:#F2F2F2;}
+	.banner-box .m-slbanner{position:relative;width:1200px;height:568px;margin:0 auto;overflow:hidden;}
+	.banner-box .m-slbanner .list-img li{width:100%;height:568px;position:absolute;top:0;left:0;opacity:0;visibility:hidden;transition:all 1s ease;}
+	/*.banner-box .m-slbanner .list-img{position:absolute;top:0;left:0;}
+	.banner-box .m-slbanner .list-img li{width:1200px;height:568px;float:left;}*/
+	.banner-box .m-slbanner .list-img li:first-child{opacity:1;visibility:visible;}
+	.banner-box .m-slbanner .list-img li.bg1{background:#F2F2F2;}
+	.banner-box .m-slbanner .list-img li.bg2{background:#F0F0F0;}
+	.banner-box .m-slbanner .list-img li .left-content{width:400px;height:568px;float:left;;background:;}
+	.banner-box .m-slbanner .list-img li .left-content .left-img{width:320px;height:320px;background:#eee;margin:50px 0 0 75px;border:10px solid #000;box-shadow:6px 4px 2px rgba(0,0,0,.1);}
+	.banner-box .m-slbanner .list-img li .left-content .left-img a{display:block;background:#fff;padding:30px;}
+	.banner-box .m-slbanner .list-img li .right-content{width:680px;height:568px;float:right;background:url(images/bannerbg1.png) no-repeat;background-position:center bottom;background-color:#F2F2F2;}
+	.banner-box .m-slbanner .list-img li .right-content  .fir-p{margin:48px 0 10px;}
+	.banner-box .m-slbanner .list-img li .right-content  .fir-p a{display:inline-block;font-size:38px;color:#444;}
+	.banner-box .m-slbanner .list-img li .right-content  .text-p{font-size:18px;    color:#999;line-height:30px;letter-spacing:2px;}
+	.banner-box .m-slbanner .list-img li .right-content  .text-p a{color:#999;}
+	.banner-box .m-slbanner .list-img li .right-content a:hover{color:#7594B3;}
+	.banner-box .m-slbanner .list-img li .left-content1{width:275px;height:240px;margin:133px 0;padding-left:75px;background:#F0F0F0;float:left;}
+	.banner-box .m-slbanner .list-img li .left-content1 .fir-p a{display:inline-block;font-size:38px;color:#444;}
+	.banner-box .m-slbanner .list-img li .left-content1 .text-p{font-size:18px;    color:#999;line-height:30px;letter-spacing:2px;}
+	.banner-box .m-slbanner .list-img li .left-content1 .text-p a{color:#999;}
+	.banner-box .m-slbanner .list-img li .left-content1 a:hover{color:#7594B3;}
+	.banner-box .m-slbanner .list-img li .right-content1{width:850px;height:568px;background:#fff;background:url(images/bannerbg2.png) no-repeat;background-position:center bottom;background-color:#F2F2F2;float:right;box-shadow:4px 5px 15px #F0F0F0 inset;}
+	.banner-box .m-slbanner .list-img li .right-content1 .right-img1 a{display:block;    margin:135px 225px;}
+	.banner-box .m-slbanner .list-btn{position:absolute;bottom:10px;left:40%;z-index:2;}
+	.banner-box .m-slbanner .list-btn li{width:10px;height:10px;margin-left:30px;border-radius:50%;background:#999;float:left;cursor:pointer;}
+	.banner-box .m-slbanner .list-btn li.fir-btn{background:#DFDDDD;border:1px solid #999;}
+	/*end banner-box*/
+	/*main start*/
+	.main{width:1200px;margin:0 auto;background:#fff;position:relative;}
+	/*aside start*/
+	.main .left-aside{width:75px;height:100%;position:fixed;top:0;left:0px;overflow:hidden;opacity:0;visibility:hidden;white-space:nowrap;}
+	.main .top-img{width:100%;height:200px;background:#333;border-top:1px solid transparent;}
+	.main .top-img a{display:block;width:70%;height:70%;margin:30px auto;border-radius:50%;overflow:hidden;}
+	.main nav{background-color:#494747;height:100%;}
+	.main nav h2{text-align:right;line-height:70px;color:#ddd;font-size:26px;font-weight:500;width:180px;padding-right:20px;}
+	.main nav .link-box a{display:block;color:#707070;font-size:16px;width:125px;padding-left:75px;line-height:35px;background-image:url("images/logo.png");background-repeat:no-repeat;}
+	.main nav .link-box a:hover{color:#fff;}
+	.main nav .link-box ul li:nth-child(1) a{background-position:30px -199px;}
+	.main nav .link-box ul li:nth-child(1) a:hover{background-position: 30px -505px;}
+	.main nav .link-box ul li:nth-child(2) a{background-position:30px 11px;}
+	.main nav .link-box ul li:nth-child(2) a:hover{background-position: 30px -285px}
+	.main nav .link-box ul li:nth-child(3) a{background-position:30px -977px;}
+	.main nav .link-box ul li:nth-child(3) a:hover{background-position:30px -1014px;}
+	.main nav .link-box ul li:nth-child(4) a{background-position:30px -25px;}
+	.main nav .link-box ul li:nth-child(4) a:hover{background-position: 30px -328px}
+	.main nav .link-box ul li:nth-child(5) a{background-position:30px -66px;}
+	.main nav .link-box ul li:nth-child(5) a:hover{background-position:30px -368px;}
+	.main nav .link-box ul li:nth-child(6) a{background-position:30px -110px;}
+	.main nav .link-box ul li:nth-child(6) a:hover{background-position: 30px -412px;}
+	.main nav .link-box ul li:nth-child(7) a{background-position:30px -153px;}
+	.main nav .link-box ul li:nth-child(7) a:hover{background-position: 30px -459px;}
+	.main nav .link-box ul li:nth-child(8) {background-image:url("images/logo.png");background-repeat:no-repeat;background-position:30px -240px;padding-left:75px;padding-top:5px;}
+	.main nav .link-box ul li:nth-child(8) .search{text-indent:2px;width:110px;height:20px;outline:none;background:#1b1b1b;border:1px solid #333;color:#fff;font-size:16px;padding:4px 0;}
+	/*end aside*/
+	.main .m-artinfo{width:1140px;margin:0 auto;background:#fff;}
+	.main .m-artinfo .w-sltit{text-align:center;line-height:120px;font-weight: normal;font-size:38px;color:#333;background:#fff;}
+	.main .m-artinfo .m-artlist .f-cb:after{content:"";display:block;clear:both;}
+	.main .m-artinfo .m-artlist .f-cb li{width:262px;height:322px;float:left;margin-left:18px;}
+	/*框画start*/
+	.main .m-artinfo .m-artlist .f-cb li .imgbox{width:262px;height:262px;overflow:hidden;position:relative;}
+	.main .m-artinfo .m-artlist .f-cb li .imgbox img,.imgbox1 img{position:absolute;transition:all 0.5s cubic-bezier(.22,.07,0,1.02) 0.3s;}
+	.main .m-artinfo .m-artlist .f-cb li .imgbox .f-span{position:absolute;top:0;left:0;width:240px;height:180px;margin-top:30px;border:10px solid #000;opacity:0;transition:opacity 0.5s ease 0.53s;}
+	.main .m-artinfo .m-artlist .f-cb li .imgbox:hover .f-span{opacity:1;transition:opacity 0.5s ease 0.53s;}
+	.main .m-artinfo .m-artlist .f-cb li .imgbox .c-span{position:absolute;top:0;left:0;width:162px;height:212px;margin:15px 0 0 40px;border:10px solid #000;opacity:0;transition:opacity 0.5s ease 0.53s;}
+	.main .m-artinfo .m-artlist .f-cb li .imgbox:hover .c-span{opacity:1;transition:opacity 0.5s ease 0.53s;}
+	.main .m-artinfo .m-artlist .f-cb li .imgbox:hover img{transform:scale(.4);transition:all 0.5s cubic-bezier(.22,.07,0,1.02) 0.3s;} 
+	.main .m-artinfo .m-artlist .f-cb li .imgbox:hover img.special{transform:scale(.7);} 
+	/*框画end*/
+	/*3d start*/
+	.main .m-artinfo .m-artlist .f-cb li .box-3d{transform-style:preserve-3d;perspective:400px;}
+	.main .m-artinfo .m-artlist .f-cb li .three-d{position:relative;height:262px;box-shadow:10px 7px 10px #ABABAB;transition:all 1s linear;}
+	.main .m-artinfo .m-artlist .f-cb li .box-3d:hover .three-d{transform:rotateY(-180deg);box-shadow:-10px 0 10px #ABABAB;transition:all 1s linear;}
+	.main .m-artinfo .m-artlist .f-cb li .three-d .bg-mark{width:262px;height:100%;position:absolute;top:0;left:0;z-index:1;background:linear-gradient(rgba(228,222,222,.5) ,rgba(153,156,169,.9));transform:rotateY(-180deg);transition:all 1.1s linear;opacity:0;}
+	.main .m-artinfo .m-artlist .f-cb li .three-d .bg-mark .mark-p a{display:block;height:262px;font-size:16px;color:#0C0C0C;text-align:left;padding:5px;line-height:30px;text-indent:2em;}
+	.main .m-artinfo .m-artlist .f-cb li .box-3d:hover .bg-mark{z-index:3;transition:all 2s linear;opacity:1;}
+	.main .m-artinfo .m-artlist .f-cb li .three-d .imgbox1{width:262px;height:100%;overflow:hidden;position:absolute;top:0;left:0;z-index:2;}
+	/*end 3d*/
+	/*明信片start*/
+	.m-artinfo .m-artlist .f-cb li.min-li{height:246px;}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img{height:176px;position:relative;}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img a{display:block;background:#fff;}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img a span.bor{display:block;width:258px;height:174px;border:1px solid #e0e0e0;background:#fff;position:absolute;transition:all .3s cubic-bezier(0.22, 0.61, 0.36, 1);}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img a span.bor:nth-child(1){top:8px;left:8px;}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img:hover a span.bor:nth-child(1){transform:rotate(5deg);}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img a span.bor:nth-child(2){top:6px;left:6px;}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img:hover a span.bor:nth-child(2){transform:rotate(1deg)}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img a span.bor:nth-child(3){top:4px;left:4px;}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img:hover a span.bor:nth-child(3){transform:rotate(-1deg)}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img a span.bor:nth-child(4){top:2px;left:2px;}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img:hover a span.bor:nth-child(4){transform:rotate(-5deg)}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img a img{position:absolute;top:0;left:0;width:262px;height:176px;transition:all .3s cubic-bezier(0.22, 0.61, 0.36, 1);}
+	.m-artinfo .m-artlist .f-cb .min-li .min-img:hover a img{transform:rotate(-1deg);transition:all .3s cubic-bezier(0.22, 0.61, 0.36, 1);}
+	/*end明信片*/
+	/*text-p start*/
+	.main .m-artinfo .m-artlist .f-cb li .text-p{width:262px;height:55px;padding-top:5px;background:#fff;margin-bottom:10px;}
+	.m-artinfo .m-artlist .f-cb .min-li p.text-p{margin-top:10px;}
+	.main .m-artinfo .m-artlist .f-cb li .text-p a{color:#444;font-size:14px;line-height:50px;}
+	.main .m-artinfo .m-artlist .f-cb li .text-p a:hover{color:#7594B3;}
+	.main .m-artinfo .m-artlist .f-cb li .text-p a:first-child{float:left;padding-left:5px;}
+	.main .m-artinfo .m-artlist .f-cb li .text-p a:last-child{float:right;padding-right:5px;}
+	.main .m-artinfo .w-slmore a{display:block;line-height:60px;text-align:center;font-size:18px;color:#666;background:#f6f6f6;margin-top:20px;}
+	.main .m-artinfo .w-slmore a:hover{opacity:.5;}
+	/*end text-p*/
+	/*to-top start*/
+	.main 
+	.to-top{position:fixed;bottom:30px;right:30px;width:30px;text-align:center;line-height:40px;background:#fff;font-size:16px;color:#6F5555;cursor:pointer;box-shadow:0 0 2px #584D4D;font-weight:700;border-radius:10px;opacity:0;}
+	.main .to-top:hover{background:#D8D0D0;color:#555;cursor:pointer;box-shadow:0 0 2px #584D4D;transition:all .5s ease;}
+	/*end to-top*/
+	/*reminder start*/
+	.main .reminder{position:absolute;top:2px;right:0;width:452px;height:40px;background:#fff7e7;font-size:16px;color:;border-radius:15px;box-shadow:1px 1px 2px rgba(0,0,0,.2);cursor:pointer;}
+	.main .reminder .reminder-text{float:left;color:#6b3612;line-height:40px;text-indent:1em;letter-spacing:2px;}
+	/*end reminder*/
+	/*end main*/
+</style>
+</head>
+<body id="body">
+	<!-- header start -->
+	<header>
+		<div class="header-box">
+			<div class="left-text"><a href="javascript:void(0);">FREE</a></div>
+			<div class="center">
+				<ul class="list" id="list">
+					<li><a href="javascript:void(0);">首页<i class="last-logo"></i></a></li>
+					<li><a href="javascript:void(0);">专题<i class="last-logo"></i></a></li>
+					<li><a href="javascript:void(0);">作品<i class="last-logo"></i></a></li>
+					<li ><a href="javascript:void(0);">更多<i class="last-logo"></i></a></li>
+				</ul>
+			</div>
+			<div class="right">
+				<div class="search">
+					<a class="btn" href="javascript:void(0);"></a>
+					<input class="search-box" id="search-box"type="text" placeholder="搜索标签、人"/>
+					<span class="new" id="new">new</span>
+				</div>
+				<div class="taglist" id="taglist">
+					<div class="selc"> 
+						<div class="m-subscribetags">
+							<span>我的订阅</span>
+							<p>我暂时没有任何订阅！！！</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- end header -->
+	<!-- nav-box start -->
+	<div class="nav-box" id="nav-box">
+		<div class="g-hdview">
+			<div class="m-vw-nav">
+				<ul class="list-tab">
+					<li><a href="javascript:void(0);">专题</a></li>
+					<li><a href="javascript:void(0);">达人</a></li>
+					<li><a href="javascript:void(0);">趋势</a></li>
+					<li><a href="javascript:void(0);">话题</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="g-hdview">
+			<div class="m-vw-nav">
+				<ul class="list-tab">
+					<li><a href="javascript:void(0);">摄影</a></li>
+					<li><a href="javascript:void(0);">运动</a></li>
+					<li><a href="javascript:void(0);">健身</a></li>
+					<li><a href="javascript:void(0);">爬山</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="g-hdview">
+			<div class="m-vw-nav">
+				<ul class="list-tab">
+					<li><a href="javascript:void(0);">电影</a></li>
+					<li><a href="javascript:void(0);">娱乐</a></li>
+					<li><a href="javascript:void(0);">休闲</a></li>
+					<li><a href="javascript:void(0);">旅游</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="g-hdview">
+			<div class="m-vw-nav">
+				<ul class="list-tab">
+					<li><a href="javascript:void(0);">设计</a></li>
+					<li><a href="javascript:void(0);">编程</a></li>
+					<li><a href="javascript:void(0);">韩剧</a></li>
+					<li><a href="javascript:void(0);">女神</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- end nav-box -->
+	<!-- banner-box -->
+	<div class="banner-box" id="banner-box">
+		<div class="m-slbanner">
+			<ul class="list-img" id="list-img">
+				<li class="bg1">
+					<div class="left-content">
+						<div class="left-img">
+							<a href="javascript:void(0);"><img src="images/1.jpg" width="100%" height="100%" alt="1"></a>
+						</div>
+					</div>	
+					<div class="right-content">
+						<p class="fir-p">
+							<a href="javascript:void(0);">《花》</a>
+						</p>
+						<p class="text-p">
+							作者：<a href="javascript:void(0);">HZ</a>
+						</p>
+						<p class="text-p">
+							<span>花</span>
+						</p>
+					</div>	
+				</li>
+				<li class="bg2">
+					<div class="left-content1">
+						<div class="left-text1">
+							<p class="fir-p">
+								<a href="javascript:void(0);">《我与我的猫星人（二）》</a>
+							</p>
+							<p class="text-p">
+								作者：<a href="javascript:void(0);">SIHAOGOR</a>
+							</p>
+							<p class="text-p">
+								<span>《我与我的喵星人（二）》</span>
+							</p>
+						</div>
+					</div>	
+					<div class="right-content1">
+						<div class="right-img1">
+							<a href="javascript:void(0);">
+								<img src="images/2.jpg" width="447" height="298" alt="2">
+							</a>
+						</div>
+					</div>	
+				</li>
+				<li class="bg1">
+					<div class="left-content">
+						<div class="left-img" style="width:290px;height:215px;">
+							<a href="javascript:void(0);"><img src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/E7QANIoNWp2YKbKtOYTWrw==/6630884147259540132.jpg_290x195x1.jpg" width="100%" height="100%" alt="1"></a>
+						</div>
+					</div>	
+					<div class="right-content">
+						<p class="fir-p">
+							<a href="javascript:void(0);">《The fog rainart》</a>
+						</p>
+						<p class="text-p">
+							作者：<a href="javascript:void(0);">lcarus</a>
+						</p>
+						<p class="text-p">
+							<span>爱情</span>
+						</p>
+					</div>	
+				</li>
+				<li class="bg2">
+					<div class="left-content1">
+						<div class="left-text1">
+							<p class="fir-p">
+								<a href="javascript:void(0);">《荒原之心 PATAGONIA》</a>
+							</p>
+							<p class="text-p">
+								作者：<a href="javascript:void(0);">一空之间老飘飘的阴暗面</a>
+							</p>
+							<p class="text-p">
+								<span>PATAGONIA的荒原将视野和心力延伸到了南美大陆的边缘。最美的风景，留给愿意独行的那一个人。</span>
+							</p>
+						</div>
+					</div>	
+					<div class="right-content1">
+						<div class="right-img1">
+							<a href="javascript:void(0);">
+								<img src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/C0TiX55TxdBbeXoyAvaffw==/6630516910375135769.jpg_447x298x1.jpg" width="447" height="298" alt="2">
+							</a>
+						</div>
+					</div>	
+				</li>
+			</ul>
+			<ul class="list-btn" id="list-btn">
+				<li class="fir-btn"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+	<!-- end banner-box -->
+	<!-- main start -->
+	<div class="main" id="main">
+		<!-- reminder start -->
+		<div class="reminder" id="reminder">
+			<p class="reminder-text">
+				<i class="iconfont" style="font-size:30px;color:#e67e22;vertical-align:bottom;">&#xe602;</i>
+				<span>欢迎来到黑有有作业展^-^ ^-^！！！</span>
+			</p>
+		</div>
+		<!-- end reminder -->
+		<!-- aside start -->
+		<aside class="left-aside" id="left-aside">
+			<div class="top-img">
+				<a href="javascript:void(0);"><img src="images/123.jpg" width="100%" height="100%" alt="header-img"></a>
+			</div>
+			<nav>
+				<h2>友情链接</h2>
+				<div class="link-box">
+					<ul>
+						<li><a href="javascript:void(0);" class="link-a">UAPP</a></li>
+						<li><a href="javascript:void(0);" class="link-a">私信</a></li>
+						<li><a href="javascript:void(0);" class="link-a">提问</a></li>
+						<li><a href="javascript:void(0);" class="link-a">投稿</a></li>
+						<li><a href="javascript:void(0);" class="link-a">归档</a></li>
+						<li><a href="javascript:void(0);" class="link-a">RSS</a></li>
+						<li><a href="javascript:void(0);" class="link-a">关于我们</a></li>
+						<li><form action="#" method="get"><input class="search" type="text" value="搜索" name="q" onfocus="if(this.value=='搜索')this.value=''" onblur="if(this.value=='')this.value='搜索'"/></form></li>
+					</ul>
+				</div>
+			</nav>
+		</aside>
+		<!-- end aside -->
+		<!-- main-content start -->
+		<div class="main-content" id="main-content">
+			<!-- m-artinfo start -->
+			<div class="m-artinfo">
+				<h2 class="w-sltit">3D作业展</h2>
+				<!-- m-artlist start -->
+				<div class="m-artlist">
+					<ul class="f-cb">
+						<li>
+							<div class="box-3d">
+								<div class="three-d">
+									<div class="imgbox1">
+										<a href="demo/nine4.html" target="_blank">
+										<img
+										src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/av9yEtHbThwlh-wAQxrBUA==/27021597782325528.jpg_393x262x1.jpg" width="393px" height="262px" alt="1" style="top:0;left:-66px;"></a>
+									</div>
+									<div class="bg-mark">
+										<p class="mark-p">
+											<a href="demo/nine2.html" target="_blank">
+												请点击查看第九节作业^-^
+												请点击查看第九节作业^-^
+												请点击查看第九节作业^-^
+											</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<p class="text-p">
+								<a href="demo/nine3.html" target="_blank">《第九节》</a>
+								<a href="demo/nine1.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="box-3d">
+								<div class="three-d">
+									<div class="imgbox1">
+										<a href="demo/tenth.html" target="_blank">
+										<img
+										src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/N_037lSWKEnV-3JAelF7ZQ==/6630366277280433518.jpg_262x393x1.jpg" width="262px" height="393px" alt="1" style="top:-66px;left:0;"></a>
+									</div>
+									<div class="bg-mark">
+										<p class="mark-p">
+											<a href="demo/tenth.html" target="_blank">
+												PATAGONIA的荒原将视野和心力延伸到了南美大陆的边缘。最美的风景，留给愿意独行的那一个人。
+											</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<p class="text-p">
+								<a href="demo/tenth.html" target="_blank">《第十节》</a>
+								<a href="demo/tenth.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="box-3d">
+								<div class="three-d">
+									<div class="imgbox1">
+										<a href="demo/eleventh.html" target="_blank">
+										<img
+										src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/5m3tcOKVna6ACva4F_jpiA==/3359122372167262818.jpg_262x262x1.jpg" width="262px" height="262px" alt="1" style="top:0;left:0;"></a>
+									</div>
+									<div class="bg-mark">
+										<p class="mark-p">
+											<a href="demo/eleventh.html" target="_blank">
+												呼图壁河发源于河源峰，在当地哈萨克语中，河源峰被称为狼塔，意为有群狼守护的塔山。
+											</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<p class="text-p">
+								<a href="demo/eleventh.html" target="_blank">《第十一节》</a>
+								<a href="demo/eleventh.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="box-3d">
+								<div class="three-d">
+									<div class="imgbox1">
+										<a href="demo/tweleth.html" target="_blank">
+										<img
+										src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/1LO-AvmaI_G11SmMnAyG8w==/3098758018625530599.jpg_393x262x1.jpg" width="393px" height="262px" alt="1" style="top:0;left:-66px;"></a>
+									</div>
+									<div class="bg-mark">
+										<p class="mark-p">
+											<a href="demo/tweleth.html" target="_blank">
+												呼图壁河发源于河源峰，在当地哈萨克语中，河源峰被称为狼塔，意为有群狼守护的塔山。
+											</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<p class="text-p">
+								<a href="demo/tweleth.html" target="_blank">《第十二节》</a>
+								<a href="demo/tweleth.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<!-- end m-artlist -->
+				<!-- m-artlist start -->
+				<div class="m-artlist">
+					<ul class="f-cb">
+						<li>
+							<div class="box-3d">
+								<div class="three-d">
+									<div class="imgbox1">
+										<a href="demo/thirteen.html" target="_blank">
+											<img
+											src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/Bu_V34otWsJluR6UWMlDmg==/3234147482506019421.jpg_393x262x1.jpg" width="393px" height="262px" alt="1" style="top:0;left:-66px;">
+										</a>
+									</div>
+									<div class="bg-mark">
+										<p class="mark-p">
+											<a href="demo/thirteen.html" target="_blank">
+												PATAGONIA的荒原将视野和心力延伸到了南美大陆的边缘。最美的风景，留给愿意独行的那一个人。
+											</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<p class="text-p">
+								<a href="demo/thirteen.html" target="_blank">《第十三节》</a>
+								<a href="demo/thirteen.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="box-3d">
+								<div class="three-d">
+									<div class="imgbox1">
+										<a href="demo/forthteen.html" target="_blank">
+										<img
+										src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/UDL3RjbWsc4GZoHhikoE2g==/6630328893884939078.jpg_262x393x1.jpg" width="262px" height="393px" alt="1" style="top:-66px;left:0;"></a>
+									</div>
+									<div class="bg-mark">
+										<p class="mark-p">
+											<a href="demo/forthteen.html" target="_blank">
+												呼图壁河发源于河源峰，在当地哈萨克语中，河源峰被称为狼塔，意为有群狼守护的塔山。
+											</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<p class="text-p">
+								<a href="demo/forthteen.html" target="_blank">《第十四节》</a>
+								<a href="demo/forthteen.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="box-3d">
+								<div class="three-d">
+									<div class="imgbox1">
+										<a href="demo/fifteen.html" target="_blank">
+										<img
+										src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/7OrozvJ2gDJlNL4pg9bs9w==/6630410257745381813.jpg_262x262x1.jpg" width="262px" height="262px" alt="1" style="top:0;left:0;"></a>
+									</div>
+									<div class="bg-mark">
+										<p class="mark-p">
+											<a href="demo/fifteen.html" target="_blank">
+												PATAGONIA的荒原将视野和心力延伸到了南美大陆的边缘。最美的风景，留给愿意独行的那一个人。
+											</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<p class="text-p">
+								<a href="demo/fifteen_banner.html" target="_blank">《第十五节》</a>
+								<a href="demo/fifteen.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="box-3d">
+								<div class="three-d">
+									<div class="imgbox1">
+										<a href="javascript:void(0);">
+										<img
+										src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/CJ0ryxTYHZCugRXD5BWEMA==/2685834227791181341.jpg_393x262x1.jpg" width="393px" height="262px" alt="1" style="top:0;left:-66px;"></a>
+									</div>
+									<div class="bg-mark">
+										<p class="mark-p">
+											<a href="javascript:void(0);">
+												呼图壁河发源于河源峰，在当地哈萨克语中，河源峰被称为狼塔，意为有群狼守护的塔山。
+											</a>
+										</p>
+									</div>
+								</div>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第十六节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<!-- end m-artlist -->
+				<div class="w-slmore">
+					<a href="javascript:void(0);">查看更多&gt;&gt;</a>
+				</div>
+			</div>
+			<!-- end m-artinfo -->
+			<!-- m-artinfo start -->
+			<div class="m-artinfo">
+				<h2 class="w-sltit">框画作业展</h2>
+				<div class="m-artlist">
+					<ul class="f-cb">
+						<li>
+							<div class="imgbox">
+								<a href="demo/first.html" target="_blank">
+								<span class="f-span"></span>
+								<img
+								src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/X3esdfyraBPc890J3bZk0w==/6619549281886548233.jpg_393x262x1.jpg" width="393px" height="262px" alt="1" style="top:0;left:-66px;"></a>
+							</div>
+							<p class="text-p">
+								<a href="demo/first.html" target="_blank">《第一节》</a>
+								<a href="demo/first.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="imgbox">
+								<a href="demo/second.html" target="_blank">
+								<span class="c-span"></span>
+								<img src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/ke3rhouY0mKhY5DqyLrL3Q==/2435040023541329013.jpg_262x393x1.jpg" width="262px" height="393px" alt="2" style="top:-66px;left:0x;"></a>
+							</div>
+							<p class="text-p">
+							<a href="demo/second_banner.html" target="_blank">《第二节》</a>
+							<a href="demo/second_banner_V2.0.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="imgbox">
+								<a href="demo/third.html" target="_blank">
+								<span class="c-span"></span>
+								<img src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/35ynuHHFlamgc7FRj5u5AQ==/6630222241257072204.jpg_262x393x1.jpg" width="262px" height="393px" alt="3" style="top:-66px;left:0x;"></a>
+							</div>
+							<p class="text-p">
+							<a href="demo/third.html" target="_blank">《第三节》</a>
+							<a href="demo/third_banner.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="imgbox">
+								<a href="demo/forth.html" target="_blank">
+								<span class="f-span"></span>
+								<img src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/aWiFKOY1WfYcs_SMXb_UmQ==/6631406415282362460.jpg_393x262x1.jpg" width="393px" height="262px" alt="4" style="top:0;left:-66px;"></a>
+							</div>
+							<p class="text-p">
+							<a href="demo/forth_e.html" target="_blank">《第四节》</a>
+							<a href="demo/forth_h1.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<div class="m-artlist">
+					<ul class="f-cb">
+						<li>
+							<div class="imgbox">
+								<a href="javascript:void(0);">
+								<span class="f-span"></span>
+								<img
+								src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/EJ1BpHsBoGZmRRVRAzhrsQ==/6608791660120666303.jpg_393x262x1.jpg" width="393px" height="262px" alt="1" style="top:0;left:-66px;"></a>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第五节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="imgbox">
+								<a href="demo/sixth.html" target="_blank">
+								<span class="c-span"></span>
+								<img src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/d_jpkbHujP7XdCyLbgUAfg==/6597688791705006909.jpg_262x393x1.jpg" width="262px" height="393px" alt="2" style="top:-66px;left:0;"></a>
+							</div>
+							<p class="text-p">
+							<a href="demo/sixth.html" target="_blank">《第六节》</a>
+							<a href="demo/sixth_e.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="imgbox">
+								<a href="demo/seven_note.html" target="_blank">
+								<span class="c-span" style="width:240px;height:240px;top:0;left:0;margin:0;"></span>
+								<img src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/g_QG1pvXC3KUsNhbzMnW1A==/3364751871700447991.jpg_262x262x1.jpg" width="262px" height="262px" alt="3" style="top:0;left:0;" class="special"></a>
+							</div>
+							<p class="text-p">
+							<a href="demo/seven.html" target="_blank">《第七节》</a>
+							<a href="demo/seven3.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+						<li>
+							<div class="imgbox">
+								<a href="demo/eight_note.html" target="_blank">
+								<span class="f-span"></span>
+								<img src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/fLSGRxzj1qWYNBQH4Qt0Sw==/6619378857584492018.jpg_393x262x1.jpg" width="393px" height="262px" alt="4" style="top:0;left:-66px;"></a>
+							</div>
+							<p class="text-p">
+							<a href="demo/eight1.html" target="_blank">《第八节》</a>
+							<a href="demo/eight3.html" target="_blank">黑有有</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<div class="w-slmore">
+					<a href="javascript:void(0);">查看更多&gt;&gt;</a>
+				</div>
+			</div>
+			<!-- end m-artinfo -->
+			<!-- m-artinfo start -->
+			<div class="m-artinfo">
+				<h2 class="w-sltit">明信片作业展</h2>
+				<!-- m-artlist start -->
+				<div class="m-artlist">
+					<ul class="f-cb">
+						<li class="min-li">
+							<div class="min-img">
+								<a href="javascript:void(0);">
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<img src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/NzBu38nMXuG_ijOUJbewVA==/6608599245585546880.jpg_262x176x1.jpg" alt="1"/>
+								</a>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第十七节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+						<li class="min-li">
+							<div class="min-img">
+								<a href="javascript:void(0);">
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<img src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/tvRvzy_HvKSB-H2krQnxOA==/6619447027305554716.jpg_262x176x1.jpg" alt="1"/>
+								</a>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第十八节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+						<li class="min-li">
+							<div class="min-img">
+								<a href="javascript:void(0);">
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<img src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/fjnKJVgqzYiEw0mbwJ8R7g==/6630819276073523963.jpg_262x176x1.jpg" alt="1"/>
+								</a>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第十九节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+						<li class="min-li">
+							<div class="min-img">
+								<a href="javascript:void(0);">
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<img src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/wW8cSreKYfuD8XJ5SoeVyA==/664843895008371293.jpg_262x176x1.jpg" alt="1"/>
+								</a>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第二十节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<!-- end m-artlist -->
+				<!-- m-artlist start -->
+				<div class="m-artlist">
+					<ul class="f-cb">
+						<li class="min-li">
+							<div class="min-img">
+								<a href="javascript:void(0);">
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<img src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/siSA1SdJbGt5E9uNQCe3AA==/6608654221167178277.jpg_262x176x1.jpg" alt="1"/>
+								</a>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第二十一节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+						<li class="min-li">
+							<div class="min-img">
+								<a href="javascript:void(0);">
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<img src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/GAT2TKeGbiSx8n1kxN2aYA==/6619171049886848038.jpg_262x176x1.jpg" alt="1"/>
+								</a>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第二十二节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+						<li class="min-li">
+							<div class="min-img">
+								<a href="javascript:void(0);">
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<img src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/Z4NgS01z61yiFuU5CvSxRA==/6608619036795101720.jpg_262x176x1.jpg" alt="1"/>
+								</a>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第二十三节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+						<li class="min-li">
+							<div class="min-img">
+								<a href="javascript:void(0);">
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<span class="bor"></span>
+									<img src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/iJmEoqOybf30wqLjWqKNCA==/2871326237525936392.jpg_262x176x1.jpg" alt="1"/>
+								</a>
+							</div>
+							<p class="text-p">
+								<a href="javascript:void(0);">《第二十四节》</a>
+								<a href="javascript:void(0);">黑有有</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+				<!-- end m-artlist -->
+				<!-- w-slmore start -->
+				<div class="w-slmore">
+					<a href="javascript:void(0);">查看更多&gt;&gt;</a>
+				</div>
+				<!-- end w-slmore -->
+			</div>
+			<!-- end m-artinfo -->
+		</div>
+		<!--end main-content-->
+		<!-- to-top start -->
+		<div class="to-top" id="to-top">
+			<i class="iconfont">&#xe601;</i>
+		</div>
+		<!-- end to-top -->
+	</div>
+	<!-- end main -->
+	<script src="js/run.js"></script>
+	<script src="js/index.js"></script>
+	<script type="text/javascript">
+		/*left-aside start*/
+		$1("left-aside").addEventListener("mouseover",function(){
+			Run(this,{width:200},50);
+			Run($1("main-content"),{marginLeft:125},50);
+		},false);
+		$1("left-aside").addEventListener("mouseout",function(){
+			Run(this,{width:75},50);
+			Run($1("main-content"),{marginLeft:0},50);
+		},false);
+		/*end left-aside*/
+		//置顶部分，因为引入jquery库影响了上面的banner图播放！！！所以目前暂时没有解决？？？
+		/*to-top start
+		$(function(){
+			$(window).scroll(function(){
+				//获取当前窗口的scrollTop
+				var height = $(this).scrollTop();
+				//当scrollTop大于200时让回到顶部出现
+				if(height>200){
+					$("#to-top").stop(true,true).animate({"opacity":1},300);
+				}else{
+					$("#to-top").stop(true,true).animate({"opacity":0},300);
+				}
+			})
+			//点击到达顶部
+			$("#to-top").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":0},300);
+			})
+			//刷新时置顶
+			$("html,body").load().animate({"scrollTop":0});
+		});
+		/*end to-top
+		*/
+	</script>
+</body>
+</html>

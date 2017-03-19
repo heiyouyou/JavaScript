@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>jQuery版的事件委托</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#box{width:700px;height:340px;text-align:center;border:1px solid red;margin:50px auto 0;}
+</style>
+</head>
+<body>
+	<div id="box">
+		<a href="javascript:void(0);">点我1</a>
+		<a href="javascript:void(0);">点我2</a>
+		<a href="javascript:void(0);">点我3</a>
+		<a href="javascript:void(0);">点我4</a>
+		<span>不要点我</span>
+	</div>
+	<a href="javascript:void(0);" onclick="add();">增加</a>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript">
+		//on(事件名称,指定的目标target元素,回调函数)不填第二个参数，默认是当前触发事件的对象
+		//jQuery版的事件委托
+		/*$("#box").on("click","a",function(){
+			//这里的this指代的是target对象a链接
+			//alert($(this).html());
+			$(this).css({
+				background:"red",
+				padding:"10px",
+				color:"#fff",
+				border:"2px dotted #000"
+			});
+		})*/
+		//模仿jQuery版本的委托事件
+		var Hei = function(id){
+			var dom = document.getElementById(id);
+			return {
+				on:function(eventType,targetElement,callback){
+					dom.addEventListener(eventType,function(ev){
+						//获取目标对象的标签名称
+						var e = ev||event;
+						//兼容ie678的写法
+						var t = e.target||e.srcElement;
+						//如果目标对象的标签名与传递过来的标签名一致
+						if(t.tagName.toLowerCase() == targetElement){
+							//第一个参数表示改变回调函数this的指针，将其指向传递过来的目标元素，第二个参数表示事件类型
+							callback.call(t,e);
+						}
+					},false);
+				}
+			}
+		}
+		Hei("box").on("click","a",function(event){
+				//这里经过call调整重新指向目标对象target
+				this.style.background = "red";
+				this.style.padding = "10px";
+				this.style.color = "#fff";
+				this.style.border ="2px dotted #000";
+				//打印出事件类型
+				//alert(event);
+		});
+		var i=4;
+		function add(){
+			i++;
+			var box = document.getElementById("box");
+			box.innerHTML += "<a href='javascript:void(0);'>点我"+i+"</a>";
+		};
+	</script>
+</body>
+</html>

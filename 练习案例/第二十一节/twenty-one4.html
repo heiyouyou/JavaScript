@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script type="text/javascript">
+		/*
+		//简单工厂模式：
+		var Java = function(content){
+			this.content = content;
+			(function(content){
+				var div = document.createElement("div");
+				div.innerHTML = content;
+				div.style.color = "red";
+				div.style.background = "yellow";
+				document.getElementById("container").appendChild(div);
+			})(content);
+		};
+		var Php = function(content){
+			this.content = content;
+			(function(content){
+				var div = document.createElement("div");
+				div.innerHTML = content;
+				div.style.color = "#111";
+				div.style.background = "gray";
+				document.getElementById("container").appendChild(div);
+			})(content);
+		};
+		var Python = function(content){
+			this.content = content;
+			(function(content){
+				var div = document.createElement("div");
+				div.innerHTML = content;
+				div.style.color = "#ccc";
+				div.style.background = "#eee";
+				document.getElementById("container").appendChild(div);
+			})(content);
+		};
+		//借用语言工厂生产语言对象
+		var LanuageFactory = function(type,content){
+			switch(type){
+				case "java":
+					return new Java(content);
+				case "php":
+					return new Php(content);
+				case "python":
+					return new Python(content);
+			}
+		};
+		var java = new LanuageFactory("java","java很火很火！！！");
+		alert(java instanceof LanuageFactory);//false
+		alert(java.content);//java很火很火！！！*/
+
+		//安全工厂模式
+		var Factory = function(type,content){
+			//判断this是否为Factory的实例
+			if(this instanceof Factory){
+				var s = new this[type](content);
+				//没有new返回的s为undefined；有new返回的s为type类的一个实例
+				return s;
+			}else{
+				//不是Factory就返回创建好的实例
+				return new Factory(type,content);
+			};
+		};
+		Factory.prototype = {
+			Java:function(content){
+				this.content = content;
+				(function(content){
+					var div = document.createElement("div");
+					div.innerHTML = content;
+					div.style.color = "red";
+					div.style.background = "yellow";
+					document.getElementById("container").appendChild(div);
+				})(content);
+			},
+			Php:function(content){
+				this.content = content;
+				(function(content){
+					var div = document.createElement("div");
+					div.innerHTML = content;
+					div.style.color = "#111";
+					div.style.background = "gray";
+					document.getElementById("container").appendChild(div);
+				})(content);
+			},
+			Python:function(content){
+				this.content = content;
+				(function(content){
+					var div = document.createElement("div");
+					div.innerHTML = content;
+					div.style.color = "#ccc";
+					div.style.background = "#eee";
+					document.getElementById("container").appendChild(div);
+				})(content);
+			}
+		};
+		var python = new Factory("Python","Python是一门前十的语言！！！");
+		//用工厂类创建出来的对象不是该类的实例而是看它内部返回的是哪个类的对象
+		alert(python instanceof Factory);//false
+		alert(JSON.stringify(python));//{"content":"Python是一门前十的语言！！！"}
+	</script>
+</body>
+</html>

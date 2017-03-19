@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>作业三</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="box" style="margin:10px auto;"></div>
+	<script type="text/javascript">
+		function $(param){
+			var p = typeof param;//经过typeof var p = typeof param == "string" 变成了字符串类型
+			if(p.toUpperCase() == "STRING"){
+				return document.getElementById(param);			
+			}
+		}
+		$("box").style.width = "100px";
+		$("box").style.height = "100px";
+		$("box").style.border = "1px solid red";
+		$("box").style.background = "#ddd";
+	</script>
+</body>
+</html>

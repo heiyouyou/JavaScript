@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			组合式继承：类式与构造继承的结合；
+			优点：将相互的缺点都去掉了！！！
+			缺点：父类构造函数（当构造函数很复杂时，不利于代码执行效率）至少执行两次
+		*/
+		function SuperClass(name){
+			this.name = name;
+			this.books = ["javascript","css","Java"];
+		};
+		SuperClass.prototype.getName = function(){
+			alert(this.name);
+		};
+		//类式继承（第一次父类构造函数执行）
+		SubClass.prototype = new SuperClass();
+		//构造函数继承
+		function SubClass(name,time){
+			//第二次父类构造函数执行
+			SuperClass.call(this,name);
+			this.time = time;
+		};
+		//调整子类对象的构造器
+		SubClass.prototype.constructor = SubClass;
+		SubClass.prototype.getTime = function(){
+			alert(this.time);
+		};
+		var instance1 = new SubClass("js",2012);
+		instance1.books.push("html5");
+		alert(instance1.books);
+		instance1.getName();
+		instance1.getTime();
+
+		var instance2= new SubClass("css",2013);
+		alert(instance2.books);
+		instance2.getName();
+		instance2.getTime();
+
+		var instance3= new SubClass("php",2014);
+		alert(instance3.books);
+		instance3.getName();
+		instance3.getTime();
+		//子类原型指向了父类的实例，所以构造器也发生了改变
+		alert(instance2.constructor);
+	</script>
+</body>
+</html>

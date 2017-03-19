@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>对parentNote的认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="box" style="width:100px;margin:20px auto;">
+		<p>前面</p>
+		<ul id="list">
+			<li >1</li>
+			<li>2</li>
+			<li id="li">3</li>
+			<li>4</li>
+		</ul>
+		<p>后面</p>
+	</div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var ulDom = document.getElementById("list");
+			//alert(ulDom.parentNode.id);//parentNode是获取ulDom对象元素的父节点div
+			var liDom = document.getElementById("li");
+			/*var liDoms = liDom.parentNode.children;//通过父节点获取ul下的元素节点
+			for(var i=0;i<liDoms.length;i++){//类似jQuery里的sibling()方法
+				if(liDoms[i]!=liDom){//通过遍历与id叫li的liDom元素匹配，匹配不上就添加以下样式
+					liDoms[i].style.color = "red";
+				}
+			}*/
+			//封装以上的方法
+			function sibling(obj,callback){
+				var liDoms = obj.parentNode.children;
+				for(var i=0;i<liDoms.length;i++){
+					if(liDoms[i]!=obj){
+						callback.call(liDoms[i]);//通过call()函数来返回一个对象给callback调用样式
+					}
+				}
+			}
+			sibling(liDom,function(){
+				this.style.border = "1px solid red";//this表示给call()返回回来的对象要添加样式的元素
+				this.style.background = "#eee";
+			});
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+@charset "utf-8";
+.box{background:#fff;height:700px;position:relative;}
+/*nav start*/
+.nav{width:45px;height:700px;background:#2a2a2a;position:fixed;top:0;left:0;}
+.nav .nav_a{display:block;width:100%;height:45px;text-align:center;line-height:45px;font-size:20px;color:#999;font-weight:500;}
+.nav .first_a{background-color:#e78170;color:#fff;text-shadow:0 1px 0 #de533a;}
+.nav .nav_a:hover{background-color:#f49484;color:#fff;transition:all .5s ease;}
+/*end nav*/
+/*right_text start*/
+.right_text{height:45px;position:fixed;top:0;right:0;background:#fff;}
+.right_text .right_a{display:block;width:50px;height:100%;float:left;color:#555;font-size:14px;text-align:center;line-height:45px;margin-right:5px;}
+.right_text .right_a:hover{color:#111;}
+/*end right_text*/
+/*sign_box start*/
+.sign_box{width:940px;height:100%;margin:10px auto;}
+.sign_box .title{border-bottom:1px solid #eeeeee;text-align:center;padding:120px 0 38px;}
+.sign_box .title .a-p{position:relative;top:53px;left:50%;margin-left:-50px;width:100px;background:#fff;}
+.sign_box .title .a-p a{display:inline-block;padding:5px;font-size:18px;color:#b1b1b1;}
+.sign_box .title .a-p a:hover{color:#555 !important;}
+.sign_box .title .a-p a.sign_a{color:#555;}
+.sign_box .sign_form{width:400px;height:500px;margin:30px auto;background:#fff;padding:30px 45px 10px;box-sizing:border-box;}
+.sign_box .sign_form .inp{width:250px;height:45px;font-size:14px;border:1px solid #ccc;box-shadow:0 0 1px #ccc;color:#ccc;padding-left:10px;}
+.sign_box .sign_form .sign_div{margin-bottom:20px;}
+.sign_box .sign_form .sign-img{float:left;width:45px;height:45px;background:#eee;background:#fff;border:1px solid #ccc;border-right:none;box-shadow:0 0 1px #ccc;text-align:center;line-height:45px;}
+.sign_box .sign_form .sign_btn{width:308px;height:47px;font-size:16px;text-align:center;line-height:47px;background:#49be38;border:1px solid #6bd95b;color:#fff;cursor:pointer;}
+.sign_box .sign_form .sign_btn:hover{background:#6bd95b;}
+.sign_box .sign_form .bottom_text{margin-top:15px;color:#9d9d9d;}
+.sign_box .sign_form .bottom_text a{color:#555;font-weight:bold;}
+.sign_box .sign_form .bottom_text a:hover{color:#111;}
+/*end sign_box*/
+/*ways start*/
+.ways{border-top:1px solid #eee;margin-top:20px;padding:10px 0 0;}
+.ways p{color:#999;font-size:14px;text-align:center;padding:10px 0;}
+.ways .ways_ul li{width:44px;height:44px;float:left;margin-left:16px;background:#eee;border-radius:50%;}
+.ways .ways_ul li:hover{background:#15a7f0;}
+.ways .ways_ul li a{display:block;color:#555;text-align:center;line-height:44px;}
+.ways .ways_ul li a .iconfont{font-size:22px;}
+.ways .ways_ul li:hover a .iconfont{color:#fff;}
+/*end ways*/
+.warming{width:310px;height:0;position:fixed;top:30px;left:38%;border-radius:10px;background:#E78170;opacity:0;transition:all .5s ease;text-align:center;line-height:50px;color:#fff;font-size:14px;}

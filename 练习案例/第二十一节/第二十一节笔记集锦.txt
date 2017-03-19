@@ -1,0 +1,428 @@
+		/*
+			多态：一种方法的不同表现形式（体现形式/执行状态）
+		*/
+		/*function add(){
+			//接收函数传入的不定参数
+			var arg = arguments,len = arguments.length;
+			switch(len){
+				//不传入参数
+				case 0:
+					return 10;
+				//传入1个参数
+				case 1:
+					return 10+arg[0];
+				//出入2个参数
+				case 2:
+					return arg[0]+arg[1];
+			};
+		};
+		alert(add(1));*/
+		function Add(){
+			//私有方法（默认的方法）
+			function zero(){
+				return 10;
+			};
+			function one(num1){
+				return 10+num1;
+			};
+			function two(num1,num2){
+				return num1+num2;
+			};
+			//实例的方法
+			this.add = function(){
+				var arg = arguments,len = arguments.length;
+				switch(len){
+					case 0:
+						return zero();
+					case 1:
+						return one(arg[0]);
+					case 2:
+						return two(arg[0],arg[1]);
+				};
+			};
+		};
+		var a = new Add();
+		alert(a.add());//10
+		alert(a.add(10));//20
+		alert(a.add(10,1));//11
+
+		//单继承；值类型可以被覆盖，引用类型不能被覆盖？？？
+		/*var json = {username:"wells",age:19,handsome:true};
+		var json1 = {username:"hei",age:21,hobby:"打篮球"};
+		//对象的混入
+		function mix(json,json1){
+			//for……in难道json1对象里的属性将其传承给json
+			for(var key in json1){
+				//相同的被覆盖，没有的继承下来
+				json[key] = json1[key];
+			};
+			//重新返回继承后的json
+			return json;
+		};
+		//JSON.stringify()可以将json对象变成字符串，但是toString()不能将其变成字符串
+		console.log(JSON.stringify(mix(json,json1)))//{"username":"hei","age":21,"handsome":true,"hobby":"打篮球"};*/
+
+		//多继承
+		function mix(){
+			var arg = arguments,len = arguments.length;
+			//从传入的下标为1开始被继承的对象
+			var i = 1;
+			//找到下标为0的继承对象（需要扩展的对象）
+			var target = arg[0];
+			//遍历需要被继承的对象
+			for(;i<len;i++){
+				var a = arg[i];
+				//遍历被继承对象的属性传承给继承对象
+				for(var key in a){
+					target[key] = a[key];
+				};
+			};
+			//返回已经实现继承后的对象
+			return target;
+		};
+		var json = {username:"wells",age:21};
+		var json1 = {username:"free",age:18};
+		var json2 = {hobby:"basketball",handsome:true};
+		console.log(JSON.stringify(mix(json,json1,json2)));//"username":"free","age":18,"hobby":"basketball","handsome":true}
+
+		/*function mix(json){
+			//返回
+			var pt = $.extend({},defaults,json);
+			//默认的对象
+			var defaults = {
+				height:200px,
+				width:100px,
+				background:#fff,
+				padding:5px
+			};
+		};
+		//用户传入的数据对象最高
+		mix({
+			height:100px,
+			width:200px,
+			background:red,
+			padding:10px
+		});*/
+
+		/*
+			简单工厂模式：又叫静态工厂模式，由一个工厂对象决定创建某一种产品对象类的实例，主要用来创建同一类对象
+		*/
+		var Baseketball = function(){
+			this.infor = "科比2016年4月14日退役！！！";
+		};
+		Baseketball.prototype = {
+			getMember:function(){
+				console.log("每个人都很怀念科比");
+			},
+			getBallSize:function(){
+				console.log("篮球对他说再见了………")
+			}
+		};
+		var Football = function(){
+			this.infor = "足球盛行于意大利";
+		};
+		Football.prototype = {
+			getMember:function(){
+				console.log("每个队伍11人");
+			},
+			getBallSize:function(){
+				console.log("足球很大");
+			}
+		}; 
+		/*var ball = new Baseketball();
+		alert(ball.infor);
+		ball.getMember();
+		ball.getBallSize();*/
+		//借用运动工厂生产需要的球类
+		var SportsFactory = function(name){
+			switch(name){
+				case "NBA":
+					//借用篮球类创建对象返回出去
+					return new Baseketball();
+				case "WordCup":
+					return new Football();
+			}
+		};
+		var football = new SportsFactory("WordCup");
+		alert(football instanceof Football);//true
+		alert(football.infor);//足球盛行于意大利
+		football.getMember();//每个队伍11人
+
+/*
+		//简单工厂模式：
+		var Java = function(content){
+			this.content = content;
+			(function(content){
+				var div = document.createElement("div");
+				div.innerHTML = content;
+				div.style.color = "red";
+				div.style.background = "yellow";
+				document.getElementById("container").appendChild(div);
+			})(content);
+		};
+		var Php = function(content){
+			this.content = content;
+			(function(content){
+				var div = document.createElement("div");
+				div.innerHTML = content;
+				div.style.color = "#111";
+				div.style.background = "gray";
+				document.getElementById("container").appendChild(div);
+			})(content);
+		};
+		var Python = function(content){
+			this.content = content;
+			(function(content){
+				var div = document.createElement("div");
+				div.innerHTML = content;
+				div.style.color = "#ccc";
+				div.style.background = "#eee";
+				document.getElementById("container").appendChild(div);
+			})(content);
+		};
+		//借用语言工厂生产语言对象
+		var LanuageFactory = function(type,content){
+			switch(type){
+				case "java":
+					return new Java(content);
+				case "php":
+					return new Php(content);
+				case "python":
+					return new Python(content);
+			}
+		};
+		var java = new LanuageFactory("java","java很火很火！！！");
+		alert(java instanceof LanuageFactory);//false
+		alert(java.content);//java很火很火！！！*/
+
+		//安全工厂模式
+		var Factory = function(type,content){
+			//判断this是否为Factory的实例
+			if(this instanceof Factory){
+				var s = new this[type](content);
+				//没有new返回的s为undefined；有new返回的s为type类的一个实例
+				return s;
+			}else{
+				//不是Factory就返回创建好的实例
+				return new Factory(type,content);
+			};
+		};
+		Factory.prototype = {
+			Java:function(content){
+				this.content = content;
+				(function(content){
+					var div = document.createElement("div");
+					div.innerHTML = content;
+					div.style.color = "red";
+					div.style.background = "yellow";
+					document.getElementById("container").appendChild(div);
+				})(content);
+			},
+			Php:function(content){
+				this.content = content;
+				(function(content){
+					var div = document.createElement("div");
+					div.innerHTML = content;
+					div.style.color = "#111";
+					div.style.background = "gray";
+					document.getElementById("container").appendChild(div);
+				})(content);
+			},
+			Python:function(content){
+				this.content = content;
+				(function(content){
+					var div = document.createElement("div");
+					div.innerHTML = content;
+					div.style.color = "#ccc";
+					div.style.background = "#eee";
+					document.getElementById("container").appendChild(div);
+				})(content);
+			}
+		};
+		var python = new Factory("Python","Python是一门前十的语言！！！");
+		//用工厂类创建出来的对象不是该类的实例而是看它内部返回的是哪个类的对象
+		alert(python instanceof Factory);//false
+		alert(JSON.stringify(python));//{"content":"Python是一门前十的语言！！！"}
+
+
+//闭包组件封装
+(function($){
+	$.tzDialog = {
+		//定义一个层级变量用来分层显示弹出层
+		zIndex:100,
+		//剔除所有按钮的弹出框
+		CancelAll:function(options){
+			var $dialog = this.init(options);
+			$dialog.find(".cancel,.sure").remove();
+		},
+		//剔除取消按钮的弹出框
+		SureBtn:function(options){
+			var $dialog = this.init(options);
+			$dialog.find(".cancel").remove();
+		},
+		//剔除确认按钮的弹出框
+		CancelBtn:function(options){
+			var $dialog = this.init(options);
+			$dialog.find(".sure").remove();
+		},
+		//保留所有按钮的弹出框
+		AllBtn:function(options){
+			this.init(options);
+		},
+		//弹出框的初始化
+		init:function(options){
+			//每次调用init()zIndex都会自加1
+			this.zIndex++;//this指向$.tzDialog
+			//扩展一个弹出框要改变内容和样式的对象
+			var opts = $.extend({},$.tzDialog.defaults,options);
+			//声明一个变量接收返回的对象
+			var $dialog = this.template(opts);
+			this._position($dialog);
+			this._resize($dialog);
+			this._event($dialog,opts);
+			//先判断是否允许拖动
+			if(opts.drag)this._drag($dialog);
+			//最终改变弹出框和阴影层的样式
+			$dialog.css({
+				width:opts.width,
+				height:opts.height,
+				background:opts.background,
+				border:opts.border,
+				padding:opts.padding,
+				margin:opts.margin,
+				zIndex:this.zIndex//this指向$.tzDialog
+			}).next().css("zIndex",this.zIndex-1);//改变阴影层的层级
+			//返回弹出框对象
+			return $dialog;
+		},
+		//弹出框的模板
+		template:function(opts){
+			//创建弹出框（可以自定义更改）
+			var $dialog = $("<div class='dialog'>"+
+		"		<div class='header'>"+
+		"			<span>"+opts.title+"</span>"+
+		"			<a href='javascript:void(0);' class='close'><i class='iconfont'>&#xe607;</i></a>"+
+		"		</div>"+
+		"		<div class='content'>"+
+		"			"+opts.content+""+
+		"		</div>"+
+		"		<div class='button'>"+
+		"			<a href='javascript:void(0);' class='sure'>确认</a>"+
+		"			<a href='javascript:void(0);' class='cancel'>取消</a>"+
+		"		</div>"+
+		"	</div>");
+		//将弹出框以及阴影层放进body中
+		$("body").append($dialog).append("<div class='overlay'></div>");
+		//返回创建好的弹出框对象
+		return $dialog;
+		},
+		//弹出框始终居中浏览器
+		_position:function($dialog){
+			//使弹出框水平居中
+			var left = ($(window).width() - $dialog.get(0).offsetWidth)/2;
+			//使弹出框垂直居中
+			var top = ($(window).height() - $dialog[0].offsetHeight)/2;
+			//给弹出框添加居中样式
+			$dialog.css({left:left,top:top});
+		},
+		//窗口变化事件
+		_resize:function($dialog){
+			//this指向$.tzDialog
+			var $this = this;
+			//窗口变化弹出框始终居中
+			$(window).resize(function(){
+				$this._position($dialog);
+			});
+		},
+		//同步鼠标移动与弹出框的坐标位置
+		_drag:function($dialog){
+			//给弹出框头部绑定点击事件
+			$dialog.find(".header").mousedown(function(ev){
+				var e = ev||window.event;
+				//拿到点击位置与弹出框位置坐标的差值即是点击位置距离弹出框边的距离
+				/*//不考虑页面滚动
+				var x = e.clientX - $dialog.offset().left;
+				var y = e.clientY - $dialog.offset().top;*/
+				//考虑页面滚动条
+				var x = e.pageX - $dialog.offset().left;
+				var y = e.pageY - $dialog.offset().top;
+				//给document绑定鼠标移动事件而不是给弹出框$dialog绑定
+				$(document).mousemove(function(ev){
+					var e = ev||window.event;
+					//获取鼠标移动时弹出框距离浏览器窗口的距离
+					/*不考虑页面滚动
+					var l = e.clientX - x;
+					var t = e.clientY - y;*/
+					//考虑页面滚动条
+					var l = e.pageX - x;
+					var t = e.pageY - y;
+					/*//拿到弹出框可以移动的最大水平距离（但不包括border和padding）
+					var maxL = $(window).width() - $dialog.width();
+					//拿到弹出框可以移动的最大垂直距离（但不包括border和padding）
+					var maxT = $(window).height() - $dialog.height();*/
+
+					/*//拿到弹出框可以移动的最大水平距离（包括border和padding）
+					var maxL = $(window).width() - $dialog.outerWidth();
+					//拿到弹出框可以移动的最大垂直距离（包括border和padding）
+					var maxT = $(window).height() - $dialog.outerHeight();*/
+
+					//拿到弹出框可以移动的最大水平距离（包括border和padding）
+					var maxL = $(window).width() - $dialog.get(0).offsetWidth;
+					//拿到弹出框可以移动的最大垂直距离（包括border和padding）
+					var maxT = $(window).height() - $dialog[0].offsetHeight;
+					//防止弹出框移出浏览器的情况
+					if(l<0)l=0;
+					if(t<0)t=0;
+					if(l>maxL)l=maxL;
+					if(t>maxT)t=maxT;
+					//给弹出框动态添加坐标位置的样式
+					$dialog.css({top:t,left:l});
+				}).mouseup(function(){
+					//解绑事件
+					$(this).off("mousemove");
+					//有没有都没影响
+					$(this).off("mouseup");
+				}).mousedown(function(){
+					return false;//阻止点击过程被选中的默认事件
+				});
+			});
+		},
+		//点击各种按钮触发的效果
+		_event:function($dialog,opts){
+			//点击确认按钮和关闭按钮
+			$dialog.find(".sure,.close").on("click",function(){
+					//先消除阴影层，再消除弹出框
+					if(opts.callback){//先判断是否有回调函数传入
+						opts.callback.call($dialog,true);//用call调整回调函数callback中的this指向$dialog为其添加样式
+					}
+					$dialog.next().remove();
+					$dialog.remove();
+				}
+			);
+			//点击取消按钮
+			$dialog.find(".cancel").on("click",function(){
+				if(opts.callback){
+					opts.callback.call($dialog,false);
+				};
+			});
+			//点击阴影层消除弹出框和阴影层
+			if(opts.overlayClick){//先判断能否点击阴影层触发效果
+				$dialog.next().click(function(){
+					$(this).remove();
+					$dialog.remove();
+				});
+			}
+		},
+	};
+	//弹出框初始的默认样式和内容
+	$.tzDialog.defaults = {
+		title:"您要删除吗？",
+		content:"不要删除我好吗？",
+		width:320,
+		height:200,
+		background:"red",
+		border:"10px solid yellow",
+		drag:true,//true为默认可以拖动弹出框，false则为不可以拖动弹出框
+		overlayClick:true//默认可以点击阴影层消除弹出框和阴影层
+	};
+})(jQuery);//jQuery是一个有意义的实参

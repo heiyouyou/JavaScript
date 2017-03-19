@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>简易的聊天窗口</title>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;word-wrap:break-word;background:#E2DFD5;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	.box{width:900px;background:#ededed;margin:30px auto;box-shadow:0 0 1px #ddd;}
+	#window{width:300px;height:400px;background:#ededed;margin:0 auto;border:1px solid red;padding:5px;border-radius:10px;}
+	.text-box{margin-top:40px;}
+	.txt{width:200px;height:100px;font-size:16px;vertical-align:middle;box-shadow:0 0 2px #ccc;background:#eee;}
+	.btn{height:50px;width:50px;border-radius:10px;background:#efefef;}
+</style>
+</head>
+<body>
+	<div class="box">
+		<div class="text-box" style="float:left;margin-left:10px;"><textarea class="txt" id="txt1"></textarea><input type="submit" class="btn" id="btn1" value="发送"></div>
+		<div class="text-box" style="float:right;margin-right:10px;"><input type="submit" class="btn" id="btn2" value="发送"><textarea class="txt" id="txt2"></textarea></div>
+		<div id="window"></div>
+	</div>
+	<script type="text/javascript">
+		function $(id){
+			return document.getElementById(id);
+		};
+		//用户1聊天窗口
+		$("btn1").onclick = function(){
+			user1();
+		};		
+		$("txt1").onkeyup = function(ev){
+			var e = ev||event;
+			if(e.keyCode == 13){
+				user1();
+			}
+		}
+		function user1(){
+			var text1 = $("txt1").value;
+			$("txt1").value = "";
+			$("txt1").focus();
+			if(text1.trim()){
+				var p1 = document.createElement("p");
+				p1.innerHTML = "<span style='color:red;font-size:16px;'>"+text1+"</span>";
+				$("window").appendChild(p1);
+			}
+		};
+		//用户2聊天窗口
+		$("btn2").onclick = function(){
+			user2();
+		};
+		$("txt2").onkeyup = function(ev){
+			var e = ev||event;
+			if(e.keyCode == 13){
+				user2();
+			}
+		};
+		function user2(){
+			var text2 = $("txt2").value;
+			$("txt2").value = "";
+			$("txt2").focus();
+			if(text2.trim()){
+				var p2 = document.createElement("p");
+				p2.style.cssText = "text-align:right;";
+				p2.innerHTML = "<span style='color:blue;font-size:16px;'>"+text2+"</span>";
+				$("window").appendChild(p2);
+			}
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var arr = [1,2,3];
+		//arr.push(4,5,6);
+		Array.prototype.push = function(){
+			for(var i=0;i<arguments.length;i++){
+				//在调用数组对象长度的位置添加值
+				this[this.length] = arguments[i];
+			}
+		};
+		/*Array.prototype.push = function(){
+			alert("此方法不完善");
+		};*/
+		arr.push(4,5,6);
+		/*
+			包装对象：所有的基本类型都有自己对应的包装对象如：String Number Boolean
+			注意：当基本类型在执行方法的时候，会找到对应的包装对象，然后包装对象再去找对应的方法，最后执行完毕包装对象消失
+		*/
+		//alert(arr);
+		//var str = "abc";
+		//alert(str.charAt(1));
+		//var str = new String("1234abc");
+		//alert(typeof str);//输出Object
+		/*String.prototype.charAt = function(index){
+			var s = this[index];
+			return s;
+		};*/
+		var str = "123abcfds";//这样子创建的字符串是属于一个临时对象
+		alert(str.charAt(6));
+		str.number = 10;
+		alert(str.number);//输出undefined
+	</script>
+</body>
+</html>

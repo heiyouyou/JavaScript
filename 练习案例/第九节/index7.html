@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>对offsetParent与offsetLeft的认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#div1{width:500px;padding:50px;background:red;position:relative;}
+	#div2{width:400px;padding:50px;background:green;}
+	#div3{width:300px;padding:50px;background:gray;border:1px solid red;}
+</style>
+</head>
+<body id="body">
+	<div id="div1">
+		<div id="div2">
+			<div id="div3" style="height:200px;"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var oDiv3 = document.getElementById("div3");
+		var oDiv4 = document.getElementById("div4");
+		//alert(oDiv3.offsetParent.tagName);//offsetParent返回的是具有定位基点的父节点(元素)，如果没有设有定位基点父节点就以body为offsetParent,可是ie67因为有layout属性所以不管它的基点设给谁offsetParent总是它的直接父类
+		//alert(oDiv3.offsetLeft)//offsetLeft就是返回对象元素oDiv3到有定位基点的offsetParent的父节点的左边距，这个是没有单位的一个值，但是给自己本身加定位基点与没有加一样(除了ie67)，offsetLeft还是到offsetParent的左边距，但是ie67不管你给谁加定位基点它的offseftLeft还是到直接父节点的左边距，如果在ie67中元素给自己加定位基点，它的offsetLeft就是距父类offsetParent的左边距了
+		//alert(oDiv3.offsetTop);
+		//alert(oDiv3.style.height);//拿到的是内联样式中的height
+		//alert(oDiv3.clientHeight);//拿到的是height+padding的值不包括border,称之为可视高度
+		//alert(oDiv3.clientWidth);//clientWidth与clientHeight一样
+		//alert(oDiv3.offsetHeight);//拿到的height+padding+border的值，称之为真是高度
+		//alert(oDiv3.offsetWidth);//offsetWidth和offsetHeight一样
+		//注意:offsefWidth、offsetHeight offsetLeft offsetTop等都是不带单位的
+
+		function offset(obj){//得到obj到页面顶部或者左部绝对距离
+			var pos = {"left":0,"top":0};
+			while(obj){
+				pos.left += obj.offsetLeft;
+				pos.top += obj.offsetTop;
+				obj = obj.offsetParent;
+			}
+			return pos;
+		}
+
+		alert(offset(oDiv3).left);//50+50
+		alert(offset(oDiv3).top);//
+	</script>
+</body>
+</html>

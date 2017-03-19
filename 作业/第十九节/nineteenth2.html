@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			继承的条件：
+			1：子类可以使用父类的方法属性
+			2：子类的改变（方法、属性）不会影响父类
+			3：父类使用不了子类的方法或属性
+		*/
+		function Person(name){
+			this.name = name;
+		}; 
+		Person.prototype.showName = function(){
+			alert(this.name);
+		};
+		var p1 = new Person("黑黑");
+		//p1.showName();
+		function PersonAge(name,age){
+			Person.call(this,name);
+			this.age = age;
+		};
+		/*
+			子类的原型指向父类原型的地址：PersonAge.prototype = Person.prototype;
+			注意：这种情况会导致子类原型发生改变父类原型也会发生改变	
+		*/
+		//PersonAge.prototype = Person.prototype;
+		//这种方法解决了子类原型改变不会影响到父类原型的问题
+		//PersonAge.prototype = extend(Person.prototype);
+		extend(PersonAge.prototype,Person.prototype);
+		PersonAge.prototype.showAge = function(){
+			alert(this.age);
+		};
+		PersonAge.prototype.showName = function(){
+			alert(1);
+		};
+		var p2 = new PersonAge("wells",21);
+		p2.showName();
+		p2.showAge();
+		p1.showName();
+		//用于决子类指向父类时子类变化影响父类变化的方法
+		function extend(obj,newObj){
+			//var newObj = {};
+			for(var key in obj){
+				newObj[key] = obj[key];
+			}
+			//返回一个新对象出去
+			//return newObj;
+		};
+	</script>
+</body>
+</html>

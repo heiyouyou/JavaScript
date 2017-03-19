@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background:#111;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script type="text/javascript">
+		//alert(new Date());//new Date()是一个obj对象，返回的是当前系统格林时间
+		//var time = new Date();
+		//alert(typeof time);
+		//alert(Number(time));
+		//alert(time.getTime())//getTime()方法可返回指定的日期距1970年1月1日之间的毫秒数。
+		//alert(time.getFullYear());//可获取time的年份
+		//alert(time.getMonth()+1);//getMonth()获取time的月份，不过它返回的是从0到11的数字，所以0代表1月，以此类推11月代表12月
+		//alert(time.getDate());//getDate()获取的是time的日期
+		//alert(time.getDay());//getDay()获取的是time的星期,注意0代表星期天
+		//alert(time.getHours());//getHours()获取time的小时
+		//alert(time.getMinutes());//getMinutes()获取分钟
+		//alert(time.getSeconds());//getSeconds()获取秒数
+		//alert(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds());
+		window.onload = function(){
+			function time(){
+				var oBox = document.getElementById("box");
+				var time = new Date();
+				var year = time.getFullYear();
+				var month = time.getMonth()+1;
+				var date = time.getDate();
+				var day = time.getDay();
+				var hours = time.getHours();
+				var min = time.getMinutes();
+				var sec = time.getSeconds();
+				switch(day){
+					case 0:
+					day = "星期天";
+					break;
+					case 1:
+					day = "星期一";
+					break;
+					case 2:
+					day = "星期二";
+					break;
+					case 3:
+					day = "星期三";
+					break;
+					case 4:
+					day = "星期四";
+					break;		
+					case 5:
+					day = "星期五";
+					break;
+					case 6:
+					day = "星期六";
+					break;
+				}
+				/*if(sec<10){
+					sec = "0"+sec;
+				}*/
+				function two(n){//将分秒小于10时变成两位数
+					/*if(n<10){
+						n = "0"+n;
+					}*/
+					n<10?n="0"+n:n;
+					return n;
+				};
+				oBox.innerHTML = year+"年"+month+"月"+date+"日"+day+two(hours)+":"+two(min)+":"+two(sec);
+				oBox.style.cssText = "width:250px;height:50px;line-height:50px;box-shadow:0 0 8px #eee;border-radius:10px;margin:20px auto;color:red;font-size:14px;background:#eee;text-align:center;"
+			};
+			time();
+			setInterval(time,1000);
+		};
+
+	</script>
+</body>
+</html>

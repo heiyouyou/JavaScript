@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#div1{width:400px;padding:50px;background:yellow;}
+	#div2{padding:50px;background:blue;}
+	#div3{padding:50px;background:pink;}
+</style>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2">
+			<div id="div3"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var oDiv1 = document.getElementById("div1");
+		var oDiv2 = document.getElementById("div2");
+		var oDiv3 = document.getElementById("div3");
+
+		//attachEvent(事件名称，函数名字);只有ie678支持，当绑定多个事件时，执行的顺序是：先弹后绑定的再弹先绑定的
+		/*oDiv1.attachEvent("onclick",fn);
+		oDiv1.attachEvent("onclick",fn1)*/
+		//addEventListener(事件名称，函数名字,是否捕获);只有其他浏览器支持(包括ie9+);第一个参数事件不带on,第三个参数不填相当于false,当绑定多个事件时，执行的顺序是：先弹先绑定的再弹后绑定的
+		/*oDiv1.addEventListener("click",fn,false);
+		oDiv1.addEventListener("click",fn1,false);*/
+		/*function fn(){
+			alert(1);
+		};
+		function fn1(){
+			alert(2);
+		};*/
+		//attachEvent的this指向问题，需要call/apply来解决用法：方法名称.call(obj);
+		//这样就可以将方法里面this指向为括号里面传入的obj对象
+		//兼容写法
+		/*function bind(obj,eName,fn){
+			if(obj.addEventListener){
+				//obj.addEventListener(eName,fn,false);//如果只是传入一个函数名fn,this就指代当前调用函数的obj
+				obj.addEventListener(eName,function(){
+					fn.call(obj);//如果函数是这样执行时利用call将this重新指向obj,要不然就是undefined
+				},false);
+			}else{
+				//obj.attachEvent("on"+eName,fn);//如果只传入函数名fn，this指代不明也是会报错的
+				obj.attachEvent("on"+eName,function(){
+					fn.call(obj);//如果函数是这样执行时利用call将this重新指向obj,要不然就是报错
+				});
+			}
+		};
+		bind(oDiv3,"click",fn2);
+		function fn2(){
+			alert(this.id);	
+		};*/
+
+		//经典面试题
+		var username = "heihei111";
+		function test(a,b){
+			alert(this.username+(a+b));//当没有用call或者apply时这里的this指代window,所以username = "heihei111"
+		}
+		var Ellen = {
+			username:"heihiehiehi",
+			age:18,
+			sayHello:function(){
+				//alert(this.username+"===="+this.age);//这里的this指代Ellen
+				//test();//heihei111NaN如果是这样执行this指代window
+				//test.call(Ellen);//heihiehiehiNaN如果是这样经call调整this指代Ellen,也可以test().apply(Ellen)
+				//test.apply(Ellen,[2,6])//heihiehiehi8或者test.call(Ellen,2,6)	
+			}
+		};
+		Ellen.sayHello();
+	</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>向上与向左banner普通版轮播图</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	/*ul,li{list-style:none;float:left;}*/
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	/*box start*/
+	#box{width:700px;height:300px;margin:50px auto;overflow:hidden;position:relative;}
+	#imgbox{width:1000%;position:absolute;}
+	#imgbox li img{width:700px;height:300px;vertical-align:top;}
+	#list{width:120px;height:30px;position:absolute;bottom:10px;left:50%;margin-left:-60px;}
+	#list li{width:20px;height:20px;background:#000;color:#fff;text-align:center;line-height:20px;border-radius:50%;margin:5px;cursor:pointer;float:left;}
+	#list .on{background:gray;}
+	/*box end*/
+</style>
+</head>
+<body>
+	<!--box start-->
+	<div id="box">
+		<ul id="imgbox">
+			<li><img src="images/1.jpg"/></li>
+			<li><img src="images/2.jpg"/></li>
+			<li><img src="images/3.jpg"/></li>
+			<li><img src="images/4.jpg"/></li>
+		</ul>
+		<ul id="list">
+			<li class="on">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+	<!--box end-->
+	<script src="js/run.js"></script>
+	<script type="text/javascript">
+		var btns = $("list").children;
+		var imgs = $("imgbox").children;
+		var timer = null;
+		var cindex = 0;
+		//拿到每张图片的宽度
+		var width = imgs[0].offsetWidth;
+		//拿到每张图片的高度
+		var height = imgs[0].offsetHeight;
+		for(var i =0;i<btns.length;i++){
+			btns[i].index = i;
+			btns[i].onmouseover = function(){
+				//遍历去除所有样式
+				for(var i=0;i<btns.length;i++){
+					btns[i].className = "";
+				}
+				//点击谁再添加样式
+				this.className = "on";
+				//调用动画
+				//Run($("imgbox"),{left:-width*this.index},30);
+				Run($("imgbox"),{top:-height*this.index},30);
+				//自动索引与按钮索引同步
+				cindex = this.index;
+			}
+		}
+		timer = setInterval(autoPlay,3000);
+		function autoPlay(){
+			cindex++;
+			//当等于长度时从头开始切换
+			if(cindex==4){
+				cindex=0;
+			}
+			for(var i=0;i<btns.length;i++){
+				btns[i].className = "";
+			}
+			btns[cindex].className = "on";
+			//Run($("imgbox"),{left:-width*cindex},30);
+			Run($("imgbox"),{top:-height*cindex},30);
+		};
+		//清除定时器
+		$("box").onmouseover = function(){
+			clearInterval(timer);
+		}
+		//触发定时轮播
+		$("box").onmouseout = function(){
+			//这里注意得重新给timer赋值
+			timer = setInterval(autoPlay,3000);
+		}
+	</script>
+</body>
+</html>

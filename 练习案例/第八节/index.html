@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>样式的权重问题</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#box p.p1{width:100px;height:100px;background:red;}
+	p a.a1:hover{color:blue;}/*1+1+10+10=22*/
+	p.p1 a{color:yellow;}/*1+10+1=12*/
+</style>
+</head>
+<body>
+	<div id="box">
+		<p class="p1">wodhishieyiuf
+			<a class="a1" href="#">我是一个a标签</a>
+		</p>
+	</div>
+	<script type="text/javascript">
+		//内联样式 > id > class > 标签
+		/*
+			------>权重
+			1.内联样式		1000
+			2.id样式		100	
+			3.class样式 = hover样式	10   
+			4.标签样式		1
+		*/
+	</script>
+</body>
+</html>

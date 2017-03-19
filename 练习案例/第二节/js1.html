@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>js六大数据类型</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		//Number类型,不分小数和整数
+		var num = 10.4;
+
+		//String类型,不分单双引号
+		var str = 'tanzhou';
+
+		//boolean类型，只有true和false值
+		var fl = true;
+
+		//object类型
+		var ob = [1,3,"3"];
+		var n = null;
+		var d = new Date();//创建一个系统时间对象,输出的是系统时间
+		var r = new RegExp();
+		var j = {
+			name:"heihei",
+			age:18//注意最后结束没有逗号
+		};
+		j.weight = "40kg";//只有js中能动态的给对象绑定属性
+		//alert(j.weight+"====="+j.name+"====="+j.age);
+		var array = [];
+		//alert(typeof array);
+		//alert(Array.isArray(array));//通过这个来判断是否为数组
+
+		//undefined类型
+		var u;//声明了没赋值就是undefined
+
+		//function类型
+		function show(){
+			alert(11);
+		}
+		//show();//方法的调用或者执行
+		//alert(show);//输出方法整体
+
+	</script>
+</body>
+</html>

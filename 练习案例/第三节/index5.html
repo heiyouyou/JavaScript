@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>script的作用域</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	
+	<script type="text/javascript">
+	//域：范围 最大的域就是script,每个script域都按浏览器解析js代码的步骤运行完,再接着执行下去
+		alert(a);//报错
+		//var a = 1这样子会输出1
+	</script>
+	<script type="text/javascript">
+		var a = 1;
+		//alert(a);
+
+	</script>
+</body>
+</html>

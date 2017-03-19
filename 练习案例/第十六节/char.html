@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>字符串中数字的查找方法</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		var str = "adasd13123asdada12513.+asd13ad1434323446";
+		for(var i=0;i<str.length;i++){
+			//通过charAt(下标)，返回对应下标的字符
+			/*if(str.charAt(i) == parseInt(str.charAt(i))){
+				console.log(str.charAt(i));
+			}*/
+			//charCodeAt(下标)，返回对应下标字符的ascii编码
+			/*if(str.charCodeAt(i)>=48&&str.charCodeAt(i)<=57){
+				console.log(str.charAt(i));
+			}*/
+			//通过比较字符串的大小
+			/*if(str.charAt(i)>="0"&&str.charAt(i)<="9"){
+				console.log(str.charAt(i));
+			}*/
+		}
+		function getNum(str){
+			var arr = [];
+			var res = ""
+			for(var i=0;i<str.length;i++){
+				if(str.charAt(i)>="0" && str.charAt(i)<="9"){
+					res +=str.charAt(i);
+				}else{
+					//排除掉空字符
+					if(res){
+						arr.push(res);
+						//每次push完一个整体的数字字符就清空字符res
+						res = "";
+					}	
+				}
+			}
+			//防止字符串str最后一个字符为数字没有放进数组
+			if(res){
+				arr.push(res);
+			}
+			return arr;
+		};
+		console.log(getNum(str));
+	</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	<button id="btn">点我</button>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		/*
+			适配器模式
+			将一个类（对象）的接口转换成另外一个接口，以满足用户的需求。使得类（对象）之间的不兼容问题得以解决
+		*/
+		//适配异类框架 如适配A类框架（js）用jQuery
+		//var A = A||{};
+		/*//获取id
+		A.g = function(id){
+			return document.getElementById(id);
+		};
+		A.on = function(id,type,fn){
+			//判断传入的id是id名还是元素对象；
+			var dom = typeof id === "string"?this.g(id):id;
+			if(dom.addEventListener){//ie9+
+				dom.addEventListener(type,fn,false);
+			}else if(dom.attachEvent){//包括ie8以下
+				dom.attachEvent("on"+type,fn);
+			}else{//早期浏览器
+				dom["on"+type] = fn;
+			};
+		};
+		//调用
+		A.on(window,"load",function(){
+			A.on("btn","click",function(){
+				alert(3);
+			});
+		});*/
+		//适配成jQuery版
+		/*A.g = function(id){
+			return $("#"+id);
+		};
+		A.on = function(id,type,fn){
+			var dom = typeof id === "string"?this.g(id):$(id);
+			dom.on(type,fn);//调用jQuery对象的方法on
+		};
+		A.on(window,'load',function(){
+			A.on("btn","click",function(){
+				alert(2);
+			});
+		});*/
+
+		//参数适配
+		/*function doSomeThing(name,title,age,color,size,prize){
+			obj.name = name;
+			obj.title = title;
+			obj.age = age;
+			obj.color = color;
+			obj.size = size;
+			obj.prize = prizel;
+		};*/
+		/*function doSomeThing(obj){
+			//函数内置对象
+			var _adapter = {
+				name:"wells",
+				title:"设计模式",
+				age:24,
+				color:"pink",
+				size:100,
+				prize:50,
+				hei:"343"
+			};
+			//遍历内置对象比较传入对象的属性和方法（对象的混入）
+			for(var key in _adapter){
+				//查看传入对象是否有该属性有则赋值给内置对象，没有则保留原本的属性
+				_adapter[key] = obj[key] || _adapter[key];
+			};
+			return _adapter;
+		};
+		var json1 = doSomeThing({name:"wellfree",title:"设计模式43",age:25,color:"black",hei:'2424'});
+		console.log(JSON.stringify(json1));//{"name":"wellfree","title":"设计模式43","age":25,"color":"black","size":100,"prize":50,"hei":"2424"}*/
+
+		//数据适配
+		/*var arr = ['Javascript','book','前端编程语言','2016'];
+		var obj = {
+			name:'',
+			type:'',
+			title:'',
+			time:''
+		};
+		function arrToObjAdapter(arr){
+			var json = {
+				name:arr[0],
+				type:arr[1],
+				title:arr[2],
+				time:arr[3]
+			};
+			return json;
+		};
+		var json1 = arrToObjAdapter(arr);
+		console.log(JSON.stringify(json1));//{"name":"Javascript","type":"book","title":"前端编程语言","time":"2016"}*/
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>banner3D雏形</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	.box{width:800px;height:360px;background:pink;margin:500px auto;perspective:800px;}
+	.box ul li{width:200px;height:360px;float:left;background:rgba(0,0,0,.5);position:relative;transform-style:preserve-3d;transform:translateZ(-180px);transition:all 1s ease;}
+	.box ul li div{position:absolute;width:200px;height:360px;border:1px solid red;}
+	/*上*/
+	.box ul li div:nth-child(1){top:-360px;transform-origin:bottom;transform:translateZ(180px) rotateX(90deg);}
+	/*下*/
+	.box ul li div:nth-child(2){bottom:-360px;transform-origin:top;transform:translateZ(180px) rotateX(-90deg) ;}
+	/*左*/
+	.box ul li div:nth-child(3){width:360px;right:200px;transform-origin:right;transform: translateZ(180px) rotateY(-90deg);}
+	/*右*/
+	.box ul li div:nth-child(4){width:360px;left:200px;transform-origin:left;transform:translateZ(180px) rotateY(90deg);}
+	/*前*/
+	.box ul li div:nth-child(5){transform:translateZ(180px);}
+	/*后*/
+	.box ul li div:nth-child(6){transform:translateZ(-180px);}
+	.box:hover ul li{transform:translateZ(-180px) rotateX(-180deg);}
+	/*注意了：transform:translateZ(-180px) rotateX(-180deg);transform中的属性不能分开写，分开写后面的会覆盖前面的，前面的没有效果，还有就是translate要写在rotate前才会有预料的效果*/
+</style>
+</head>
+<body>
+	<div class="box">
+		<ul>
+			<li>
+				<div>上</div>
+				<div>下</div>
+				<div>左</div>
+				<div>右</div>
+				<div>前</div>
+				<div>后</div>
+			</li>
+			<li>
+				<div>上</div>
+				<div>下</div>
+				<div>左</div>
+				<div>右</div>
+				<div>前</div>
+				<div>后</div>
+			</li>
+			<li>
+				<div>上</div>
+				<div>下</div>
+				<div>左</div>
+				<div>右</div>
+				<div>前</div>
+				<div>后</div>
+			</li>
+			<li>
+				<div>上</div>
+				<div>下</div>
+				<div>左</div>
+				<div>右</div>
+				<div>前</div>
+				<div>后</div>
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

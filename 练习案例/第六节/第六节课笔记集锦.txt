@@ -1,0 +1,179 @@
+//{···}这种形式就属于json而且属于object数据类,型,js中的六大数据类型都可以当做值来赋值var json = {name = 'Jery', age = 18}与var json1 = {'name' = 'Jery', 'age' = 18}是一样的,只是属性的双引号为了兼容其他浏览器，所以必须加上！！！
+		var json = {
+			"username":"黑有有",//冒号表示赋值，逗号表示结束,属性值默认是一个字符串的数据类型了“username”
+			"age":18,
+			"say":function(){alert("说英语！！");},//这里相当于var say = function(){alert("说英语");};
+			"obj":{
+				hobby:['a','b','c']
+			},
+			"a.b":"hehehhe"//注意到最后的一个属性值时不再用逗号来结束,用逗号来结束在ie678会报错
+		};
+		//alert(json.username);
+		//json.say();
+		//alert(json.say());
+		//alert(json.obj.hobby[2]);
+		//json.a.b//这样会报错的,要用以下形式写
+		//alert(json["a.b"]);//[“ ”]里面的内容必须是一个字符串！
+		//alert(json.age);
+		for(var key in json){//这里的意思是在json这个对象里的属性
+			//alert(typeof key);
+			//alert(key+"====="+json[key])json里的key已经是字符串了，相当于var key  = "username"
+		}
+		//alert(json.username+"===="+json["age"]+"===="+json.say());
+		//for(var key in document){
+			//console.log(key+"===="+document[key]);//在控制台打印所有dom的属性值
+		//}
+
+var oBox = document.getElementById("box");
+			//oBox.style.width = "100px";这样写太冗余和写死了，想要多个对象调用这套样式会写重复的代码
+			//oBox.style.height = "100px";
+			//oBox.style.border = "1px solid red";
+			function css(json,obj){
+				for(var key in json){
+					var value = json[key];
+					if(typeof value == "number"){value+="px";}//为了解决key值没有带单位的一个判断条件
+					obj.style[key] = value;//这里不能写成obj.style.key = value;因为key是一个变量不能用点符号要用[]来包裹住，只有对象的属性才能点
+				}
+			}
+			css({
+				width:"100px",
+				height:100,
+				border:"1px solid red",
+				"background":"yellow",
+				margin:"10px auto"
+			},oBox);
+
+//js中的六大数据类型都可以作为数组的值,Array.isArray(arr)判断数组的方法IE678不支持
+		var arr = [1,2,"sfd",{},function(){alert(0);},null,undefined];
+		var arr1 = [,,,,]//只用逗号隔开相当于个数组赋值了一个undefined的值
+		//alert(arr1.length);//为什么输出长度为4而不是5？？？
+		var arr2 = [1,3,4];//通常采用这种方式给数组赋值
+		var arr3 = new Array(4,3,2);//这种方式赋值不兼容IE678;多个参数表示给数组赋值，但是一个参数时表示数组的长度，
+		//alert(arr3[1]);
+		var arr4 = new Array(4);//这里相当于[undefined,undefined,undefined,undefined]
+		//alert(arr4.length);
+		/*var a = "jery";
+		var b = 10;
+		var c = false;
+		var d = [2,3,4,4];
+		var arr = [a,b,c,d];
+		alert(arr);*/
+		/*
+		var arr = [1,2,3,4,5,6,7,8,9,31,1231,1231,123,21];
+		var len = arr.length;
+		alert(len);
+		alert(arr[0]);
+		alert(arr[len-1]);*/
+		var arr = ['a','b','c'];
+		//arr[2] = 3;//可以通过下标给数组动态修改值
+		//alert(arr[2]);
+		//arr[3] = "d";//可以通过下标动态修改长度并且在具体下标位置赋值
+		//arr[5] = "e";
+		//alert(arr);
+		arr = [];//可以这样子重新给数组赋值空，数组清空
+		alert(arr);
+
+
+//var arr = [2,3,4];
+		//arr.push(5,3,4);//push这个方法是用来为数组在其后面依次添加值的,可以传入多个值,结果返回数组长度
+		//arr.push(function(){alert(2);});
+		//arr.unshift('d',3,3);//unshift这个方法是用来给数组在其前面依次添加值的，可以传入多个值,结果返回数组长度
+		//alert(arr.unshift('d',3,3));
+		//alert(arr.push(5,3,4));
+		//alert(arr);
+
+
+		//var s = [3,4,5,6,7];
+		//delete s[2];//这个方法只是删除了数组的值，位置还在.属于逻辑删除
+		//alert(s.pop());//pop()这个方法删除最后一个元素，返回删除元素。物理删除
+		//alert(s.shift());//shift()删除第一个元素，返回删除元素。物理删除
+		//alert(s);
+
+		//数组删除(剪切)方法 splice();
+		//var arr = [0,1,2,3,4,5,6,7,8,9];
+		//alert(arr.splice());//没给参数是什么也没删除，返回空
+		//alert(arr.splice(1));一个参数表示开始删除的起始位置，包括该位置的值,返回的是删除的值
+		//alert(arr.splice(19));当参数是正值，且又大于它的长度，同样什么也没有删除到，返回空白
+		//alert(arr.splice(-3));当参数是负值时，且它的绝对值小于长度，这时就用数组长度length加该值，就得出要开始删除的起始位置
+		//alert(arr.splice(-11));当参数是负值，且它的绝对值又大于它的长度，此时开始删除的起始位置就是0
+		//alert(arr.splice(2,3));当有两个参数时，第一个还是表示开始删除的起始位置，第二个表示要删除的个数，删除的个数没有负数，个数为负数就当做什么也没删除，就会返回空
+		//alert(arr.splice(2,-2));
+		//alert(arr.splice(2,3,3,'d',{},function(){alert(2);}));当有多个参数，第一个还是删除的位置，第二个还是表示删除的个数，多个参数就是为数组添加替换的，添加替换在删除了的元素所在的位置。返回的还是删除的值
+		//alert(arr);
+
+		var arr = [1,2,3,4,5,6,7,8];
+		alert(arr.splice(3,0,'a'));//当删除的个数为0，对应要删除的位置的值还在，此时‘a’是在该位置的前面添加
+		alert(arr);
+
+/*
+		var arr = ['a','b','c','d','e',0,5,2,'A'];
+		arr.sort();//按字符编码(ascii)进行排序
+		alert(arr);*/
+		//alert(Array.isArray(arr));//ie678不支持
+		//var arr = [1,2,3];
+		//alert(arr.constructor);//arr调用构造函数输出“function Array(){naive code}”
+		//alert(isArray(arr));
+		/*function isArray(param){
+			return typeof param == "object" && param.constructor.toString().toLowerCase().indexOf("array")!=-1;//toString()方法可以将对象变成字符串，返回true就是表示为数组
+		}*/
+		//var arr = [1,2,3,5,4,78,69,48];
+		//arr.reverse();//数组的反转方法
+		//arr.sort();//这样按字符编码排序的，上面的数组就会不是按升序排序了
+		/*
+		arr.sort(function(a,b){//数组按升序排序的方法，第一个值表示被比较数，第二个值是与之比较数，记住这个方法!!!
+			return a-b;//当改成b-a，数组就可以按照降序排序
+		});
+		alert(arr);*/
+		/*
+		var json1 = {username:"heihei",age:23};
+		var json2 = {username:"wells",age:45};
+		var json3 = {username:"余",age:12};
+		var arr = [];
+		arr.unshift(json1,json2,json3);
+		//alert(arr);
+		arr.sort(function(a,b){//a,b表示对象
+			var ageA = a["age"];
+			var ageB = b.age;
+			return ageA-ageB;
+		});
+		//alert(arr);
+		alert(JSON.stringify(arr));//这个方法可以为数组值为对象进行排序输出*/
+
+		var arr = [2,4,5];
+		var arr1 = ['d',3,'e'];
+		var str = '343';
+		var str1 = 'fdsf';
+		str.concat(str1);
+		//alert(str.concat(str1));//返回的是字符串拼接结果
+		//arr.concat(arr1);//返回的是数组拼接的结果
+		//alert(arr.concat(arr1));
+		alert(arr.join('a'));//以传入的值将数组的逗号变成该值为界限符，并且返回划分后的值为字符串
+
+
+<div id="box">
+		<input type="text" oid="1" value="1"/><!-- oid用来标记input输入框 -->
+		<input type="text" oid="2" value="2"/>
+		<input type="text" oid="3" value="3"/>
+		<input type="text" oid="4" value="4"/>
+		<input type="text" oid="5" value="5"/>
+	</div>
+	<input type="button" value="排序" onclick="sort();"/>
+	<script type="text/javascript">
+		function sort(){
+			var boxDom = document.getElementById("box");
+			//var inputs = boxDom.getElementsByTagName("input");
+			var inputs = boxDom.children;//也可以通过children获取boxDom的子类元素
+			var arr = [];
+			var len = inputs.length;
+			for(var i=0;i<len;i++){
+				arr.push(inputs[i]);
+			}
+			arr.sort(function(a,b){//这个方法支持数组
+				return b.value - a.value;
+			});
+			//boxDom.innerHTML = "";
+			for(var i=0;i<arr.length;i++){
+				//boxDom.innerHTML +=arr[i];
+				boxDom.appendChild(arr[i]);//jQuery中的append方法
+			}
+		};

@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>banner图</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background:#ededed;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#banner{width:500px;margin:20px auto;position:relative;}
+	#banner a{display:block;width:30px;height:40px;background:#ddd;font-size:16px;color:#fff;text-align:center;line-height:40px;position:absolute;top:50%;margin-top:-20px;display:none;}/*如何定位使得a刚好居中，可以结合top:50%;和margin-top:;减去高度的一半*/
+	#banner:hover a{display:block;}
+	#prev{left:10px;}
+	#next{right:10px;}
+	#list{position:absolute;bottom:10px;left:50%;margin-left:-75px;}
+	#list li{width:16px;height:16px;border-radius:50%;background:#ddd;float:left;margin-left:10px;cursor:pointer;}
+</style>
+</head>
+<body>
+	<div id="banner">
+		<img id="img" src="images/1.jpg" width="500" height="360" alt="1"/>
+		<a href="javascript:void(0);" id="prev">&lt;</a><!-- 注意不能使用"<"会与标签的<冲突 -->
+		<a href="javascript:void(0);" id="next">&gt;</a>
+		<ul id="list">
+			<li style="background:red;"></li>	
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<p style="text-align:center;font-size:14px;">第<span id="span">1</span>张</p>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oPrev = document.getElementById("prev");
+			var oNext = document.getElementById("next");
+			var oImg = document.getElementById("img");
+			var oSpan = document.getElementById("span");
+			var oList = document.getElementById("list");
+			var oLi = document.getElementsByTagName("li");
+			var num = 1;
+			//上一页
+			oPrev.onclick = function(){
+				num--;
+				if(num<1){
+					num = 5;
+				}
+				imgTab();
+			};
+			//上一页
+			oNext.onclick = function(){
+				num++;
+				if(num>5){
+					num = 1;
+				}
+				imgTab();
+			};
+			for(var i=0;i<oLi.length;i++){
+				oLi[i].index = i;
+				oLi[i].onmouseover = function(){
+					num = this.index+1;
+					imgTab();
+				}
+			}
+			//图片轮播效果和按钮背景色变化效果方法的封装
+			function imgTab(){
+				oImg.src = "images/"+num+".jpg";//通过src属性改变它的路径
+				oSpan.innerHTML = num;//innerHTML可以动态的为其添加内容或标签
+				//通过遍历的方法达到添加样式和消除样式
+				for(var j=0;j<oLi.length;j++){
+					if(num-1 == j){
+						oLi[num-1].style.background = "red"; 
+					}else{
+						oLi[j].style.background = "#ddd";
+					}
+				}
+			}
+		};
+	</script>
+</body>
+</html>

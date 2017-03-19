@@ -1,0 +1,409 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第十三节知识点总结</title>
+<link href="css/Style1.css" rel="stylesheet"/>
+<link rel="stylesheet" href="http://at.alicdn.com/t/font_1458007164_389264.css"/>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	@media screen and (max-width:900px){/*当屏幕小于900px用下面这套样式*/
+		.main{width:100%;}
+		.main p{font-size:14px!important;}
+		aside{display:none;}	
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<header id="header">
+			<div class="header-left">
+				<a class="btn" href="#"><i class="iconfont ">&#xe615;</i></a>
+				<a class="btn" href="#"><i class="iconfont ">&#xe614;</i></a>
+			</div>
+ 			<div class="right_text">
+				<a class="right_a" href="demo/login.html" target="_blank">
+					<i class="iconfont icon-denglu"></i>
+					登录
+				</a>
+				<a class="right_a" href="demo/sign.html" target="_blank">
+					<i class="iconfont icon-zhuce"></i>
+					注册
+				</a>
+			</div>
+		</header>
+		<aside>
+			<a class="nav fir-a"  href="javascript:void(0);">有</a>
+			<nav id="nav">
+				<a class="nav"  href="javascript:void(0);">案例</a>
+				<ul id="list">
+					<li><a class="nav" href="demo/tab.html" target="_blank"></a></li>
+					<li><a class="nav" href="demo/3D.html" target="_blank"></a></li>
+				</ul>
+			</nav>
+			<a class="nav" id="model"  href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			<div id="model_box">
+				<a class="nav" id="white" href="javascript:void(0);"><i class="iconfont">&#xe610;</i></a>
+				<a class="nav" id="black" href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			</div>
+		</aside>
+		<article id="article">
+			<a class="btn_a" id="top" href="javascript:void(0);"><i class="iconfont">&#xe609;</i></a>
+			<div class="main" id="main">
+				<div class="main_top">
+					<a class="person_img" href="javascript:void(0);">
+						<img src="http://upload.jianshu.io/users/upload_avatars/1616121/0fbc955a608e?imageMogr/thumbnail/90x90/quality/100" width="40" height="40" alt="100">
+					</a>
+					<p>
+						<a class="author" href="javascript:void(0);"><span >作者</span>黑有有</a>
+						<span id="timeShow"></span>
+					</p>
+					<a class="follow" href="javascript:void(0);"><i class="iconfont icon-guanzhu"></i>添加关注</a>
+				</div>
+				<h1 style="font-family:楷体;font-size:32px;padding:20px 0;">第十三节知识点总结</h1>
+				<p class="hid" style="margin-bottom:30px;">
+					<span>字数154654</span>
+					<span>阅读131</span>
+					<span>评论43</span>
+					<span>喜欢4324</span>
+				</p>
+				<div class="main_content" id="main_content">
+					<h1 class="title">简易动画插件封装</h1>
+					<pre>
+						&lt;body&gt;
+							&lt;div id="box1"&gt;
+								&lt;div id="box2"&gt;Q客服&lt;/div&gt;
+							&lt;/div&gt;
+							&lt;script type="text/javascript"&gt;
+								function $(id){
+									return document.getElementById(id);
+								};
+								$("box1").onmouseover = function(){
+									startRun();
+								}
+								$("box1").onmouseout = function(){
+									endRun();
+								}
+								//全局的定时器
+								var timer = null;
+								//开始动画
+								var speed = 10;//运行速度
+								var target = 0;//目标位置
+								function startRun(){
+									//清除上一次结束动画
+									clearInterval(timer);
+									timer = setInterval(function(){
+										//这里不要放在定时器外面，要每次更新pos的值
+										var pos = parseInt(getStyle($("box1"),"left"));
+										//当pos达到目标位置时清除定时器
+										if(pos==target){
+											clearInterval(timer);
+										}else{
+											//每次从上次的位置移动
+											$("box1").style.left = pos+speed+"px";
+										}
+									},30);
+								};
+								//结束动画
+								var target2 = -100;
+								var speed2 = -10;
+								function endRun(){
+									//清除上一次开始动画
+									clearInterval(timer);
+									timer = setInterval(function(){
+										//这里不要放在定时器外面，要每次更新pos的值
+										var pos = parseInt(getStyle($("box1"),"left"));
+										//当pos达到目标位置时清除定时器
+										if(pos==target2){
+											clearInterval(timer);
+											console.log(pos);
+										}else{
+											//每次从上次的位置移动
+											$("box1").style.left = pos+speed2+"px";
+											console.log(pos);
+										}
+									},30);
+								};
+								function getStyle(obj,attr){
+									return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+								};
+							&lt;/script&gt;
+						&lt;/body&gt;
+					</pre>
+					<h1 class="title">回掉函数封装不同步动画插件</h1>
+					<pre>
+						&lt;script&gt;
+							function $(id){
+								return document.getElementById(id);
+							};
+							window.onload = function(){
+								var boxDom = $("box");
+								boxDom.onmouseover = function(){
+									/*Run(this,"width",200,10);
+									//会覆盖宽度的变化
+									Run(this,"height",200,10);*/
+									//由外到内进行完，并不是同时进行的！！！
+									Run(this,"width",200,10,function(){
+										Run(this,"height",200,10,function(){
+										Run(this,"marginLeft",200,10);
+										});
+									});
+								};
+								//全局的定时器
+								var timer = null;
+								//封装动画
+								function Run(obj,attr,target,speed,callback){
+									//清除上一次结束动画
+									clearInterval(obj.timer);
+									obj.timer = setInterval(function(){
+										//这里不要放在定时器外面，要每次更新pos的值
+										var pos = parseInt(getStyle(obj,attr));
+										//当pos达到目标位置时清除定时器
+										if(pos==target){
+											clearInterval(obj.timer);
+											//进行判断有没有传入回调函数
+											if(callback)callback.call(obj);
+										}else{
+											//每次从上次的位置移动
+											obj.style[attr] = pos+speed+"px";
+										}
+									},30);
+								};
+							};
+							function getStyle(obj,attr){
+								return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+							};
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">json对象封装同步动画插件</h1>
+					<pre>
+						&lt;script&gt;
+							function $(id){
+								return document.getElementById(id);
+							};
+							window.onload = function(){
+								var boxDom = $("box");
+								boxDom.onmouseover = function(){
+									Run(this,{width:150,height:500,lineHeight:500},10)
+								};
+								//全局的定时器
+								var timer = null;
+								//封装动画
+								function Run(obj,json,speed){
+									//清除上一次结束动画
+									clearInterval(obj.timer);
+									obj.timer = setInterval(function(){
+										//定义一个为开着的锁，用来进行判断是否清除定时器
+										var mark = true;
+										//先将json里的值全拿出来才会跳出循环执行下一次定时器
+										for(var attr in json){
+											//这里不要放在定时器外面，要每次更新pos的值
+											var pos = parseInt(getStyle(obj,attr));
+											//拿到json对象里的目标值
+											var target = json[attr];
+											//当pos达不到目标位置时继续改变属性值
+											if(pos!=target){
+												//每次从上次的位置改变
+												obj.style[attr] = pos+speed+"px";
+												//只要传入的attr没有达到目标值，mark始终为false
+												mark = false;
+											}					
+										}
+										//如果为真进行清除定时器
+										if(mark)clearInterval(timer);
+									},30);
+								};
+							};
+							function getStyle(obj,attr){
+								return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+							};
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">json与回调函数结合封装动画插件</h1>
+					<pre>
+						&lt;body&gt;
+							&lt;div id="box"&gt;盒子&lt;/div&gt;
+							&lt;script&gt;
+								function $(id){
+									return document.getElementById(id);
+								};
+								window.onload = function(){
+									var boxDom = $("box");
+									boxDom.onmouseover = function(){
+										Run(this,{width:50,height:50,lineHeight:50},function(){
+											Run(this,{width:200,height:200,lineHeight:200},function(){
+												this.style.background ="#111";
+												this.style.color ="red";
+												Run(this,{left:100,top:200,opacity:30});//opacity换算成百分比
+											});
+										})
+									};
+									//封装动画
+									function Run(obj,json,callback){
+										//清除上一次结束动画
+										clearInterval(obj.timer);
+										//动态给对象绑定一个定时器
+										obj.timer = setInterval(function(){
+											//定义一个开着的锁，用来进行判断是否清除定时器
+											var mark = true;
+											//先将json里的值全拿出来才会跳出循环执行下一次定时器
+											for(var attr in json){
+												//这里不要放在定时器外面，要每次更新pos的值,并且判断对象元素有没有改属性attr，没有就pos赋值0
+												if(attr == "opacity"){
+													var pos = getStyle(obj,attr)*100;
+												}else{
+													//获取样式其它属性（具有px的属性，若没有则用0代替）
+													var pos = parseInt(getStyle(obj,attr))||0;
+												}
+												//拿到json对象里的目标值
+												var target = json[attr];
+												//将速度进行动态减速
+												var speed = (target-pos)*0.4;
+												/*//当target大于pos时
+												if(speed&gt;0){
+													speed = Math.ceil(speed);
+												}
+												//当target小于pos时
+												if(speed&lt;0){
+													speed = Math.floor(speed);
+												}*/
+												speed = speed&gt;0?Math.ceil(speed):speed = Math.floor(speed);
+												//当pos达不到目标位置时继续改变属性值
+												if(pos!=target){
+													//每次从上次的位置改变
+													if(attr == "opacity"){
+														obj.style[attr] = (pos+speed)/100;
+														console.log(speed+"==="+pos+"==="+(pos+speed));
+													}else{
+														obj.style[attr] = pos+speed+"px";
+													}
+													//只要传入的attr没有达到目标值，mark始终为false
+													mark = false;
+												}					
+											}
+											//如果为真进行清除定时器
+											if(mark){
+												clearInterval(obj.timer);
+												//当上一次动画执行完回调函数就执行
+												if(callback)callback.call(obj);
+											}
+										},30);
+									};
+								};
+								function getStyle(obj,attr){
+									return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+								};
+							&lt;/script&gt;
+						&lt;/body&gt;
+					</pre>
+					<h1 class="title">常用banner图的两种方法</h1>
+					<p class="text-p">
+						注意：opacity:0.5(ie678不支持);filter:alpha(opacity=50)/*兼容ie678的写法*/
+					</p>
+					<pre>
+						&lt;body&gt;
+							&lt;div id="box"&gt;
+								&lt;ul id="imgbox"&gt;
+									&lt;li style="opacity:1;"&gt;&lt;img src="images/1.jpg"/&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;img src="images/2.jpg"/&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;img src="images/3.jpg"/&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;img src="images/4.jpg"/&gt;&lt;/li&gt;
+								&lt;/ul&gt;
+								&lt;ul id="list"&gt;
+									&lt;li class="on"&gt;1&lt;/li&gt;
+									&lt;li&gt;2&lt;/li&gt;
+									&lt;li&gt;3&lt;/li&gt;
+									&lt;li&gt;4&lt;/li&gt;
+								&lt;/ul&gt;
+							&lt;/div&gt;
+							&lt;script src="js/run.js"&gt;&lt;/script&gt;
+							&lt;script type="text/javascript"&gt;
+								var lists = $("list").children;
+								var imgs = $("imgbox").children;
+								//普通版本
+								/*for(var i=0;i&lt;lists.length;i++){
+									lists[i].index = i;
+									lists[i].onmouseover = function(){
+										for(var i=0;i&lt;lists.length;i++){
+											lists[i].className = "";
+											imgs[i].style.display = "none";
+										}
+										this.className = "on";
+										imgs[this.index].style.display = "block";
+									}
+								}*/
+								//淡入淡出效果版本
+								for(var i=0;i&lt;lists.length;i++){
+									lists[i].index = i;
+									lists[i].onmouseover = function(){
+										for(var i=0;i&lt;lists.length;i++){
+											//清空所有的className
+											lists[i].className = "";
+											Run(imgs[i],{opacity:0},function(){
+												this.style.display = "none;"
+											});
+										}
+										//当前点击的li绑定样式
+										this.className = "on";
+										Run(imgs[this.index],{opacity:100},function(){
+												this.style.display = "block;"
+											});
+									}
+								}
+							&lt;/script&gt;
+						&lt;/body&gt;
+						<h1>面试资本题</h1>
+						&lt;body&gt;
+							&lt;input type="button" value="点击" onclick = "clickme();"/&gt;
+							&lt;script&gt;
+								window.onload = function(){
+									function clickme(){//只有将这个函数写在script域，元素才能调用这个函数
+											alert("Jery老师帅！");
+									}
+								};
+					</pre>
+				</div>
+			</div>
+			<a class="btn_a" id="bottom" href="javascript:void(0);"><i class="iconfont">&#xe60a;</i></a>
+		</article>
+	</div>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/js1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(window).scroll(function(){
+				var height = $(this).scrollTop();
+				if($(this).scrollTop()>=300){
+					$("#bottom").show();
+					$("#top").hide();
+					$("#header").animate({"height":0,"opacity":0},300);
+				}else{
+					$("#bottom").hide();
+					$("#top").show();
+					$("#header").stop(true,true).animate({"height":"51px","opacity":1},400);
+				}
+			});
+			$("html,body").load().stop(true,true).animate({"scrollTop":0},100);//页面一刷新就置顶 
+			$("#bottom").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":0},300);
+			});
+			var windowHeight = parseInt($("body").css("height"));//获取整个页面的高度
+			$("#top").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":windowHeight},300);
+			});
+		});
+		/*nav start*/
+		var oNav = $("#nav");
+		var oList = $("#list");
+		oNav.mouseover(function(){oList.show();});
+		oNav.mouseout(function(){oList.hide();});
+		/*end nav*/
+	</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>简单的封装</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<input type="text" id="txt1"/>+
+	<input type="text" id="txt2"/>=
+	<input type="text" id="txt3"/>
+	<input type="button" id="btn" value="计算"/>
+	<script type="text/javascript">
+	/*
+		$(function(){
+			var oTxt1 = document.getElementById("txt1");
+			var oTxt2 = document.getElementById("txt2");
+			var oTxt3 = document.getElementById("txt3");
+			var oBtn = document.getElementById("btn");
+			oBtn.onclick = function(){
+				//oTxt3.value = oTxt1.value+oTxt2.value;//这样子只能得到字符串的拼接结果
+				//oTxt3.value = Number(oTxt1.value)+Number(oTxt2.value);显示转换数据类型
+				oTxt3.value = oTxt1.value*1+oTxt2.value*1;//隐式转换数据类型
+			};
+		});
+		function $(param){
+			window.onload = param;	
+		}
+		*/
+		$(function(){
+			var oTxt1 = $("txt1");
+			//alert(oTxt1);可以取得返回出来的值
+			var oTxt2 = $("txt2");
+			var oTxt3 = $("txt3");
+			var oBtn = $("btn");
+			oBtn.onclick = function(){
+				oTxt3.value = oTxt1.value*1+oTxt2.value*1;//隐式转换数据类型
+			};
+		});
+		function $(param){
+			if(typeof param == "function"){
+				window.onload = param;
+			}else if(typeof param == "string"){
+				return document.getElementById(param);//在内存中的东西要想拿出来要通过return返回出来
+			}	
+		}
+		//以上的练习可以做一个简陋的计算器
+	</script>
+</body>
+</html>

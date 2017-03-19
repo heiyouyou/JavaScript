@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	<div id="box"></div>
+	<input type="button" id="btn" value="点我"/>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oBox = document.getElementById("box");
+			var oBtn = document.getElementById("btn");
+			/*setInterval(function(){
+				var xhr = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+				xhr.open("get","text1.php",true);
+				xhr.send();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4&&xhr.status == 200){
+						//xhr.responseText拿到的json数组是一个string数据类型
+						//alert(typeof xhr.responseText);
+						//可以通过JSON.parse(变量)或者eval("(+变量+)")这两种形式进行转换成对象
+						//var res = JSON.parse(xhr.responseText);
+						var res = eval("("+xhr.responseText+")");
+						//var 一个字符串变量来接收遍历的文本，并且拼接到盒子上
+						var s = "";
+						for(var i=0;i<res.length;i++){
+							s +="用户名："+res[i].name+"的年龄："+res[i].age+"<br/>";
+						}
+						oBox.innerHTML = s;
+					}	
+				};
+			},3000);*/
+			setInterval(function(){
+				ajax(
+					"get",
+					"text1.php",
+					true,
+					function(res){
+						var res = eval("("+res+")");
+						var s = "";
+						for(var i=0;i<res.length;i++){
+							s +="用户名："+res[i].name+"的年龄："+res[i].age+"<br/>";
+						}
+						oBox.innerHTML = s;
+					}
+				);
+			},3000);
+			//简单封装后台数据获取的方法
+			function ajax(method,url,asyn,fn){
+				var xhr = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+				xhr.open(method,url,asyn);
+				xhr.send();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4&&xhr.status == 200){
+						if(fn)fn(xhr.responseText);
+					}
+				};
+			};
+		};
+	</script>
+</body>
+</html>

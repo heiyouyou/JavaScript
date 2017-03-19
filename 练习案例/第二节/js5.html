@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>null与undefined区别</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var a = null;
+		//alert(typeof a);
+		//null.weight = "45kg";
+		//alert(null.weight);
+		var b = {
+			username:"heihei",
+			age:18
+		};
+		b.weight="34kg";
+		//delete b.weight;
+		//b = null;
+		//alert(b.weight+"===="+b.username);
+		var n = 1+undefined;
+		var nn = 1+null;
+		//alert(n);输出NaN
+		//alert(nn);输出0
+	</script>
+</body>
+</html>

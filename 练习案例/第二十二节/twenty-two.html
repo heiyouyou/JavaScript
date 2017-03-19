@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			抽象工厂设计模式
+			通过对类的工厂抽象使其业务用于对产品簇的创建，而不负责创建某一类产品的实例
+
+			抽象类
+			是一种声明但不能使用的类，当你使用的时候就会报错。所以我们可以在类的方法中手动的抛出错误来模拟抽象类。
+		*/
+
+		/*var Car = function(){};
+		Car.prototype = {
+			getPrice:function(){
+				return new Error("抽象方法不能使用");
+			},
+			getSpeed:function(){
+				return new Error("抽象方法不能使用");
+			}
+		};
+		var car = new Car();
+		console.log(car.getPrice());//Error: 抽象方法不能使用(…)
+		console.log(car.getSpeed());//Error: 抽象方法不能使用(…)*/
+
+		//抽象工厂模式（方法）实现子类继承抽象类的方法和属性
+		var absFactory = function(subType,superType){//子类，父类（抽象类）
+			//判断抽象工厂是否有该抽象类
+			if(typeof absFactory[superType] === "function"){
+				//过渡类
+				function F(){};
+				//将过渡类的原型指向抽象类的实例
+				F.prototype = new absFactory[superType]();
+				//将子类的原型指向过渡类的实例
+				subType.prototype = new F();//子类的构造器为Object
+				//调整子类原型构造器
+				subType.prototype.constructor = subType;
+			}else{//没有指定抽象类时
+				return new Error("抽象方法不能使用");
+			};
+		};
+		//汽车抽象类
+		absFactory.Car = function(){
+			this.type = "car";
+		};
+		//汽车抽象类原型
+		absFactory.Car.prototype = {
+			getPrice:function(){
+				return new Error("抽象方法不能使用");
+			},
+			getSpeed:function(){
+				return new Error("抽象方法不能使用");
+			}
+		};
+		//子类
+		function BMW(price,speed){
+			this.price = price;
+			this.speed = speed;
+		}; 
+		//实现继承抽象类的方法和属性
+		absFactory(BMW,"Car");//注意继承抽象类的方法或属性要放在子类重写之前
+		BMW.prototype.getPrice = function(){
+			alert(this.price);
+		};
+		BMW.prototype.getSpeed = function(){
+			alert(this.speed);
+		};
+		var bwm = new BMW(200000,190);
+		//没有重写（覆盖）抽象类之前
+		//console.log(bwm.price+"=="+bwm.speed+"==+bwm.type+"=="+bwm.constructor);//200000==190==undefined==function BMW(price,speed){this.price = price;this.speed = speed;}
+		//重写抽象类之后
+		console.log(bwm.price+"=="+bwm.speed+"=="+bwm.type+"=="+bwm.constructor);//200000==190==car==function Object() { [native code] }
+		bwm.getPrice();//200000
+		bwm.getSpeed();//190
+
+		//巴士类
+		function Bus(price,speed){
+			this.price = price;
+			this.speed = speed;
+		};
+		absFactory(Bus,"Car");
+		Bus.prototype.getPrice = function(){
+			alert(this.price);
+		};
+		var bus = new Bus(1000,20);
+		console.log(bus.price+"=="+bus.speed+"=="+bus.type+"=="+bus.constructor);//1000==20==car==function Bus(price,speed){this.price = price;this.speed = speed;}
+		bus.getPrice();//1000
+		//没有重写抽象类的方法getSpeed()
+		console.log(bus.getSpeed());//Error: 抽象方法不能使用(…)
+	</script>
+</body>
+</html>

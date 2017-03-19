@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>事件捕获</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#div1{width:400px;padding:50px;background:yellow;}
+	#div2{padding:50px;background:blue;}
+	#div3{padding:50px;background:pink;}
+</style>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2">
+			<div id="div3"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var oDiv1 = document.getElementById("div1");
+		var oDiv2 = document.getElementById("div2");
+		var oDiv3 = document.getElementById("div3");
+		//是false时为出路，所以按事件冒泡弹出，所以是从下级往上级弹出
+		/*oDiv1.addEventListener("click",fn1,false);
+		oDiv2.addEventListener("click",fn2,false);
+		oDiv3.addEventListener("click",fn3,false);*/
+		//是true时为入路，所以是从上级往下级弹出
+		/*oDiv1.addEventListener("click",fn1,true);
+		oDiv2.addEventListener("click",fn2,true);
+		oDiv3.addEventListener("click",fn3,true);*/
+		//入路先于出路弹出
+		/*oDiv1.addEventListener("click",fn1,false);
+		oDiv2.addEventListener("click",fn2,true);
+		oDiv3.addEventListener("click",fn3,true);*/
+		//当只有一个对象绑定事件时且为入路时，按先绑定先弹
+		/*oDiv1.addEventListener("click",fn1,true);
+		oDiv1.addEventListener("click",fn2,true);
+		oDiv1.addEventListener("click",fn3,true);*/
+		//当是只有一个对象绑定事件时且为出路时，按先绑定先弹
+		/*oDiv1.addEventListener("click",fn1,false);
+		oDiv1.addEventListener("click",fn2,false);
+		oDiv1.addEventListener("click",fn3,false);*/
+		//当只有一个对象绑定事件时，不管出入路，只要是作用在该对象上就是先绑定先弹，如果是通过子类作用父类，则按入路先于出路弹出
+		/*oDiv1.addEventListener("click",fn1,false);
+		oDiv1.addEventListener("click",fn2,true);
+		oDiv1.addEventListener("click",fn3,false);*/
+		function fn1(){
+			alert(1);
+		};
+		function fn2(){
+			alert(2);
+		};
+		function fn3(){
+			alert(3);
+		};
+
+		//经典面试题
+		function test(){
+			var arr = [];
+			for(var i=0;i<3;i++){
+				arr[i] = function(){
+					return i;
+				};
+			}
+			return arr;
+		};
+		var t = test();
+		//alert(t);//输出由function(){return i;};组成的一个长度为3的数组
+		for(var i=0;i<t.length;i++){
+			//alert(t[i]);//输出三次function(){return i;}
+			alert(t[i]());//输出三次3，注意:function(){return i;}中的i只有函数打起括号才发生变化，当执行时内存中的i已经变成了3
+		}
+	</script>
+</body>
+</html>

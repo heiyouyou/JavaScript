@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	<script src="ajax1.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			//get方式携带数据传送到后台
+			/*var xhr = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+			//将要提交的数据以?连接加到url后面并拼接上一个随机数以解决IE缓存问题
+			xhr.open("get","text.php?user=mini&pwd=123456&"+Math.random(),true);
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					alert(xhr.responseText);
+				}
+			};*/
+
+			//post提交数据到后台（没有缓存问题）
+			/*var xhr = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+			xhr.open("post","text.php",true);
+			//post提交数据到后台的形式
+			//要设置请求头
+			xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+			xhr.send("user=cici&pwd=123456");
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					alert(xhr.responseText);
+				}
+			};*/
+			ajax({
+				method:"post",
+				url:"text.php",
+				asyn:true,
+				data:"user=well111s&pwd=12347343489",
+				"success":function(res){
+					alert(res);
+				}
+			});
+		};	
+	</script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>各种banner图</title>
+<style type="text/css" id="css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background-attachment: fixed;background:url("images/1.png");background-color:#dfdfe1;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	.box{width:1200px;margin:100px auto;}
+	.title{color:#4c4c4c;text-align:center;line-height:80px;}
+	/*fir-banner start*/
+	.fir-banner{width:1180px;margin:0 auto;overflow:hidden;box-shadow:0 0 7px 0 rgba(0, 0, 0, 0.2);}
+	.fir-banner .fir-list{width:1000%;}
+	.fir-banner .fir-list li{float:left;width:295px;transition:all .5s ease;position:relative;}
+	.fir-banner .fir-list:hover li{width:50px;}
+	.fir-banner .fir-list li:hover{width:1030px;}
+	.fir-banner .fir-list li .mark{width:100%;background:rgba(255,255,255,.25);line-height:350px;position:absolute;left:0;transition:all 1s ease;white-space:nowrap;}
+	.fir-banner .fir-list li .mark1{top:0;}
+	.fir-banner .fir-list li .mark2{bottom:0;}
+	.fir-banner .fir-list li:hover .mark{line-height:40px;text-align:center;}
+	.fir-banner .fir-list li .mark a{color:#111;font-size:16px;height:100%;padding-left:10px;display:block;}
+	/*end fir-banner*/
+	/*second-banner start*/
+	.second-banner{width:1180px;margin:0 auto;height:430px;perspective:800px;box-shadow:0 0 7px 0 rgba(0, 0, 0, 0.2);}
+	.second-banner .second-list li{width:295px;height:350px;float:left;background:rgba(0,0,0,.5);position:relative;transform-style:preserve-3d;transform:translateZ(-175px);}
+	/*降低最后一个长方形的层级*/
+	.second-banner .second-list li:nth-child(4){z-index:-1;}
+	.second-banner .second-list li div{position:absolute;width:295px;height:350px;}
+	/*上*/
+	.second-banner .second-list li div:nth-child(1){top:-350px;transform-origin:bottom;transform:translateZ(175px) rotateX(90deg);}
+	/*下*/
+	.second-banner .second-list li div:nth-child(2){bottom:-350px;transform-origin:top;transform:translateZ(175px) rotateX(-90deg) ;}
+	/*前*/
+	.second-banner .second-list li div:nth-child(3){transform:translateZ(175px);}
+	/*后*/
+	/*先让每个长方形li的后面的一个面翻转180当转到前面时就不是反了！！*/
+	.second-banner .second-list li div:nth-child(4){transform:translateZ(-175px) rotateX(180deg);}
+	.second-banner:hover .second-list li{transform:translateZ(-175px) rotateX(-180deg);}
+	/*为每个长方形li的每个面放背景图片，每一个对应面组成一张图片*/
+	.second-banner .second-list li div:nth-child(1){background:url("images/1.jpeg") no-repeat;background-size:cover;}
+	.second-banner .second-list li div:nth-child(2){background:url("images/2.jpeg") no-repeat;background-size:cover;}
+	.second-banner .second-list li div:nth-child(3){background:url("images/3.jpg") no-repeat;background-size:cover;}
+	.second-banner .second-list li div:nth-child(4){background:url("images/2.jpg") no-repeat;background-size:cover;}
+	/*为每个长方形li的每个面进行背景定位，每一个长方形的所有面定位都是一样的*/
+	.second-banner .second-list li:nth-child(1) div{background-position:0 0;}
+	.second-banner .second-list li:nth-child(2) div{background-position:-295px 0;}
+	.second-banner .second-list li:nth-child(3) div{background-position:-590px 0;}
+	.second-banner .second-list li:nth-child(4) div{background-position:-885px 0;}
+	/*给每个长方形设置延迟执行的时间 第一个时间数是执行动画所需时间，第二个时间是延迟执行的时间*/
+	.second-banner .second-list li:nth-child(1) {transition:all 1s ease 0s;}
+	.second-banner .second-list li:nth-child(2)	{transition:all 1s ease .3s;}
+	.second-banner .second-list li:nth-child(3) {transition:all 1s ease .6s;}
+	.second-banner .second-list li:nth-child(4) {transition:all 1s ease .9s;}
+	/*注意了：transform:translateZ(-180px) rotateX(-180deg);transform中的属性不能分开写，分开写后面的会覆盖前面的，前面的没有效果，还有就是translate要写在rotate前才会有预料的效果*/
+	/*end second-banner*/
+	/*third-banner start*/
+	.third-banner{width:1180px;height:430px;margin:0 auto;perspective:800px;box-shadow:0 0 7px 0 rgba(0, 0, 0, 0.2);position:relative;}
+	.third-banner #td li{width:295px;height:350px;float:left;background:rgba(0,0,0,.5);position:relative;transform-style:preserve-3d;transform:translateZ(-175px);}
+	/*降低最后一个长方形的层级*/
+	.third-banner #td li:nth-child(4){z-index:-1;}
+	.third-banner #td li div{position:absolute;width:295px;height:350px;}
+	/*上*/
+	.third-banner #td li div:nth-child(1){top:-350px;transform-origin:bottom;transform:translateZ(175px) rotateX(90deg);}
+	/*下*/
+	.third-banner #td li div:nth-child(2){bottom:-350px;transform-origin:top;transform:translateZ(175px) rotateX(-90deg) ;}
+	/*前*/
+	.third-banner #td li div:nth-child(3){transform:translateZ(175px);}
+	/*后*/
+	.third-banner #td li div:nth-child(4){transform:translateZ(-175px) rotateX(-180deg);}
+	/*为每个长方形li的每个面放背景图片，每一个对应面组成一张图片*/
+	.third-banner #td li div:nth-child(1){background:url("images/1.jpeg") no-repeat;background-size:cover;}
+	.third-banner #td li div:nth-child(2){background:url("images/2.jpeg") no-repeat;background-size:cover;}
+	.third-banner #td li div:nth-child(3){background:url("images/3.jpg") no-repeat;background-size:cover;}
+	.third-banner #td li div:nth-child(4){background:url("images/2.jpg") no-repeat;background-size:cover;}
+	/*为每个长方形li的每个面进行背景定位，每一个长方形的所有面定位都是一样的*/
+	.third-banner #td li:nth-child(1) div{background-position:0 0;}
+	.third-banner #td li:nth-child(2) div{background-position:-295px 0;}
+	.third-banner #td li:nth-child(3) div{background-position:-590px 0;}
+	.third-banner #td li:nth-child(4) div{background-position:-885px 0;}
+	/*给每个长方形设置延迟执行的时间 第一个时间数是执行动画所需时间，第二个时间是延迟执行的时间*/
+	.third-banner #td li:nth-child(1) {transition:all 1s ease 0s;}
+	.third-banner #td li:nth-child(2) {transition:all 1s ease .3s;}
+	.third-banner #td li:nth-child(3) {transition:all 1s ease .6s;}
+	.third-banner #td li:nth-child(4) {transition:all 1s ease .9s;}
+	/*注意了：transform:translateZ(-180px) rotateX(-180deg);transform中的属性不能分开写，分开写后面的会覆盖前面的，前面的没有效果，还有就是translate要写在rotate前才会有预料的效果*/
+	.third-banner ol{position:absolute;right:10px;bottom:10px;}
+	.third-banner ol li{width:20px;height:20px;border-radius:50%;float:left;margin-left:10px;background:#ccc;text-align:center;line-height:20px;cursor:pointer;}
+	.third-banner ol li.on{color:#fff;background:orange;}
+	/*end third-banner*/
+	/*forth-banner start*/
+	.forth-banner{width:1180px;height:460px;margin:0 auto;perspective:800px;box-shadow:0 0 7px 0 rgba(0, 0, 0, 0.2);position:relative;}
+	.forth-banner #fd li{height:350px;float:left;background:rgba(0,0,0,.5);position:relative;transform-style:preserve-3d;transform:translateZ(-175px);}
+	.forth-banner #fd li div{position:absolute;height:350px;}
+	/*上*/
+	.forth-banner #fd li div:nth-child(1){top:-350px;transform-origin:bottom;transform:translateZ(175px) rotateX(90deg);}
+	/*下*/
+	.forth-banner #fd li div:nth-child(2){bottom:-350px;transform-origin:top;transform:translateZ(175px) rotateX(-90deg) ;}
+	/*前*/
+	.forth-banner #fd li div:nth-child(3){transform:translateZ(175px);}
+	/*后*/
+	.forth-banner #fd li div:nth-child(4){transform:translateZ(-175px) rotateX(-180deg);}
+	/*为每个长方形li的每个面放背景图片，每一个对应面组成一张图片*/
+	.forth-banner #fd li div:nth-child(1){background:url("images/1.jpeg") no-repeat;background-size:cover;}
+	.forth-banner #fd li div:nth-child(2){background:url("images/2.jpeg") no-repeat;background-size:cover;}
+	.forth-banner #fd li div:nth-child(3){background:url("images/3.jpg") no-repeat;background-size:cover;}
+	.forth-banner #fd li div:nth-child(4){background:url("images/2.jpg") no-repeat;background-size:cover;}
+	.forth-banner ol{position:absolute;right:10px;bottom:10px;}
+	.forth-banner ol li{width:20px;height:20px;border-radius:50%;float:left;margin-left:10px;background:#ccc;text-align:center;line-height:20px;cursor:pointer;}
+	.forth-banner ol li.f-on{color:#fff;background:orange;}
+	.splice{width:500px;margin-bottom:10px;}
+	/*end forth-banner*/
+</style>
+</style>
+</head>
+<body>
+	<div class="box">
+		<!-- fir-banner start -->
+		<div class="fir-banner">
+			<h1 class="title">hover版的手风琴banner图</h1>
+			<ul class="fir-list">
+				<li><a href="javascript:void(0);"><img src="images/1.jpeg" width="1180" height="350" alt="1"></a><div class="mark mark1"><a href="javascript:void(0);">每周临暮1</a></div>
+				<div class="mark mark2"><a href="javascript:void(0);">每周临暮1</a></div>
+				</li>
+				<li><a href="javascript:void(0);"><img src="images/2.jpeg" width="1180" height="350" alt="1"></a><div class="mark mark1"><a href="javascript:void(0);">每周临暮2</a></div>
+				<div class="mark mark2"><a href="javascript:void(0);">每周临暮2</a></div></li>
+				<li><a href="javascript:void(0);"><img src="images/3.jpg" width="1180" height="350" alt="1"></a><div class="mark mark1"><a href="javascript:void(0);">每周临暮3</a></div>
+				<div class="mark mark2"><a href="javascript:void(0);">每周临暮3</a></div></li>
+				<li><a href="javascript:void(0);"><img src="images/2.jpg" width="1180" height="350" alt="1"></a><div class="mark mark1"><a href="javascript:void(0);">每周临暮4</a></div>
+				<div class="mark mark2"><a href="javascript:void(0);">每周临暮4</a></div></li>
+			</ul>
+		</div>
+		<!-- end fir-banner -->
+		<!-- second-banner start -->
+		<div class="second-banner">
+			<h1 class="title">hover版的3D翻转banner图</h1>
+			<ul class="second-list">
+				<li>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</li>
+				<li>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</li>
+				<li>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</li>
+				<li>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</li>
+			</ul>
+		</div>
+		<!-- end second-banner -->
+		<!-- third-banner start -->
+		<div class="third-banner" id="third-banner">
+			<h1 class="title">js基本版的3D翻转banner图</h1>
+			<ul id="td">
+				<li>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</li>
+				<li>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</li>
+				<li>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</li>
+				<li>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</li>
+			</ul>
+			<ol id="third-ol">
+				<li class="on">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			<ol>
+		</div>
+		<!-- end third-banner -->
+		<!-- forth-banner start -->
+		<div class="forth-banner" id="forth-banner">
+			<h1 class="title">js终极版的3D翻转banner图</h1>
+			<div class="splice">
+				<input type="text" id="txt" value="6">
+				<input type="button" id="btn" value="切割">
+			</div>
+			<ul id="fd">
+			</ul>
+			<ol id="forth-ol">
+				<li class="f-on">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			<ol>
+		</div>
+		<!-- end forth-banner -->
+	</div>
+	<script type="text/javascript">
+		/*third-banner start*/
+		var thirdol = document.getElementById("third-ol");
+		var btns = thirdol.getElementsByTagName("li");
+		var ulDom = document.querySelector("#td");
+		var lis = ulDom.getElementsByTagName("li");
+		var cssDom = document.getElementById("css");
+		var third_bannerDom = document.getElementById("third-banner");
+		var index=0;
+		for(var i=0;i<btns.length;i++){
+			/*btns[i].index = i;
+			btns[i].onclick = function(){
+				for(var i=0;i<btns.length;i++){
+					btns[i].className = "";
+					lis[i].style.transform = "translateZ(-180px) rotateX("+this.index*-90+"deg)";
+				}*/
+			//闭包获取索引
+			(function(i){
+				btns[i].onclick = function(){
+					for(var j=0;j<btns.length;j++){
+						btns[j].className = "";
+					}
+					this.className = "on";
+					cssDom.innerHTML +=".third-banner #td li{transform:translateZ(-180px) rotateX("+(-i*90)+"deg);}";
+					index = i;
+				}
+			})(i);
+		}
+		var timer = setInterval(autoPlay,2000);
+		function autoPlay(){
+			index++;
+			for(var j=0;j<btns.length;j++){
+				btns[j].className = "";
+			}
+			index = index>=btns.length?0:index++; 
+			btns[index].className = "on";
+			cssDom.innerHTML +=".third-banner #td li{transform:translateZ(-175px) rotateX("+(-index*90)+"deg);}";
+			console.log("index==="+index);
+		};
+		third_bannerDom.onmouseover = function(){
+			clearInterval(timer);
+		};
+		third_bannerDom.onmouseout = function(){
+			timer = setInterval(autoPlay,2000);
+		};
+		/*end third-banner*/
+		/*forth-banner start*/
+		var forthol = document.getElementById("forth-ol");
+		var btns1 = forthol.getElementsByTagName("li");
+		var ulDom1 = document.querySelector("#fd");
+		var lis1 = ulDom1.getElementsByTagName("li");
+		var txtDom = document.getElementById("txt");
+		var btnDom = document.getElementById("btn");
+		var forthbannerDom = document.getElementById("forth-banner");
+		var index1=0;
+		//拿到forth-banner图的宽度
+		var bWidth = forthbannerDom.offsetWidth;
+		//先默认分割成六个长方体
+		init(6);
+		//按钮点击分割
+		btnDom.onclick = function(){
+			//将输入框的数字字符串装换成数字
+			var valued = txtDom.value*1;
+			init(valued);
+		}
+		for(var i=0;i<btns1.length;i++){
+			//闭包获取索引
+			(function(i){
+				btns1[i].onclick = function(){
+					for(var j=0;j<btns1.length;j++){
+						btns1[j].className = "";
+					}
+					this.className = "f-on";
+					cssDom.innerHTML +=".forth-banner #fd li{transform:translateZ(-175px) rotateX("+i*90+"deg);}";
+					index1 = i;
+				}
+			})(i);
+		}
+		var timer1 = setInterval(autoPlay1,3000);
+		function autoPlay1(){
+			for(var j=0;j<btns1.length;j++){
+				btns1[j].className = "";
+			}
+			//注意了这里是++index1,先将自身加一，再赋值给index1
+			index1 = index1>=btns1.length-1?0:++index1; 
+			btns1[index1].className = "f-on";
+			cssDom.innerHTML +=".forth-banner #fd li{transform:translateZ(-175px) rotateX("+index1*90+"deg);}";
+			console.log("index1==="+index1);
+		};
+		forthbannerDom.onmouseover = function(){
+			clearInterval(timer1);
+		};
+		forthbannerDom.onmouseout = function(){
+			timer1 = setInterval(autoPlay1,3000);
+		};
+		//num长方体个数
+		function init(num){
+			var liHtml = "",pHtml = "",tHtml = "",zHtml = "",z=0;
+			//获取每个长方体的宽度
+			var liw = bWidth/num;
+			for(var i=0;i<num;i++){
+				//只要长方体li对应的下标大于长度的一半就改变z-index
+				if(i>num/2){
+					z--;
+				}
+				//这里发在if语句外面
+				tHtml+=".forth-banner #fd li:nth-child("+(i+1)+") {z-index:"+z+";}";
+				//动态创建多个长方体
+				liHtml +="<li><div></div><div></div><div></div><div></div></li>";
+				//动态改变每个长方体的每个面的背景图定位
+				pHtml +=".forth-banner #fd li:nth-child("+(i+1)+") div{background-position:"+(-i*liw)+"px;}";
+				//动态改变每个li长方体的旋转延迟时间
+				tHtml +=".forth-banner #fd li:nth-child("+(i+1)+") {transition:1s "+0.4*i/num+"s;}";
+			}
+			//为ul动态添加多个li
+			ulDom1.innerHTML = liHtml;
+			//动态添加多个样式
+			cssDom.innerHTML += zHtml+pHtml+tHtml+".forth-banner #fd li,.forth-banner #fd li div{width:"+liw+"px;}";
+			/*for(var i=0;i<num;i++){
+				lis[i].style.cssText = "width:"+liw+"px;transition:1s "+0.4*i/num+"s;";
+			}*/
+		};
+	</script>
+</body>
+</html>

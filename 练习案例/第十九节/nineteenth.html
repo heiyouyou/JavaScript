@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*function Person(name,age){
+			this.name = name;
+			this.age = age;
+		};
+		Person.prototype.showName = function(){
+			alert(this.name);
+			return this;
+		};
+		Person.prototype.showAge = function(){
+			alert(this.age);
+			return this;
+		};
+		var p1 = new Person("wells",21);
+		//返回当前对象达到链式调用的目的
+		p1.showName().showAge();*/
+
+		/*
+			原型链：实现对象与原型对象的链接
+			找函数找方法的顺序：本对象>>构造函数>>原型对象>>Object.prototype
+		*/
+		/*function Person(){
+			this.number = 12;
+		};
+		Person.prototype.number1 = 20;
+		Object.prototype.number = 2;
+		var p = new Person();
+		p.number = 3; 
+		alert(p.number);*/
+
+		/*
+			对象的默认方法和属性：
+			hasOwnProperty()：判断是否属于对象下的属性，按照原型链的顺序寻找，返回的值属于Boolean类型
+
+			constructor（构造器）:值为对象的构造函数
+
+			A instanceof B:判断A（对象）是否属于类B的实例（对象），返回的boolean值；注意所有对象都属于Object这个类
+
+			toString()：可以将调用对象变成字符串；而且方法里可以传入相应的进制数如：二进制、八进制、十六进制，将相应的数字转成相应的进制数
+			
+			注意了：当new一个对象或者原型对象；当用for……in循环拿到属性时；是不能拿到对象默认的属性或者方法（如以上的）
+		*/
+		function Person(){
+			this.number = 10;
+		};
+		Person.prototype.number = 20;
+		Person.prototype.show = function(){
+			alert(this.number);
+		};
+		var p = new Person();
+		//p.number1 = 2;
+		//alert(p.hasOwnProperty("number"));
+		//alert(p.constructor);
+		//alert(p instanceof Object);
+		for(var key in Person.prototype){
+			alert(key);
+		};
+		var arr = [1,2,3];
+		//alert(arr instanceof Array);
+		var reg = new RegExp();
+		//alert(reg instanceof Person);
+		//alert(arr.toString());
+		//alert(typeof arr.toString());
+		var num = 24;
+		//alert(num.toString(2));
+	</script>
+</body>
+</html>

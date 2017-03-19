@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>获取同类名元素的方法</title>
+<style type="text/css" id="css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div class="box">adasdas</div>
+	<div id="warp">
+		asdasda
+		<a class="boxs">请点击我！</a>
+		<a class="box">请点击我！</a>
+	</div>
+	
+	<script src="js/jQuery.js"></script>
+	<script>
+		$(".box",$("#warp"))[0].onclick = function(){
+			alert(1);
+		};
+		//getElementsByClassName(className)是通过类名来获取元素，但不支持Ie6 7 8
+		/*var boxDoms = document.getElementsByClassName("box");//获得一个类数组
+		var css = document.getElementById("css");
+		for(var i =0;i<boxDoms.length;i++){
+			boxDoms[i].style.textAlign = "center";
+		}
+		css.innerHTML += ".box{height:50px;border:1px solid red;margin:10px 0;}";
+		boxDoms[1].onclick = function(){
+			alert(1);
+		}*/
+
+		/*var all = document.getElementsByTagName("*");//*表示将页面的所有dom元素获取存入类数组中
+		var arrClass = [];
+		for(var i=0;i<all.length;i++){
+			if(all[i].className == "box"){//只能用来获取只有一种样式box的元素
+				arrClass.push(all[i]);
+			}
+		}
+		arrClass[1].onclick = function(){
+			alert(1);//获取不到元素就会报错
+		}
+		//alert(JSON.stringify(arrClass));*/
+
+		/*
+		var all = document.getElementsByTagName("*");
+		var arrClass = [];//用一个空数组来接收具有类样式box的元素
+		for(var i=0;i<all.length;i++){
+			var arr = all[i].className.split(" ");//通过split(以空格号来划分具有多个类样式的元素的className)切割成数组用arr来存，注意className都是字符串！！！
+			for(var j=0;j<arr.length;j++){//循环嵌套循环，每个循环的边界变量最好不要相同，易引起混乱
+				if(arr[j] == "box"){
+					arrClass.push(all[i]);//将具有box样式的元素存入原来的空数组arrClass
+				}
+			}
+		}
+		arrClass[0].onclick = function(){
+			alert(1);
+		}*/
+	</script>
+</body>
+</html>

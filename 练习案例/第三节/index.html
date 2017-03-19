@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>形参和实参</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*函数声明式
+		function show(){
+			alert(1);
+		}
+		show();*/
+		/*
+		function sum(a,b){
+			var a = 1;
+			var b 
+			alert(a+b);//1+undefined == NaN;
+		}
+		sum(1);
+		*/
+		/*对象作为参数传递{}
+		function obj(a,b){
+			alert(a.age-b);//24-2==22
+		}
+		obj({username:"hei",age:24},2);*/
+		/*
+		function fn(s){
+			var s = function test(){alert(1);};//传入实参时默认首先执行了这一步
+			s();
+		}
+		fn(function test(){alert(1);});*/
+		/*函数调用
+		function sum(){
+			function a(){
+				alert(1);
+			};
+			alert(a);//输出一坨
+			a();//输出1
+		};
+		sum();*/
+		/*
+		function $(fn){
+			//var fn = function(){alert(1);};
+			window.onload = fn;//这样子：fn()也是输出1
+		}
+		$(function(){alert(1);});*///输出1
+	</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>高考倒计时</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background:#eee;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<h1 id="time" style="text-align:center;margin:20px auto;background:#ccc;width:600px;border-radius:10px;"></h1>
+	<script type="text/javascript">
+		window.onload = function(){
+			var timeDom = document.getElementById("time");
+			//var startTime = new Date();//写在外面就只是获取你执行那一瞬间的系统时间，当方法time再执行时还是获取那时的时间,这样就不能达到动态变化了
+			function time(y,m,d){
+				var startTime = new Date();//注意这里不能放在time方法外！！！
+				var endTime = new Date(y,m-1,d);//传入要进行倒计时的时间
+				var ms = endTime.getTime() - startTime.getTime();//先拿到传入的时间与当前时间的差值 单位为毫秒
+				var sec = ms/1000;//然后将毫秒数转成秒除1000
+				var day = Math.floor(sec/60/60/24);//得到剩余多少整数天
+				var hour = Math.floor(sec/60/60%24);//将取余得到的小时赋值给hour
+				var min = Math.floor(sec/60%60);//将取余得到的分钟赋值给min
+				var ss = Math.floor(sec%60);//将取余得到的秒数赋值给ss
+				function two(n){//将分秒小于10时变成两位数
+					if(n<10){
+						n = "0"+n;
+					}
+					return n;
+				};
+				var text = "距离"+endTime.getFullYear()+"年"+(endTime.getMonth()+1)+"月"+endTime.getDate()+"日<span style='color:red;'>高考还有"+day+"日"+hour+"小时"+two(min)+"分钟"+two(ss)+"秒</span>";	
+				timeDom.innerHTML = text;
+			};
+			time(2016,6,7);//这里执行是为了消除等到定时器执行这段时间差
+			setInterval(function(){
+				time(2016,6,7);
+			},1000);
+		};
+	</script>
+</body>
+</html>

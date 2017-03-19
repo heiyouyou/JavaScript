@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>作业二</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var str = "潭州学院—Jery老师";//长度为11
+		//分析:startIndex = -3;因为|-3|<字符串长度11，所以startIndex = 11-3 ==7;又startIndex==7大于endIndex=5;所以截取为 空
+		alert(str.slice(-3,5));	//输出 空
+		//分析:startIndex = -6;因为|-6|小于11，所以startIndex = 11-6==5;又endIndex = -2;所以endIndex==11-2==9;所以截取索引2到索引9又不包括索引9的字符串，所以输出 jery
+		alert(str.slice(-6,-2));//输出jery
+		//分析:因为startIndex = -3;所以startIndex变成0，又endIndex = 5;所以截取0到5又不包括5的字符串；所以输出 潭州学院——
+		alert(str.substring(-3,5));//输出潭州学院——
+		//分析:因为startIndex = -6<0;endIndex<0;所以他们都变成了0，所以无法截取，所以输出为 空
+		alert(str.substring(-6,-2));//输出空
+		//分析:因为startIndex=5>endIndex=2;所以他们互换位置，截取从2到5截，所以输出 学院——
+		alert(str.substring(5,2));//学院——
+	</script>
+</body>
+</html>

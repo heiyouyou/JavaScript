@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			多态：一种方法的不同表现形式（体现形式/执行状态）
+		*/
+		/*function add(){
+			//接收函数传入的不定参数
+			var arg = arguments,len = arguments.length;
+			switch(len){
+				//不传入参数
+				case 0:
+					return 10;
+				//传入1个参数
+				case 1:
+					return 10+arg[0];
+				//出入2个参数
+				case 2:
+					return arg[0]+arg[1];
+			};
+		};
+		alert(add(1));*/
+		function Add(){
+			//私有方法（默认的方法）
+			function zero(){
+				return 10;
+			};
+			function one(num1){
+				return 10+num1;
+			};
+			function two(num1,num2){
+				return num1+num2;
+			};
+			//实例的方法
+			this.add = function(){
+				var arg = arguments,len = arguments.length;
+				switch(len){
+					case 0:
+						return zero();
+					case 1:
+						return one(arg[0]);
+					case 2:
+						return two(arg[0],arg[1]);
+				};
+			};
+		};
+		var a = new Add();
+		alert(a.add());//10
+		alert(a.add(10));//20
+		alert(a.add(10,1));//11
+	</script>
+</body>
+</html>

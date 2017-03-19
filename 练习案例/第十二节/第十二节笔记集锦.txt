@@ -1,0 +1,151 @@
+	<script type="text/javascript">
+		//js版的选项卡
+		/*function $(id){
+			return document.getElementById(id);
+		};
+		var liDoms = $("card").children;
+		var divDoms = $("content").children;
+		for(var i=0;i<liDoms.length;i++){
+			liDoms[i].index = i;
+			liDoms[i].onmouseover = function(){
+				this.className = "on";//this指代当前悬停的元素对象
+				sibling(this,function(){
+					this.className = "";//这里的this指代除了传进的对象之外的兄弟元素
+				});
+				divDoms[this.index].style.display = "block";
+				sibling(divDoms[this.index],function(){
+					this.style.display = "none";//这里的this指代除了divDoms[this.index]之外的兄弟元素
+				});
+			};
+		}
+		//封装jQuery里面的siblings()方法
+		function sibling(obj,callback){
+			/*var pDoms = obj.parentNode.children;
+			for(var i=0;i<pDoms.length;i++){
+				if(pDoms[i]!=obj){
+					callback.call(pDoms[i]);
+				}
+			}*/
+			/*var pDoms = obj.parentNode.children;
+			var tabs = [].slice.call(pDoms);//数组里的slice方法
+			tabs.filter(function(others){//filter()ie678不支持，others指代除了传入的obj对象元素之外的兄弟元素
+				if(others!= obj){
+					callback.call(others);
+				}
+			})
+		};*/
+		//数组中的slice的原型方法
+		/*Array.prototype.slice = function(){
+			var arr = [];
+			for(var i=0;i<this.length;i++){//这里的this指代call里面的数组对象
+				arr.push(this[i]);
+			}
+			return arr;
+		}*/
+
+		//jquery版的选项卡
+		$("#card").children().mouseover(function(){
+			//获取当前点击的li对象
+			var $li = $(this);
+			//获取当前点击的索引
+			var index = $li.index();
+			//addClass()添加类样式，removeClass()剔除类样式
+			$li.addClass("on").siblings().removeClass("on");
+			//eq()匹配索引，show()没有淡入淡出的效果
+			$("#content").children().eq(index).show().siblings().hide();
+		});
+	</script>
+
+
+	<script type="text/javascript">
+		var box1 = document.getElementById("box1");
+		var box2 = document.getElementById("box2");
+		var box3 = document.getElementById("box3");
+		//这样子无法用removeEventListener("click",fn,false)或detachEvent("onclick",fn)解绑
+		box3.onclick = fn;
+		//可以这样解绑box3.onclick = fn;
+		box3.onclick = null;
+		/*box3.attachEvent("onclick",fn);
+		//ie678的事件解绑方法，参数要与绑定的相同
+		box3.detachEvent("onclick",fn);*/
+		box3.addEventListener("click",fn,false);
+		//其他浏览器的事件解绑，同样参数要与绑定的相同
+		box3.removeEventListener("click",fn,false);
+		//box3.removeEventListener("click",fn,true);//这样写无法解绑事件
+		function fn(){
+			alert(1);
+		};
+	</script>
+
+	<script type="text/javascript">
+		//记住只有被聚焦（或有焦点）的对象对应的键盘事件才能够触发执行
+		var oTxt = document.getElementById("txt");
+		oTxt.onkeyup = function(){
+			alert(this.value);
+		}
+		//onkeydown先于onkeypress触发；onkeypress只会响应字母数字符号回车键，其他的例如F1-F12、ctrl/shift/alt等不会响应
+		document.onkeypress = function(){
+			console.log(1);
+		};
+		document.onkeydown = function(){
+			console.log(2);
+		};
+	</script>
+
+	<script type="text/javascript">
+		/*document.onkeyup = function(ev){
+			var e = ev||event;
+			alert(e.keyCode);//keyCode键盘码
+			//回车键13 shift键16 ctrl键17 空格键32 alt18 数字键1-9：97~105
+		};*/
+		var oTxt = document.getElementById("txt");
+		var oBtn = document.getElementById("btn");
+		var oDiv = document.getElementById("div1");
+		//点击事件
+		oBtn.onclick = fn;
+		oTxt.onkeyup = function(ev){
+			var e = ev||event;
+			//当按回车键时提交内容
+			if(e.keyCode == 13){
+				fn();
+			}
+		};
+		function fn(){
+			//拿到输入框的文本
+			var text = oTxt.value;
+			//当提交或回车时清除输入的文本
+			oTxt.value = "";
+			if(text.trim()){//trim()去除字符串的前后空格
+				//创建一个元素
+				var p = document.createElement("p");
+				p.innerHTML = text;
+				oDiv.appendChild(p);
+			}
+		};
+	</script>
+
+	<script type="text/javascript">
+		//剔除文档的右键菜单显示
+		/*document.oncontextmenu = function(){
+			return false ;//默认返回true，当返回false时，当前文档鼠标右键菜单显示不出来
+		};*/
+		//剔除浏览器空格键翻页的效果
+		/*document.onkeydown = function(ev){
+			var e = ev||event;
+			if(e.keyCode == 32){
+				return false;
+			}
+		};*/
+		//自定义右键菜单原理
+		var oBox = document.getElementById("box");
+		document.oncontextmenu = function(ev){
+			var e = ev||event;
+			var x = e.clientX;
+			var y = e.clientY;
+			oBox.style.cssText = "display:block;top:"+y+"px;left:"+x+"px;";
+			return false;
+		};
+		document.onclick = function(){
+			oBox.style.cssText = "display:none;";
+		};
+	</script>

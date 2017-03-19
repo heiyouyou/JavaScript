@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>酷炫照片墙</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	html,body{width:100%;height:100%;}
+	/*背景图片样式*/
+	body{background:
+	linear-gradient(45deg, #92baac 45px, transparent 45px)64px 64px,
+	linear-gradient(45deg, #92baac 45px, transparent 45px,transparent 91px, #e1ebbd 91px, #e1ebbd 135px, transparent 135px),
+	linear-gradient(-45deg, #92baac 23px, transparent 23px, transparent 68px,#92baac 68px,#92baac 113px,transparent 113px,transparent 158px,#92baac 158px);
+	background-color:#e1ebbd;
+	background-size: 128px 128px;
+	-webkit-user-select:none;}
+	/*wrap start*/
+	#wrap{width:90%;height:90%;position:absolute;top:5%;left:5%;box-shadow:0 0 15px #222;}
+	#wrap ul li{width:125px;height:125px;position:absolute;transition:left 1s,top 1s;}
+	#wrap ul li img{transform:scale(.95);transition:transform 1s;}
+	#wrap div a{display:block;font-weight:500;font-size:28px;line-height:50px;position:fixed;color:#ededed;background:#ddd;padding:0 15px;top:50%;margin-top:-25px;display:none;border-radius:5px;}
+	#left{left:0;}
+	#right{right:0;}
+	#wrap div .on{background:#111;color:#ddd;transition:all .5s ease;}
+	/*end wrap*/
+</style>
+</head>
+<body onselectstart = "return false">
+	<!-- wrap start -->
+	<div id="wrap">
+		<ul></ul>
+		<div>
+			<a id="left" href="javascript:void(0);">&lt;</a>
+			<a id="right" href="javascript:void(0);">&gt;</a>
+		</div>
+	</div>
+	<!-- end wrap -->
+	<!--引入js官方类库jQuery-->
+	<script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var $ul = $("#wrap ul");
+			init();//放在获取图片li个数之前执行
+			var $li = $("#wrap ul li");
+			var $wrap = $("#wrap");
+			var $img = $("#wrap ul li img");
+			var $btn = $("#wrap div a");
+			//定义一把点击li的锁变量
+			var onOff = true;
+			//定义一个点击li的时间间隔初始值
+			var liTime = 0;
+			//定义一个切换按钮的时间间隔初始值
+			var btnTime = 0;
+			//定义一个全局的索引变量
+			var $index = 0;
+			//定义一个全局的自动播放定时器
+			var allTimer = null;
+			//初始化创建图片li
+			function init(){
+				for(var i=0;i<24;i++){
+					var  $li = $("<li><img src='images/"+(i+1)+".jpg'></li>");
+					$ul.append($li);
+				};
+			};
+			//窗口变化事件让每个li始终在wrap里面
+			$(window).resize(liPosition);
+			liPosition();
+			//每个li的初始定位
+			function liPosition(){
+				//获取wrap的宽度
+				var wrapWidth = $wrap.width();
+				//获取wrap的高度
+				var wrapHeight = $wrap.height();
+				//获取每个li的横向间隔
+				var w = (wrapWidth-$li.width()*6)/5;
+				//获取每个li的纵向间隔
+				var h = (wrapHeight-$li.height()*4)/3;
+				//遍历拿到每个li添加样式
+				$li.each(function(i){
+					//横向坐标left的倍率
+					var iX = i%6; //0、1、2、3、4、5、6
+					//纵向坐标top的倍率
+					var iY = parseInt(i/6);//0、1、2、3
+					//给每个li添加坐标值以及背景定位
+					$(this).css({
+						left:$li.width()*iX+w*iX,
+						top:$li.height()*iY+h*iY,
+						backgroundPosition:(-iX*125)+"px "+(-iY*125)+"px",
+						boxShadow:"0 0 1px #000"
+					});
+				});
+			};
+			liRotate();
+			//每个li的随机旋转度数
+			function liRotate(){
+				//遍历给每个li添加度数
+				$li.each(function(i){
+					//拿到每个li的随机旋转度数范围，Math.random()返回的是一个区间[0,1)的一个小数
+					var r =(Math.random()-0.5)*60;//-30~30
+					$(this).css("transform","rotate("+r+"deg)");
+				});
+			};
+			//点击li对象触发
+			$li.click(function(){
+				//拿到每个li的对应索引
+				$index = $(this).index();
+				//通过判断前后点击的两次时间差
+				if(new Date() - liTime>2500){
+					liTime = new Date();
+					if(onOff){//当为true时触发以下效果
+						//点击任何li图片恢复大小
+						$img.css("transform","scale(1)");
+						//用一个一次性定时器延迟效果的出现
+						setTimeout(function(){
+							//调用点击每个li触发的效果
+							liClick();
+							//调用自动播放
+							autoPlay();
+							//每个li对应的图片淡出
+							$img.fadeOut(1000);
+							//给点击的li对应的添加背景图片
+							$li.css("backgroundImage","url(images/big/"+($index+1)+".jpg)");
+							//将切换按钮淡入添加样式
+							$btn.fadeIn(1000).mouseover(function(){
+								//悬浮在左右按钮时清除定时器
+								clearInterval(allTimer);
+								$(this).addClass("on").siblings().removeClass("on");
+							}).mouseout(function(){
+								$(this).removeClass("on");
+							});
+						},1000);
+						//解绑一开始窗口变化的事件然后再绑定大图片始终居中浏览器事件
+						$(window).off("resize").resize(liClick);
+						//将锁再次关闭
+						onOff = false;
+					}else{//为false触发以下效果
+						//清除自动播放
+						clearInterval(allTimer);
+						//小图片淡入效果以及背景图片消失
+						$img.fadeIn(1000,function(){
+							$li.css("backgroundImage","");
+							$(this).css("transform","scale(0.95)");
+						});
+						//恢复初始li的位置
+						liPosition();
+						//恢复初始旋转的角度
+						liRotate();
+						//再次解绑窗口事件并重新绑定初始事件
+						$(window).off("resize").resize(liPosition);
+						//将切换按钮淡出
+						$btn.fadeOut(1000);
+						//将锁再次打开
+						onOff = true;
+					};
+				};
+			});
+			//点击每个li触发的效果
+			function liClick(){
+				var wrapWidth = $wrap.width();
+				var wrapHeight = $wrap.height();
+				//获取点击li后每个li横坐标left的起始值
+				var l =(wrapWidth-125*6)/2;
+				//获取点击li后每个li纵坐标top的起始值
+				var t =(wrapHeight-125*4)/2;
+				//遍历添加li的坐标值
+				$li.each(function(i){
+					//横向坐标left的倍率
+					var iX = i%6; //0、1、2、3、4、5、6
+					//纵向坐标top的倍率
+					var iY = parseInt(i/6);//0、1、2、3
+					//给每个li添加坐标值
+					$(this).css({
+						left:125*iX+l,
+						top:125*iY+t,
+						transform:"rotate(0deg)",
+						boxShadow:""
+					});
+				});
+			};
+			//点击两侧按钮切换大图片
+			$btn.click(function(){
+				//判断连续点击两次时间差
+				if(new Date() - btnTime>1500){
+					btnTime = new Date();
+					//获取点击向右还是向左按钮的索引
+					var i = $(this).index();
+					if(i){
+						$index++;
+						//通过取模使索引一直保持在0~23
+						$index %=$li.length; 
+					}else{
+						$index--;
+						if($index<0)$index=$li.length-1;
+					};
+					liBackground();
+				};
+			}).mouseout(function(){
+				//离开左右按钮时触发自动播放
+				autoPlay();
+			});
+			//使每个li的背景图片随机出现
+			function liBackground(){
+				//定义一个空数组接收li的索引值
+				var arr = [];
+				for(var i=0;i<$li.length;i++){
+					arr[i] = i;
+				};
+				//定时器实现全部li背景图出现
+				var timer = setInterval(function(){
+					//随机向下取整取索引（每次可能拿到相同的值但是对应的数组arr的值已经不同了）
+					var r = Math.floor(Math.random()*arr.length);
+					//匹配随机索引对应的li进行添加背景图
+					$li.eq(arr[r]).css("backgroundImage","url(images/big/"+($index+1)+".jpg)");
+					//清空已经取到的数组值以免重复取到
+					arr.splice(r,1);
+					console.log(arr);
+					//当数组arr长度为零时清除定时器
+					if(arr.length==0)clearInterval(timer);
+				},50);
+			};
+			//自动播放
+			function autoPlay(){
+				allTimer = setInterval(function(){
+					$index++;
+					//通过取模使索引一直保持在0~23
+					$index %=$li.length;
+					liBackground();
+				},4000);
+			};
+			//阻止浏览器右键默认事件
+			/*$(document).contextmenu(function(){
+				return false;
+			});*/
+		});
+	</script>
+</body>
+</html>

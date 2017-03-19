@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>手风琴的banne图</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background:#ccc;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	.box{width:900px;height:300px;background:#ccc;margin:100px auto;overflow:hidden;box-shadow:1px 1px 6px #2fef34;}
+	.box .list{width:1000%;}
+	.box .list li{float:left;width:180px;transition:all .5s ease;position:relative;}
+	/*先整体变成50px*/
+	.box .list:hover li{width:50px;}
+	/*.box .list:hover li 与.box .list li:hover等级一样，但是后来的覆盖了前面的*/
+	/*再单独变成700px*/
+	.box .list li:hover{width:700px;}
+	.box .list li .mark{width:100%;position:absolute;bottom:0;left:0;background:rgba(255,255,255,.5);height:0;transition:height .5s ease;}
+	.box .list li .mark a{color:#111;font-size:16px;height:100%;padding-left:10px;display:block;}
+	.box .list li:hover .mark{height:60px;}
+	/*注意了：当每个装有图片的固定宽度li浮动后，而且每个li里面的图片都有溢出时，这时浮动后后面的图片会将前面图片溢出部分覆盖掉*/
+</style>
+</head>
+<body>
+	<div class="box">
+		<ul class="list">
+			<li><a href="javascript:void(0);"><img src="images/1.jpg" width="900" height="300" alt="1"></a><div class="mark"><a href="javascript:void(0);">潭州大楼1111</a></div>
+			</li>
+			<li><a href="javascript:void(0);"><img src="images/2.jpg" width="900" height="300" alt="1"></a><div class="mark"><a href="javascript:void(0);">潭州大楼1111</a></li>
+			<li><a href="javascript:void(0);"><img src="images/3.jpg" width="900" height="300" alt="1"></a><div class="mark"><a href="javascript:void(0);">潭州大楼1111</a></li>
+			<li><a href="javascript:void(0);"><img src="images/4.jpg" width="900" height="300" alt="1"></a><div class="mark"><a href="javascript:void(0);">潭州大楼1111</a></li>
+			<li><a href="javascript:void(0);"><img src="images/5.jpg" width="900" height="300" alt="1"></a><div class="mark"><a href="javascript:void(0);">潭州大楼1111</a></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

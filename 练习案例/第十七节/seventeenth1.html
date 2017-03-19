@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	<script type="text/javascript">
+		/*
+			字符集[]用来匹配多类字符如：[a-z][A-Z][0-9]或[a-zA-Z0-9][123456]
+			注意字符区间只能从小到大a-z不能z-a;还有可以[0-z][Z-z]但是不能[z-Z]
+			相当于.的功能
+		*/
+		/*var str = "dZd2443";
+		var reg = /d[A-Z]d/;
+		alert(reg.test(str));*/
+		
+		/*
+		{}是字符量词区间
+		1.{}如果这样子返回的是null；{2}表示匹配两个连续的字符；{1,}表示匹配1个或多个连续的字符；{1,5}表示匹配1到5个连续的字符；注意了{}的右边可以没有，但是左边一定要有如：{1,}
+
+		 * 表示匹配零个或多个字符
+		 ? 表示匹配零个到一个字符相当于{0,1}
+		*/
+		
+		var str = "ab3343cdef65fg12354";
+		//var reg = /\d{1,}/g;
+		//匹配不上的字符用逗号,切割成数组
+		//var reg = /\d*/g;
+		/*var reg = /\d?/g;
+		alert(str.match(reg));*/
+	</script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+/*
+			类式（原型链）继承的原理：子类的原型指向父类创建出来的对象（对象复制了父类的函数与属性；并且拥有父类原型的函数与属性）；从而使得子类的对象按照原型链去继承了父类的属性和方法
+			缺点：1.由于是类式继承是通过原型继承的，所以一个子类对象只要改变了引用类型的值，其他子类在调用这个引用类型时也会发生改变；2.并且不能够传参继承
+			注意：instanceof是根据原型链来判断对象是某个类的实例！！！
+		*/
+		function SuperClass(){
+			this.books = ["js","css","java"];
+		};
+		function SubClass(){};
+		//子类的原型指向父类的实例（对象）
+		SubClass.prototype = new SuperClass();
+		//改变原型的构造器
+		SubClass.prototype.constructor = SubClass;
+		/*//子类的对象创建
+		var instance = new SubClass();
+		//instance是属于SubClass的实例
+		alert(instance instanceof SubClass);//true
+		//同样由于子类的原型指向了父类的实例，从而导致子类对象继承了父类；固instance属于SuperClass的实例
+		alert(instance instanceof SuperClass);//true
+		//由于instanceof比较的是对象是否属于类的实例，所以不关构造函数的事！！！
+		alert(SubClass instanceof SuperClass);//false
+		//因为子类的原型被赋值了父类的对象；而子类对象又是由父类创建出来，所以子类的原型属于父类的实例，而不是属于子类的实例！！！
+		alert(SubClass.prototype instanceof SubClass);//false
+		//由于子类原型指向父类对象，所以是父类的实例
+		alert(SubClass.prototype instanceof SuperClass);//true
+		//Object是所有类或对象的父类，都可以默认被继承！！！
+		alert(instance instanceof Object);//true*/
+		var instance1 = new SubClass();
+		var instance2 = new SubClass();
+		alert(instance1.books);
+		instance1.books.push("jquery");
+		alert(instance1.books);
+		//类式继承改变了引用类型的值（就是放在一个地址内存里的共享值）
+		alert(instance2.books);
+		//由于原型指向了父类的实例，所以构造器属于父类
+		alert(instance2.constructor);
+
+/*
+			构造函数继承：子类复制了父类构造函数里的方法和属性，属于值类型的继承（互相不影响）；但是缺点就是父类原型对象的方法和属性是不被继承的！！！
+		*/
+		//父类构造函数
+		function SuperClass(id){
+			this.id = id;
+			this.books = ["java","javascript","ajax"];
+		};
+		//父类原型方法
+		SuperClass.prototype.showBooks = function(){
+			alert(this.books);
+		};
+		//子类构造函数
+		function SubClass(id,age){
+			//构造函数继承:将父类this调整指向为子类的this
+			SuperClass.call(this,id);
+			this.age = age;
+		};
+		//子类的实例
+		var instance1 = new SubClass("wells",19);
+		var instance2 = new SubClass("free",18);
+		instance1.books.push("css");
+		alert(instance1.id);
+		alert(instance1.age);
+		alert(instance1.books);
+		alert(instance2.id);
+		alert(instance2.age);
+		alert(instance2.books);
+		//子类只是继承了父类的构造函数的属性和方法，没有继承到父类原型的方法
+		//instance2.showBooks();
+		//子类原型指向没有发生改变，所以构造器还是子类
+		alert(instance2.constructor);
+
+/*
+			组合式继承：类式与构造继承的结合；
+			优点：将相互的缺点都去掉了！！！
+			缺点：父类构造函数（当构造函数很复杂时，不利于代码的优化）至少执行两次
+		*/
+		function SuperClass(name){
+			this.name = name;
+			this.books = ["javascript","css","Java"];
+		};
+		SuperClass.prototype.getName = function(){
+			alert(this.name);
+		};
+		//类式继承（第一次父类构造函数执行）
+		SubClass.prototype = new SuperClass();
+		//构造函数继承
+		function SubClass(name,time){
+			//第二次父类构造函数执行
+			SuperClass.call(this,name);
+			this.time = time;
+		};
+		//调整子类对象的构造器
+		SubClass.prototype.constructor = SubClass;
+		SubClass.prototype.getTime = function(){
+			alert(this.time);
+		};
+		var instance1 = new SubClass("js",2012);
+		instance1.books.push("html5");
+		alert(instance1.books);
+		instance1.getName();
+		instance1.getTime();
+
+		var instance2= new SubClass("css",2013);
+		alert(instance2.books);
+		instance2.getName();
+		instance2.getTime();
+
+		var instance3= new SubClass("php",2014);
+		alert(instance3.books);
+		instance3.getName();
+		instance3.getTime();
+		//子类原型指向了父类的实例，所以构造器也发生了改变
+		alert(instance2.constructor);
+		//或者可以这样写：
+				/*
+			寄生式继承：通过在一个函数内的过渡对象实现继承并且返回新对象的方式称之为寄生式继承；寄生式继承依附于原型链继承实现的。
+			寄生组合式继承：结合构造函数继承实现的继承。
+		*/
+		/*function extend(obj){
+			//空的一个过渡构造函数（类）
+			var Fn = function(){};//或者function Fn(){};
+			//将过渡的原型对象指向传入的对象
+			Fn.prototype = obj;
+			//返回一个过渡对象
+			return new Fn();
+		};	
+		//值类型属性被复制，引用类型的属性被共用
+		var Books = {
+			name:"js",//值类型
+			books:["css","Java"]//引用类型
+		};
+		//返回的新对象继承了传入对象的属性和方法
+		var instance1 = extend(Books);
+		//没改变
+		alert(instance1.name);
+		alert(instance1.books);
+		//发生了改变
+		instance1.name = "wells";
+		instance1.books.push("jquery");
+		alert(instance1.name);
+		alert(instance1.books);
+		var instance2 = extend(Books);
+		alert(instance2.name);
+		alert(instance2.books);
+		//原型指向了Object
+		alert(instance2.constructor);*/
+
+		/*function extend(obj){
+			//空的一个过渡构造函数（类）
+			var Fn = function(){};//或者function Fn(){};
+			//将过渡的原型对象指向传入的对象
+			Fn.prototype = obj;
+			//返回一个过渡对象
+			return new Fn();
+		};
+		//一个传入子类和父类的函数
+		function extendPrototype(subClass,superClass){
+			//返回了一个继承了父类原型的过渡对象（新对象）
+			var p = extend(superClass.prototype);
+			//将构造器重新指向子类
+			p.constructor = subClass;
+			//子类原型指向了一个过渡对象（新对象）
+			subClass.prototype = p;
+			//或者：subClass.prototype.constructor = subClass;
+		};
+		//定义父类
+		function SuperClass(name){
+			this.name = name;
+			this.colors = ['red','blue','yellow'];
+		};
+		//父类原型
+		SuperClass.prototype.getName = function(){
+			console.log(this.name);
+		};
+		//定义子类
+		function SubClass(name,time){
+			//构造函数继承
+			SuperClass.call(this,name);
+			//子类新增属性
+			this.time = time;
+		};
+		//寄生组合式继承
+		extendPrototype(SubClass,SuperClass);
+		//子类原型的新增方法
+		SubClass.prototype.getTime = function(){
+			console.log(this.time);
+		};
+		//父类的实例
+		var instance1 = new SuperClass("js");
+		//子类的实例
+		var instance2 = new SubClass("css",2016);
+		instance1.colors.push("pink");
+		console.log(instance1.colors);
+		console.log(instance2.colors);
+		instance2.getName();
+		instance2.getTime();
+		instance1.getName();
+		//父类对象不能使用子类的属性和方法
+		//instance1.getTime();
+		alert(instance2.constructor);
+		*/
+		//继承原型
+		function extend(subType, superType) {
+			function F(){};
+			F.prototype = superType.prototype;
+
+			var prototype = new F;
+			prototype.constructor = subType;
+			subType.prototype = prototype;
+		}
+
+		//超类方法
+		function SuperType(name) {
+			this.name = name;
+			this.colors = ["red", "blue", "green"];
+		}
+		SuperType.prototype.sayName = function() {
+			return this.name;
+		}
+
+		//子类方法
+		function SubType(name, age) {
+			SuperType.call(this, name);
+			this.age = age;
+		}
+
+		//继承超类的原型
+		extend(SubType, SuperType);
+
+		//子类方法
+		SubType.prototype.sayAge = function() {
+			return this.age;
+		}
+
+		var instance1 = new SubType("Shelby");
+		var instance2 = new SubType("Court", 28);
+
+		instance1.colors.push('black');
+
+		alert(instance1.colors); //red,blue,green,black
+		alert(instance2.colors); //red,blue,green
+
+		alert(instance1 instanceof SubType); //true
+		alert(instance1 instanceof SuperType); //true
+
+$(function(){
+			var $banner = $("#banner");
+			//获取按钮个数
+			var $tabLi = $("#banner .tab ul li");
+			//获取每张图片的宽度
+			var imgWidth = $("#banner .pic ul li").width();
+			/*或者var imgWidth = $("#banner .pic ul li").css("width");*/
+			//获取图片盒子
+			var $picUl = $("#banner .pic ul");
+			//获取到左右两个耳朵
+			var $btnDiv = $("#banner .btn div");
+			//定义一个图片盒子移动距离的全局变量
+			var $index = 0;
+			//定义一个自动播放的定时器
+			var timer = null;
+			//定义一个动画执行的时间差
+			var nowTime = 0;
+			//为每个按钮绑定事件
+			$tabLi.click(function(){
+				//获取点击按钮的索引
+				$index = $(this).index();
+				//为当前点击的按钮添加样式以及剔除没有点击按钮的某种样式
+				$(this).addClass("on").siblings().removeClass("on");
+				//为图片盒子添加移动的动画效果
+				$picUl.animate({"margin-left":-imgWidth*($index+1)+"px"},300);
+				//$picUl.css("margin-left",-imgWidth);
+				/*或者$picUl.css("marginLeft",-imgWidth+"px");*/
+			});
+			/*hover(fn1,fn2)方法是同时绑定 mouseenter（鼠标进入）和 mouseleave（鼠标离开）事件；先执行进入的fn1后执行离开的fn2！！！*/
+			//为左右耳朵绑定事件
+			$btnDiv.hover(function(){
+				$(this).addClass("hover");
+			},function(){
+				$(this).removeClass("hover");
+			}).click(function(){
+				if(new Date() - nowTime>500){
+					//将上一次点击获取到的时间赋值给nowTime
+					nowTime = new Date();
+					//拿到左右耳朵索引进行判断
+					var i = $(this).index()
+					if(i){//点击右耳朵
+						$index++;
+					}else{//点击左耳朵
+						$index--;
+					}
+					fn();
+				}
+			}).mousedown(function(){//剔除默认样式
+				return false;
+			});
+			//封装样式变化的方法
+			function fn(){
+				//定义一个按钮样式变化的同步变量
+				var $liIndex = $index;
+				if($liIndex == $tabLi.length){
+					$liIndex = 0;
+				}else if($liIndex<0){//
+					$liIndex = $tabLi.length-1;
+				}
+				//关联耳朵点击时按钮样式同样也变化
+				$tabLi.eq($liIndex).addClass("on").siblings().removeClass("on");
+				//关联耳朵点击时图片盒子移动
+				$picUl.animate({"margin-left":-imgWidth*($index+1)+"px"},300,function(){
+					if($index == $tabLi.length){
+						$picUl.css("margin-left",-imgWidth+"px");
+						$index = 0;
+					}else if($index<0){
+						$picUl.css("margin-left",-imgWidth*$tabLi.length+"px");
+						$index = $tabLi.length-1;
+					}
+				});
+			};
+			//先自行执行一次播放
+			autoPlay();
+			//自动播放的方法
+			function autoPlay(){
+				timer = setInterval(function(){
+					$index++;
+					fn();
+				},2000)
+			};
+			//悬浮在banner图上触发的样式
+			$banner.hover(function(){
+				$btnDiv.show();
+				clearInterval(timer);
+			},function(){
+				$btnDiv.hide();
+				autoPlay();
+			});
+		});
+
+
+$(function(){
+			var $banner = $("#banner");
+			var $tabLi = $("#banner .tab ul li");
+			var $picLi = $("#banner .pic ul li");
+			var $btnDiv = $("#banner .btn div");
+			var index = 0;
+			var timer = null;
+			$btnDiv.hover(function(){
+				$(this).addClass("hover");
+			},function(){
+				$(this).removeClass("hover");
+			}).click(function(){
+				var i = $(this).index();
+				if(i){
+					index++;
+					//通过取模让index始终保持在0~5之间
+					index %= $tabLi.length;
+				}else{
+					index--;
+					if(index<0){
+						index = $tabLi.length-1;
+					}
+				}
+				fn();
+			}).mousedown(function(){
+				return false;
+			});
+			$tabLi.mouseover(function(){
+				index = $(this).index();
+				fn();
+			});
+			//封装淡入淡出以及按钮样式变化的方法
+			function fn(){
+				$tabLi.eq(index).addClass("on").siblings().removeClass("on");
+				//淡入淡出效果
+				//或者$picLi.eq(index).stop(true,true).fadeIn("slow").siblings().stop(true,true).fadeOut("slow");
+				$picLi.eq(index).stop(true,true).animate({"opacity":1},400).siblings().stop(true,true).animate({"opacity":0},400);
+			};
+			autoPlay();
+			//封装淡入淡出的自动播放
+			function autoPlay(){
+				timer = setInterval(function(){
+					index++;
+					index %= $tabLi.length;
+					fn();
+				},2000)	
+			};
+			//鼠标悬浮在banner图上时触发效果
+			$banner.hover(function(){
+				$btnDiv.show();
+				clearInterval(timer);
+			},function(){
+				$btnDiv.hide();
+				autoPlay();
+			});
+		});

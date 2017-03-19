@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>对冒泡事件的深度认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div class="a" id="a">点我</div>
+	<script type="text/javascript">
+		/*一个元素绑定事件有两张
+			1.属性事件 如：元素名.事件名
+			2.动态绑定事件 如：attachEvent(事件名，回调函数)，addEventListener(事件名，回调函数，是否捕捉)
+			1.false 冒泡
+			2.true  捕捉*/
+		//querySelector()里面可以传入类名(".className")或者id("#id")或者元素名,但是多个相同元素或者相同类名的元素时，默认是第一个，所以一般类名用querySelectorAll()
+		/*document.querySelector("div").onclick = function(){
+			alert(2);
+		};*/
+		//querySelectorAll()里面也可以传入类名(".className")或者id("#id")或者元素名,返回的是一个类数组，相当于getElementsByTagName()或getElementsByClassName()
+		/*function fn(){
+			alert(1);
+		}*/
+		//动态绑定事件不会覆盖属性事件，而且迟于属性事件执行
+		/*document.querySelectorAll(".a")[0].addEventListener("click",function(){
+			alert(3);
+		})
+		document.querySelectorAll(".a")[0].onclick = function(){
+			alert(2);
+		};*/
+		//一般开发中不用事件捕获!!!
+		window.addEventListener("click",function(e){
+			console.log("window被点击了哦");
+			e.stopPropagation();
+		},true);
+		document.addEventListener("click",function(){
+			console.log("html被点击了哦");
+		},false);
+		document.body.addEventListener("click",function(){
+			console.log("body被点击了哦");
+		},true);
+		document.querySelectorAll(".a")[0].addEventListener("click",function(ev){
+			var e = ev||event;
+			console.log("div被点击了哦");
+			//阻止冒泡的方法
+			//e.cancelBubble = "true";//所有浏览器都支持，但不符合w3c的标准
+			e.stopPropagation();//只有ie9+以上的浏览器才支持,既可以用来阻止捕获也可以用来阻止冒泡
+		},true);
+
+		//阻止冒泡的兼容所有浏览器的写法
+		function stopBubble(e){
+			if(e && e.stopPropagation){
+				e.stopPropagation();			
+			}else{
+				event.cancelBubble = "true";
+			}
+		};
+	</script>
+</body>
+</html>

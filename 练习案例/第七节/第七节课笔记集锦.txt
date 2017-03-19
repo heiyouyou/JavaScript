@@ -1,0 +1,303 @@
+<body>
+	<div id="box">
+		如果你是一个正直、善良和快乐的人、或你愿意去做这样的一个人？那么，你就是一个有作为、有价值的人、你就一定能够温暖人心，因为，你本身就是一个天使、一个温暖而又有素养的人。如果你有一颗公益的心灵、现在或曾
+	</div>
+	<div id="search">
+		<input id="txt" type="text" placeholder="请输入要查找的关键字···"/>
+		<input id="btn" type="button" value="查找"/>
+	</div>
+	<script type="text/javascript">
+		//封装获取ID的方法
+		function $(id){
+			return document.getElementById(id);
+		};
+		var oBox = $("box");
+		var oTxt = $("txt");
+		var oBtn = $("btn");
+		var text = oBox.innerHTML;//通过innerHTML获取div中的内容
+		//alert(text);
+		//点击按钮查找的方法
+		oBtn.onclick = function(){
+			var value = oTxt.value;//通过按钮的属性value获取输入框的内容
+			//alert(value);
+			//var arr = text.split(value);//split()方法可以将一个字符串变成数组，以传入的参数先判断字符串里有没有这个字符存在，有的话就以该字符为界限符生成数组，没有就当做生成一个长度为1的数组。当没有传入任何参数给split()时，字符串就会变成一个长度为1的数组
+			//alert(arr);
+			//alert(arr.length);
+			//var str = arr.join("<span style='color:red;'>"+value+"</span>");//join()这个方法可以将数组变成字符串，就是以传入的参数代替数组中的界限符逗号生成字符串
+			//alert(typeof str);
+			//alert(str);
+			//oBox.innerHTML = str;//可以将查找到的关键字的文本str替换原来的文本text
+			//alert(Array.isArray(arr));//arr是一个数组
+
+			search(text,value);//查找方法的调用
+		};
+		//输入框取得焦点就执行方法
+		oTxt.onfocus = function(){
+			document.onkeyup = function(){//键盘按下去就执行方法
+				var value = oTxt.value;
+				search(text,value);
+			};
+		};
+		//查找方法的封装
+		function search(a_text,b_value){
+			if(b_value){//当value什么也没输入时就是空(相当于“”(false类:null undefined '' "" 0(数字了零) false NaN))，只有输入东西才会执行以下代码
+				var arr = a_text.split(b_value);
+				var str = arr.join("<span style='color:red;background:#fff;'>"+b_value+"</span>");
+				oBox.innerHTML = str;
+			}else{
+				oBox.innerHTML = a_text;//当什么也没有输入查找时就换成原来的内容text
+			}
+		};
+	</script>
+</body>
+
+
+//算数运算符 取模%,前++，后++
+		var a = 5%2;
+		//alert(a);
+		var b = 5%6;//当被除数小于除数时，取余后是被除数本身
+		//alert(b);
+		//前++和后++的区别：
+		var c = 0;
+		//alert(c++);//输出0,相当于var v = c++;先v = c,再c=c+1(先将自身赋值给变量v,再自身加一)
+		//alert(c);//输出1
+		//alert(++c);//输出1,相当于var v = ++c;先c=c+1,再v=c(先将自身加一,再将自身加一后的值赋值给变量v);
+		//alert(c);//输出1
+		//alert(c--);//输出0,与后++一样的理解！！！
+		//alert(--c);//输出-1,与前++一样的理解！！！
+		var d = 4;
+		//alert(d++);//输出4
+		//alert(++d);//输出5
+		//alert(d);//输出5
+		//注意：当前++和后++连用如下：
+		/*var e = 4;
+		alert(e++);//输出4，先var v = e++;v变成了4，后e变成了5
+		alert(++e);//输出6，因为上面的e变成了5，所以先var v =++e;v就变成了6，后e变成了6
+		*/
+		/*var c = 3;
+		c+=2;//相当于c = c+2
+		alert(c);*/
+
+		/*if(10>2 || 33<5){// ||只要有一个条件成立就为真
+			alert(1);
+		}else{
+			alet(2);
+		}*/
+		/*//alert(sum(1));//1+undefined==NaN
+		alert(sum(1));//输出0
+		function sum(a,b){
+			a = a||0||undefined;//当传入的值是真(true)就会将值赋给a,如果传入的值是假(false类的值)，就会往后找真(true)的值赋给a,如果还是没找到真的值，找到的全是false类的值，就取最后那个false类的值赋给a
+			b = b||0||2;
+			return a+b;
+		};*/
+
+		/*var i = 0;
+		var c = i++;//先c = i;再i = i+1;
+		alert(12<8 || c || 50);//c=0是假的，50是真的，所以输出50*/
+
+		//三目运算符( * )? * : *
+		//var i = 5;
+		//(i>6)?alert("大于"):alert("小于");//问号？前的表示成立还是不成立？~成立执行冒号：之前的语句，不成立执行冒号：之后的语句
+		
+		//移位运算符& | ^ ~ << >>使用移位运算符运算首先要将十进制数转成相应的八位二进制数，再去用运算符运算，最后再转成相应的十进制数输出
+		var f = 2>>5;//表示向右移两位;第一个数表示要进行移位的数，第二个数表示要移多少位数，当向右移的位数大于八位二进制数的最小值00000000，它就是等于零
+		//2的八位二进制为：00000010
+		//alert(f);
+		var g =2<<1;//表示向左移一位
+		//alert(g);
+		var h = 3<<1;
+		//3的八位二进制数为：00000011//先是左边第一位1向左移一位，再是第二位1再往左移一位
+		//alert(h);
+		
+		var aa = ~3;//~表示取反(取反是为了判断输出是负数还是正数，从第一位判断，是1代表负数，是0代表正数)，判断的出是负数时就再次取反然后加上00000001(是十进制1)
+		//3的八位二进制是：00000011；取反后变成11111100是负数，所以取反00000011加00000001 ==00000100 
+		alert(aa);//所以是输出-4
+		var bb = ~2;
+		//2的八位二进制为：00000010,取反后变成：11111101，所以取反00000010加00000001 ==00000011
+		alert(bb);//所以输出-3
+
+		var cc = 3|2;// |表示两个数的八位二进制数进行同位比较，只要有一个是1(真)就是1(真)，如果两个都是0(假)，就是0(假)，相当于||的功能
+		//3的八位二进制：00000011;
+		//2的八位二进制：00000010;
+		//alert(cc);//比较得出的结果是00000011，所以输出3
+		var dd = 4|3;
+		//4的八位二进制：00000100；
+		//3的八位二进制：00000011；
+		//alert(dd);//比较的得出的结果是00000111，所以是输出7
+		var ee = 3&2;// &表示两个数的八位二进制数进行同位比较，只要有一个是0(假)就是0(假)，如果两个都是1(真)，就是1(真)，相当于&&的功能
+		//3的八位二进制：00000011;
+		//2的八位二进制：00000010;
+		//alert(ee);//比较得出的八位二进制：00000010，所以输出2
+		var ff = 4&3;
+		//4的八位二进制：00000100；
+		//3的八位二进制：00000011；
+		//alert(ff);//比较得出的八位二进制：00000000，所以输出0
+		
+		var gg = 3^2;// ^(异或)表示两个数的八位二进制数进行同位比较，只要两个是一样(同是1或同为0)就是0(假)，如果两个不一样(一个是1另一个是0)，就是1(真)
+		//3的八位二进制：00000011;
+		//2的八位二进制：00000010;
+		//alert(gg);//所以得出的结果是：00000001，所以输出1
+		var hh = 4^3;
+		//4的八位二进制：00000100；
+		//3的八位二进制：00000011；
+		//alert(hh);//所以得出的结果是：00000111，所以输出7
+
+
+		//即时函数的模板：(function(){……})();作用：只执行一次，解决全局变量命名冲突问题，具有独立的生命周期，不会被外界所干扰，因此外界无法访问其内部的函数与变量，第一个括号装的是函数，第二个装的是实参相当于函数打起括号执行的形式，所以说即时函数已经是函数执行的形式了，所以说只执行一次
+
+		/*(function(a){
+			//var a = function(){alert(2);};
+			a();//输出2
+		})(function(){alert(2);});*/
+
+		/*var T = (function(){
+			return 100;
+		})();
+		alert(T);//没有返回任何值时默认返回undefined，所以输出undefined，有返回值100，所以输出100*/
+
+		//经典面试案例题
+		/*var T =(function(){
+			function Tab(){
+				return function(){
+					return function(){
+						return 100;
+					};
+				};
+			};
+			return {
+				tab:Tab//或者'tab':Tab，这里可以理解为tab:function Tab(){return function(){return function(){return 100;};};};
+			}
+		})();
+		alert(T);//输出T的返回值是[object Object]
+		alert(T.tab())//或者alert(T['tab']());T先调用json{tab:Tab}对象的值tab然后打起括号执行，最后输出Tab()的返回值function(){return function(){return 100;};};
+		alert(T.tab()());//输出T先调用对象的值tab然后打起括号第一次执行，然后将第一次执行的得到的结果再打起括号执行第二次，最后输出的是返回值function(){return 100;};
+		alert(T.tab()()());//输出T先调用对象的值tab然后打起括号第一次执行，然后将第一次执行的得到的结果再打起括号执行第二次，最后将第二次执行得到的结果进行第三次执行，所以输出的是返回值100*/
+		//注意：有多少个函数执行就有多少个括号，反之有多少个函数括号打起就有多少个函数执行！！！
+		
+		/*(function(callback){
+			//var callback = function(obj){obj.name = "aa";obj = {name:"bb"}}
+			p = {name:"cc"};//这里p是一个全局变量(对象)window.p = {name:"cc"}
+			callback(p);//相当于function(p){p.name = "aa";obj = {name:"bb"}}这里的obj之所以没有变成p是因为obj已经重新指向了一个json对象{name:"bb"}了(或者可以理解为已经将新的一个对象{name:"bb"}重新赋值给了obj)，只有通过点.属性才能改变对象的值，用赋值号=是改变不了的,只能让它重新指向一个对象或值
+			alert(p.name);//输出aa
+			alert(JSON.stringify(p));//输出{name:"aa"},JSONstringify()传入对象p做实参可以将对象p的[object Object]形式改变成{name:"aa"}
+		})(function(obj){
+			obj.name = "aa";
+			obj = {name:"bb"}
+			//alert(JSON.stringify(obj));//输出{name:"bb"}
+		});*/
+
+	/*var a = 10;
+		function F(){
+			var a = 1;
+			function test(){
+				//a = 2;这样F()就是输出2了
+				alert(a);
+			};
+			test();
+		};
+		F();
+		alert(a);//输出10，父类域的a只能找父类的不能找子类域的
+		alert(F());//先弹出1后没有返回值弹出返回的默认值undefined*/
+
+		var a = 10;
+		function F(){
+			var a = 1;
+			function test(){
+				alert(a);
+			};
+			test();
+			return {//输出返回json对象
+				a:a,
+				test:test
+			}
+		};
+		//F();//输出1
+		//alert(a);//输出10，父类域的a只能找父类的不能找子类域的
+		//alert(F());//先弹出1后弹出返回的json对象{}
+		//alert(F().a+"====="+F().test);//第一次弹出1第二次也是弹出1第三次弹出1=====一坨，只有alert才会有弹出框
+		//alert(F().test());//第一次弹出1第二次也是弹出1第三次弹出undefined
+		//alert(F().a+"====="+F().test());//第一次弹出1第二次也是弹出1第三次弹出1第四次弹出1=====undefined
+		//注意：返回的值通过alert语句是最后才弹出来的
+
+
+
+<body>
+		<div id="box"></div>
+	<script type="text/javascript">
+	//json中关键字this的使用（一定要理解！this就是知道当前调用此方法的对象）
+		/*
+		var json = {
+			username:"heihei",//key:value,形式
+			age:18,
+			//say是函数可以理解成var say = function(){alert(this.username+"===="+this.age);}
+			say:function(){
+				alert(this.username+"===="+this.age);//this指代调用了say方法的json
+			}
+		};
+		//alert(json.say);//输出一坨
+		//json.say();//输出heihei====18
+
+		var a = "a";
+		var f = function(){
+			var b = "b";
+			var c = function(){
+				var d = "d";
+				return d;
+			};
+			return c;
+		};
+		//f();什么也不弹出
+		//alert(f());//输出函数c的一坨 相当于f() = c
+		//alert(f()());//输出函数c的返回值d,先f()执行的得出函数c,然后c()再执行用alert语句弹出返回值d 相当于f()() = d
+		*/
+		//链式调用
+		function method(id){
+			var dom = document.getElementById(id);
+			var json = {
+				html:function(html){
+					dom.innerHTML = html;//innerHTML可以动态给box添加内容文本
+					return this;
+				},	
+				css:function(key,value){//key表示属性，value表示值
+					dom.style[key] = value;//注意不能这样写dom.style.key,因为key是变量只有属性才能点.
+					return this;//通过返回当前对象可以重复调用css这个方法个给box添加样式
+				}
+			};
+			return json;//通过return返回一个json对象给函数method()这样就可以用它来调用方法和属性了
+		}
+		method("box").html("<p style='line-height:300px;background:#ddd;color:#111;padding:20px 0;text-align:center;'>我是潭州的学员</p>").css("width","300px").css("height","300px").css("background","red").css("color","#fff").css("margin","20px auto").css("font-size","14px");//只有对象才可以调用方法和属性,这种链式调用是给元素(对象)添加内联样式
+	</script>
+</body>
+</html>
+
+<body>
+	<div id="box" style="text-align:center;margin-top:20px;">
+		<input type="button" id="btn1" value="全选"/>
+		<input type="button" id="btn2" value="反选"/>
+		<label><input type="checkbox" name="a"/>篮球</label>
+		<label><input type="checkbox" name="a"/>羽毛球</label>
+		<label><input type="checkbox" name="a"/>网球</label>
+		<label><input type="checkbox" name="a"/>游泳</label>
+		<label><input type="checkbox" name="a"/>赛车</label>
+		<label><input type="checkbox" name="a"/>旅游</label>
+	</div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oBox = document.getElementById("box");
+			var oBtn1 = document.getElementById("btn1");
+			var oBtn2 = document.getElementById("btn2");
+			var boxDom = document.getElementsByTagName("input");
+			//alert(boxDom.length);
+			oBtn1.onclick = function(){
+				for(var i =0;i<boxDom.length;i++){
+					boxDom[i].checked = true;//通过给checked属性赋值true可以让复选框选中
+				}
+			}
+			oBtn2.onclick = function(){
+				for(var i =0;i<boxDom.length;i++){
+					boxDom[i].checked = !boxDom[i].checked;// !表示当复选框没有选中，就取反赋值true让复选框选中；当复选框选中，就取反赋值false让复选框没有选中
+				}
+			}
+		};
+	</script>
+</body>

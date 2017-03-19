@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>即时函数的认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		//即时函数的模板：(function(){……})();作用：只执行一次，解决全局变量命名冲突问题，具有独立的生命周期，不会被外界所干扰，因此外界无法访问其内部的函数与变量，第一个括号装的是函数，第二个装的是实参相当于函数打起括号执行的形式，所以说即时函数已经是函数执行的形式了，所以说只执行一次
+
+		/*(function(a){
+			//var a = function(){alert(2);};
+			a();//输出2
+		})(function(){alert(2);});*/
+
+		/*var T = (function(){
+			return 100;
+		})();
+		alert(T);//没有返回任何值时默认返回undefined，所以输出undefined，有返回值100，所以输出100*/
+
+		//经典面试案例题
+		/*var T =(function(){
+			function Tab(){
+				return function(){
+					return function(){
+						return 100;
+					};
+				};
+			};
+			return {
+				tab:Tab//或者'tab':Tab，这里可以理解为tab:function Tab(){return function(){return function(){return 100;};};};
+			}
+		})();
+		alert(T);//输出T的返回值是[object Object]
+		alert(T.tab())//或者alert(T['tab']());T先调用json{tab:Tab}对象的值tab然后打起括号执行，最后输出Tab()的返回值function(){return function(){return 100;};};
+		alert(T.tab()());//输出T先调用对象的值tab然后打起括号第一次执行，然后将第一次执行的得到的结果再打起括号执行第二次，最后输出的是返回值function(){return 100;};
+		alert(T.tab()()());//输出T先调用对象的值tab然后打起括号第一次执行，然后将第一次执行的得到的结果再打起括号执行第二次，最后将第二次执行得到的结果进行第三次执行，所以输出的是返回值100*/
+		//注意：有多少个函数执行就有多少个括号，反之有多少个函数括号打起就有多少个函数执行！！！
+		
+		(function(callback){
+			//var callback = function(obj){obj.name = "aa";obj = {name:"bb"}}
+			p = {name:"cc"};//这里p是一个全局变量(对象)window.p = {name:"cc"}
+			callback(p);//相当于function(p){p.name = "aa";obj = {name:"bb"}}这里的obj之所以没有变成p是因为obj已经重新指向了一个json对象{name:"bb"}了(或者可以理解为已经将新的一个对象{name:"bb"}重新赋值给了obj)，只有通过点.属性才能改变对象的值，用赋值号=是改变不了的,只能让它重新指向一个对象或值
+			alert(p.name);//输出aa
+			alert(JSON.stringify(p));//输出{name:"aa"},JSON.stringify()传入对象p做实参可以将对象p的[object Object]形式改变成{name:"aa"}
+		})(function(obj){
+			obj.name = "aa";
+			obj = {name:"bb"};
+			alert(obj.name);//bb
+			//alert(JSON.stringify(obj));//输出{name:"bb"}
+		});
+	</script>
+</body>
+</html>

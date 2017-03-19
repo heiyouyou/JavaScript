@@ -1,0 +1,570 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>京东选项卡</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	/*title-img start*/
+	.title-img{vertical-align:middle;text-align:center;background:#C91A37;overflow:hidden;height:110px;margin-top:10px;}
+	.title-img img{width:400px;height:125px;}
+	/*end title-img*/
+	/*show_content start*/
+	.show_content{margin-top:30px;}
+	.show_content .bg_dl{float:left;width:36px;height:36px;background:url(images/contentbg2.jpg) no-repeat;background-position:0px -60px;}
+	.show_content h2{float:left;margin:5px 0 0 10px;font-size:20px;font-weight:400;color:#333;}
+	/*tab_selected start*/
+	.show_content .tab_selected:after{content:"";display:block;clear:both;}
+	.show_content .tab_selected .kinds{float:right;border-top:1px solid #ededed;}
+	.show_content .tab_selected .kinds li{float:left;border-left:1px solid transparent;border-right:1px solid transparent;border-top:3px solid transparent;position:relative;}
+	.show_content .tab_selected .kinds li:first-child{border-left:1px solid #ededed;}
+	.show_content .tab_selected .kinds li:last-child{border-right:1px solid #ededed;}
+	.show_content .tab_selected .kinds li.hover-li{border-color:#c81623;transition:all .4s ease-out;}
+	.show_content .tab_selected .kinds li a{font-family:"Arial,Verdana";color:#666;padding:9px 17px;display:inline-block;}
+	.show_content .tab_selected .kinds li:hover a{color:#c81623;}
+	.show_content .tab_selected .kinds li .row{width:1px;height:14px;background:#ccc;display:inline-block;vertical-align:middle;}
+	.show_content .tab_selected .kinds li .spacer-row{background:#fff;}
+	.show_content .tab_selected .kinds li .last-row{background:#fff !important;}
+	.kinds li .spacer-white{position:absolute;top:100%;left:0;background:#fff;width:100%;height:1px;display:none;}
+	.kinds li .first-spacer{display:block;}
+	/*end tab_selected*/
+	/*content_selected start*/
+	.content_selected:after{content:"";display:block;clear:both;}
+	/*left_windows start*/
+	.content_selected .left_windows{width:330px;height:632px;float:left;}
+	.content_selected .left_windows .fir_windows{height:475px;background:url(images/content_sidebar.jpg) no-repeat;}
+	.content_selected .left_windows .fir_windows .first-win{height:254px;}
+	.content_selected .left_windows .fir_windows .first-win a{display:block;height:100%;}
+	.content_selected .left_windows .fir_windows .second-win{height:92px;box-sizing:border-box;padding:10px 0 0 26px;background:rgba(255,255,255,0.5);}
+	.content_selected .left_windows .fir_windows .second-win ul{overflow:hidden;}
+	.content_selected .left_windows .fir_windows .second-win ul:first-child{margin-bottom:20px;}
+	.content_selected .left_windows .fir_windows .second-win ul .f-li{float:left;margin-right:36px;}
+	.content_selected .left_windows .fir_windows .second-win ul .f-li a span{font-size:14px;color:#666;float:left;padding:3px 0 0 6px;}
+	.content_selected .left_windows .fir_windows .second-win ul .f-li:hover a span{color:#c81623;}
+	.content_selected .left_windows .fir_windows .second-win ul .f-li a i{width:26px;height:26px;background:url(images/clothesicon.png) no-repeat;float:left;}
+	.content_selected .left_windows .fir_windows .third-win{height:129px;background:rgba(255,255,255,.7);}
+	.content_selected .left_windows .fir_windows .third-win{box-sizing:border-box;padding:16px 0px 0px 30px;}
+	.content_selected .left_windows .fir_windows .third-win .f_div{float:left;margin-right:25px;}
+	.content_selected .left_windows .fir_windows .third-win .f_div .f-ul{float:left;margin-right:18px;}
+	.content_selected .left_windows .fir_windows .third-win .f_div .f-ul li{line-height:24px;}
+	.content_selected .left_windows .fir_windows .third-win .f_div .f-ul li a{color:#999;font-family:"Arial,Verdana";}
+	.content_selected .left_windows .fir_windows .third-win .f_div .f-ul li a span{color:#C81623;}
+	.content_selected .left_windows .fir_windows .third-win .f_div .f-ul li:hover a{color:#C81623;}
+	/*end left_windows*/
+	/*kinds_selected start*/
+	.content_selected .kinds_selected{float:left;width:880px;position:relative;}
+	.content_selected .kinds_selected .win{position:absolute;top:0;left:0;display:none;}
+	.content_selected .kinds_selected .win-hover{display:block;transition:all .4s ease-out;}
+	.content_selected .kinds_selected .win ul.home-page{float:left;}
+	.content_selected .kinds_selected .win ul.small-img li:nth-child(2){border-bottom:1px solid #ededed;border-top:1px solid #ededed;}
+	.content_selected .kinds_selected .win ul.page li.bd{border-bottom:1px solid #ededed;border-top:1px solid #ededed;}
+	.content_selected .kinds_selected .win ul li img{vertical-align:middle;}
+	#kinds_selected .win-next .f-ul2:after{content:"";display:block;clear:both;}
+	#kinds_selected .win-next .f-ul2 li{float:left;width:220px;height:237px;box-sizing:border-box;border-bottom:1px solid #ededed;border-right:1px solid #ededed;text-align:center;padding:22px 12px 0;}
+	#kinds_selected .win-next .f-ul2 li:last-child{border-right:0;}
+	#kinds_selected .win-next .f-ul2:last-child{background:#F8F6F7;}
+	#kinds_selected .win-next .f-ul2:last-child li{width:219px;height:157px;box-sizing:content-box;border-bottom:0;padding:0;}
+	#kinds_selected .win-next .f-ul2 li img{width:130px;height:130px;}
+	#kinds_selected .win-next .f-ul2 li a{color:#666;font-family:"Arial,Verdana";}
+	#kinds_selected .win-next .f-ul2 li p:hover a{color:#c81623;}
+	#kinds_selected .win-next .f-ul2 li p{text-align:left;margin-top:10px;}
+	#kinds_selected .win-next .f-ul2 li p span{color:#E4393C;font-size:15px;}
+	#kinds_selected .win-next .f-ul2:last-child li img{width:219px;height:157px;}
+	/*smallbanner start*/
+	#smallbanner{position:relative;}
+	#smallbanner:after{content:"";display:block;width:439px;height:315px;border-bottom:1px solid #ededed;border-top:1px solid #ededed;}
+	#smallbanner #small-btn{position:absolute;bottom:10px;left:50%;z-index:2;}
+	#smallbanner #small-btn li a{display:block;width:10px;height:10px;}
+	#smallbanner #small-btn li{margin-right:5px;float:left;border-radius:50%;background:#3e3e3e;}
+	#smallbanner #small-btn li.li_bg{background:#b61b1f;}
+	#smallbanner #small-bn-img{position:absolute;top:1px;left:0;width:1756px;transition:all .5s ease;}
+	#smallbanner #small-bn-img li{float:left;}
+	#smallbanner p{position:absolute;top:40%;z-index:1;padding:15px 5px;background:rgba(0,0,0,.2);cursor:pointer;display:none;}
+	#smallbanner:hover p{display:block;}
+	#smallbanner p strong{font-size:24px;font-weight:400;color:#fff;}
+	#smallbanner #change_prev{left:0;}
+	#smallbanner #change_next{right:0;}
+	/*end smallbanner*/
+	/*end kinds_selected*/
+	/*left_windows1 start*/
+	.content_selected .left_windows1{position:relative;float:left;}
+	.content_selected .left_windows1 .center-text{position:absolute;top:238px;left:0;width:100%;height:92px;box-sizing:border-box;background:rgba(255,255,255,0.5);padding:0 0 0 10px;}
+	.content_selected .left_windows1 .center-text ul .f-li{float:left;margin-top:14px;}
+	.content_selected .left_windows1 .center-text ul .first_f-li{margin-right:28px;}
+	.content_selected .left_windows1 .center-text ul .second_f-li{margin-right:15px;}
+	.content_selected .left_windows1 .center-text ul .f-li a i{width:26px;height:26px;background:url(http://misc.360buyimg.com/product/home/1.0.0/widget/sports/i/sportsicon.png) 0 0 no-repeat;float:left;}
+	.content_selected .left_windows1 .center-text ul .f-li a span{font-size:14px;color:#666;float:left;padding:3px 0 0 6px;}
+	.content_selected .left_windows1 .center-text ul .f-li:hover a span{color:#c81623;}
+	.content_selected .left_windows1 .bottom-text{position:absolute;top:330px;left:0;background:rgba(255,255,255,.7);padding:24px 0 25px 25px;}
+	.content_selected .left_windows1 .bottom-text a{color:#666;}
+	.content_selected .left_windows1 .bottom-text a:hover{color:#c81623;}
+	.content_selected .left_windows1 .bottom-text .fir_p{line-height:24px;}
+	.content_selected .left_windows1 .bottom-text .last-fir_p{margin-bottom:8px;}
+	.content_selected .left_windows1 .bottom-text .fir_p a{font-size:14px;}
+	.content_selected .left_windows1 .bottom-text a.small-a{display:inline-block;padding:3px;font-family:"Arial,Verdana";}
+	.content_selected .left_windows1 .bottom-text .fir_p i{font:12px/150% Arial,Verdana;}
+	/*end left_windows1*/
+	/*content_box start*/
+	#content_box{float:left;position:relative;}
+	#content_box img{vertical-align:top;}
+	#content_box .win-box ul.home-page1{float:left;}
+	#content_box .win-box ul.home-page1_border{border-right:1px solid #ededed;}
+	#content_box .win-box ul.home-page1 li:first-child{border-bottom:1px solid #ededed;}
+	#content_box .win-box ul.home-page1 li img{width:219px;height:236px;}
+	#content_box .win-box .h-banner{float:left;position:relative;width:339px;height:473px;overflow:hidden;}
+	#content_box .win-box .h-banner ul.home-page1-banner{position:absolute;top:0;left:0;width:1356px;overflow:hidden;transition:all .5s ease;}
+	#content_box .win-box .h-banner ul.home-page1-banner .move-li{float:left;}
+	#content_box .win-box .h-banner ul.home-page1-banner li.move-li-border{border-bottom:1px dashed #ededed;}
+	#content_box .win-next_1{position:absolute;top:0;left:0;width:1000px;display:none;}
+	#content_box .win-box{overflow:hidden;display:block;z-index:1;}
+	#content_box .win-next_1 .f-ul2_1:after{content:"";display:block;clear:both;}
+	#content_box .win-next_1 .f-ul2_1 li{float:left;width:200px;height:237px;box-sizing:border-box;border-bottom:1px solid #ededed;border-right:1px solid #ededed;text-align:center;padding:22px 12px 0;}
+	#content_box .win-next_1 .f-ul2_1 li:last-child{border-right:0;}
+	#content_box .win-next_1 .f-ul2_1:last-child li{border-bottom:0;}
+	#content_box .win-next_1 .f-ul2_1 li img{width:130px;height:130px;}
+	#content_box .win-next_1 .f-ul2_1 li a{color:#666;font-family:"Arial,Verdana";}
+	#content_box .win-next_1 .f-ul2_1 li p:hover a{color:#c81623;}
+	#content_box .win-next_1 .f-ul2_1 li p{text-align:left;margin-top:10px;}
+	#content_box .win-next_1 .f-ul2_1 li p span{color:#E4393C;font-size:15px;}
+	/*h-banner start*/
+	#content_box .win-box .h-banner #small-btn1{position:absolute;bottom:10px;left:40%;z-index:2;}
+	#content_box .win-box .h-banner #small-btn1 li a{display:block;width:10px;height:10px;}
+	#content_box .win-box .h-banner #small-btn1 li{margin-right:5px;float:left;border-radius:50%;background:#3e3e3e;}
+	#content_box .win-box .h-banner #small-btn1 li.li_bg1{background:#b61b1f;}
+	#content_box .win-box .h-banner p{position:absolute;top:43%;z-index:1;padding:15px 5px;background:rgba(0,0,0,.2);cursor:pointer;display:none;}
+	#content_box .win-box .h-banner:hover p{display:block;}
+	#content_box .win-box .h-banner p strong{font-size:24px;font-weight:400;color:#fff;}
+	#change_prev1{left:0;}
+	#change_next1{right:0;}
+	/*end h-banner*/
+	/*end content_box*/
+	/*end content_selected*/
+	/*boundary-img start*/
+	#boundary-img{margin-top:10px;background:#f7f7f7;padding:14px 0;box-sizing:border-box;}
+	#boundary-img ul{overflow:hidden;width:100%;} 
+	#boundary-img li{float:left;border-right:1px dotted #ccc;padding:0 10px;}
+	#boundary-img li:last-child{border-right:none;}
+	#boundary-img img{width:100px;height:40px;vertical-align:top;}
+	/*end boundary*/	
+</style>
+</head>
+<body>
+	<div class="box" style="width:1212px;margin:10px auto;">
+		<!-- title-img start -->
+		<div class="title-img" style="background:url(http://img13.360buyimg.com/da/jfs/t2200/225/530215194/17155/d822030b/5615d1a4N0c17e8d7.jpg) center top;margin-top:20px;">
+			<a href="javascript:void(0);"><img src="http://img11.360buyimg.com/da/jfs/t1864/247/433541261/20233/be8f00e9/560c02c6N972216ac.png" alt="1"></a>
+			<a href="javascript:void(0);"><img src="http://img14.360buyimg.com/da/jfs/t2041/103/1813676390/16807/d7b4f394/56779bd8N846d06b5.jpg" alt="2"></a>
+			<a href="javascript:void(0);"><img src="http://img11.360buyimg.com/da/jfs/t1765/154/1891739660/9939/900695a1/5615cb67N4da53d63.jpg" alt="3"></a>
+		</div>
+		<!-- end title-img -->
+		<!-- show_content start -->
+		<div class="show_content">				
+			<span class="bg_dl"></span>
+			<h2>服装鞋包</h2>
+			<!-- tab_selected start -->
+			<div class="tab_selected">
+				<ul class="kinds" id="kinds">
+					<li class="hover-li"><em class="spacer-white first-spacer"></em><a href="javascript:void(0);">大牌</a><span class="row spacer-row"></span></li>
+					<li><em class="spacer-white"></em><a href="javascript:void(0);">男装</a><span class="row"></span></li>
+					<li><em class="spacer-white"></em><a href="javascript:void(0);">女装</a><span class="row"></span></li>
+					<li><em class="spacer-white"></em><a href="javascript:void(0);">鞋靴</a><span class="row"></span></li>
+					<li><em class="spacer-white"></em><a href="javascript:void(0);">箱包</a><span class="row"></span></li>
+					<li><em class="spacer-white"></em><a href="javascript:void(0);">内衣配饰</a><span class="row"></span></li>
+					<li><em class="spacer-white"></em><a href="javascript:void(0);">珠宝首饰</a><span class="row"></span></li>
+					<li><em class="spacer-white"></em><a href="javascript:void(0);">奢品礼品</a><span class="row"></span></li>
+					<li><em class="spacer-white"></em><a href="javascript:void(0);">奢华腕表</a><span class="row last-row"></li>
+				</ul>
+			</div>
+			<!-- end tab_selected -->
+			<!-- content_selected start -->
+			<div class="content_selected" style="border:1px solid #ededed;border-top:1px solid #c81623;">
+				<!-- left_windows start -->
+				<ul class="left_windows">
+					<li class="fir_windows">
+						<div class="side_win first-win"><a href="javascript:void(0);"></a></div>
+						<div class="side_win second-win">
+							<ul>
+								<li class="f-li"><a href="javascript:void(0);"><i style="background-position:0px 0px;"></i><span>男装</span></a></li>
+								<li class="f-li"><a href="javascript:void(0);"><i style="background-position:0px -26px;"></i><span>女装</span></a></li>
+								<li class="f-li"><a href="javascript:void(0);"><i style="background-position:0px -52px;"></i><span>内衣</span></a></li>
+							</ul>
+							<ul>
+								<li class="f-li"><a href="javascript:void(0);"><i style="background-position:0px -78px;"></i><span>鞋靴</span></a></li>
+								<li class="f-li"><a href="javascript:void(0);"><i style="background-position:0px -104px;"></i><span>箱包</span></a></li>
+								<li class="f-li"><a href="javascript:void(0);"><i style="background-position:0px -130px;"></i><span>奢侈品</span></a></li>
+							</ul>
+						</div>
+						<div class="side_win third-win">
+							<div class="f_div">
+								<ul class="f-ul">
+									<li><a href="javascript:void(0);"><span>女装新品</span></a></li>
+									<li><a href="javascript:void(0);">服装城</a></li>
+									<li><a href="javascript:void(0);">品质男鞋</a></li>
+									<li><a href="javascript:void(0);">真丝丝巾</a></li>
+								</ul>
+								<ul class="f-ul">
+									<li><a href="javascript:void(0);">时尚女鞋</a></li>
+									<li><a href="javascript:void(0);">舒适内衣</a></li>
+									<li><a href="javascript:void(0);"><span>奢侈品</span></a></li>
+									<li><a href="javascript:void(0);"><span>男装上新</span></a></li>
+								</ul>
+							</div>
+							<div class="f_div" style="margin-right:0;">
+								<ul class="f-ul">
+									<li><a href="javascript:void(0);">菩提手串</a></li>
+									<li><a href="javascript:void(0);"><span>时尚女包</span></a></li>
+									<li><a href="javascript:void(0);">精品男包</a></li>
+									<li><a href="javascript:void(0);">小叶紫檀</a></li>
+								</ul>
+								<ul class="f-ul">
+									<li><a href="javascript:void(0);">热销腕表</a></li>
+									<li><a href="javascript:void(0);">新品首发</a></li>
+									<li><a href="javascript:void(0);">水晶手链</a></li>
+									<li><a href="javascript:void(0);"><span>奢品名表</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li style="border-top:1px solid #ededed;border-right:1px solid #ededed;"><a href="javascript:void(0);"><img src="images/down.jpg" width="329" height="156" style="vertical-align:middle;"></a></li>
+				</ul>
+				<!-- end left_windows -->
+				<!-- kinds_selected start-->
+				<div class="kinds_selected" id="kinds_selected">
+					<div class="win win-hover">
+						<ul class="home-page" style="border-left:1px solid #ededed;border-right:1px solid #ededed;">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/windows.jpg" width="439" height="157"></a></li>
+							<li id="smallbanner" style="overflow:hidden;">
+									<p id="change_prev"><strong>&lt;</strong></p>
+									<p id="change_next"><strong>&gt;</strong></p>
+								<ul id="small-btn">
+									<li class="li_bg"><a href="javascript:void(0);"></a></li>
+									<li><a href="javascript:void(0);"></a></li>
+									<li><a href="javascript:void(0);"></a></li>
+									<li><a href="javascript:void(0);"></a></li>
+								</ul>
+								<ul id="small-bn-img">
+									<li><a href="javascript:void(0);"><img src="images/win-banner.jpg" width="439" height="315"/></a></li>
+									<li><a href="javascript:void(0);"><img src="images/small-banner.jpg" width="439" height="315"/></a></li>
+									<li><a href="javascript:void(0);"><img src="images/small-banner1.jpg" width="439" height="315"/></a></li>
+									<li><a href="javascript:void(0);"><img src="images/small-banner2.jpg" width="439" height="315"/></a></li>
+								</ul>
+							<li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/windows2.jpg" width="439" height="157"></a></li>
+						</ul>
+						<ul class="home-page small-img">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/windows3.jpg"/></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/windows4.jpg"/></a></li>
+							<li style="border-bottom:1px solid #ededed;"><a href="javascript:void(0);" target="_blank"/><img src="images/windows5.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/windows6.jpg"/></a></li>
+						</ul>
+						<ul class="home-page small-img" style="border-left:1px solid #ededed;">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/windows7.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/windows8.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/windows9.jpg"></a></li>
+						</ul>
+					</div>
+					<div class="win win-next">
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/f-ul2-img.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/f-ul2-img1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img3.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img5.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img6.png"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img7.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul-last.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img8.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img9.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img10.jpg"></a></li>
+						</ul>
+					</div>
+					<div class="win win-next">
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/watch1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/watch2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/watch1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥6499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/watch2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch5.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch6.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch7.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch8.jpg"></a></li>
+						</ul>
+					</div>
+					<div class="win win-next">
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/f-ul2-img.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/f-ul2-img1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img3.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img5.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img6.png"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img7.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul-last.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img8.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img9.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img10.jpg"></a></li>
+						</ul>
+					</div>
+					<div class="win win-next">
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/watch1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/watch2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/watch1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥6499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/watch2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch5.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch6.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch7.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch8.jpg"></a></li>
+						</ul>
+					</div>
+					<div class="win win-next">
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/f-ul2-img.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/f-ul2-img1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img3.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img5.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img6.png"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img7.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul-last.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img8.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img9.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img10.jpg"></a></li>
+						</ul>
+					</div>
+					<div class="win win-next">
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/watch1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/watch2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/watch1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥6499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/watch2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch5.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch6.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch7.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch8.jpg"></a></li>
+						</ul>
+					</div>
+					<div class="win win-next">
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/f-ul2-img.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/f-ul2-img1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img3.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img5.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img6.png"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/f-ul2-img7.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul-last.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img8.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img9.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/f-ul2-img10.jpg"></a></li>
+						</ul>
+					</div>
+					<div class="win win-next">
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/watch1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/watch2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥699.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣"><img src="images/watch1.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="柒牌羊毛夹克衫 男士修身茄克外套大衣">柒牌羊毛夹克衫 男士修身茄克外套大衣</a></p><p><span>￥6499.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣"><img src="images/watch2.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣">佐丹奴衬衫 纯色华夫格小提花纯棉长袖衬衣</a></p><p><span>￥399.00</span></p></li>
+							<li><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套"><img src="images/watch4.jpg"></a><p><a href="javascript:void(0);" target="_blank" title="杰克琼斯 男太空棉棒球领廓型夹克外套">杰克琼斯 男太空棉棒球领廓型夹克外套</a></p><p><span>￥599.00</span></p></li>
+						</ul>
+						<ul class="f-ul2">
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch5.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch6.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch7.jpg"></a></li>
+							<li><a href="javascript:void(0);" target="_blank"><img src="images/watch8.jpg"></a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- end kinds_selected -->
+			</div>
+			<!-- end content_selected -->
+			<!-- boundary-img start -->
+			<div id="boundary-img">
+				<ul>
+					<li><a href="javascript:void(0);"><img src="images/br1.jpg"/></a></li>			
+					<li><a href="javascript:void(0);"><img src="images/br2.jpg"/></a></li>			
+					<li><a href="javascript:void(0);"><img src="images/br3.jpg"/></a></li>			
+					<li><a href="javascript:void(0);"><img src="images/br4.jpg"/></a></li>			
+					<li><a href="javascript:void(0);"><img src="images/br5.jpg"/></a></li>			
+					<li><a href="javascript:void(0);"><img src="images/br6.jpg"/></a></li>			
+					<li><a href="javascript:void(0);"><img src="images/br7.jpg"/></a></li>			
+					<li><a href="javascript:void(0);"><img src="images/br8.jpg"/></a></li>			
+					<li><a href="javascript:void(0);"><img src="images/br9.jpg"/></a></li>			
+					<li><a href="javascript:void(0);"><img src="images/br10.jpg"/></a></li>			
+				</ul>
+			</div>
+			<!-- end boundary-img -->
+		</div>
+		<!-- end show-content -->
+	</div>
+	<script type="text/javascript">
+		function $(id){
+			return document.getElementById(id);
+		};
+		/*show-content start*/
+		var ems = $("kinds").getElementsByClassName("spacer-white");
+		var spans = $("kinds").getElementsByClassName("row");
+		var divs = $("kinds_selected").getElementsByClassName("win");
+		var liDoms = $("kinds").children;
+		for(var i=0;i<liDoms.length;i++){
+			liDoms[i].index = i;
+			liDoms[i].onmouseover = function(){
+				show(this.index);
+				this.className = "hover-li";
+				siblings(this,function(){
+					this.className = "";
+				});
+				divs[this.index].style.display = "block";
+				siblings(divs[this.index],function(){
+					this.style.display = "none";
+				});
+			};
+		}
+		function show(c){
+			for(var i=0;i<liDoms.length;i++){
+				ems[i].style.display = "none";
+				ems[c].style.display = "block";
+				spans[i].style.background = "#ccc";
+				spans[c].style.background = "#fff";
+			}
+		};
+		function siblings(obj,callback){
+			var lis = obj.parentNode.children;
+			var arr = [].slice.call(lis);
+			arr.filter(function(others){
+				if(others!=obj){
+					callback.call(others);
+				}
+			});
+		}
+		/*end show-content*/
+		/*smallbanner start*/
+		var smallbanner = $("smallbanner");
+		var small_btn = $("small-btn");
+		var small_bn_img = $("small-bn-img");
+		var change_prev = $("change_prev");
+		var change_next = $("change_next");
+		var index2 = 0;
+		var timer1 = null;
+		var small_btn_li = small_btn.getElementsByTagName("li");
+		for(var i = 0; i<small_btn_li.length; i++)
+		{
+			small_btn_li[i].index2 = i;
+			small_btn_li[i].onmouseover = function(){
+				show2(this.index2);
+			}
+		}
+		function show2(d){
+			for(var i = 0; i<small_btn_li.length; i++){
+				small_btn_li[i].className = "";
+				small_btn_li[d].className = "li_bg";
+			}
+			if(d == 0){
+				small_bn_img.style.left ="0";
+			}else if(d == 1){
+				small_bn_img.style.left ="-439px";
+			}else if(d == 2){
+				small_bn_img.style.left ="-878px";
+			}else if(d == 3){
+				small_bn_img.style.left ="-1317px";
+			}
+			index2 = d;
+		}		
+		change_prev.onclick = function(){
+			index2--;
+			if(index2<0){
+				index2 = small_btn_li.length-1;
+				show2(index2);
+			}else{
+				show2(index2);
+			}
+			console.log(index2);
+		};
+		change_next.onclick = function(){
+			index2++;
+			if(index2>small_btn_li.length-1){
+				index2 = 0;
+				show2(index2);
+			}else{
+				show2(index2);
+			}
+			console.log(index2);
+		};
+		function autoPlay1(){
+			timer1 = setInterval(function(){
+				index2++;
+				console.log(index2);
+				if(index2>=small_btn_li.length)
+				{
+					index2 = 0;
+					show2(index2);
+				}else{
+					show2(index2);
+				}
+			},3000);
+		};
+		autoPlay1();
+		smallbanner.onmouseover = function(){
+				clearInterval(timer1);
+		}
+		smallbanner.onmouseout = function(){
+			autoPlay1();
+		}
+		/*end smallbanner*/
+	</script>
+</body>
+</html>

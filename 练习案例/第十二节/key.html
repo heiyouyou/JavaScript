@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>键盘相关事件</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<input id="txt" type="text">
+	<script type="text/javascript">
+		//记住只有被聚焦（或有焦点）的对象对应的键盘事件才能够触发执行
+		var oTxt = document.getElementById("txt");
+		oTxt.onkeyup = function(){
+			alert(this.value);
+		}
+		//onkeydown先于onkeypress触发；onkeypress只会响应字母数字符号回车键等，其他的例如F1-F12、ctrl/shift/alt等不会响应
+		document.onkeypress = function(){
+			console.log(1);
+		};
+		document.onkeydown = function(){
+			console.log(2);
+		};
+	</script>
+</body>
+</html>

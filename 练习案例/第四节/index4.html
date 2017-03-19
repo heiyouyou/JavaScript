@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>subtring与slice的使用</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+		subtring和slice都属于字符串的截取
+		slice(startIndex,endIndex)
+		substring(startIndex,endIndex)
+
+		slice(startIndex,endIndex)截取规则： 1)包括首索引，不包括尾索引
+		如果startIndex的值是一个负数且绝对值小于length，那么开始截取的位置就是length+startIndex，但是如果传入一个值并且是负数，绝对值>length,那么startIndex就是0;如果传入的值是正数大于长度length，截取得到的是空
+		如果endIndex的值是一个负数，那么结束位置就是length+endIndex
+		经过以上条件的判断后知道startIndex是从左往右截，endIndex是从右往左截，然后取他们相交的部分
+		*/
+		var str = "0123456789";
+		//alert(str.slice(5));//方法括号里填入索引号。没有填任何数字，就是默认从下标0开始截取
+		//alert(str.slice(10));
+		//alert(str.slice(-4));
+		//alert(str.slice(-11));
+		//alert(str.slice(0,2));从startIndex到endIndex截取他们的相交部分，endIndex(右边)对应的值不截取
+		//alert(str.slice(7,5));//当end小于start时，无法截取到，弹出空白
+		//alert(str.slice(2,-9));
+		//alert(str.slice(-3,9));
+		//alert(str.slice(5,100));
+		//alert(str.slice(-20,-9));
+		//alert(str.slice(-3,2));
+
+		//substring和slice基础部分一样
+		/*1)包括首索引，不包括尾索引
+			1.如果start或者end为负数的时候，他们会被当做为0
+			2.如果他们长度>length,则会被视为length
+			3.如果end<start;他们会自动交互彼此值
+			经过以上条件的判断后知道startIndex是从左往右截，endIndex是从右往左截，然后去他们相交的部分
+		*/
+		//alert(str.substring(-31));
+		//alert(str.substring(5,-4));
+		//alert(str.substring(50));
+		//alert(str.substring(-3,-4));
+		//alert(str.substring(21,5));
+
+		var s = "潭州学院-J";
+		//alert(s.slice(-5,-4));
+		//alert(s.slice(4,-3));
+
+		//拆分字符串：str.split( ); //以传入的字符串变为为数组分割符逗号为界限分割，返回一个数组；第二参数为长度
+		var s = "http://www.baidA.com";
+		//alert(s.split(".",2));//第二个参数是限制数组长度为多少
+		//alert(s.split(".",2)[2]);//这样子输出undefined
+		//alert(s.split(".")[2]);//这样子输出com
+		//alert(s.split(".").length);
+		//alert(Array.isArray(s.split(".")));返回一个true
+		alert(s.toUpperCase());//转换成大写
+		alert(s.toLowerCase());//转换成小写
+	</script>
+</body>
+</html>

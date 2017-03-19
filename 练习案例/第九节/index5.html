@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>对nextSibling和previousSibling的认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="box"><p>dfff</p>
+		<ul id="list">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<p>wodhishifuh</p>
+	</div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var boxDom = document.getElementById("box");
+			var ulDom = document.getElementById("list");
+			//alert(ulDom.nextSibling);//就是获取ulDom对象后面的一个节点，与chidlren一样的情况，ie678都支持，只能拿到元素节点
+			//ulDom.nextSibling.style.color = "red";//这种形式在谷歌只能获取ulDom后面的文本节点,在谷歌上会报错
+			//ulDom.nextSibling.nextSibling.style.color = "red";//这种形式就可以获取ulDom后面的元素节点并添加样式
+			//alert(ulDom.nextSibling.nextSibling.nodeType);//输出1代表是元素节点
+			//ulDom.nextElementSibling.style.color = "red";//这种形式就是给ulDom元素后面的一个元素节点添加样式，不支持ie678
+			//alert(ulDom.nextElementSibling.nodeType);//输出1代表是元素节点
+			//alert(ulDom.previousSibling);//就是获取ulDom对象前面的一个节点，与chidlren一样的情况，ie678都支持，只能拿到元素节点
+			//alert(ulDom.previousElementSibling);//ie678不支持，只获取ulDom对象前面元素节点
+			if(ulDom.nextElementSibling){//只有支持这种形式的浏览器才会执行以下语句
+				ulDom.nextElementSibling.style.color = "red";
+			}else{
+				if(ulDom.nextSibling&&ulDom.nextSibling.nodetype==1){//这里是为了解决ulDom后面没有元素节点时ie678找不到元素节点报错和其他浏览器只有文本节点绑定属性报错的情况
+					ulDom.nextSibling.style.color = "red";//兼容了ie678
+				}
+			}
+		}
+	</script>
+</body>
+</html>

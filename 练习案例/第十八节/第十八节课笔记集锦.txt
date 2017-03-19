@@ -1,0 +1,209 @@
+window.onload = function(){
+			var xhr
+			//创建一个ajax对象
+			if(window.XMLHttpRequest){//函数都是默认绑定在window下面的
+				//兼容ie78以及其他浏览器
+				xhr = new XMLHttpRequest();
+			
+			}else{
+				//兼容ie6
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			//请求打开的方法open()：第一个参数请求的方式；第二个参数请求的地址；第三个参数异步请求（true，如果为false就是同步请求）
+			/*
+				true:异步
+					非阻塞--》同时执行，不会阻塞后面的程序执行
+
+				false:同步
+					阻塞---》先执行，会阻塞后面程序的执行，
+			*/
+			xhr.open("get","1.txt",true);
+			xhr.send();
+			alert(xhr.responseText);//这里异步请求弹出空白，同步请求正常弹出
+			/*xhr.onreadystatechange = function(){
+				//当 readyState等于4且状态为200 时，表示响应已就绪
+				if(xhr.readyState == 4 && xhr.status == 200){//xhr.status（状态码）
+					/*
+						0: 请求未初始化,还没有调用open的时候
+						1: 服务器连接已建立，还没发送，还没有调用send的时候
+						2: 请求已接收
+						3: 请求处理中
+						4: 请求已完成，且响应已就绪
+						alert(xhr.responseText);
+				}		
+			};*/
+ 		};
+
+window.onload = function(){
+			var oBox = document.getElementById("box");
+			var oBtn = document.getElementById("btn");
+			/*setInterval(function(){
+				var xhr = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+				xhr.open("get","text1.php",true);
+				xhr.send();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4&&xhr.status == 200){
+						//xhr.responseText拿到的json数组是一个string数据类型
+						//alert(typeof xhr.responseText);
+						//可以通过JSON.parse(变量)或者eval("(+变量+)")这两种形式进行转换成对象
+						//var res = JSON.parse(xhr.responseText);
+						var res = eval("("+xhr.responseText+")");
+						//var 一个字符串变量来接收遍历的文本，并且拼接到盒子上
+						var s = "";
+						for(var i=0;i<res.length;i++){
+							s +="用户名："+res[i].name+"的年龄："+res[i].age+"<br/>";
+						}
+						oBox.innerHTML = s;
+					}	
+				};
+			},3000);*/
+			setInterval(function(){
+				ajax(
+					"get",
+					"text1.php",
+					true,
+					function(res){
+						var res = eval("("+res+")");
+						var s = "";
+						for(var i=0;i<res.length;i++){
+							s +="用户名："+res[i].name+"的年龄："+res[i].age+"<br/>";
+						}
+						oBox.innerHTML = s;
+					}
+				);
+			},3000);
+			//封装后台数据获取的方法
+			function ajax(method,url,asyn,fn){
+				var xhr = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+				xhr.open(method,url,asyn);
+				xhr.send();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4&&xhr.status == 200){
+						if(fn)fn(xhr.responseText);
+					}
+				};
+			};
+		};
+
+
+		window.onload = function(){
+			//get方式携带数据传送到后台
+			/*var xhr = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+			//将要提交的数据以?连接加到url后面并拼接上一个随机数以解决IE缓存问题
+			xhr.open("get","text.php?user=mini&pwd=123456&"+Math.random(),true);
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					alert(xhr.responseText);
+				}
+			};*/
+
+			//post提交数据到后台
+			/*var xhr = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+			xhr.open("post","text.php",true);
+			//post提交数据到后台的形式
+			//要设置请求头
+			xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+			xhr.send("user=cici&pwd=123456");
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					alert(xhr.responseText);
+				}
+			};*/
+			ajax({
+				method:"post",
+				url:"text.php",
+				asyn:true,
+				data:"user=wells&pwd=1234d56789",
+				"success":function(res){
+					alert(res);//为什么没有弹出？？？
+				}
+			});
+		};
+
+
+//封装ajax方法
+function ajax(mJson){
+	//兼容写法
+	var xhr = window.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");
+	//获取提交的方式类型
+	var method = mJson.method || "get";
+	//获取请求地址
+	var url = mJson.url;
+	//获取是异步还是同步如果没有传入默认是取true（异步）
+	var asyn = mJson.asyn || true;
+	//获取数据
+	var data = mJson.data;
+	//函数
+	var success = mJson.success;
+	//判断是否为get提交并且是否有数据传入
+	if(method == "get" && data){
+		url += "?"+data+"&"+Math.random();
+	}
+	xhr.open(method,url,asyn);
+	//设置请求头
+	xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+	//判断是否为post提交并且是否有传入数据
+	if(method == "post" && data){
+		xhr.send(data);
+	}else{
+		//获取后台数据
+		xhr.send();
+	}
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			if(success)success(xhr.responseText);
+		};
+	};
+};	
+
+
+var oTxt = document.getElementById("txt");
+		var oList = document.getElementById("list");
+		//按键按下获取文本框的值
+		oTxt.onkeyup = function(){
+			var val = this.value;
+			//创建元素
+			var oS = document.createElement("script");
+			oS.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+val+"&cb=wells";
+			//添加元素
+			document.body.appendChild(oS);
+			//移除元素
+			document.body.removeChild(oS);
+		};
+		//定义一个回调函数
+		function wells(mJson){
+			var data = mJson.s;
+			var str = "";
+			for(var i=0;i<data.length;i++){
+				str +="<li><a href='https://www.baidu.com/s?wd="+data[i]+"' target='_new'>"+data[i]+"</a></li>"
+			}
+			//拼接到ul盒子里
+			oList.innerHTML = str;
+		};
+		//事件委托
+		oList.onmouseover = function(ev){
+			var e = ev||event;
+			//兼容ie写法
+			var target = e.target || srcElement;
+			target.style.background = "#ccc";
+		};
+		oList.onmouseout = function(ev){
+			var e = ev||event;
+			//获取目标对象
+			var target = e.target || srcElement;
+			target.style.background = "";
+		};
+		//wells({q:"a",p:false,s:["爱奇艺","爱奇艺vip免费试用","阿里巴巴批发网","acfun","安居客","阿里巴巴","阿里云","澳门风云3","爱情保卫战","阿里旺旺"]});
+
+
+
+1、什么是JSONP？
+要了解JSONP，不得不提一下JSON，那么什么是JSON ？
+JSONP(JSON with Padding)是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问（这仅仅是JSONP简单的实现形式）。
+ 
+2、JSONP有什么用？
+由于同源策略的限制，XmlHttpRequest只允许请求当前源（域名、协议、端口）的资源，为了实现跨域请求，可以通过script标签实现跨域请求，然后在服务端输出JSON数据并执行回调函数，从而解决了跨域的数据请求。
+ 
+3、如何使用JSONP？
+下边这一DEMO实际上是JSONP的简单表现形式，在客户端声明回调函数之后，客户端通过script标签向服务器跨域请求数据，然后服务端返回相应的数据并动态执行回调函数。

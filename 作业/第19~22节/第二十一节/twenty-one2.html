@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		//单继承；值类型可以被覆盖，引用类型不能被覆盖？？？
+		/*var json = {username:"wells",age:19,handsome:true};
+		var json1 = {username:"hei",age:21,hobby:"打篮球"};
+		//对象的混入
+		function mix(json,json1){
+			//for……in难道json1对象里的属性将其传承给json
+			for(var key in json1){
+				//相同的被覆盖，没有的继承下来
+				json[key] = json1[key];
+			};
+			//重新返回继承后的json
+			return json;
+		};
+		//JSON.stringify()可以将json对象变成字符串，但是toString()不能将其变成字符串
+		console.log(JSON.stringify(mix(json,json1)))//{"username":"hei","age":21,"handsome":true,"hobby":"打篮球"};*/
+
+		//多继承
+		function mix(){
+			var arg = arguments,len = arguments.length;
+			//从传入的下标为1开始被继承的对象
+			var i = 1;
+			//找到下标为0的继承对象（需要扩展的对象）
+			var target = arg[0];
+			//遍历需要被继承的对象
+			for(;i<len;i++){
+				var a = arg[i];
+				//遍历被继承对象的属性传承给继承对象
+				for(var key in a){
+					target[key] = a[key];
+				};
+			};
+			//返回已经实现继承后的对象
+			return target;
+		};
+		var json = {username:"wells",age:21};
+		var json1 = {username:"free",age:18};
+		var json2 = {hobby:"basketball",handsome:true};
+		console.log(JSON.stringify(mix(json,json1,json2)));//"username":"free","age":18,"hobby":"basketball","handsome":true}
+
+		/*function mix(json){
+			//返回
+			var pt = $.extend({},defaults,json);
+			//默认的对象
+			var defaults = {
+				height:200px,
+				width:100px,
+				background:#fff,
+				padding:5px
+			};
+		};
+		//用户传入的数据对象最高
+		mix({
+			height:100px,
+			width:200px,
+			background:red,
+			padding:10px
+		});*/
+	</script>
+</body>
+</html>

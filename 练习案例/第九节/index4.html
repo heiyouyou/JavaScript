@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>对节点的认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="box">
+		<ul id="list">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<p>fdf</p>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		/*
+			Dom Document Object Model  文档对象模型
+			文档：html页面
+			文档对象：html里面元素
+			文档对象模型：定义（目的：让js更好的操作dom节点）最常用的有：
+			Element_Node 1 元素节点
+			Attribute_Node 2 属性节点
+			Text_Node 3 文本节点
+			注意：childNodes 在ie678 只能拿到元素节点，而其他浏览器能拿到元素节点和其他节点，其中空格也算文本节点
+			firstChild与lastChild在ie678只能拿到元素节点和文本节点；在其他浏览器都能拿到
+		*/
+		
+		window.onload = function(){
+			var boxDom = document.getElementById("box");
+			var ulDom = document.getElementById("list");
+			//alert(boxDom.childNodes.length);//childNodes获取目标对象的子类节点数，是一个类数组
+			//alert(ulDom.childNodes.length);//13
+			///alert(boxDom.childNodes[0]);//输出的是下标为0的节点
+			//alert(boxDom.childNodes[0].nodeType);//通过nodeType可以判断节点类型，返回的是数字1到9当中的其中一个节点代号
+			//alert(ulDom.children);//children只能取到的是由元素节点组成的类数组，只包含元素节点，推荐使用！！！
+			//alert(ulDom.children[0]);//输出下标为0的元素节点
+			//alert(ulDom.children.length);//输出长度6
+			//alert(ulDom.firstChild);//firstChild取到的是目标对象下的第一个子节点
+			//alert(ulDom.lastChild);//lastChild取到的是目标对象下的最后一个子节点
+			//alert(ulDom.firstElementChild);//firstElementChild只能拿到目标对象下的第一个元素节点，可是在ie678不支持
+			//alert(ulDom.lastElementChild);//lastElementChild只能拿到目标对象下的最后一个元素节点，可是在ie678不支持
+			
+			/*//兼容浏览器写法：
+			if(ulDom.firstElementChild){//只有浏览器支持才会执行if语句里的代码
+				ulDom.firstElementChild.style.color = "red";
+			}else{
+				ulDom.firstChild.style.color = "red";//ie678支持
+			}
+			if(ulDom.children){//所有浏览器都支持
+				ulDom.children[ulDom.children.length-1].style.color = "yellow";
+			}*/
+		}
+	</script>
+</body>
+</html>

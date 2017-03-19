@@ -1,0 +1,434 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第十四节知识点总结</title>
+<link href="css/Style1.css" rel="stylesheet"/>
+<link rel="stylesheet" href="http://at.alicdn.com/t/font_1458007164_389264.css"/>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	@media screen and (max-width:900px){/*当屏幕小于900px用下面这套样式*/
+		.main{width:100%;}
+		.main p{font-size:14px!important;}
+		aside{display:none;}	
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<header id="header">
+			<div class="header-left">
+				<a class="btn" href="#"><i class="iconfont ">&#xe615;</i></a>
+				<a class="btn" href="#"><i class="iconfont ">&#xe614;</i></a>
+			</div>
+ 			<div class="right_text">
+				<a class="right_a" href="demo/login.html" target="_blank">
+					<i class="iconfont icon-denglu"></i>
+					登录
+				</a>
+				<a class="right_a" href="demo/sign.html" target="_blank">
+					<i class="iconfont icon-zhuce"></i>
+					注册
+				</a>
+			</div>
+		</header>
+		<aside>
+			<a class="nav fir-a"  href="javascript:void(0);">有</a>
+			<nav id="nav">
+				<a class="nav"  href="javascript:void(0);">案例</a>
+				<ul id="list">
+					<li><a class="nav" href="forthteen_form.html" target="_blank">表格</a></li>
+				</ul>
+			</nav>
+			<a class="nav" id="model"  href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			<div id="model_box">
+				<a class="nav" id="white" href="javascript:void(0);"><i class="iconfont">&#xe610;</i></a>
+				<a class="nav" id="black" href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			</div>
+		</aside>
+		<article id="article">
+			<a class="btn_a" id="top" href="javascript:void(0);"><i class="iconfont">&#xe609;</i></a>
+			<div class="main" id="main">
+				<div class="main_top">
+					<a class="person_img" href="javascript:void(0);">
+						<img src="http://upload.jianshu.io/users/upload_avatars/1616121/0fbc955a608e?imageMogr/thumbnail/90x90/quality/100" width="40" height="40" alt="100">
+					</a>
+					<p>
+						<a class="author" href="javascript:void(0);"><span >作者</span>黑有有</a>
+						<span id="timeShow"></span>
+					</p>
+					<a class="follow" href="javascript:void(0);"><i class="iconfont icon-guanzhu"></i>添加关注</a>
+				</div>
+				<h1 style="font-family:楷体;font-size:32px;padding:20px 0;">第十四节知识点总结</h1>
+				<p class="hid" style="margin-bottom:30px;">
+					<span>字数154654</span>
+					<span>阅读131</span>
+					<span>评论43</span>
+					<span>喜欢4324</span>
+				</p>
+				<div class="main_content" id="main_content">
+					<h1 class="title">无缝banner图的原理</h1>
+					<pre>
+						&lt;script type="text/javascript"&gt;
+							var btns = $("list").children;
+							var imgs = $("imgbox").children;
+							var timer = null;
+							var cindex = 0;
+							//拿到每张图片的宽度
+							var width = imgs[0].offsetWidth;
+							//拿到每张图片的高度
+							var height = imgs[0].offsetHeight;
+							for(var i =0;i&lt;btns.length;i++){
+								btns[i].index = i;
+								btns[i].onmouseover = function(){
+									//遍历去除所有样式
+									for(var i=0;i&lt;btns.length;i++){
+										btns[i].className = "";
+									}
+									//点击谁再添加样式
+									this.className = "on";
+									//调用动画
+									//Run($("imgbox"),{left:-width*this.index},30);
+									Run($("imgbox"),{top:-height*this.index},30);
+									//自动索引与按钮索引同步
+									cindex = this.index;
+								}
+							}
+							timer = setInterval(autoPlay,3000);
+							function autoPlay(){
+								cindex++;
+								//当等于长度时从头开始切换
+								if(cindex==4){
+									cindex=0;
+								}
+								for(var i=0;i&lt;btns.length;i++){
+									btns[i].className = "";
+								}
+								btns[cindex].className = "on";
+								//Run($("imgbox"),{left:-width*cindex},30);
+								Run($("imgbox"),{top:-height*cindex},30);
+							};
+							//清除定时器
+							$("box").onmouseover = function(){
+								clearInterval(timer);
+							}
+							//触发定时轮播
+							$("box").onmouseout = function(){
+								//这里注意得重新给timer赋值
+								timer = setInterval(autoPlay,3000);
+							}
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">对事件冒泡与事件绑定的深层认识</h1>
+					<pre>
+						&lt;body&gt;
+							&lt;div class="a" id="a"&gt;点我&lt;/div&gt;
+							&lt;script type="text/javascript"&gt;
+								/*一个元素绑定事件有两张
+									1.属性事件 如：元素名.事件名
+									2.动态绑定事件 如：attachEvent(事件名，回调函数)，addEventListener(事件名，回调函数，是否捕捉)
+									1.false 冒泡
+									2.true  捕捉*/
+								//querySelector()里面可以传入类名(".className")或者id("#id")或者元素名,但是多个相同元素或者相同类名的元素时，默认是第一个，所以一般类名用querySelectorAll()
+								/*document.querySelector("div").onclick = function(){
+									alert(2);
+								};*/
+								//querySelectorAll()里面也可以传入类名(".className")或者id("#id")或者元素名,返回的是一个类数组，相当于getElementsByTagName()或getElementsByClassName()
+								/*function fn(){
+									alert(1);
+								}*/
+								//动态绑定事件不会覆盖属性事件，而且迟于属性事件执行
+								/*document.querySelectorAll(".a")[0].addEventListener("click",function(){
+									alert(3);
+								})
+								document.querySelectorAll(".a")[0].onclick = function(){
+									alert(2);
+								};*/
+								//一般开发中不用事件捕获!!!
+								window.addEventListener("click",function(e){
+									console.log("window被点击了哦");
+									e.stopPropagation();
+								},true);
+								document.addEventListener("click",function(){
+									console.log("html被点击了哦");
+								},false);
+								document.body.addEventListener("click",function(){
+									console.log("body被点击了哦");
+								},true);
+								document.querySelectorAll(".a")[0].addEventListener("click",function(ev){
+									var e = ev||event;
+									console.log("div被点击了哦");
+									//阻止冒泡的方法
+									//e.cancelBubble = "true";//所有浏览器都支持，但不符合w3c的标准
+									e.stopPropagation();//只有ie9+以上的浏览器才支持,既可以用来阻止捕获也可以用来阻止冒泡
+								},true);
+
+								//阻止冒泡的兼容所有浏览器的写法
+								function stopBubble(e){
+									if(e && e.stopPropagation){
+										e.stopPropagation();			
+									}else{
+										event.cancelBubble = "true";
+									}
+								};
+						&lt;/body&gt;
+					</pre>
+					<h1 class="title">表格的选中与删除</h1>
+					<pre>
+						&lt;body&gt;
+							&lt;div&gt;
+								&lt;table&gt;
+									&lt;tr&gt;
+										&lt;td&gt;&lt;input type="checkbox"/&gt;&lt;/td&gt;
+										&lt;td&gt;a222&lt;/td&gt;
+										&lt;td&gt;a333&lt;/td&gt;
+										&lt;td&gt;a444&lt;/td&gt;
+										&lt;td&gt;a555&lt;/td&gt;
+										&lt;td&gt;&lt;a href="javascript:void(0);" onclick="del(event,this);"&gt;删除&lt;/a&gt;&lt;/td&gt;
+									&lt;/tr&gt;			
+									&lt;tr&gt;
+										&lt;td&gt;&lt;input type="checkbox"/&gt;&lt;/td&gt;
+										&lt;td&gt;b222&lt;/td&gt;
+										&lt;td&gt;b333&lt;/td&gt;
+										&lt;td&gt;b444&lt;/td&gt;
+										&lt;td&gt;b555&lt;/td&gt;
+										&lt;td&gt;&lt;a href="javascript:void(0);" onclick="del(event,this);"&gt;删除&lt;/a&gt;&lt;/td&gt;
+									&lt;/tr&gt;
+									&lt;tr&gt;
+										&lt;td&gt;&lt;input type="checkbox"/&gt;&lt;/td&gt;
+										&lt;td&gt;c222&lt;/td&gt;
+										&lt;td&gt;c333&lt;/td&gt;
+										&lt;td&gt;c444&lt;/td&gt;
+										&lt;td&gt;c555&lt;/td&gt;
+										&lt;td&gt;&lt;a href="javascript:void(0);" onclick="del(event,this);"&gt;删除&lt;/a&gt;&lt;/td&gt;
+									&lt;/tr&gt;
+								&lt;/table&gt;
+							&lt;/div&gt;
+							&lt;script type="text/javascript"&gt;
+								//拿到table下面的所有td
+								var tDoms = document.querySelector("table").querySelectorAll("td");
+								for(var i=0;i&lt;tDoms.length;i++){
+									//点击按钮删除或添加样式,获取每个td下的input框
+									if(tDoms[i].children[0]){//有input框就为真
+										tDoms[i].children[0].addEventListener("click",function(e){
+											var mark = this.checked;
+											if(mark){
+												this.parentNode.parentElement.style.background = "yellow";
+											}else{
+												this.parentNode.parentElement.removeAttribute("style");
+											}
+											e.stopPropagation();
+										});
+									}
+									//给每一个tr动态绑定一个监听事件
+									tDoms[i].addEventListener("click",function(){
+										//alert(this.innerHTML);//可以拿到当前对象里面的内容和标签，而innerText只能拿到文本，并且火狐不支持！！！
+
+										//先获取到tr里面的复选框有没有选中
+										var mark = this.parentElement.querySelector("input").checked;
+										//没选中的时候取反，让点击任何一个td都能添加上样式或取消样式
+										if(!mark){
+											this.parentNode.style.background = "yellow";
+											//让复选框选中
+											this.parentElement.querySelector("input").checked = true;
+										}else{
+											this.parentNode.style.background = "";
+											this.parentElement.querySelector("input").checked = false;
+										} 
+									});
+								}
+								//删除tr的方法
+								function del(e,obj){
+									var tr = obj.parentNode.parentNode;
+									var table = tr.parentElement;
+									//移除指定的tr
+									table.removeChild(tr);
+									stopBubble(e);
+								}
+								//阻止冒泡的兼容所有浏览器的写法
+								function stopBubble(e){
+									if(e && e.stopPropagation){
+										e.stopPropagation();			
+									}else{
+										event.cancelBubble = "true";
+									}
+								};
+							&lt;/script&gt;
+						&lt;/body&gt;
+					</pre>
+					<h1 class="title">浏览器的默认行为剔除</h1>
+					<pre>
+						&lt;body&gt;
+							&lt;a href="http://www.baidu.com" onclick="clickme(event)"&gt;点我&lt;/a&gt;
+							&lt;input type="checkbox"/&gt;
+							&lt;input type="text"/&gt;
+							&lt;script type="text/javascript"&gt;
+								//preventDefault()用来阻止浏览器默认行为的发生
+								//阻止a链接的跳转
+								function clickme(e){
+									alert(1);
+									e.preventDefault();
+								}
+								//阻止复选框的选中
+								document.querySelector("input[type='checkbox']").addEventListener("click",function(e){
+									e.preventDefault();
+								},false)
+								//阻止文本框的键盘输入文本
+								document.querySelector("input[type='text']").addEventListener("keydown",function(e){
+									e.preventDefault();
+								},false)
+							&lt;/script&gt;
+						&lt;/body&gt;
+					</pre>
+					<h1 class="title">对currentTarget与target的认识</h1>
+					<pre>
+						&lt;body&gt;
+							&lt;div id="box"&gt;
+								&lt;a href="javascript:void(0);" &gt;点我1&lt;/a&gt;
+								&lt;a href="javascript:void(0);" &gt;点我2&lt;/a&gt;
+								&lt;a href="javascript:void(0);" &gt;点我3&lt;/a&gt;
+								&lt;a href="javascript:void(0);" &gt;点我4&lt;/a&gt;
+								&lt;span&gt;4554&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;a href="javascript:void(0);" onclick="add();"&gt;增加&lt;/a&gt;
+							&lt;script type="text/javascript"&gt;
+								document.querySelector("a").addEventListener("click",function(e){
+									this.style.cssText = "background:#111;color:#fff;padding:10px;"
+									//e.target.tagName：获取作用目标对象的元素名称，e.currentTarget.tagName:获取当前触发事件的对象元素名称，返回的都是大写的
+									alert(e.target.tagName+"===="+e.currentTarget.tagName);
+								},false);
+								//方法二
+								/*function clickme(obj){
+									obj.style.cssText = "background:green;padding:10px;color:#fff;";
+								};*/
+								/*var i=4;
+								function add(){
+									i++;
+									var box = document.getElementById("box");
+									box.innerHTML += "&lt;a href='javascript:void(0);' onclick='clickme(this)'&gt;点我"+i+"&lt;/a&gt;";
+								};*/
+								//方法三
+								document.querySelector("#box").addEventListener("click",function(e){
+									var ct = e.currentTarget;
+									var t = e.target;
+									//通过匹配目标对象是否是a元素，添加样式
+									if(t.tagName.toLowerCase() == "a"){
+										t.style.cssText = "background:green;padding:10px;color:#fff;";
+									}
+								},false);
+								var i=4;
+								function add(){
+									i++;
+									var box = document.getElementById("box");
+									box.innerHTML += "&lt;a href='javascript:void(0);'&gt;点我"+i+"&lt;/a&gt;";
+								};
+							&lt;/script&gt;
+						&lt;/body&gt;
+					</pre>
+					<h1 class="title">基于jQuery的事件委托的封装</h1>
+					<pre>
+						&lt;body&gt;
+							&lt;div id="box"&gt;
+								&lt;a href="javascript:void(0);"&gt;点我1&lt;/a&gt;
+								&lt;a href="javascript:void(0);"&gt;点我2&lt;/a&gt;
+								&lt;a href="javascript:void(0);"&gt;点我3&lt;/a&gt;
+								&lt;a href="javascript:void(0);"&gt;点我4&lt;/a&gt;
+								&lt;span&gt;不要点我&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;a href="javascript:void(0);" onclick="add();"&gt;增加&lt;/a&gt;
+							&lt;script src="js/jquery-1.11.2.min.js"&gt;&lt;/script&gt;
+							&lt;script type="text/javascript"&gt;
+								//on(事件名称,指定的目标target元素,回调函数)不填第二个参数，默认是当前触发事件的对象
+								//jQuery版的事件委托
+								/*$("#box").on("click","a",function(){
+									//这里的this指代的是target对象a链接
+									//alert($(this).html());
+									$(this).css({
+										background:"red",
+										padding:"10px",
+										color:"#fff",
+										border:"2px dotted #000"
+									});
+								})*/
+								//模仿jQuery版本的委托事件
+								var Hei = function(id){
+									var dom = document.getElementById(id);
+									return {
+										on:function(eventType,targetElement,callback){
+											dom.addEventListener(eventType,function(ev){
+												//获取目标对象的标签名称
+												var e = ev||event;
+												//兼容ie678的写法
+												var t = e.target||e.srcElement;
+												//如果目标对象的标签名与传递过来的标签名一致
+												if(t.tagName.toLowerCase() == targetElement){
+													//第一个参数表示改变回调函数this的指针，将其指向传递过来的目标元素，第二个参数表示事件类型
+													callback.call(t,e);
+												}
+											},false);
+										}
+									}
+								}
+								Hei("box").on("click","a",function(event){
+										//这里经过call调整重新指向目标对象target
+										this.style.background = "red";
+										this.style.padding = "10px";
+										this.style.color = "#fff";
+										this.style.border ="2px dotted #000";
+										//打印出事件类型
+										//alert(event);
+								});
+								var i=4;
+								function add(){
+									i++;
+									var box = document.getElementById("box");
+									box.innerHTML += "&lt;a href='javascript:void(0);'&gt;点我"+i+"&lt;/a&gt;";
+								};
+							&lt;/script&gt;
+						&lt;/body&gt;
+					</pre>
+				</div>
+			</div>
+			<a class="btn_a" id="bottom" href="javascript:void(0);"><i class="iconfont">&#xe60a;</i></a>
+		</article>
+	</div>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/js1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(window).scroll(function(){
+				var height = $(this).scrollTop();
+				if($(this).scrollTop()>=300){
+					$("#bottom").show();
+					$("#top").hide();
+					$("#header").animate({"height":0,"opacity":0},300);
+				}else{
+					$("#bottom").hide();
+					$("#top").show();
+					$("#header").stop(true,true).animate({"height":"51px","opacity":1},400);
+				}
+			});
+			$("html,body").load().stop(true,true).animate({"scrollTop":0},100);//页面一刷新就置顶 
+			$("#bottom").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":0},300);
+			});
+			var windowHeight = parseInt($("body").css("height"));//获取整个页面的高度
+			$("#top").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":windowHeight},300);
+			});
+		});
+		/*nav start*/
+		var oNav = $("#nav");
+		var oList = $("#list");
+		oNav.mouseover(function(){oList.show();});
+		oNav.mouseout(function(){oList.hide();});
+		/*end nav*/
+	</script>
+</body>
+</html>

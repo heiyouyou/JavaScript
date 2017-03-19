@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			构造函数继承：子类复制了父类构造函数里的方法和属性，属于值类型的继承（互相不影响）；但是缺点就是父类原型对象的方法和属性是不被继承的！！！
+		*/
+		//父类构造函数
+		function SuperClass(id){
+			this.id = id;
+			this.books = ["java","javascript","ajax"];
+		};
+		//父类原型方法
+		SuperClass.prototype.showBooks = function(){
+			alert(this.books);
+		};
+		//子类构造函数
+		function SubClass(id,age){
+			//构造函数继承:将父类this调整指向为子类的this
+			SuperClass.call(this,id);
+			this.age = age;
+		};
+		//子类的实例
+		var instance1 = new SubClass("wells",19);
+		var instance2 = new SubClass("free",18);
+		instance1.books.push("css");
+		alert(instance1.id);
+		alert(instance1.age);
+		alert(instance1.books);
+		alert(instance2.id);
+		alert(instance2.age);
+		alert(instance2.books);
+		//子类只是继承了父类的构造函数的属性和方法，没有继承到父类原型的方法
+		//instance2.showBooks();
+		//子类原型指向没有发生改变，所以构造器还是子类
+		alert(instance2.constructor);
+	</script>
+</body>
+</html>

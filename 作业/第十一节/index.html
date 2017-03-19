@@ -1,0 +1,428 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第十一节知识点总结</title>
+<link href="css/Style.css" rel="stylesheet"/>
+<link rel="stylesheet" href="http://at.alicdn.com/t/font_1458007164_389264.css"/>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	@media screen and (max-width:900px){/*当屏幕小于900px用下面这套样式*/
+		.main{width:100%;}
+		.main p{font-size:14px!important;}
+		aside{display:none;}	
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<header id="header">
+			<div class="header-left">
+				<a class="btn" href="#"><i class="iconfont ">&#xe615;</i></a>
+				<a class="btn" href="#"><i class="iconfont ">&#xe614;</i></a>
+			</div>
+ 			<div class="right_text">
+				<a class="right_a" href="demo/login.html" target="_blank">
+					<i class="iconfont icon-denglu"></i>
+					登录
+				</a>
+				<a class="right_a" href="demo/sign.html" target="_blank">
+					<i class="iconfont icon-zhuce"></i>
+					注册
+				</a>
+			</div>
+		</header>
+		<aside>
+			<a class="nav fir-a"  href="javascript:void(0);">有</a>
+			<nav id="nav">
+				<a class="nav"  href="javascript:void(0);">案例</a>
+				<ul id="list">
+					<li><a class="nav" href="demo/form.html" target="_blank">案例一</a></li>
+				</ul>
+			</nav>
+			<a class="nav" id="model"  href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			<div id="model_box">
+				<a class="nav" id="white" href="javascript:void(0);"><i class="iconfont">&#xe610;</i></a>
+				<a class="nav" id="black" href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			</div>
+		</aside>
+		<article id="article">
+			<a class="btn_a" id="top" href="javascript:void(0);"><i class="iconfont">&#xe609;</i></a>
+			<div class="main" id="main">
+				<div class="main_top">
+					<a class="person_img" href="javascript:void(0);">
+						<img src="http://upload.jianshu.io/users/upload_avatars/1616121/0fbc955a608e?imageMogr/thumbnail/90x90/quality/100" width="40" height="40" alt="100">
+					</a>
+					<p>
+						<a class="author" href="javascript:void(0);"><span >作者</span>黑有有</a>
+						<span id="timeShow"></span>
+					</p>
+					<a class="follow" href="javascript:void(0);"><i class="iconfont icon-guanzhu"></i>添加关注</a>
+				</div>
+				<h1 style="font-family:楷体;font-size:32px;padding:20px 0;">第十一节知识点总结</h1>
+				<p class="hid" style="margin-bottom:30px;">
+					<span>字数154654</span>
+					<span>阅读131</span>
+					<span>评论43</span>
+					<span>喜欢4324</span>
+				</p>
+				<div class="main_content" id="main_content">
+					<h1 class="title">关于表单验证的相关知识</h1>
+					<pre>
+						&lt;script type="text/javascript"&gt;
+							function $(id){
+								return document.getElementById(id);
+							};
+							//提交数据到后台的方法
+							function saveUser(){
+								//验证不成功就不提交
+								if(!isValidator()){
+									return false;
+								}
+								var formDom = $("form");
+								//获取form元素的值有两种形式：1,form.name.value;2,元素id.value
+								//var userName = formDom.username.value;
+								//获取用户名和密码
+								var userName = $("username").value;
+								var password = $("password").value;
+								//获取性别(单选按钮的值)
+								//获取到name值为sex的单选按钮
+								var radioDoms = formDom.sex;
+								var rlen = false;
+								//声明一个变量来接收单选按钮的值
+								var rvalue = "";
+								for(var i=0;i&lt;radioDoms.length;i++){
+									//只要单选按钮有选中就执行
+									if(radioDoms[i].checked){
+										rvalue = radioDoms[i].value;
+										rlen = true;
+										break;
+									}
+								}
+								//获取爱好(复选按钮的值)
+								var checkDoms = formDom.hobbys;
+								var clen = false;
+								//声明一个数组来接收复选按钮的值
+								var carr = [];
+								for(var i=0;i&lt;checkDoms.length;i++){
+									//只要复选按钮有选中就执行
+									if(checkDoms[i].checked){
+										carr.push(checkDoms[i].value);
+										clen = true;
+										//break;注意这里没有break,因为是复选框
+									}
+								}
+								//获取省份的值(下拉框的值)
+								//如果下拉选项框没有value就默认取第一个option里的文本内容
+								//先获取select已经选中的值
+								var svalue = $("province").value;
+								//获取当前选中的元素的索引
+								var selectIndex = $("province").selectedIndex;
+								//获取索引对应的option
+								var  optionDom = $("province").options[selectIndex];
+								var v = optionDom.value;
+								//建议不要用innerText获取文本，因为火狐不支持
+								var t = optionDom.text;
+								//获取介绍的内容(文本域)
+								var content = $("content").value;
+								//定义一个json对象接收用户数据
+								var params = {};
+								params.username = userName;
+								params.password = password;
+								params.sex = rvalue;
+								params.hobbys =carr.toString();
+								params.province = v;
+								params.content = content;
+								alert(JSON.stringify(params));
+							};
+							//表单验证的方法
+							function isValidator(){
+								var formDom = $("form");
+								//获取form元素的值有两种形式：1,form.name.value;2,元素
+							id.value
+								//var userName = formDom.username.value;
+								//获取用户名和密码
+								var userName = $("username").value;
+								var password = $("password").value;
+								//获取性别(单选按钮的值)
+								//获取到name值为sex的单选按钮
+								var radioDoms = formDom.sex;
+								var rlen = false;
+								//声明一个变量来接收单选按钮的值
+								var rvalue = "";
+								for(var i=0;i&lt;radioDoms.length;i++){
+									//只要单选按钮有选中就执行
+									if(radioDoms[i].checked){
+										rvalue = radioDoms[i].value;
+										rlen = true;
+										break;
+									}
+								}
+								//获取爱好(复选按钮的值)
+								var checkDoms = formDom.hobbys;
+								var clen = false;
+								//声明一个数组来接收复选按钮的值
+								var cvalue = [];
+								for(var i=0;i&lt;checkDoms.length;i++){
+									//只要复选按钮有选中就执行
+									if(checkDoms[i].checked){
+										cvalue.push(checkDoms[i].value);
+										clen = true;
+										break;
+									}
+								}
+								//获取省份的值(下拉框的值)
+								//如果下拉选项框没有value就默认取第一个option里的文本内容
+								//先获取select已经选中的值
+								var svalue = $("province").value;
+								//获取当前选中的元素的索引
+								var selectIndex = $("province").selectedIndex;
+								//获取索引对应的option
+								var  optionDom = $("province").options[selectIndex];
+								var v = optionDom.value;
+								//建议不要用innerText获取文本，因为火狐不支持
+								var t = optionDom.text;
+								//获取介绍的内容(文本域)
+								var content = $("content").value;
+								var error = $("error");
+								//用户名验证
+								if(userName == ""){
+									showError("请输入用户名...");
+									$("username").focus();
+									return false;
+								}
+								//密码验证
+								if(password == ""){
+									showError("请输入密码...");
+									$("password").focus();
+									return false;
+								}
+								//性别验证
+								if(!rlen){
+									showError("请选择性别...");
+								}
+								//爱好验证
+								if(!clen){
+									showError("请选择爱好...");
+									return false;
+								}
+								//省份的验证
+								if(svalue == ""){
+									showError("请选择省份...");
+									return false;
+								}
+								if(content == ""){
+									showError("请进行自我介绍...");
+									$("content").focus();
+									return false;
+								}
+								//验证方法的封装
+								function showError(message){
+									error.innerHTML = message;
+									//定时消除提示框
+									setTimeout(function(){
+										error.innerHTML = "";	
+									},1000);
+								};
+								//这里先返回一个false给函数，进行验证不让数据提交到后台,之后再改成true
+								return true;
+							};
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">对event事件对象的认识</h1>
+					<p class="text-p">
+						event事件对象：当一个事件发生的时候，存储这个事件的相关信息
+						当直接输出一个event事件时：谷歌chrome输出的是undefined，ie输出的是null,火狐报错(is not defined)；
+						只有在事件发生时，event才具有目的性
+						IE：只能直接event；
+						chrome ：可以直接event或者事件函数的第一个参数；
+						firefox ：事件函数的第一个参数；
+						写事件函数的时候，event||window.event是为了兼容IE678，event是一个对象，有很多属性，常用的比如：clientX，clientY等
+					</p>
+					<pre>
+						&lt;script type="text/javascript"&gt;
+							/*document.onclick = function(event){
+								var ev = event||window.event;
+								alert(ev);
+							};*/	
+							/*document.onclick = function(s){
+								var ev = s||window.event;//或者s||event
+								for(var key in ev){
+									document.write(key+"==="+ev[key]+"&lt;br/&gt;");
+								}
+							};*/
+							document.onmousemove = function(event){
+								var ev = event||event;
+								//获取鼠标移动时的坐标
+								var x = ev.clientX;
+								var y = ev.clientY;
+								//动态创建元素
+								var oDiv = document.createElement("div");
+								oDiv.style.cssText= "width:10px;height:10px;background:pink;position:absolute;top:"+y+"px;left:"+x+"px;";
+								document.body.appendChild(oDiv);//给body添加对象元素div用appendChild不能用innerHTML(这是用来拼接文本的)
+							};
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">attachEvent、addEventListener和call、apply的应用</h1>
+					<pre>
+						&lt;script type="text/javascript"&gt;
+							var oDiv1 = document.getElementById("div1");
+							var oDiv2 = document.getElementById("div2");
+							var oDiv3 = document.getElementById("div3");
+							//attachEvent(事件名称，函数名字);只有ie678支持，当绑定多个事件时，执行的顺序是：先弹后绑定的再弹先绑定的
+							/*oDiv1.attachEvent("onclick",fn);
+							oDiv1.attachEvent("onclick",fn1)*/
+							//addEventListener(事件名称，函数名字,是否捕获);只有其他浏览器支持(包括ie9+);第一个参数事件不带on,第三个参数不填相当于false,当绑定多个事件时，执行的顺序是：先弹先绑定的再弹后绑定的
+							/*oDiv1.addEventListener("click",fn,false);
+							oDiv1.addEventListener("click",fn1,false);*/
+							/*function fn(){
+								alert(1);
+							};
+							function fn1(){
+								alert(2);
+							};*/
+							//兼容写法
+							/*function bind(obj,eName,fn){
+								if(obj.addEventListener){
+									//obj.addEventListener(eName,fn,false);//如果只是传入一个函数名fn,this就指代当前调用函数的obj
+									obj.addEventListener(eName,function(){
+										fn.call(obj);//如果函数是这样执行时利用call将this重新指向obj,要不然就是undefined
+									},false);
+								}else{
+									//obj.attachEvent("on"+eName,fn);//如果只传入函数名fn，this指代不明也是会报错的
+									obj.attachEvent("on"+eName,function(){
+										fn.call(obj);//如果函数是这样执行时利用call将this重新指向obj,要不然就是报错
+									});
+								}
+							};
+							bind(oDiv3,"click",fn2);
+							function fn2(){
+								alert(this.id);	
+							};*/
+							//attachEvent的this指向问题，需要call/apply来解决用法：方法名称.call(obj);//这样就可以将方法里面this指向为括号里面传入的obj对象
+							<h1>//经典面试题</h1>
+							var username = "heihei111";
+							function test(a,b){
+								alert(this.username+(a+b));//当没有用call或者apply时这里的this指代window,所以username = "heihei111"
+							}
+							var Ellen = {
+								username:"heihiehiehi",
+								age:18,
+								sayHello:function(){
+									//alert(this.username+"===="+this.age);//这里的this指代Ellen
+									//test();//如果是这样执行this指代window
+									//test.call(Ellen);//如果是这样经call调整this指代Ellen,也可以test().apply(Ellen)
+									test.apply(Ellen,[2,6])//或者test.call(Ellen,2,6);}
+							};
+							Ellen.sayHello();
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">对事件捕获的认识</h1>
+					<pre>
+						&lt;body&gt;
+							&lt;div id="div1"&gt;
+								&lt;div id="div2"&gt;
+									&lt;div id="div3"&gt;&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+							&lt;script type="text/javascript"&gt;
+								var oDiv1 = document.getElementById("div1");
+								var oDiv2 = document.getElementById("div2");
+								var oDiv3 = document.getElementById("div3");
+								//是false时为出路，所以按事件冒泡弹出，所以是从下级往上级弹出
+								/*oDiv1.addEventListener("click",fn1,false);
+								oDiv2.addEventListener("click",fn2,false);
+								oDiv3.addEventListener("click",fn3,false);*/
+								//是true时为入路，所以是从上级往下级弹出
+								/*oDiv1.addEventListener("click",fn1,true);
+								oDiv2.addEventListener("click",fn2,true);
+								oDiv3.addEventListener("click",fn3,true);*/
+								//入路先于出路弹出
+								/*oDiv1.addEventListener("click",fn1,false);
+								oDiv2.addEventListener("click",fn2,true);
+								oDiv3.addEventListener("click",fn3,true);*/
+								//当只有一个对象绑定事件时且为入路时，按先绑定先弹
+								/*oDiv1.addEventListener("click",fn1,true);
+								oDiv1.addEventListener("click",fn2,true);
+								oDiv1.addEventListener("click",fn3,true);*/
+								//当是只有一个对象绑定事件时且为出路时，按先绑定先弹
+								/*oDiv1.addEventListener("click",fn1,false);
+								oDiv1.addEventListener("click",fn2,false);
+								oDiv1.addEventListener("click",fn3,false);*/
+								//当只有一个对象绑定事件时，不管出入路，只要是作用在该对象上就是先绑定先弹，如果是通过子类作用父类，则按入路先于出路弹出
+								/*oDiv1.addEventListener("click",fn1,false);
+								oDiv1.addEventListener("click",fn2,true);
+								oDiv1.addEventListener("click",fn3,false);*/
+								function fn1(){
+									alert(1);
+								};
+								function fn2(){
+									alert(2);
+								};
+								function fn3(){
+									alert(3);
+								};
+								<h1>经典面试题</h1>
+								function test(){
+									var arr = [];
+									for(var i=0;i&lt;3;i++){
+										arr[i] = function(){
+											return i;
+										};
+									}
+									return arr;
+								};
+								var t = test();
+								//alert(t);//输出由function(){return i;};组成的一个长度为3的数组
+								for(var i=0;i&lt;t.length;i++){
+									//alert(t[i]);//输出三次function(){return i;}
+									alert(t[i]());//输出三次3，注意:function(){return i;}中的i只有函数打起括号才发生变化，当执行时内存中的i已经变成了3
+								}
+							&lt;/script&gt;
+						&lt;/body&gt;
+					</pre>
+				</div>
+			</div>
+			<a class="btn_a" id="bottom" href="javascript:void(0);"><i class="iconfont">&#xe60a;</i></a>
+		</article>
+	</div>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/js1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(window).scroll(function(){
+				var height = $(this).scrollTop();
+				if($(this).scrollTop()>=300){
+					$("#bottom").show();
+					$("#top").hide();
+					$("#header").animate({"height":0,"opacity":0},300);
+				}else{
+					$("#bottom").hide();
+					$("#top").show();
+					$("#header").stop(true,true).animate({"height":"51px","opacity":1},400);
+				}
+			});
+			$("html,body").load().stop(true,true).animate({"scrollTop":0},100);//页面一刷新就置顶 
+			$("#bottom").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":0},300);
+			});
+			var windowHeight = parseInt($("body").css("height"));//获取整个页面的高度
+			$("#top").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":windowHeight},300);
+			});
+		});
+		/*nav start*/
+		var oNav = $("#nav");
+		var oList = $("#list");
+		oNav.mouseover(function(){oList.show();});
+		oNav.mouseout(function(){oList.hide();});
+		/*end nav*/
+	</script>
+</body>
+</html>

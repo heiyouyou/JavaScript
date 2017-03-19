@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>简易的注册表单验证</title>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	@media screen and (max-width:770px){
+		.nav{display:none;}
+		.right_text{left:0;}
+	}
+</style>
+<link rel="stylesheet" href="http://at.alicdn.com/t/font_1458015148_9610946.css"/>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+	<div class="box" id="box">
+		<div class="nav">
+			<a class="nav_a first_a" href="javascript:void(0);">有</a>
+			<a class="nav_a" href="javascript:void(0);">
+				<i class="iconfont icon-zhuanti"></i>
+			</a>
+			<a class="nav_a" href="javascript:void(0);">
+				<i class="iconfont icon-unbenannt1"></i>
+			</a>
+		</div>
+		<div class="right_text">
+			<a class="right_a" href="login.html">
+				<i class="iconfont icon-denglu"></i>
+				登录
+			</a>
+			<a class="right_a" href="sign.html">
+				<i class="iconfont icon-zhuce"></i>
+				注册
+			</a>
+		</div>
+		<div class="sign_box" id="sign_box">
+			<div class="title">
+				<img src="http://cdn-qn0.jianshu.io/assets/img_logo-25ff4bee2e56411470b83c636a7a0dad.png" width="252" height="123" alt="logo"/>
+				<p class="a-p">
+					<a class="login_a" href="login.html">登录</a>
+					<a class="sign_a" href="sign.html">注册</a>
+				</p>
+			</div>
+			<div class="sign_form">
+				<form action="javascript:void(0);" id="form">
+					<div class="sign_div">
+						<span class="sign-img">
+							<i class="iconfont icon-youjian"></i>
+						</span>
+						<input class="inp" type="text" autofocus="autofocus" maxlength="10" value="你的邮件地址"/>
+					</div>
+					<div class="sign_div">
+						<span class="sign-img">
+							<i class="iconfont icon-nicheng"></i>
+						</span>
+						<input class="inp" type="text" maxlength="10" value="你的昵称"/>
+					</div>
+					<div class="sign_div">
+						<span class="sign-img">
+							<i class="iconfont icon-mima"></i>
+						</span>
+						<input class="inp" type="password" maxlength="10" value="你的密码"/>
+					</div>
+					<input class="sign_btn" type="submit" value="注册">
+				</form>
+				<p class="bottom_text">点击 “注册” 或下方社交登录按钮，即表示您同意并愿意遵守简书<a href="javascript:void(0);">用户协议</a>和<a href="javascript:void(0);">隐私政策</a> 。</p>
+				<div class="ways">
+					<p>您还可以通过以下方式直接登录</p>
+					<ul class="ways_ul">
+						<li><a href="javascript:void(0);"><i class="iconfont icon-weibo" style="font-size:22px;"></i></a></li>
+						<li><a href="javascript:void(0);"><i class="iconfont icon-QQ"></i></a></li>
+						<li><a href="javascript:void(0);"><i class="iconfont icon-douban"></i></a></li>
+						<li><a href="javascript:void(0);"><i class="iconfont icon-weibiaoti1"></i></a></li>
+						<li><a href="javascript:void(0);"><i class="iconfont icon-weixin"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="warming" id="warming">	
+		</div>
+	</div>
+	<script type="text/javascript" src="js/form.js"></script>
+	<script type="text/javascript">
+	</script>
+</body>
+</html>

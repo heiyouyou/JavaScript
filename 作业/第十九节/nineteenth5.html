@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	<div id="box" class="box"><p></p></div>
+	<div class="box"><p></p></div>
+	<script src="js/jquery-1.12.2.min.js"></script>
+	<script type="text/javascript">
+		//jQuery加载页面整个文档节点再执行脚本的形式
+		//$(document).ready(function(){alert(1);});
+		//或者简写成以下：
+		$(function(){
+			//alert(1);
+		});
+		/*jQuery内部是由闭包的形式将jQuery变成了$即：
+		(function($){
+			var $ = jQuery;
+		})(jQuery);*/
+		
+
+		//jQuery获取对象的方法：
+		//通过css选择器：
+		//$("div[id='box']").html(123456);
+		//通过id
+		//$("#box").html("123dfd");
+		//通过class
+		//$(".box").html("123dfd");
+
+		/*
+		//把一个js对象变成一个jQuery对象的方法：
+		$()，将js获取到的对象放进括号里面	
+		var oBox = document.getElementById("box");
+		$(oBox).html("11111");*/
+
+		/*将一个jQuery对象变成js对象的方法：*/
+		var $box = $(".box");
+		//get()返回一个js对象组成的类数组，括号里面填索引或下标，不填不报错，填超就报错
+		//$box.get(0).innerHTML = "abcd";
+		//或者：
+		//$box[1].innerHTML = "abcd";
+
+		//通过标签名获取对象：
+		var $p = $("p");
+		//每一个p都添加到内容
+		//$p.html("123abcd");
+		//eq()匹配符合括号里下标的对象
+		//$p.eq(0).html("123abcd");
+		/*var div = document.createElement("div");
+		document.body.appendChild(div);*/
+
+		//jQuery创建元素和添加元素的方法：
+		var $div = $("<div class='box'><a href='#'>1</a></div>");
+		//往body结束标签前添加（最后一个位置）
+		//$(document.body).append($div);
+		//往body开始标签后面加（第一个位置）
+		//$(document.body).prepend($div);
+
+		var oBox = document.getElementById("box");
+		//$(参数1，参数2)，参数1表示要查找的内容，参数2表示要查找的区间范围
+		//$("p",oBox).html(1223);
+		//$("p",$("#box")).html(1223);
+		$("p",$(".box")).html(1223);
+
+		//记住了：只有js对象才能调用js属性或方法；而jQuery对象也只能调用jQuery里面的属下或方法，而且一般jQuery中都是方法居多！！！
+	</script>
+</body>
+</html>

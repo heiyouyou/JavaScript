@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第八节课笔记集锦</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:14px;font-family:"微软雅黑";background:#222;word-wrap:break-word;background:rgba(201, 221, 230, 0.73);}
+	ul,li{list-style:none;}
+	a{text-decoration:none;color:red;background:#fff;border-radius:10px;padding:0 5px;}
+	.box{width:1000px;margin:0 auto;background:#ddd;padding:10px;overflow:hidden;}
+	.box p{margin-top:10px;border-bottom:1px dashed #c81263;padding-bottom:5px;}
+	pre{font-size:14px;font-family:"微软雅黑"}
+	@media screen and (max-width:900px){
+		.box{width:100%;}
+		pre{font-size:12px;}
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<h1 style="text-align:center;">第八节课笔记集锦</h1>
+		<a href="#bottom" name="top">到达底部</a>
+		<p>	
+			<h3>样式权重问题</h3>
+			<pre>
+				//内联样式 > id > class > 标签
+				/*
+				------>权重
+				1.内联样式		1000
+				2.id样式		100	
+				3.class样式 = hover样式	10   
+				4.标签样式		1
+				*/
+				注意：若对某个样式进行了修饰，需要按照权重值的相加的结果大小来显示，总和权重大的显示。如：p a:hover{color:blue;}/*1+1+10=12*/
+				p.p1 a{color:yellow;}/*1+10+1=12*/这时a的字体颜色就是黄色并且hover之后没有变化
+			</pre>
+		</p>
+		<p>
+			<h3>js中给元素添加样式的方法</h3>
+			<pre>
+				&lt;style type="text/css" id="css"&gt;
+				*{margin:0;padding:0;}
+				body{font-size:12px;font-family:"微软雅黑";}
+				ul,li{list-style:none;}
+				a{text-decoration:none;}
+				#box{width:100px;background:red;}
+				.on{height:100px;}
+				&lt;/style&gt;
+
+				&lt;body&gt;
+				&lt;div id="box"&gt;&lt;/div&gt;
+				&lt;script type="text/javascript"&gt;
+					//给元素添加样式的方法
+					var boxDom = document.getElementById("box");
+					var cssDom = document.getElementById("css");
+					//第一种
+					//boxDom.style.height = "100px";//这种是加在内联样式中
+
+					//第二种
+					//boxDom.className = "on";//这种通过类名添加样式是比较常用的方法
+					
+					//第三种
+					//cssDom.innerHTML += "#box{height:100px;border:1px solid #111;}";//注意这里要有+号，没有加号会将cssDom之前的内容全部覆盖掉，加号表示与之前的内容拼接的意思
+
+					//第四种
+					//boxDom.style.cssText = "height:100px;border:1px solid #111;margin:20px auto;"//这种加样式也是加在内联样式中，可以添加多个样式
+				&lt;/script&gt;
+				&lt;/body&gt;
+			</pre>
+		</p>
+		<p>	
+			<h3>获取样式属性值的方法</h3>
+			<pre>
+				&lt;body&gt;
+					&lt;div id="box" style="width:200px;"&gt;&lt;/div&gt;
+					&lt;script type="text/javascript"&gt;
+						var boxDom = document.getElementById("box");
+						//alert(boxDom.style.width);//这种输出或获取的是内联样式中的width的值，如果内联样式中没有样式则会输出空白的弹框
+
+						//alert(getComputedStyle(boxDom).width);//getComputedStyle()这种方法是传入相应的对象可以得到相应的样式属性值, 可是IE6 7 8不兼容
+
+						//alert(boxDom.currentStyle.width);//这种方法是通过对象调用，只支持ie6 7 8，不兼容别的浏览器
+
+						//以下是获取样式值的兼容性写法
+						alert(getStyle(boxDom," wid th "));//如果这里的第二个实参出现了空格,就会输出undefined
+						function getStyle(obj,value){
+							//value = value.trim();//这种方法只能将字符串的前后空格去掉不能将中间的空格去掉
+							var values = value.split(" ");//split与join结合使用就可以将中间空格去掉
+							var value = values.join("");
+							if(obj.currentStyle){//这里表示哪个浏览器支持就往下执行if语句里的代码，要不然就执行else里的语句
+								return obj.currentStyle[value];//注意这里不能点只能用[]包裹变量，且必须传入的是字符串
+							}else{
+								return getComputedStyle(obj)[value];
+							}
+						}
+					&lt;/script&gt;
+				&lt;/body&gt;
+			</pre>
+		</p>
+		<p>	
+			<h3>点击预览<a href="index3.html" target="_blank">对getElementsByClassName()的认识</a></h3>
+			<pre>
+				&lt;div class="box wrap  "&gt;adasdas&lt;/div&gt;
+				&lt;div class="box"&gt;adasdas&lt;/div&gt;
+				&lt;script type="text/javascript"&gt;
+						//getElementsByClassName(className)是通过类名来获取元素，但不支持Ie6 7 8
+						/*var boxDoms = document.getElementsByClassName("box");//获得一个类数组
+						var css = document.getElementById("css");
+						for(var i =0;i&lt;boxDoms.length;i++){
+							boxDoms[i].style.textAlign = "center";
+						}
+						css.innerHTML += ".box{height:50px;border:1px solid red;margin:10px 0;}";
+						boxDoms[1].onclick = function(){
+							alert(1);
+						}*/
+
+						/*var all = document.getElementsByTagName("*");//*表示将页面的所有dom元素获取存入类数组中
+						var arrClass = [];
+						for(var i=0;i&lt;all.length;i++){
+							if(all[i].className == "box"){//只能用来获取只有一种样式box的元素
+								arrClass.push(all[i]);
+							}
+						}
+						arrClass[1].onclick = function(){
+							alert(1);//获取不到元素就会报错
+						}
+						//alert(JSON.stringify(arrClass));*/
+
+						/*
+						var all = document.getElementsByTagName("*");
+						var arrClass = [];//用一个空数组来接收具有类样式box的元素
+						for(var i=0;i&lt;all.length;i++){
+							var arr = all[i].className.split(" ");//通过split(以空格号来划分具有多个类样式的元素的className)切割成数组用arr来存，注意className都是字符串！！！
+							for(var j=0;j&lt;arr.length;j++){//循环嵌套循环，每个循环的边界变量最好不要相同，易引起混乱
+								if(arr[j] == "box"){
+									arrClass.push(all[i]);//将具有box样式的元素存入原来的空数组arrClass
+								}
+							}
+						}
+						arrClass[0].onclick = function(){
+							alert(1);
+						}*/
+				&lt;/script&gt;
+			</pre>
+		</p>
+		<p>	
+			<h3>对jQuery封装原理的简单认识</h3>
+			<pre>
+				function $(param,obj){//jQuery中的传入id和className形式：$("#id"),$(".className")
+				var typeP = typeof param;//将传入的param进行类型判断
+				if(typeP == "function"){//判断传入的param是函数还是字符串
+					window.onload = param;
+				}else if(typeP.toUpperCase() == "STRING"){//调用toUpperCase()是为了解决不同浏览器因为对字符串string的大小写判断不一
+					var firStr = param.charAt();//charAt()不传入任何参数，默认是返回下标为0的字符,这里的意思是用来判断传入id还是className
+					if(firStr == "#"){
+						param = param.substring(1,param.length);//从param下标1截取后面部分
+						return document.getElementById(param);//返回传入的id给函数$()
+					}else if(firStr == "."){
+						param = param.substring(1,param.length);
+						obj = obj||document;
+						//这个方法支持ie9+和其他浏览器
+						if(document.getElementsByClassName){//只有浏览器支持才会执行if语句里的东西
+							return obj.getElementsByClassName(param);//获取obj对象下类名为传入的param的元素而组成的数组，然后返回数组给函数$
+						}
+						var all = obj.getElementsByTagName("*");
+						var arrClass = [];//用一个空数组来接收具有类样式box的元素
+						for(var i=0;i&lt;all.length;i++){
+							var arr = all[i].className.split(" ");//通过split()以空格号来划分具有多个类样式的元素的className切割成数组用arr来存，注意className都是字符串！！！
+							for(var j=0;j&lt;arr.length;j++){//循环嵌套循环，每个循环的边界变量最好不要相同，易引起混乱
+								if(arr[j] == param){
+									arrClass.push(all[i]);//将具有box样式的元素存入原来的空数组arrClass
+								}
+							}
+						}
+						return arrClass;//返回一个传入类样式(类名)为param的数组
+					}
+				}
+			}
+
+				//获取对象的样式属性
+				function getStyle(obj,attr){
+					//attr = attr.trim();
+					attr = attr.split(" ");
+					attr = attr.join("");
+					if(obj.currentStyle){
+						return obj.currentStyle[attr];
+					}else{
+						return getComputedStyle(obj)[attr];
+					}
+				}
+			</pre>
+		</p>
+		<p>	
+			<h3>定时器setInterval()和setTimeout()的区别</h3>
+			<pre>
+				/*var num = 0;
+				var time = setInterval(start,500);//每隔500毫秒执行一次start，如果不清除定时，会一直执行下去,相当于循环；第一个参数表示函数，第二个参数表示每次执行函数的间隔时间，单位为毫秒
+				function start(){
+					num++;
+					if(num==10){
+						clearInterval(time);//清除setInterval()定时器的方法
+					}
+					document.write(num+"&lt;br/&gt;");
+				};*/
+
+				/*var num1 = 0;
+				var time1 = setTimeout(start1,1000);;//500毫秒后执行一次start1，只执行一次
+				function start1(){
+					num1++;	
+					document.write(num1+"&lt;br/&gt;");
+				};
+				clearTimeout(time1);//清除setTimeout()定时器的方法*/
+			</pre>
+		</p>
+		<p>	
+			<h3>点击预览<a href="index2.html" target="_blank">setInterval()的案例</a></h3>
+			<pre>
+				&lt;body&gt;
+					&lt;p style="text-align:center;"&gt;还剩&lt;span id="time" 
+					style="color:red;font-size:14px;"&gt;5&lt;/span&gt;秒返回首页&lt;/p&gt;
+					&lt;script src="js/jQuery.js"&gt;&lt;/script&gt;
+					&lt;script type="text/javascript"&gt;
+						var num = 5;
+						var timer = setInterval(show,1000);
+						function show(){
+							num--;
+							$("#time").innerHTML = num;
+							if(num ==0){
+								clearInterval(timer);//当页面没有完全跳转过去时，定时器还在执行，所以要进行清除
+								//window.location.href = "http://www.baidu.com";//这个方法是在当前页面跳转到填的路径
+								window.open("http://www.baidu.com");//这个方法是在新窗口打开页面
+							}
+						};
+					&lt;/script&gt;
+				&lt;/body&gt;
+			</pre>
+		</p>
+		<p>	
+			<h3>点击预览<a href="index1.html" target="_blank">setTimeout()的案例</a></h3>
+			<pre>
+				&lt;body&gt;
+					&lt;div id="texts"&gt;&lt;/div&gt;
+					&lt;script type="text/javascript"&gt;
+						function Ptext(arr,id,time){//第一个表示数组，第二个表示id,第三个表示定时器的执行时间
+						/*var arr = [];//定义一个空数组来接收由字符串组成的数组
+						//为空数组添加字符串
+						arr.unshift("热爱运动的好孩子！！！");
+						arr.unshift("是一个学生");
+						arr.unshift("heiheiyou");*/
+						var pos = 1;//定义substring的截取结束索引endIndex
+						var strlen = arr[0].length;//先获取数组arr下标为0的字符串长度
+						var index = 0;//记录字符串数组arr的下标
+						var len =arr.length;//记录字符串数组arr的长度
+						var timer = null;//定义一个空的定时器
+						var oText = document.getElementById(id);//获取装文本的盒子id
+						oText.style.cssText = "width:500px;margin:10px auto;background:red;color:#fff;";
+						var p = "";//定义一个空字符串来装每个arr[i]完全输出完后的字符串
+						var row = 0;//记录开始输出的完整字符串的行数
+						function printText(){
+							if(row&lt;index){//当row小于arr的下标index就开始将arr[index]完整字符串赋值给p
+								p = p + arr[row++];
+							}
+							oText.innerHTML =p + arr[index].substring(0,pos);
+							if(strlen==pos){
+								index++;
+								pos = 1;//重新赋值以清空上次截取字符串留下的结束下标pos
+								if(index&lt;len){//当index小于arr的长度时才执行，否则就清空定时器timer
+									strlen = arr[index].length;//并且重新将变化后的字符串arr[index]赋值给strlen
+									timer = setTimeout(printText,time);
+								}else{
+									clearTimeout(timer);
+								}
+							}else{
+								pos++;//只要pos不大于字符串的长度就继续截取执行定时器setTimeout()
+								timer = setTimeout(printText,time);
+							}
+						}
+						printText();
+					}
+					Ptext(["我是一个","狠狠狠狠","想学好语言的好孩子！！！"],"texts",400);
+					&lt;/script&gt;
+			</pre>
+		</p>
+		<a href="#top" name="bottom">返回顶部</a>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

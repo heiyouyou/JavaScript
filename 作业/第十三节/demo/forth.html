@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第四节课笔记集锦</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:14px;font-family:"微软雅黑";background:#222;word-wrap:break-word;background:rgba(201, 221, 230, 0.73);}
+	ul,li{list-style:none;}
+	a{text-decoration:none;color:red;background:#fff;border-radius:10px;padding:0 5px;}
+	.box{width:1000px;margin:0 auto;background:#ddd;padding:10px;overflow:hidden;}
+	.box p{margin-top:10px;border-bottom:1px dashed #c81263;padding-bottom:5px;}
+	pre{font-size:14px;font-family:"微软雅黑";}
+</style>
+</head>
+<body>
+	<div class="box">
+		<h1 style="text-align:center;">第四节课笔记集锦</h1>
+		<a href="#bottom" name="top">到达底部</a>
+		<p>
+			作用域的总结案例：
+			<pre>	
+				/*
+				var a = 1;
+				var b = 2;
+				function c(){
+					alert(a);//输出1
+					var a = 4;
+				}
+				c();
+				*/<br/>
+				/*
+				var a = 0;
+				function fn(){
+				alert(a);//输出undefined
+				var a = 1;
+				alert(a);//输出1
+				};
+				fn();
+				*/<br/>
+				/*
+				var a = 0;
+				function fn(){
+				alert(a);输出0
+				a = 1;
+				alert(a);//输出1
+				var b = 2;
+				};
+				fn();*/<br/>
+				/*
+				fn();
+				alert(a);//输出1
+				var a = 0;
+				alert(a);//输出0
+				function fn(){
+				a = 1;
+				var b = 2;
+				};*/<br/>
+				/*
+				fn();
+				alert(a);//输出1
+				a = 0;//这里相当于var a = 0;
+				alert(a);//输出0
+				function fn(){
+				a = 1;
+				var b = 2;
+				};*/<br/>
+				/*
+				fn();
+				alert(a);//输出1
+				function fn(){
+				a = 1;//这里相当于window.a = 1;是一个全局变量
+				var b =2;
+				};*/<br/>
+				/*
+				fn();
+				alert(a);//undefined
+				var a = 0;
+				function fn(){
+				alert(a);//输出undefined
+				alert(b);//输出undefined
+				alert(fn);//一坨
+				var a = 1;
+				var b = 2;
+				function c(){
+					alert(a);
+				};
+				return c;
+				};
+				alert(fn());//先再次重新执行fn(),最后再弹出返回值c
+				*/<br/>
+				/*
+				fn(a);//这里的实参a是undefined
+				alert(a);//输出undefined
+				var a = 4;
+				var b = 2;
+				function fn(a){
+				//var a = undefined
+				var a = 1;
+				alert(a);//输出1
+				a = 3;
+				};
+				fn(a);*/<br/>
+				/*
+				var a = 1;
+				var b = 2;
+				//var c;
+				function fn(){
+				c = 3;//这里相当于window.c = 3是一个全局变量，但是不能这样写，有些浏览器是不兼容的,为了兼容所有浏览器在全局域写上var c
+				return c;
+				};
+				fn();
+				alert(c);
+				alert(fn());*/<br/>
+				/*alert(a);
+				var a//为了结局兼容性问题，一般会将必要的变量升级为全局变量,不写的话火狐浏览器不支持
+				if(true){
+				//var a = 1;
+				a = 1;
+				//function a(){alert(3);};
+				}
+				alert(a);*/<br/>
+				alert(i);
+				//var i = 0;
+				for(var i=0;i&lt;4;i++){
+				var a = 3;
+				}
+				alert(a);<br/>
+			</pre>
+		</p>
+		<p>
+			注意了：<br/>
+			1.①定义 var function②执行表达式	<br/>
+			2.如果函数名和var定义的变量相同，var会被函数覆盖作用域链：从子作用域可以访问父作用域，反之不可逆什么时候升级为全局变量：就是当子类的作用域的变量没有定义且父类找不到这个变量时，它就会默认升级为全局变量，还有当父类的作用域与子类的作用域有相同的一个变量，而父类和子类的都没有定义声明，此时父类就默认声明了！！！作用域链只存在函数中！！！
+		</p>
+		<p>
+			//var str = "h ei有1 23";//字符串 空格也算一个字符<br/>
+			//alert(Array.isArray(str));返回false，是一个类数组<br/>
+			//alert(str.length);<br/>
+			//alert(str[2]);//这种获取具体的字符是对ie678不兼容的，会返回undefined<br/>
+			//alert(str.charAt("2"));//str.charAt();返回某位置的字符，括号里写要找的位置,如果写的是字符串数字默认按number转换<br/>
+			var str1 = "0123459";<br/>
+			var str2 = "abcdzABCDZ";<br/>
+			//alert(str1.charCodeAt("3"));//返回字符编码str.charCodeAt( ); //括号里写要找的位置,0-9的ascii编码是48-57(ascii编码都是数字)<br/>
+			//alert(str1.charCodeAt(100));//当方法找不到对应位置的值就会返回NaN<br/>
+			//alert(str2.charCodeAt(9));//小写的英文字母a-z的编码是：97-122，大写的英文字母A-Z的编码是:65-90
+			var num = 549;<br/>
+			//alert(String.fromCharCode(num));//从传入编码返回字符<br/>
+			//alert(String.fromCharCode(48,"90"));//可以直接传入编码多个，用逗号隔开,若传入的是字符串默认按number()转换<br/>
+			for(var i=0;i&lt;=100;i++){<br/>
+				document.body.innerHTML += String.fromCharCode(i);//将0-100的编码全转成字符<br/>
+			}<br/>
+		</p>
+		<p>
+			maxLength用于限制输入框的输入最大长度
+		</p>
+		<p>
+			<pre>
+				/*
+				subtring和slice都属于字符串的截取
+				slice(startIndex,endIndex)
+				substring(startIndex,endIndex)
+				slice(startIndex,endIndex)截取规则：
+				1)包括首索引，不包括尾索引
+				如果startIndex的值是一个负数且绝对值小于length，那么开始截取的位置就是length+startIndex，但是如果传入一个值并且是负数，绝对值>length,那么startIndex就是0;如果传入的值是正数大于长度length，截取得到的是空
+				如果endIndex的值是一个负数，那么结束位置就是length+endIndex
+				经过以上条件的判断后知道startIndex是从左往右截，endIndex是从右往左截，然后取他们相交的部分
+				*/
+
+				var str = "0123456789";
+				//alert(str.slice(5));//方法括号里填入索引号。没有填任何数字，就是默认从下标0开始截取
+				//alert(str.slice(10));
+				//alert(str.slice(-4));
+				//alert(str.slice(-11));
+				//alert(str.slice(0,2));从startIndex到endIndex截取他们的相交部分，endIndex(右边)对应的值不截取
+				//alert(str.slice(7,5));//当end小于start时，无法截取到，弹出空白
+				//alert(str.slice(2,-9));
+				//alert(str.slice(-3,9));
+				//alert(str.slice(5,100));
+				//alert(str.slice(-20,-9));
+				//alert(str.slice(-3,2));
+
+				//substring和slice基础部分一样
+				/*1)包括首索引，不包括尾索引
+				1.如果start或者end为负数的时候，他们会被当做为0
+				2.如果他们长度>length,则会被视为length
+				3.如果end&lt;start;他们会自动交互彼此值
+				经过以上条件的判断后知道startIndex是从左往右截，endIndex是从右往左截，然后去他们相交的部分
+				*/
+
+				//alert(str.substring(-31));
+				//alert(str.substring(5,-4));
+				//alert(str.substring(50));
+				//alert(str.substring(-3,-4));
+				//alert(str.substring(21,5));
+
+				var s = "潭州学院-J";
+				//alert(s.slice(-5,-4));
+				//alert(s.slice(4,-3));
+
+
+				//拆分字符串：str.split( ); //以传入的字符串变为为数组分割符逗号为界限分割，返回一个数组；第二参数为长度
+				var s = "http://www.baidA.com";
+				//alert(s.split(".",2));//第二个参数是限制数组长度为多少
+				//alert(s.split(".",2)[2]);//这样子输出undefined
+				//alert(s.split(".")[2]);//这样子输出com
+				//alert(s.split(".").length);
+				//alert(Array.isArray(s.split(".")));返回一个true
+				alert(s.toUpperCase());//转换成大写
+				alert(s.toLowerCase());//转换成小写
+			</pre>
+		</p>
+		<p>
+				
+			<pre>
+				var str = "jery老师很熟啊狠话";
+				//var s = "henhsu1213";
+				//var s1 = [1,2,23];
+				//var s2 = 234;
+				//alert(str.concat(s,s1,s2));//concat()字符串的拼接，从后拼接，可以传入多个变量
+				//alert(str.indexOf("je"));//"je"用来判断的条件，从左往右查找“je”,如果条件成立就返回第一个字符的索引
+				//alert(str.indexOf("ry老1",5));//带参数的话代表从你参数这个位置上往后找，找到就返回左边，找不到就返回-1
+
+				/*
+				//查询单个字符位置的原理
+				String.prototype.HeiIndexOf = function(key){
+				var len = this.length;//this代表str这个对象
+				var index = -1;//找不到就返回-1
+				for(var i=0;i&lt;len;i++){
+					if(this.charAt(i) == key){
+						index = i;
+						//return index;
+					}
+				}
+				return index;
+				};
+				alert(str.HeiIndexOf("r"));//只传入一个就判断得出结果*/
+
+				//var str1 = "或iheiyou22";
+				//alert(str1.lastIndexOf("ih",-8));//lastIndexOf()只是改变了查找的方向。是从右往左找，其他规则都按indexOf()从左往右的一样,第二参数为负数，当成0
+				//alert(str1.indexOf("you",-9));//第二参数为负数，当成0
+			</pre>
+		</p>
+		<a href="#top" name="bottom">返回顶部</a>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

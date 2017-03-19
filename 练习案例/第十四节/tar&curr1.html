@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>版本二</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	#box{width:540px;height:340px;text-align:center;line-height:340px;border:1px solid red;margin:50px auto 0;}
+</style>
+</head>
+<body>
+	<div id="box">
+		<a href="javascript:void(0);" >点我1</a>
+		<a href="javascript:void(0);" >点我2</a>
+		<a href="javascript:void(0);" >点我3</a>
+		<a href="javascript:void(0);" >点我4</a>
+		<span>4554</span>
+	</div>
+	<a href="javascript:void(0);" onclick="add();">增加</a>
+	<script type="text/javascript">
+		//方法二
+		/*function clickme(obj){
+			obj.style.cssText = "background:green;padding:10px;color:#fff;";
+		};*/
+		/*var i=4;
+		function add(){
+			i++;
+			var box = document.getElementById("box");
+			box.innerHTML += "<a href='javascript:void(0);' onclick='clickme(this)'>点我"+i+"</a>";
+		};*/
+		//方法三
+		document.querySelector("#box").addEventListener("click",function(e){
+			var ct = e.currentTarget;
+			var t = e.target;
+			//通过匹配目标对象是否是a元素，然后添加样式
+			if(t.tagName.toLowerCase() == "a"){
+				t.style.cssText = "background:green;padding:10px;color:#fff;";
+			}
+		},false);
+		var i=4;
+		function add(){
+			i++;
+			var box = document.getElementById("box");
+			box.innerHTML += "<a href='javascript:void(0);'>点我"+i+"</a>";
+		};
+	</script>
+</body>
+</html>

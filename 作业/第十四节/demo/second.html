@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第二节课笔记集锦</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:14px;font-family:"微软雅黑";word-wrap:break-word;background:rgba(201, 221, 230, 0.73);}
+	ul,li{list-style:none;}
+	a{text-decoration:none;color:red;background:#fff;border-radius:10px;padding:0 5px;}
+	#box{width:1000px;margin:0 auto;background:#ededed;padding:10px;}
+	#box p{padding-bottom:15px;border-bottom:1px solid #c81623;}
+	pre{font-size:14px;font-family:"微软雅黑";}
+</style>
+</head>
+<body>
+	<div id="box">
+		<h1 style="text-align:center;">第二节课笔记集锦</h1>
+		<a href="#bottom" name="top">到达底部</a>
+		<p>
+			js六大数据类型：<br/>
+			1.number，如：var a = 10.2;//数字 整数 number<br/>
+			2.string，如：var b = 'Jery老师';字符串 string，注意单双引号不分<br/>
+			3.boolean 只有true和false值<br/>
+			4.function，如：function Jery(){
+				alert(11);
+			}<br/>
+			5.undefined，如：var h;//声明了没赋值就是undefined  未定义<br/>
+			6.object，如：var ob = [1,3,"3"];<br/>
+				var n = null;<br/>
+				var d = new Date();//创建一个系统时间对象,输出的是系统时间<br/>
+				var r = new RegExp();<br/>
+				var j = {
+					name:"heihei",
+					age:18//注意最后结束没有逗号
+				};//object(array,null,Date,RegExp,json（这些都属于object类型！！！）)<br/>
+		</p>
+		<p>
+			判断一个变量或者对象是什么数据类型可以通过alert(typeof xxx);来判断<br/>
+			判断一个对象是不是数组可以通过alert(Array.isArray(xxx));//如果是真数组返回true,否则是false!!!
+		</p>
+		<p>
+			<h3>注意:</h3>只有js里的对象可以像这样：j.weight = "40kg";<br/>
+			var j ={name:"Jery",age:18};动态绑定属性，但是除了null对象外！！！
+		</p>
+		<p>
+			显式类型转换：Number(); parseInt(); parseFloat();<br/>
+			Number()如：var str = "200";var s = Number(str);alert(Number(str));//200；<br/>
+			var str1 = "200px";//alert(Number(str1))	 ;//NaN(不是一个数值，但还是一个数据类型，从左到右判断只要出现一个不是数字的字符就会输出NaN)//alert(typeof Number(str1));--->number
+		</p>
+		<p>
+			<h3>注意：</h3>1.var str3 = false;//true代表1 /false代表0，所以alert(Number(str3));输出0；<br/>
+			2.var str4 = null;//null代表0//alert(Number(str4));输出0；<br/>var str7 = {};//alert(Number(str7));输出的是NaN;<br/>var str8 = '';//当为""或[]或""或''输出的都是0//alert(Number(str8));
+		</p>
+		<p>
+			parsetInt()如：	var a = "200px";//alert(parseInt(a));//输出200，用来处理字符串或者数字//alert(typeof parseInt(a));//---》number<br/>
+			<h3>注意：</h3>parsetInt()它是从第一位开始判断是否为数字(除了+或-)，直到遇到不是数字而输出整数，如果第一位就不是数字，就会输出NaN;如：var b="200px1231231";
+			var c = "px200";alert(parseInt(c));//NaN//alert(parseInt(b));//200！！！
+		</p>
+		<p>
+			parsetFloat()如：var d = 200.95;//alert(Number(d));//NaN//alert(parseInt(d));//200//alert(parseFloat(d));//200.95<br/>
+			<h3>注意：</h3>parsetFloat()从第一位判断，是数字直到遇到非数字就会输出是数字部分，有时是小数
+		</p>
+		<p>
+			<pre>
+				var str = "299";
+				var num = Number(str);//输出299
+				var str1 = "gdfg229dfg43434";
+				//alert(Number(str1));//输出NaN,而且还是一个number类型
+				//alert(parseInt(str1));//输出NaN
+				var str2 = "+200";
+				var str2 = "-200";
+				//alert(Number(str2));
+				//alert(parseInt(str2));
+				var str3 = false;
+				//alert(Number(str3));//输出0
+				//alert(parseInt(str3));输出NaN
+				var str4 = true;
+				//alert(Number(str4));输出1
+				var str5 = null;
+				//alert(Number(str5));输出0
+				var str6 = new Date();
+				//alert(Number(str6));输出一堆由系统时间换算成的毫秒数
+				var str7 = {};
+				//alert(Number(str7));输出的是NaN
+				var str8 = '';//当为""或[]或""或''输出的都是0
+				//alert(Number(str8));
+				var num1 = "-233.4ffff";
+				//alert(Number(num1));//只要出现非数字,输出的就是NaN
+				//alert(parseInt(num1));输出-233
+				//alert(parseFloat(num1));输出-233.4
+				var num2 = 200.45;
+				//alert(Math.floor(num2));向下取整
+				//alert(Math.ceil(num2));向上取整
+				//alert(Math.round(num2));四舍五入取整
+				var num3 = "2/2";
+				//alert(parseInt(num3));//输出2
+				//alert(parseFloat(num3));//输出2,从第一位判断，是数字直到遇到非数字就会输出是数字部分，有时是小数
+				//alert(eval(num3));//输出1,可以将2/2按除法来算！！！
+				if(parseInt(num3)==parseFloat(num3)){
+					//alert("整数");
+				}else{
+					alert("不是整数");
+				}
+			</pre>
+		</p>
+		<p>
+			<h3>隐式类型转换：</h3>
+			当String类与Number类用“+”连接，类型默认转成String类型，如：100+"1"=="1001",直接在后面补上。<br/>
+			当String类与Number类用“-”，“*”，“/”,“%”，“++”，“--”，类型默认转成Number类型，如："200"-3==197;<br/>
+			当String类与Number类用>或<来比较时，string隐式转换成number,如：'10' > 2是true 字符串比较对应位置比较（第一位比较如果无法比较出来就看下一位，位值比较不出就看长，谁长谁大！！！）如：'10' > '2'是false，“20”>"2"是true<br/>
+			当String类与Number类用==或!或!=或===比较时，相应成立转成相应布尔值true或false;如：//alert(1!=3);返回true//alert(1=='1');//返回true，==只比较数值//alert(1==='1');返回false//===严格匹配，值相等并且数据类型也要相等
+		</p>
+		<p>
+			<h3>注意：</h3>
+			NaN：（ not a number ）不是一个数字但是是一个number类型！！！<br/>
+			1.出现NaN,一般说明我们进行了非法的运算<br/>
+			2.NaN和它自己都不相等，如：NaN==NaN在条件语句中返回的是false<br/>
+			3.NaN是假(false类的有：NaN 0 null undefined "" '')<br/>
+		</p>
+		<p>
+			isNaN() :
+			is not a number // 是不是（is） 不是数字啊？<br/>
+			//是数字  返回false<br/>
+			//不是数字  返回true<br/>
+			//先根据 Number() 转换以后，再判断是不是数字如：<br/>
+			alert(isNaN("adasd"))//返回true<br/>
+			alert(isNaN("324"));//返回false<br/>
+			alert(isNaN(true));//返回false<br/>
+		</p>
+		<p>
+			<h3>null 与 undefined的区别（面试五星级）</h3>
+			三个层面进行区分：<br/>
+			1.数据类型层面不同<br/>
+			undefined是一个undefined数据类型null:他是object数据类型<br/>
+			2.内存分配方面<br/>
+			undefined:如果一个变量没有赋值操作就是undefined<br/>
+			null:代表的是对象默认值,可以清空对象<br/>
+			<pre>如：var json = {
+			username:"Jery",
+			age:18
+			};
+			//json=null;，null不能绑定属性
+			//delete json.username;删除属性
+			//alert(json.username+"==="+json.age);</pre>
+			3.运算中的不同<br/>
+			如：var n = 1+undefined;alert(n);输出NaN<br/>
+			var nn = 1+null;alert(nn);输出1<br/>
+		</p>
+		<p>
+			&&（与）作用：只要条件中有一个为false那么就是false,只有全部为true才是true<br/>
+			||（或）作用：只要条件中有一个为true那么就是true,只有全部为false才是false<br/>
+		</p>
+		<p>
+			for循环：循环代码块一定的次数<br/>
+			While循环：While 循环会在指定条件为真时循环执行代码块。<br/>
+			do while循环：do/while 循环是 while 循环的变体。在检查条件是否为真之前，该循环至少会执行一次代码块，然后如果条件为真的话，就会重复这个循环。
+		</p>
+		<p>
+			<pre>
+			for(var i=0;i&lt;10;i++){
+			if(i==4){
+				//continue;
+				//break;
+			}
+			console.log(i);//在控制台输出
+			document.write(i+"&lt;br/&gt;");//在页面打印出来
+			}
+			</pre>
+			continue关键字：</br>
+			continue的作用是跳过循环体中剩余的语句而强行执行下一次循环。</br>
+			break关键字：</br>
+			break的作用是跳过循环本中剩余的语句并结束整个循环</br>
+			记住continue和break只用在循环语句中！！！</br>
+		</p>
+		<p>
+			return;经常用于代码的终止调试，后面的代码不会执行，这是在函数中用来终止代码执行的关键词！！！如下：
+			<pre>
+				function Jery(){
+					alert(1);
+					alert(2);
+					return;
+					alert(3);
+				}
+				Jery();
+			</pre>
+		</p>
+		<p>
+			所有浏览器都支持获取元素两种方式：</br>
+			1.document.getElementById(id名称);</br>
+			2.document.getElementsByTagName("标签名称");</br>
+			注意：</br>
+			第一个是通过id来获取dom对象，第二个是通过标签名称来获取对象，返回多个对象，是一个类数组。在js里面要想动态给这些对象绑定事件，就必须通过循环方式(遍历)来进行单独绑定。其次：注意根据id获取的是静态的，根据标签名获取的是动态的！！！如下：</br>
+			<pre>
+				window.onload = function(){
+					var ulDom = document.getElementById("list");
+					var liDoms = ulDom.getElementsByTagName("li");
+					alert(typeof liDoms);//不是一个数组只是一个类数组，可以通过Array.isArray(xxx);来判断
+					//liDoms.onclick = function(){
+						alert(1);
+					};//不能这样给liDoms绑定事件
+					
+					for(var i=0;i&lt;liDoms.length;i++){
+						liDoms[i].asda = i;//不写这句，alert后的输出结果为全4！！！
+						liDoms[i].onclick = function(){
+							alert(this.asda);
+						}
+					}
+				};
+				document.body.innerHTML = "&lt;ul id='list'&gt;ululul&lt;/ul&gt;";//可以通过innnerHTML动态添加元素，最外层用双引号，里层就用单引号，反之也是这样！！！
+			</pre>
+		</p>
+		<a href="#top" name="bottom">返回顶部</a>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

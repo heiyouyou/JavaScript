@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>浏览器默认行为的阻止</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<a href="http://www.baidu.com" onclick="clickme(event)">点我</a>
+	<input type="checkbox"/>
+	<input type="text"/>
+	<script type="text/javascript">
+		//preventDefault()用来阻止浏览器默认行为的发生
+		//阻止a链接的跳转
+		function clickme(e){
+			alert(1);
+			e.preventDefault();
+		}
+		//阻止复选框的选中
+		document.querySelector("input[type='checkbox']").addEventListener("click",function(e){
+			e.preventDefault();
+		},false)
+		//阻止文本框的键盘输入文本
+		document.querySelector("input[type='text']").addEventListener("keydown",function(e){
+			e.preventDefault();
+		},false)
+	</script>
+</body>
+</html>

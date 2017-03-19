@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+	<!--声明当前页面编码集(中文编码<gbk,gb2312>,国际编码<utf-8>)-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="keywords" content="关键词,关键词">
+	<meta name="description" content="">
+	<title>无缝滚动的banner图</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		body{font-size: 12px;font-family: "微软雅黑";background:#ddd;}
+		ul,li{list-style:none;}
+		a{text-decoration:none;}
+		img{vertical-align:bottom;}
+		.main{width:520px;height:280px;margin:50px auto;border:5px solid #000;position:relative;overflow:hidden;}
+		#ul1{position:absolute;top:0;left:0;}/*这里加了transition后出现异常*/
+		#ul1 li{list-style:none;float:left;}
+		#ul1 li img{width:520px;height:280px;}
+		/*btn-list start*/
+		 #btn-list{position:absolute;bottom:10px;right:34%;background:rgba(0, 0, 0, 0.3);padding:5px 15px 5px 5px;border-radius:20px;}
+		 #btn-list li{width:20px;float:left;margin-left:10px;background:#fff;text-align:center;line-height:20px;border-radius:50%;cursor:pointer;}
+		 #btn-list li.none{background:#E96106;color:#fff;}
+		/*btn-list end*/
+		.prev,.next{position:absolute;top:35%;z-index:10;color:#fff;font-size:40px;font-weight:700;padding:10px;background:rgba(0, 0, 0, 0.3);opacity:0;transition: all 1s ease;}
+		.prev{left:10px;}
+		.next{right:10px;}
+		.main:hover .prev{opacity:1;transition: all 1s ease;}
+		.main:hover .next{opacity:1;transition: all 1s ease;}
+		/*end banner*/
+	</style>
+</head>
+<body>
+	<div class="main">
+		<a class="prev" id="prev" href="javascrip:void(0);">&lt;</a>
+		<a class="next" id="next" href="javascrip:void(0);">&gt;</a>
+		<ul id="ul1">
+			<li style="background:green;"><a href="javascrip:void(0);"><img src="images/1.jpg" alt="1"></a></li>
+			<li style="background:red;"><a href="javascrip:void(0);"><img src="images/2.jpg" alt="2"></a></li>
+			<li style="background:yellow;"><a href="javascrip:void(0);"><img src="images/3.jpg" alt="3"></a></li>
+			<li style="background:pink;"><a href="javascrip:void(0);"><img src="images/4.gif" alt="4"></a></li>
+			<li style="background:#000;"><a href="javascrip:void(0);"><img src="images/5.jpg" alt="5"></a></li>
+		</ul>
+		<ul id="btn-list">
+			<li class="none"><strong>1</strong></li>
+			<li><strong>2</strong></li>
+			<li><strong>3</strong></li>
+			<li><strong>4</strong></li>
+			<li><strong>5</strong></li>
+		</ul>
+	</div>
+	<script>
+		window.onload = function(){
+			var ulDom = document.getElementById("ul1");
+			var liDoms = ulDom.children;
+			ulDom.innerHTML += ulDom.innerHTML;
+			ulDom.style.width = liDoms[0].offsetWidth*(liDoms.length)+"px";
+			setInterval(function(){
+				if(ulDom.offsetLeft < -ulDom.offsetWidth/2){
+					ulDom.style.left = 0;	
+				}
+				ulDom.style.left = ulDom.offsetLeft-520+"px";
+			},2000);
+		};
+	</script>
+</body>
+
+</html>

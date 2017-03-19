@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>隐式类型转换</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var a = 10444 +"2";
+		//alert(typeof a);输出String
+		//alert(a);输出1004442
+		var b = 100 -"2";
+		//alert(typeof b);
+		//alert(b);
+		if("20">"2"){
+			//alert("20大于2");
+		}
+		if("10"<"2"){
+			//alert("2大于10");
+		}
+		alert(1!=3);
+		alert(1=="1");
+		alert(1==="1");
+	</script>
+</body>
+</html>

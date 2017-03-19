@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>表单验证的方法</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<form id="f" action="#" method="get">
+		<input id ="user" type ="text" value="请输入用户名" name="user"/>
+		<input type="radio" value="男" name="sex"/>男生
+		<input type="radio" value="女" name="sex"/>女生
+		<input type="checkbox" name="hobby1" value="0">游泳
+		<input type="checkbox" name="hobby2" value="2">羽毛球
+		<input type="checkbox" name="hobby3" value="3">篮球
+		<select id="sel">
+			<option value="1">一号</option>
+			<option value="2">二号</option>
+			<option value="3">三号</option>
+			<option value="5">四号</option>
+			<option value="5">五号</option>
+		</select>
+		<input type="submit" value="提交">
+		<input type="reset" value="重置">
+	</form>
+	<script type="text/javascript">
+		var oForm = document.getElementById("f");
+		var oSel = document.getElementById("sel");
+		//alert(oForm.user.value);//可以通过name或id获取输入框的input的属性值
+		//oForm.user.value = "heiehi";//可以修改值
+		/*
+			onchange在text的input输入框中当value值改变后且鼠标离开输入框后触发事件
+			onchange在radio的input单选框中当选中后触发事件
+			onchange在checkbox的input复选框中当选中或取消选中后触发事件
+			onchange在多选框select中当选中后就触发事件
+		*/
+		var oInp = oForm.getElementsByTagName("input");
+		/*oSel.onchange = function(){
+			alert(this.value);
+		};*/
+		/*oForm.onsubmit = function(){//当点击提交按钮submit时触发事件
+			if(oInp[0].value == ""){
+				alert("用户名不能为空！");
+				oInp[0].focus();//重新获取焦点
+				return false;//用来终止后面的语句执行
+			}
+		};*/
+		/*oInp[0].onfocus = function(){//当输入框获得焦点时触发事件，良好的解决了ie678不支持placeholder这个H5属性
+			if(this.value =="请输入用户名"){
+				this.value = '';
+			}
+		};*/
+		/*oInp[0].onblur = function(){//当输入框失去焦点时触发事件
+			if(this.value =="请输入用户名"){
+				this.value = '';
+			}
+		};*/
+		/*oForm.onreset = function(){//当点击reset重置按钮时触发事件
+			alert(2);
+		};*/
+	</script>
+</body>
+</html>

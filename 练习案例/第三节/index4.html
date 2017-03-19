@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>作用域的面试题</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	
+	<script type="text/javascript">
+	/*浏览器解析js代码步骤：1.找定义：var function(){}2.执行：表达式：alert();++/--/!=/==除了var function,都可以称之为表达式*/
+	/*
+		alert(a);//输出undefined
+		alert(b);//输出一坨
+		var a = 10;
+		a = 10;
+		function b(){
+			alert(1);
+		};
+		*/
+		/*
+		//a = 10;输出10
+		alert(a);
+		a = 10;//报错
+		*/
+		//先找var a, function a(){alert(2)};然后第一个var a被覆盖成var a = function a(){alert(2)};然后接下来的第二个var a覆盖不了函数，再然后function a(){alert(4);};覆盖function a(){alert(2)}最终第一个var a = function a(){alert(4);};,然后执行第一个alert(a)输出function a(){alert(4);};，接下来第一个var a重新赋值为1，到第二个var a又被重新赋值为3
+		/*
+		alert(a);输出一坨
+		var a = 1;
+		alert(a);输出1
+		function a(){
+			alert(2);
+		};
+		alert(a);输出1
+		var a = 3;
+		alert(a);输出3
+		function a(){
+			alert(4);
+		};
+		alert(a);输出3
+		*/
+		/*
+		var a = 1;
+		function a(){alert(2);};
+		alert(a);输出1
+		*/
+		/*
+		var a = 1;
+		alert(a);//输出1
+		a();//报错
+		function a(){alert(2);};
+		*/
+		/*
+		alert(s);输出undefined
+		s();报错
+		var s = function(){
+			alert(1);
+		};
+		*/
+		//方法的定义式
+		//f();定义式的函数执行写在定义方法前会报错
+		var f = function(){
+			alert(1);
+		};
+		f();
+		//方法的声明式，无论方法的执行写在定义前还是后都是可以执行的
+		s();
+		function s(){
+			alert(2);
+		}
+		s();
+	</script>
+</body>
+</html>

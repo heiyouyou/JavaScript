@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>对DOM的认识</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<input type="button" id="btn" value="点我"/>
+	<a href="#haha">点我</a>
+	<div style="height:2000px;"></div>
+	<a name="haha">跳过来</a>
+	<script type="text/javascript">
+		//BOM  Browser Object Model（对浏览器的一些操作）
+		document.getElementById('btn').onclick = function(){
+			//window.open("http://www.baidu.com")//一个参数时，表示跳转到新窗口的页面地址,什么也不填打开一个空白页面
+			//window.open("http://www.baidu.com","_blank")//两个参数时，第二参数相当于target,打开页面的方式,_blank是一个默认值
+			//window.open("http://www.baidu.com","_self")//在当前页面打开新页面,
+			//window.open("http://www.qq.com","http://www.baidu.com")//当填入多个地址时，默认打开的是第一个
+			//open("http://www.qq.com");//这种形式相当于window.open("http://www.qq.com")
+			/*var nWindow = open();//打开一个空白页面
+			nWindow.document.title = "这是一个新窗口";//可以动态的修改当前文档的title属性
+			nWindow.document.body.innerHTML = "这是一个新页面！！！"//可以这样给空白页面的body动态添加内容*/
+			/*但是当你填入一个企业域名时，是不能用一下修改该域名下的东西的，这涉及到跨域问题！！！
+			var nWindow = open("http://www.baidu.com");
+			nWindow.document.title = "这是一个新窗口";
+			nWindow.document.body.innerHTML = "这是一个新页面！！！"*/
+			//window.close();//关闭窗口，浏览器禁止问题，作用不大
+
+			//alert(window.navigator.userAgent);//输出的一堆浏览器的信息
+			//判断是不是ie浏览器的方法
+			/*if(window.navigator.userAgent.indexOf("MISE")!=-1){//“MISE”的信息只有IE浏览器有
+				alert("我是IE浏览器");
+			}else{
+				alert("我不是IE浏览器");
+			}*/
+
+			//alert(window.location);//输出当前文档的路径
+			//alert(typeof window.location);//是一个object的数据类型
+			//window.location.href = "http://www.baidu.com";//在当前页面打开新页面
+			//alert(window.location["hash"]);//可以获取到地址栏上#号后面的内容
+			//alert(window.location["search"]);//可以获取到地址栏上?号后面的内容
+		}
+	</script>
+</body>
+</html>

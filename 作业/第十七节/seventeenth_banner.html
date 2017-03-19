@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>面向对象编程的banner图</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	#box{width:730px;height:454px;margin:100px auto;position:relative;}
+	#pic{width:730px;height:454px;position:relative;}
+	#pic img{width:730px;height:454px;position:absolute;opacity:0;transition:all .5s ease;}
+	#tab ul{width:120px;height:18px;position:absolute;bottom:10px;left:50%;margin-left:-60px;}
+	#tab ul li{width:14px;height:14px;list-style:none;border-radius:50%;margin:4px;float:left;cursor:pointer;text-align:center;line-height:14px;background:gray;}
+	#tab ul li.on{background:#f60;}
+</style>
+</head>
+<body>
+	<div id="box">
+		<div id="pic">
+			<img src="images/bn1.jpg" style="opacity:1;"/>
+			<img src="images/bn2.jpg"/>
+			<img src="images/bn3.jpg"/>
+			<img src="images/bn4.jpg"/>
+			<img src="images/bn5.jpg"/>
+			<img src="images/bn6.jpg"/>
+		</div>
+		<div id="tab">
+			<ul><li class="on"></li><li></li><li></li><li></li><li></li></ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//构造函数加原型对象封装banner图的方法
+		window.onload = function(){
+			var banner1 = new Banner();
+			banner1.init();
+		};
+		//构造函数
+		function Banner(){
+			this.imgs = document.getElementById("pic").getElementsByTagName("img");
+			this.lis = document.getElementById("tab").getElementsByTagName("li");
+			//绑定一个自动播放的索引
+			this.index1 = 0;
+			this.box = document.getElementById("box");
+			//绑定一个定时器
+			this.timer = null;
+		};
+		//原型方法
+		Banner.prototype.init = function(){
+			//var 一个变量This来接收由构造函数Banner()创建的对象
+			var This = this;
+			for(var i =0;i<this.lis.length;i++){
+				this.lis[i].index = i;
+				//this.lis[i].onclick = this.toggle;//一点击这里的this就变成了lis[i]，toggle和init只有通过构造函数Banner()创造出来的对象能共享
+				this.lis[i].onclick = function(){
+					This.toggle(this);//当形参传进的this指代当前点击的li
+					//为什么关联补齐自动播放与点击的索引???
+					This.index1 = this.index;
+				};
+			}
+			this.autoPlay(This.index1);
+		};
+		//原型淡入淡出的方法
+		Banner.prototype.toggle = function(obj){
+			for(var i=0;i<this.lis.length;i++){
+				this.lis[i].className = "";
+				this.imgs[i].style.opacity = "0";
+			}
+			this.lis[obj.index].className = "on";
+			this.imgs[obj.index].style.opacity = "1";
+		};
+		//原型自动播放的方法
+		Banner.prototype.autoPlay = function(d){
+			var This = this;
+			this.timer = setInterval(function(){
+				d++;
+				if(d>This.lis.length-1){
+					d = 0;
+				}
+				for(var i=0;i<This.lis.length;i++){
+					This.lis[i].className = "";
+					This.imgs[i].style.opacity = "0";
+				}
+				This.lis[d].className = "on";
+				This.imgs[d].style.opacity = "1";
+			},3000);
+			this.box.onmouseover = function(){
+				clearInterval(This.timer);
+				console.log("清除动画");
+			};
+			this.box.onmouseout = function(){
+				This.autoPlay(d);
+				console.log("重启动画");
+			};
+		};
+	</script>
+</body>
+</html>

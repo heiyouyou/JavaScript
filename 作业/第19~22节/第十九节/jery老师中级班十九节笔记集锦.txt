@@ -1,0 +1,273 @@
+		/*function Person(name,age){
+			this.name = name;
+			this.age = age;
+		};
+		Person.prototype.showName = function(){
+			alert(this.name);
+			return this;
+		};
+		Person.prototype.showAge = function(){
+			alert(this.age);
+			return this;
+		};
+		var p1 = new Person("wells",21);
+		//返回当前对象达到链式调用的目的
+		p1.showName().showAge();*/
+
+		/*
+			原型链：实现对象与原型对象的链接
+			找函数找方法的顺序：本对象>>构造函数>>原型对象>>Object.prototype
+		*/
+		/*function Person(){
+			this.number = 12;
+		};
+		Person.prototype.number1 = 20;
+		Object.prototype.number = 2;
+		var p = new Person();
+		p.number = 3; 
+		alert(p.number);*/
+
+		/*
+			对象的默认方法和属性：
+			hasOwnProperty()：判断是否属于对象下的属性，按照原型链的顺序寻找，返回的值属于Boolean类型
+
+			constructor（构造器）:值为对象的构造函数
+
+			A instanceof B:判断A（对象）是否属于类B的实例（对象），返回的boolean值；注意所有对象都属于Object这个类
+
+			toString()：可以将调用对象变成字符串；而且方法里可以传入相应的进制数如：二进制、八进制、十六进制，将相应的数字转成相应的进制数
+			
+			注意了：当new一个对象或者原型对象；当用for……in循环拿到属性时；是不能拿到对象默认的属性或者方法（如以上的）
+		*/
+		function Person(){
+			this.number = 10;
+		};
+		Person.prototype.number = 20;
+		Person.prototype.show = function(){
+			alert(this.number);
+		};
+		var p = new Person();
+		//p.number1 = 2;
+		//alert(p.hasOwnProperty("number"));
+		//alert(p.constructor);
+		//alert(p instanceof Object);
+		for(var key in Person.prototype){
+			alert(key);
+		};
+		var arr = [1,2,3];
+		//alert(arr instanceof Array);
+		var reg = new RegExp();
+		//alert(reg instanceof Person);
+		//alert(arr.toString());
+		//alert(typeof arr.toString());
+		var num = 24;
+		//alert(num.toString(2));
+
+
+/*
+			继承的条件：
+			1：子类可以使用父类的方法属性
+			2：子类的改变（方法、属性）不会影响父类
+			3：父类使用不了子类的方法或属性
+		*/
+		function Person(name){
+			this.name = name;
+		}; 
+		Person.prototype.showName = function(){
+			alert(this.name);
+		};
+		var p1 = new Person("黑黑");
+		//p1.showName();
+		function PersonAge(name,age){
+			Person.call(this,name);
+			this.age = age;
+		};
+		/*
+			子类的原型指向父类原型的地址：PersonAge.prototype = Person.prototype;
+			注意：这种情况会导致子类原型发生改变父类原型也会发生改变	
+		*/
+		//PersonAge.prototype = Person.prototype;
+		//这种方法解决了子类原型改变不会影响到父类原型的问题
+		//PersonAge.prototype = extend(Person.prototype);
+		extend(PersonAge.prototype,Person.prototype);
+		PersonAge.prototype.showAge = function(){
+			alert(this.age);
+		};
+		PersonAge.prototype.showName = function(){
+			alert(1);
+		};
+		var p2 = new PersonAge("wells",21);
+		p2.showName();
+		p2.showAge();
+		p1.showName();
+		//用于决子类指向父类时子类变化影响父类变化的方法
+		function extend(obj,newObj){
+			//var newObj = {};
+			for(var key in obj){
+				newObj[key] = obj[key];
+			}
+			//返回一个新对象出去
+			//return newObj;
+		};
+
+
+
+		/*
+			对象构造器：constructor是由原型对象的指向决定的
+			原型对象最终指向谁的构造器，该对象的构造器就是谁的构造器
+			只要原型对象的指向发生改变~对象的构造器就会发生改变~对应的方法和属性也会发生改变，除非采取非常措施解决！！！
+		*/
+		function Person(name){
+			this.name = name;
+		};
+		Person.prototype.showName = function(){
+			alert(this.name);
+		};
+		var p1 = new Person("hehe");
+		function PersonAge(name,age){
+			Person.call(this,name);
+			this.age = age;
+		};
+		var Fn = function(){};
+		//新对象的原型指向了父类的原型，既是PersonAge.prototype指向了父类的原型
+		Fn.prototype = Person.prototype;
+		//原型指向了一个新对象的地址
+		PersonAge.prototype = new Fn();
+		//声明原型的构造器为自己本构造函数
+		PersonAge.prototype.constructor = PersonAge;
+		PersonAge.prototype.showAge = function(){alert(this.age)};
+		var p2 = new PersonAge("wells",21);
+		//p2.showName();
+		//p2.showAge();
+		alert(p2.constructor);
+
+/*var Person = function(name,age){
+			this.name = name;
+			this.age = age;
+		};
+		//普通方法的执行默认绑定在window下面
+		var p = Person("wells",21);
+		alert(p+"==="+window.name+"==="+window.age);*/
+		//安全模式创建的对象
+		var Person = function(name1,age){
+			//判断调用者是否属于Person创造出来的对象
+			if(this instanceof Person){
+				this.name1 = name1;
+				this.age = age;
+			}else{
+				//返回一个创建好的对象
+				return new Person(name1,age);
+			}
+		};
+		var p = Person("wells",21);
+		alert(p+"==="+p.name1+"==="+p.age);
+		alert(window.name1+"==="+window.age);
+
+		//jQuery加载页面整个文档节点再执行脚本的形式
+		//$(document).ready(function(){alert(1);});
+		//或者简写成以下：
+		$(function(){
+			//alert(1);
+		});
+		/*jQuery内部是由闭包的形式将jQuery变成了$即：
+		(function($){
+			var $ = jQuery;
+		})(jQuery);*/
+		
+
+		//jQuery获取对象的方法：
+		//通过css选择器：
+		//$("div[id='box']").html(123456);
+		//通过id
+		//$("#box").html("123dfd");
+		//通过class
+		//$(".box").html("123dfd");
+
+		/*
+		//把一个js对象变成一个jQuery对象的方法：
+		$()，将js获取到的对象放进括号里面	
+		var oBox = document.getElementById("box");
+		$(oBox).html("11111");*/
+
+		/*将一个jQuery对象变成js对象的方法：*/
+		var $box = $(".box");
+		//get()返回一个js对象组成的类数组，括号里面填索引或下标，不填不报错，填超就报错
+		//$box.get(0).innerHTML = "abcd";
+		//或者：
+		//$box[1].innerHTML = "abcd";
+
+		//通过标签名获取对象：
+		var $p = $("p");
+		//每一个p都添加到内容
+		//$p.html("123abcd");
+		//eq()匹配符合括号里下标的对象
+		//$p.eq(0).html("123abcd");
+		/*var div = document.createElement("div");
+		document.body.appendChild(div);*/
+
+		//jQuery创建元素和添加元素的方法：
+		var $div = $("<div class='box'><a href='#'>1</a></div>");
+		//往body结束标签前添加（最后一个位置）
+		//$(document.body).append($div);
+		//往body开始标签后面加（第一个位置）
+		//$(document.body).prepend($div);
+
+		var oBox = document.getElementById("box");
+		//$(参数1，参数2)，参数1表示要查找的内容，参数2表示要查找的区间范围
+		//$("p",oBox).html(1223);
+		//$("p",$("#box")).html(1223);
+		$("p",$(".box")).html(1223);
+
+		//记住了：只有js对象才能调用js属性或方法；而jQuery对象也只能调用jQuery里面的属下或方法，而且一般jQuery中都是方法居多！！！
+
+
+var $box = $("#box");
+		//可以通过css()给元素添加样式（内联样式）；添加一种样式可以像以下这样写；第一个参数表示某种样式，第二个参数表示样式的值
+		//$box.css("width","200px");
+		//或者$box.css("width",200);
+		//也可以像以下传入一个样式的json对象
+		$box.css({
+			width:"100px",
+			height:"200px",
+			background:"red"
+		});
+		//css()可以只传入一个参数，表示获取某种样式，相当于js封装的getStyle()这个方法的功能
+		//alert($box.css("height"));
+		//attr()传入一个参数表示获取属性（自定义）；两个参数表示设置属性（可以是自定义的）
+		//alert($box.attr("id"));
+		//$box.attr("wells","free");
+		//alert($("input[type='radio']").attr("checked"));//弹出checked
+		//获取系统自带属性的时候用prop()
+		//alert($("input[type='radio']").prop("checked"));//弹出true
+		//addClass()添加类样式方法
+		//$("#box").addClass("on");
+		//removeClass()移除某种类样式
+		//$("#box").removeClass("on");
+		//toggleClass()作用：有某种样式就剔除这种样式；没有某种样式就添加这种样式
+		//$("#box").toggleClass("on");
+		//children()返回一个类数组；children()只考虑子元素而不考虑所有后代元素。
+		//alert($("#box").children().length);
+		//可以拿到下标为2的子元素
+		//alert($("#box").children()[2]);
+		//children()里的参数可以是各种选择器（如：id或class或标签名）
+		//可以找到子类中的子类
+		//alert($("#box").children(".box1").children("p").html());
+		/*find()是可以找对象下所有的后代元素；一个参数表示要查找的元素；两个参数：第一个参数表示查找的范围；第二个参数表示要查找的元素*/
+		//$("#box").find("p").html("abcdef");
+		//$("#box").find("div p").html("abcdef");
+		//parent()获取对象的父类parent()；虽然可以写参数（选择器），但建议不要写参数；
+		//$("#box").find("div p").parent().html("我是父类");
+		//parents()可以获取元素的祖先元素：
+		//第一种:找到每个p元素的所有祖先元素。
+		//$("#box").find("div p").parents().css("width","500px");
+		//第二种：找到每个p元素的id为box的祖先元素。
+		//$("#box").find("div p").parents("#box").css("width","500px");
+
+var $li = $("ul li");
+		//each()相当于for循环~~~~
+		/*$li.each(function(i){
+			console.log(i);
+		});*/
+		$li.click(function(){
+			alert($(this).html());
+		});

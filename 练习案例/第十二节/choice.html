@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>选项卡的原理</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	/*tab start*/
+	#tab{width:670px;height:480px;border:1px solid red;margin:50px auto;}
+	#card{width:100%;height:40px;background:pink;cursor:pointer;}
+	#card li{float:left;border:1px solid pink;padding:10px;}	
+	#card .on{background:#fff;}
+	#content{width:100%;height:440px;}
+	#content div{display:none;width:100%;height:100%;}	
+	/*tab end*/
+</style>
+</head>
+<body>
+	<!--tab start-->
+	<div id="tab">
+		<ul id="card">
+			<li class="on">选项一</li>
+			<li>选项二</li>
+			<li>选项三</li>
+			<li>选项四</li>
+		</ul>
+		<div id="content">
+			<div style="display:block;background:yellow;">1</div>
+			<div style="background:red;">2</div>
+			<div style="background:green;">3</div>
+			<div style="background:blue;">4</div>
+		</div>
+	</div>
+	<!--tab end-->
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript">
+		//js版的选项卡
+		/*function $(id){
+			return document.getElementById(id);
+		};
+		var liDoms = $("card").children;
+		var divDoms = $("content").children;
+		for(var i=0;i<liDoms.length;i++){
+			liDoms[i].index = i;
+			liDoms[i].onmouseover = function(){
+				this.className = "on";//this指代当前悬停的元素对象
+				sibling(this,function(){
+					this.className = "";//这里的this指代除了传进的对象之外的兄弟元素
+				});
+				divDoms[this.index].style.display = "block";
+				sibling(divDoms[this.index],function(){
+					this.style.display = "none";//这里的this指代除了divDoms[this.index]之外的兄弟元素
+				});
+			};
+		}
+		//封装jQuery里面的siblings()方法
+		function sibling(obj,callback){
+			/*var pDoms = obj.parentNode.children;
+			for(var i=0;i<pDoms.length;i++){
+				if(pDoms[i]!=obj){
+					callback.call(pDoms[i]);
+				}
+			}*/
+			/*var pDoms = obj.parentNode.children;
+			var tabs = [].slice.call(pDoms);//数组里的slice方法
+			tabs.filter(function(others){//filter()ie678不支持，others指代除了传入的obj对象元素之外的兄弟元素
+				if(others!= obj){
+					callback.call(others);
+				}
+			})
+		};*/
+		//数组中的slice的原型方法
+		/*Array.prototype.slice = function(){
+			var arr = [];
+			for(var i=0;i<this.length;i++){//这里的this指代call里面的数组对象
+				arr.push(this[i]);
+			}
+			return arr;
+		}*/
+
+		//jquery版的选项卡
+		$("#card").children().mouseover(function(){
+			//获取当前点击的li对象
+			var $li = $(this);
+			//获取当前点击的索引
+			var index = $li.index();
+			//addClass()添加类样式，removeClass()剔除类样式
+			$li.addClass("on").siblings().removeClass("on");
+			//eq()匹配索引，show()没有淡入淡出的效果
+			$("#content").children().eq(index).show().siblings().hide();
+		});
+	</script>
+</body>
+</html>

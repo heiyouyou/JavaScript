@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第九节知识点总结</title>
+<link href="css/Style.css" rel="stylesheet"/>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	@media screen and (max-width:900px){/*当屏幕小于900px用下面这套样式*/
+		.main{width:100%;}
+		.main p{font-size:14px!important;}
+		aside{display:none;}	
+	}
+	article .btn_a{float:right;padding:10px 4px;margin-right:200px;color:#555;border:1px solid #eee;}
+	article .btn_a:hover{background:#f49484;color:#fff;}
+	#top{margin-top:20px;}
+	nav{position:relative;}
+	#list{position:absolute;top:0;left:100%;background:#2A2A2A;display:none;}
+</style>
+</head>
+<body>
+	<header>
+		<div class="header-left">
+			<div class="left-text"><a class="text" href="#">简</a></div>
+			<a class="btn" href="#" style="background:url(images/1.png) no-repeat center;"></a>
+			<a class="btn" href="#" style="background:url(images/2.png) no-repeat center;"></a>
+		</div>
+		<div class="header-right">
+			<a class="login" href="#"><i class="fa fa-sign-in"></i>登录</a>
+			<a class="sign" href="#">注册</a>
+		</div>
+	</header>
+	<aside>
+		<nav id="nav">
+			<a class="nav"  href="#">案例</a>
+			<ul id="list">
+				<li><a class="nav" href="demo/index.html" target="_blank">案例一</a></li>
+				<li><a class="nav" href="demo/index1.html" target="_blank">案例二</a></li>
+				<li><a class="nav" href="demo/index2.html" target="_blank">案例三</a></li>
+				<li><a class="nav" href="demo/index6.html" target="_blank">案例四</a></li>
+			</ul>
+		</nav>
+	</aside>
+	<article>
+		<a class="btn_a" id="top" href="#bottom" name="top">底部</a>
+		<div class="main">
+			<div class="main_top">
+				<a class="person_img" href="javascript:void(0);">
+					<img src="http://upload.jianshu.io/users/upload_avatars/1616121/0fbc955a608e?imageMogr/thumbnail/90x90/quality/100" width="40" height="40" alt="100">
+				</a>
+				<p>
+					<a class="author" href="javascript:void(0);"><span >作者</span>黑有有</a>
+					<span>2016.3.12</span>
+				</p>
+				<a class="follow" href="javascript:void(0);">添加关注</a>
+			</div>
+			<h1 style="font-family:楷体;font-size:32px;padding:20px 0;">第九节知识点总结</h1>
+			<p class="hid" style="margin-bottom:30px;">
+				<span>字数154654</span>
+				<span>阅读131</span>
+				<span>评论43</span>
+				<span>喜欢4324</span>
+			</p>
+			<div class="main_content">
+				<h1 class="title">new Date()的用处</h1>
+				<p class="text-p">
+					new Date();//默认是返回当前的时间<br/>		
+					创建一个时间点的形式：
+					1）new Date("month dd,yyyy hh:mm:ss"); 
+					2）new Date("month dd,yyyy"); 
+					3）new Date(yyyy,mth,dd,hh,mm,ss); 
+					4）new Date(yyyy,mth,dd);
+					5）new Date(ms);
+					month:用英文 表示月份名称，从January到December 
+					mth:用整数表示月份，从0（1月）到11（12月） dd:表示一个月中的第几天，从1到31
+					yyyy:四位数表示的年份 
+					hh:小时数，从0（午夜）到23（晚11点） 
+					mm: 分钟数，从0到59的整数 
+					ss:秒数，从0到59的整数
+					ms:毫秒数，为大于等于0的整数
+				</p>
+				<pre>
+					alert(new Date());//new Date()是一个obj对象，返回的是当前系统格林时间
+					var time = new Date();
+					alert(typeof time);
+					alert(Number(time));
+					alert(time.getTime())//getTime()方法可返回指定的日期距1970年1月1日之间的毫秒数。
+					alert(time.getFullYear());//可获取time的年份
+					alert(time.getMonth()+1);//getMonth()获取time的月份，不过它返回的是从0到11的数字，所以0代表1月，以此类推11月代表12月
+					alert(time.getDate());//getDate()获取的是time的日期
+					alert(time.getDay());//getDay()获取的是time的星期,注意0代表星期天
+					alert(time.getHours());//getHours()获取time的小时
+					alert(time.getMinutes());//getMinutes()获取分钟
+					alert(time.getSeconds());//getSeconds()获取秒数
+					alert(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds());
+				</pre>
+				<h1 class="title">对Dom文档对象模型节点的认识</h1>
+				<p class="text-p">
+					Dom Document Object Model  文档对象模型
+					文档：html页面
+					文档对象：html里面元素
+					文档对象模型：定义（目的：让js更好的操作dom节点）最常用的有：
+					Element_Node 1 元素节点
+					Attribute_Node 2 属性节点
+					Text_Node 3 文本节点
+				</p>
+				<pre>
+					&lt;body&gt;
+						&lt;div id="box"&gt;
+							&lt;ul id="list"&gt;
+								&lt;li>1&lt;/li&gt;
+								&lt;li&gt;2&lt;/li&gt;
+								&lt;li&gt;3&lt;/li&gt;
+								&lt;li&gt;4&lt;/li&gt;
+								&lt;li&gt;5&lt;/li&gt;
+								&lt;p&gt;fdf&lt;/p&gt;
+							&lt;/ul&gt;
+						&lt;/div&gt;
+					&lt;script type="text/javascript"&gt;
+							/*
+							注意：childNodes 在ie678 只能拿到元素节点，而其他浏览器能拿到元素节点和其他节点，其中空格也算文本节点
+							firstChild与lastChild在ie678只能拿到元素节点和文本节点；在其他浏览器都能拿到
+							*/	
+							window.onload = function(){
+								var boxDom = document.getElementById("box");
+								var ulDom = document.getElementById("list");
+								//alert(boxDom.childNodes.length);//childNodes获取目标对象的子类节点数，是一个类数组
+								//alert(ulDom.childNodes.length);
+								///alert(boxDom.childNodes[0]);//输出的是下标为0的节点
+								//alert(boxDom.childNodes[0].nodeType);//通过nodeType可以判断节点类型，返回的是数字1到9当的其中一个节点代号
+								//alert(ulDom.children);//children只能取到的是由元素节点组成的类数组，只包含元素节点，推荐使用！！！
+								//alert(ulDom.children[0]);//输出下标为0的元素节点
+								//alert(ulDom.children.length);//输出长度
+								//alert(ulDom.firstChild);//firstChild取到的是目标对象下的第一个子节点
+								//alert(ulDom.lastChild);//lastChild取到的是目标对象下的最后一个子节点
+								//alert(ulDom.firstElementChild);//firstElementChild只能拿到目标对象下的第一个元素节点，可是在ie678不支持
+								//alert(ulDom.lastElementChild);//lastElementChild只能拿到目标对象下的最后一个元素节点，可是在ie678不支持
+								/*//兼容浏览器写法：
+								if(ulDom.firstElementChild){//只有浏览器支持才会执行if语句里的代码
+									ulDom.firstElementChild.style.color = "red";
+								}else{
+									ulDom.firstChild.style.color = "red";//ie678支持
+								}
+								if(ulDom.children){//所有浏览器都支持
+									ulDom.children[ulDom.children.length-1].style.color = "yellow";
+								}*/
+							}
+						&lt;/script&gt;
+					&lt;/body&gt;
+				</pre>
+				<h1 class="title">对nextSibling与previousSibling的认识</h1>
+				<pre>
+					&lt;body&gt;
+						&lt;div id="box"&gt;&lt;p&gt;dfff&lt;/p&gt;
+							&lt;ul id="list"&gt;
+								&lt;li&gt;1&lt;/li&gt;
+								&lt;li&gt;2&lt;/li&gt;
+								&lt;li&gt;3&lt;/li&gt;
+								&lt;li&gt;4&lt;/li&gt;
+								&lt;li&gt;5&lt;/li&gt;
+							&lt;/ul&gt;
+							&lt;p&gt;wodhishifuh&lt;/p&gt;
+						&lt;/div&gt;
+						&lt;script type="text/javascript"&gt;
+							window.onload = function(){
+								var boxDom = document.getElementById("box");
+								var ulDom = document.getElementById("list");
+								//alert(ulDom.nextSibling);//就是获取ulDom对象后面的一个节点，与chidlren一样的情况，ie678都支持，只能拿到元素节点
+								//ulDom.nextSibling.style.color = "red";//这种形式在谷歌只能获取ulDom后面的文本节点,在谷歌上会报错
+								//ulDom.nextSibling.nextSibling.style.color = "red";//这种形式就可以获取ulDom后面的元素节点并添加样式
+								//alert(ulDom.nextSibling.nextSibling.nodeType);//输出1代表是元素节点
+								//ulDom.nextElementSibling.style.color = "red";//这种形式就是给ulDom元素后面的一个元素节点添加样式，不支持ie678
+								//alert(ulDom.nextElementSibling.nodeType);//输出1代表是元素节点
+								//alert(ulDom.previousSibling);//就是获取ulDom对象前面的一个节点，与chidlren一样的情况，ie678都支持，只能拿到元素节点
+								//alert(ulDom.previousElementSibling);//ie678不支持，只获取ulDom对象前面元素节点
+								if(ulDom.nextElementSibling){//只有支持这种形式的浏览器才会执行以下语句
+									ulDom.nextElementSibling.style.color = "red";
+								}else{
+									if(ulDom.nextSibling&&ulDom.nextSibling.nodetype==1){//这里是为了解决ulDom后面没有元素节点时ie678找不到元素节点报错和其他浏览器只有文本节点绑定属性报错的情况
+										ulDom.nextSibling.style.color = "red";//兼容了ie678
+									}
+								}
+							}
+						&lt;/script&gt;
+					&lt;/body&gt;
+				</pre>
+				<h1 class="title">parentNode的应用</h1>
+				<pre>
+						&lt;body&gt;
+							&lt;div id="box" style="width:100px;margin:20px auto;"&gt;
+								&lt;p&gt;前面&lt;/p&gt;
+								&lt;ul id="list"&gt;
+									&lt;li &gt;1&lt;/li&gt;
+									&lt;li&gt;2&lt;/li&gt;
+									&lt;li id="li"&gt;3&lt;/li&gt;
+									&lt;li&gt;4&lt;/li&gt;
+								&lt;/ul&gt;
+								&lt;p&gt;后面&lt;/p&gt;
+							&lt;/div&gt;
+							&lt;script type="text/javascript"&gt;
+								window.onload = function(){
+									var ulDom = document.getElementById("list");
+									//alert(ulDom.parentNode.id);//parentNode是获取ulDom对象元素的父节点div
+									var liDom = document.getElementById("li");
+									/*var liDoms = liDom.parentNode.children;//通过父节点获取ul下的元素节点
+									for(var i=0;i&lt;liDoms.length;i++){//类似jQuery里的sibling()方法
+										if(liDoms[i]!=liDom){//通过遍历与id叫li的liDom元素匹配，匹配不上就添加以下样式
+											liDoms[i].style.color = "red";
+										}
+									}*/
+									//封装以上的方法
+									function sibling(obj,callback){
+										var liDoms = obj.parentNode.children;
+										for(var i=0;i&lt;liDoms.length;i++){
+											if(liDoms[i]!=obj){
+												callback.call(liDoms[i]);//通过call()函数来返回一个对象给callback调用样式
+											}
+										}
+									}
+									sibling(liDom,function(){
+										this.style.border = "1px solid red";//this表示被call()返回回来的对象
+										this.style.background = "#eee";
+									});
+								};
+							&lt;/script&gt;
+					&lt;/body&gt;
+				</pre>
+				<h1 class="title">对offsetLeft与offsetHeight等的认识</h1>
+				<pre>
+					var oDiv3 = document.getElementById("div3");
+					var oDiv4 = document.getElementById("div4");
+					//alert(oDiv3.offsetParent.tagName);//offsetParent返回的是具有定位基点的父节点(元素)，如果没有设有定位基点父节点就以body为offsetParent,可是ie67因为有layout属性所以不管它的基点设给谁offsetParent总是它的直接父类
+					//alert(oDiv3.offsetLeft)//offsetLeft就是返回对象元素oDiv3到有定位基点的offsetParent的父节点的左边距，这个是没有单位的一个值，但是给自己本身加定位基点与没有加一样(除了ie67)，offsetLeft还是到offsetParent的左边距，但是ie67不管你给谁加定位基点它的offseftLeft还是到直接父节点的左边距，如果在ie67中元素给自己加定位基点，它的offsetLeft就是距父类offsetParent的左边距了
+					//alert(oDiv3.offsetTop);
+					//alert(oDiv3.style.height);//拿到的是内联样式中的height
+					//alert(oDiv3.clientHeight);//拿到的是height+padding的值不包括border,称之为可视高度
+					//alert(oDiv3.clientWidth);//clientWidth与clientHeight一样
+					//alert(oDiv3.offsetHeight);//拿到的height+padding+border的值，称之为真是高度
+					//alert(oDiv3.offsetWidth);//offsetWidth和offsetHeight一样
+					//注意:offsefWidth、offsetHeight offsetLeft offsetTop等都是不带单位的
+				</pre>
+			</div>
+		</div>
+		<a class="btn_a" href="#top" name="bottom">顶部</a>
+	</article>
+	<script type="text/javascript">
+		var oNav = document.getElementById("nav");
+		var oList = document.getElementById("list");
+		oNav.onmouseover = function(){
+			oList.style.display = "block";
+		}
+		oNav.onmouseout = function(){
+			oList.style.display = "none";
+		}
+	</script>
+</body>
+</html>

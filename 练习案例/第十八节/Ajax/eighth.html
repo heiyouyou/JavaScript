@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	<script type="text/javascript">
+		window.onload = function(){
+			var xhr
+			//创建一个ajax对象
+			if(window.XMLHttpRequest){//函数都是默认绑定在window下面的
+				//兼容ie78以及其他浏览器
+				xhr = new XMLHttpRequest();
+			
+			}else{
+				//兼容ie6
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			//请求打开的方法open()：第一个参数请求的方式；第二个参数请求的地址；第三个参数异步请求（true，如果为false就是同步请求）
+			/*
+				true:异步
+					非阻塞--》同时执行，不会阻塞后面的程序执行
+
+				false:同步
+					阻塞---》先执行，会阻塞后面程序的执行，
+			*/
+			xhr.open("get","1.txt",true);
+			xhr.send();
+			alert(xhr.responseText);//这里异步请求弹出空白，同步请求正常弹出
+			/*xhr.onreadystatechange = function(){
+				//当 readyState等于4且状态为200 时，表示响应已就绪
+				if(xhr.readyState == 4 && xhr.status == 200){//xhr.status（状态码）
+					/*
+						0: 请求未初始化,还没有调用open的时候
+						1: 服务器连接已建立，还没发送，还没有调用send的时候
+						2: 请求已接收
+						3: 请求处理中
+						4: 请求已完成，且响应已就绪
+						alert(xhr.responseText);
+				}		
+			};*/
+ 		};
+	</script>
+</body>
+</html>

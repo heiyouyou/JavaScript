@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>return的用法</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*var a = 10;
+		function F(){
+			var a = 1;
+			function test(){
+				//a = 2;这样F()就是输出2了
+				alert(a);
+			};
+			test();
+		};
+		F();
+		alert(a);//输出10，父类域的a只能找父类的不能找子类域的
+		alert(F());//先弹出1后没有返回值弹出返回的默认值undefined*/
+
+		var a = 10;
+		function F(){
+			var a = 1;
+			function test(){
+				alert(a);
+			};
+			test();
+			return {//输出返回json对象
+				a:a,
+				test:test
+			}
+		};
+		//F();//输出1
+		//alert(a);//输出10，父类域的a只能找父类的不能找子类域的
+		//alert(F());//先弹出1后弹出返回的json对象{}
+		//alert(F().a+"====="+F().test);//第一次弹出1第二次也是弹出1第三次弹出1=====一坨，只有alert才会有弹出框
+		//alert(F().test());//第一次弹出1第二次也是弹出1第三次弹出undefined
+		//alert(F().a+"====="+F().test());//第一次弹出1第二次也是弹出1第三次弹出1第四次弹出1=====undefined
+		//注意：返回的值通过alert语句是最后才弹出来的
+	</script>
+</body>
+</html>

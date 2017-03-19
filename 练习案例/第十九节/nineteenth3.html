@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			对象构造器：constructor是由原型对象的指向决定的
+			原型对象最终指向谁的构造器，该对象的构造器就是谁的构造器
+			只要原型对象的指向发生改变~对象的构造器就会发生改变~对应的方法和属性也会发生改变，除非采取非常措施解决！！！
+		*/
+		function Person(name){
+			this.name = name;
+		};
+		Person.prototype.showName = function(){
+			alert(this.name);
+		};
+		var p1 = new Person("hehe");
+		function PersonAge(name,age){
+			Person.call(this,name);
+			this.age = age;
+		};
+		var Fn = function(){};
+		//新对象的原型指向了父类的原型，既是PersonAge.prototype指向了父类的原型
+		Fn.prototype = Person.prototype;
+		//原型指向了一个新对象的地址
+		PersonAge.prototype = new Fn();
+		//声明原型的构造器为自己本构造函数
+		PersonAge.prototype.constructor = PersonAge;
+		PersonAge.prototype.showAge = function(){alert(this.age)};
+		var p2 = new PersonAge("wells",21);
+		//p2.showName();
+		//p2.showAge();
+		alert(p2.constructor);
+	</script>
+</body>
+</html>

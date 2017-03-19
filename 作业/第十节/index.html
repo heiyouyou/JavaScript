@@ -1,0 +1,378 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第十节知识点总结</title>
+<link href="css/Style.css" rel="stylesheet"/>
+<link rel="stylesheet" href="http://at.alicdn.com/t/font_1458007164_389264.css"/>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	@media screen and (max-width:900px){/*当屏幕小于900px用下面这套样式*/
+		.main{width:100%;}
+		.main p{font-size:14px!important;}
+		aside{display:none;}	
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<header id="header">
+			<div class="header-left">
+				<a class="btn" href="#"><i class="iconfont ">&#xe615;</i></a>
+				<a class="btn" href="#"><i class="iconfont ">&#xe614;</i></a>
+			</div>
+ 			<div class="right_text">
+				<a class="right_a" href="demo/login.html" target="_blank">
+					<i class="iconfont icon-denglu"></i>
+					登录
+				</a>
+				<a class="right_a" href="demo/sign.html" target="_blank">
+					<i class="iconfont icon-zhuce"></i>
+					注册
+				</a>
+			</div>
+		</header>
+		<aside>
+			<a class="nav fir-a"  href="javascript:void(0);">有</a>
+			<nav id="nav">
+				<a class="nav"  href="javascript:void(0);">案例</a>
+				<ul id="list">
+					<li><a class="nav" href="demo/login.html" target="_blank">案例一</a></li>
+					<li><a class="nav" href="demo/sign.html" target="_blank">案例二</a></li>
+				</ul>
+			</nav>
+			<a class="nav" id="model"  href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			<div id="model_box">
+				<a class="nav" id="white" href="javascript:void(0);"><i class="iconfont">&#xe610;</i></a>
+				<a class="nav" id="black" href="javascript:void(0);"><i class="iconfont">&#xe60f;</i></a>
+			</div>
+		</aside>
+		<article id="article">
+			<a class="btn_a" id="top" href="javascript:void(0);"><i class="iconfont">&#xe609;</i></a>
+			<div class="main" id="main">
+				<div class="main_top">
+					<a class="person_img" href="javascript:void(0);">
+						<img src="http://upload.jianshu.io/users/upload_avatars/1616121/0fbc955a608e?imageMogr/thumbnail/90x90/quality/100" width="40" height="40" alt="100">
+					</a>
+					<p>
+						<a class="author" href="javascript:void(0);"><span >作者</span>黑有有</a>
+						<span>2016.3.14</span>
+					</p>
+					<a class="follow" href="javascript:void(0);"><i class="iconfont icon-guanzhu"></i>添加关注</a>
+				</div>
+				<h1 style="font-family:楷体;font-size:32px;padding:20px 0;">第十节知识点总结</h1>
+				<p class="hid" style="margin-bottom:30px;">
+					<span>字数154654</span>
+					<span>阅读131</span>
+					<span>评论43</span>
+					<span>喜欢4324</span>
+				</p>
+				<div class="main_content" id="main_content">
+					<h1 class="title">关于Attributes的相关知识</h1>
+					<pre>
+							<h2>//jQurey中attr()方法的封装</h2>
+							function attr(obj,key,value){
+								if(!value){//只要value是false类的值通过取反符！就可以变成真，这样就可以走里面的语句了，否则就走后面的语句
+									return obj.getAttribute(key);//获取值
+								}else{
+									obj.setAttribute(key,value);//修改值
+									return obj.getAttribute(key);
+								}
+							}
+							alert(attr(oBox,"id","wrap"));
+						&lt;body&gt;
+							&lt;div id="box" class="box" style="width:100px;" hei="heihei"&gt;&lt;/div&gt;
+							&lt;script type="text/javascript"&gt;
+								var oBox = document.getElementById("box");
+								//alert(oBox.attributes.length);//attributes是获取对象属性的一个类数组
+								//alert(oBox.attributes[1].name);//可以获取到属性的名字
+								//alert(oBox.attributes[3].name)//可以获取到自定义的属性名
+
+								//可以通过以下方法获取属性的值
+								//alert(oBox.id);
+								//alert(oBox["id"]);
+								//alert(oBox.className);
+								//alert(oBox.style);
+								//alert(oBox.hei);//对象通过.或[]是无法获取自定义属性的值
+								//alert(oBox["hei"]);
+								//alert(oBox.getAttribute("id"));//方法里传入一个属性名
+								//alert(oBox.getAttribute("style"));
+								//alert(oBox.style.width);
+								//alert(oBox.getAttribute("class"));
+								//alert(oBox.getAttribute("hei"));//可以获取到自定义的属性值
+								
+								//给属性设置值的方法
+								//oBox.setAttribute("id","wrap");//第一个参数是属性名，第二个参数是要修改的属性值,这个方法是默认返回undefined的！！！
+								//oBox.setAttribute("hei","你好啊！！！");//可以修改自定义属性的值
+								//alert(oBox.getAttribute("hei"));
+								//alert(oBox.getAttribute("id"));
+								//oBox.id = "wrap";
+								//alert(oBox.getAttribute("id"));
+								//oBox.hei = "aaaaa";//同样不能通过.或[]是无法修改自定义属性的值
+								//alert(oBox.getAttribute("hei"));
+								//oBox.removeAttribute("hei");//传入对象元素的属性名可以删除属性
+								//alert(oBox.getAttribute("hei"));//输出null
+
+								//jQurey中attr()方法的封装
+								function attr(obj,key,value){
+									if(!value){//只要value是false类的值通过取反符！就可以变成真，这样就可以走里面的语句了，否则就走后面的语句
+										return obj.getAttribute(key);
+									}else{
+										obj.setAttribute(key,value);
+										return obj.getAttribute(key);
+									}
+								}
+								alert(attr(oBox,"id","wrap"));
+							&lt;/script&gt;
+						&lt;/body&gt;
+					</pre>
+					<h1 class="title">对BOM的认识</h1>
+					<pre>
+						&lt;script type="text/javascript"&gt;
+							//BOM  Browser Object Model（对浏览器的一些操作）
+							document.getElementById('btn').onclick = function(){
+								//window.open("http://www.baidu.com")//一个参数时，表示跳转到新窗口的页面地址,什么也不填打开一个空白页面
+								//window.open("http://www.baidu.com","_blank")//两个参数时，第二参数相当于target,打开页面的方式,_blank是一个默认值
+								//window.open("http://www.baidu.com","_self")//在当前页面打开新页面,
+								//window.open("http://www.qq.com","http://www.baidu.com")//当填入多个地址时，默认打开的是第一个
+								//open("http://www.qq.com");//这种形式相当于window.open("http://www.qq.com")
+								/*var nWindow = open();//打开一个空白页面
+								nWindow.document.title = "这是一个新窗口";//可以动态的修改当前文档的title属性
+								nWindow.document.body.innerHTML = "这是一个新页面！！！"//可以这样给空白页面的body动态添加内容*/
+								/*但是当你填入一个企业域名时，是不能用以下修改该域名下的东西的，这涉及到跨域问题！！！
+								var nWindow = open("http://www.baidu.com");
+								nWindow.document.title = "这是一个新窗口";
+								nWindow.document.body.innerHTML = "这是一个新页面！！！"*/
+								//window.close();//关闭窗口，浏览器禁止问题，作用不大
+
+								//alert(window.navigator.userAgent);//输出的一堆浏览器的信息
+								//判断是不是ie浏览器的方法
+								/*if(window.navigator.userAgent.indexOf("MISE")!=-1){//“MISE”的信息只有IE浏览器有
+									alert("我是IE浏览器");
+								}else{
+									alert("我不是IE浏览器");
+								}*/
+
+								//alert(window.location);//输出当前文档的路径
+								//alert(typeof window.location);//是一个object的数据类型
+								//window.location.href = "http://www.baidu.com";//在当前页面打开新页面
+								//alert(window.location["hash"]);//可以获取到地址栏上#号后面的内容
+								//alert(window.location["search"]);//可以获取到地址栏上?号后面的内容
+							}	
+						&lt;/script&gt;
+					</pre>
+					<h1 class="title">scrollTop与scrollHeight的应用</h1>
+					<pre>
+						&lt;script type="text/javascript"&gt;
+							window.onload = function(){
+								//alert(document.scrolTop);//注意scrollTop不是document里的属性，这样写是错的
+								document.onclick = function(){
+									//alert(document.documentElement.scrollTop);//这种写法就可以获取到当前页面的滚动条的滚动距离，但是注意这种形式谷歌不支持，在谷歌一直输出的是0
+									//alert(document.body.scrollTop);//这种形式只有谷歌支持，在其他浏览器一直输出0
+
+									//兼容所有浏览器的写法
+									var st = document.documentElement.scrollTop||document.body.scrollTop//这两种形式的输出都是number的数据类型
+									alert(st);
+									//window.onresize = function(){}//当页面大小发生变化时出发事件
+									//window.onscroll = function(){}//当滚动条滚动时出发事件
+								}
+							}
+						&lt;/script&gt;
+						//置顶的简单案例
+						&lt;script src="js/jquery-1.11.2.min.js"&gt;&lt;/script&gt;
+						&lt;script type="text/javascript"&gt;
+							//$(function(){});//jquery中这种形式是表示将所有dom节点加载完执行以下脚本
+							$(function(){
+								$(window).scroll(function(){//窗口的滚动事件
+									if($(this).scrollTop()&gt;=200){//this指代window,scrolTop是一个不带单位的数值
+										$("#box").show();//这个方法里没有可以让opacity出现的效果
+									}else{
+										$("#box").hide();
+									}
+								});
+								$("#box").click(function(){
+									//$("html,body").scrollTop(0);//写html和body是为了兼容所有浏览器的scrollTop
+									$("html,body").stop(true,true).animate({"scrollTop":0},200);//动画效果，animate第一个参数是json对象，第二个参数是毫秒数，注意不要过长,stop(true,true)表示避免过多执行animate而造成不良效果取最后一次执行的动画效果
+								});
+							});
+						&lt;/script&gt;
+						&lt;script type="text/javascript"&gt;
+							var boxDom = document.getElementById("box");
+							//alert(boxDom.clientHeight);//是height+padding;只是输出数字不带单位的
+							//alert(boxDom.offsetHeight);//是height+padding+border;只是输出数字不带单位的
+							//alert(boxDom.scrollHeight);//是height+padding+滚动条滚动最大距离，但是建议开发中不要用，因为每个浏览器的滚动条滚动最大距离都不同
+
+							/*function getStyle(obj,attr){
+								return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];	
+							}
+							alert(getStyle(boxDom,"width"));*/
+						&lt;/script&gt;
+					</pre>;
+					<h1 class="title">表单验证的相关知识点</h1>
+					<pre>
+						&lt;body&gt;
+							&lt;form id="f" action="#" method="get"&gt;
+								&lt;input id ="user" type ="text" value="请输入用户名"
+								name="user"/&gt;
+								&lt;input type="radio" value="男" name="sex"/&gt;男生
+								&lt;input type="radio" value="女" name="sex"/&gt;女生
+								&lt;input type="checkbox" name="hobby1" value="0"&gt;游泳
+								&lt;input type="checkbox" name="hobby2" value="2"&gt;羽毛球
+								&lt;input type="checkbox" name="hobby3" value="3"&gt;篮球
+								&lt;select id="sel"&gt;
+									&lt;option value="1"&gt;一号&lt;/option&gt;
+									&lt;option value="2"&gt;二号&lt;/option&gt;
+									&lt;option value="3"&gt;三号&lt;/option&gt;
+									&lt;option value="5"&gt;四号&lt;/option&gt;
+									&lt;option value="5"&gt;五号&lt;/option&gt;
+								&lt;/select&gt;
+								&lt;input type="submit" value="提交"&gt;
+								&lt;input type="reset" value="重置"&gt;
+							&lt;/form&gt;
+							&lt;script type="text/javascript"&gt;
+								var oForm = document.getElementById("f");
+								var oSel = document.getElementById("sel");
+								//alert(oForm.user.value);//可以通过name或id获取输入框的input的属性值
+								//oForm.user.value = "heiehi";//可以修改值
+								/*
+									onchange在text的input输入框中当value值改变后且鼠标离开输入框后触发事件
+									onchange在radio的input单选框中当选中后触发事件
+									onchange在checkbox的input复选框中当选中或取消选中后触发事件
+									onchange在多选框select中当选中后就触发事件
+								*/
+								var oInp = oForm.getElementsByTagName("input");
+								/*oSel.onchange = function(){
+									alert(this.value);
+								};*/
+								/*oForm.onsubmit = function(){//当点击提交按钮submit时触发事件
+									if(oInp[0].value == ""){
+										alert("用户名不能为空！");
+										oInp[0].focus();//重新获取焦点
+										return false;//用来终止后面的语句执行
+									}
+								};*/
+								/*oInp[0].onfocus = function(){//当输入框获得焦点时触发事件，良好的解决了ie678不支持placeholder这个H5属性
+									if(this.value =="请输入用户名"){
+										this.value = '';
+									}
+								};*/
+								/*oInp[0].onblur = function(){//当输入框失去焦点时触发事件
+									if(this.value =="请输入用户名"){
+										this.value = '';
+									}
+								};*/
+								/*oForm.onreset = function(){//当点击reset重置按钮时触发事件
+									alert(2);
+								};*/
+							&lt;/script&gt;
+						&lt;/body&gt;
+					</pre>
+				</div>
+			</div>
+			<a class="btn_a" id="bottom" href="javascript:void(0);"><i class="iconfont">&#xe60a;</i></a>
+		</article>
+	</div>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(window).scroll(function(){
+				var height = $(this).scrollTop();
+				if($(this).scrollTop()>=300){
+					$("#bottom").show();
+					$("#top").hide();
+					$("#header").animate({"height":0,"opacity":0},300);
+				}else{
+					$("#bottom").hide();
+					$("#top").show();
+					$("#header").stop(true,true).animate({"height":"51px","opacity":1},400);
+				}
+			});
+			$("html,body").load().stop(true,true).animate({"scrollTop":0},100);//页面一刷新就置顶 
+			$("#bottom").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":0},300);
+			});
+			var windowHeight = parseInt($("body").css("height"));//获取整个页面的高度
+			$("#top").click(function(){
+				$("html,body").stop(true,true).animate({"scrollTop":windowHeight},300);
+			});
+		});
+		/*nav start*/
+		var oNav = $("#nav");
+		var oList = $("#list");
+		oNav.mouseover(function(){oList.show();});
+		oNav.mouseout(function(){oList.hide();});
+		/*end nav*/
+		function $1(id){
+			return document.getElementById(id);
+		};
+		function $2(obj,elements){
+			return obj.getElementsByTagName(elements);
+		};
+		var oWhite = $1("white");
+		var oBlack = $1("black");
+		var oModel = $1("model");
+		var oModelBox = $1("model_box");
+		var oHeader = $1("header");
+		var oArticle = $1("article");
+		var headerEles = $2(oHeader,"*");
+		var articleEles = $2(oArticle,"*");
+		var pres = $2(oArticle,"pre");
+		var timer = null;
+		oModel.onclick = function(){
+			oModelBox.style.display = "block";
+			timer = setInterval(function(){//定时消失
+				oModelBox.style.display = "none";
+				clearInterval(timer);//消失的同时清除定时器
+			},5000);
+		};
+		oBlack.onclick = function(){//夜间模式
+			this.style.cssText = "background:#3f3f3f;color:#fff;";
+			oWhite.style.cssText ="background:#fff;";
+			for(var i=0;i<headerEles.length;i++){
+				if(getComputedStyle(headerEles[i]).backgroundColor){//对象元素有颜色值才会执行以下语句
+					headerEles[i].style.cssText = "background:#3f3f3f;color:#999;";
+					oHeader.style.cssText = "background:#3f3f3f;color:#999;box-shadow:0 1px 1px #111";
+				}
+			}
+			for(var i=0;i<articleEles.length;i++){
+				if(getComputedStyle(articleEles[i]).backgroundColor){
+					articleEles[i].style.cssText = "background:#3f3f3f;box-shadow:none;";
+					oArticle.style.cssText = "background:#3f3f3f;color:#999;";
+				}
+			}
+			for(var i=0;i<pres.length;i++){
+				if(getComputedStyle(pres[i]).backgroundColor){
+					pres[i].style.cssText = "background:#002b36;color:#839496;";
+				}
+			}
+		};
+		oWhite.onclick = function(){//白天模式
+			this.style.cssText = "background:#e9e9e9"; 
+			oBlack.style.cssText ="background:#fff;";
+			for(var i=0;i<headerEles.length;i++){
+				if(getComputedStyle(headerEles[i]).backgroundColor){//对象元素有颜色值才会执行以下语句
+					headerEles[i].style.cssText = "background:#fff;color:#555;";
+					oHeader.style.cssText = "background:#fff;color:#555;";
+				}
+			}
+			for(var i=0;i<articleEles.length;i++){
+				if(getComputedStyle(articleEles[i]).backgroundColor){
+					articleEles[i].style.cssText = "background:#fff;";
+					oArticle.style.cssText = "background:#fff;";
+				}
+			}
+			for(var i=0;i<pres.length;i++){
+				if(getComputedStyle(pres[i]).backgroundColor){
+					pres[i].style.cssText = "background:#fdf6e3;color:#839496;";
+				}
+			}
+		};
+	</script>
+</body>
+</html>

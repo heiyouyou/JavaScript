@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>简易输入登录的原理</title>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<input type="text" placeholder="请输入账号" id="txt" maxLength="10" style="margin:10px 0 0 50px;"/><!-- maxLength用于限制输入框的输入最大长度 -->
+	<input type="button" id="btn" value="验证"/> 
+	<script type="text/javascript">
+		var oText = document.getElementById("txt");
+		var oBtn = document.getElementById("btn");
+		oBtn.onclick = function(){
+			var val = oText.value;
+			if(val == ""){//用于判断输入的是空就执行里面的代码
+				alert("请输入QQ号");
+				oText.focus();
+				return;
+			}
+			if(val.charCodeAt() == 48){
+				alert("第一个不能为0");
+				oText.focus();
+				return;
+			}
+			if(val.length<5 || val.length>10){
+				alert("QQ号长度出错！！！");
+				oText.focus();
+				return;
+			}
+			for(var i=0;i<val.length;i++){
+				var valCode = val.charCodeAt(i);
+				if(valCode<48 || valCode>57){
+					alert("验证失败！，第"+(i+1)+"个位置出现错误了！");
+					oText.focus();//可以使得输入框再次聚焦选中
+					return;//用于只要出错就停止执行下面的代码
+				}
+			}
+			alert("验证成功！");
+		}
+	</script>
+</body>
+</html>

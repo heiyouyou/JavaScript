@@ -1,0 +1,35 @@
+@charset "utf-8";
+/*header start*/
+header{height:51px;background:#fff;box-shadow:0 1px 3px whitesmoke;}
+header a{display:block;float:left;}
+.header-left{width:157px;height:100%;float:left;}
+.header-left .left-text .text{width:51px;height:51px;line-height:51px;text-align:center;background:#e78170;font-size:18px;color:#fff;text-shadow:0 1px 0 #de533a;}
+.header-left .left-text .text:hover{background:#f49484;}
+.header-left .btn{width:34px;height:34px;border-radius:50%;border:1px solid #e78170;margin-left:10px;margin-top:8px;}
+.header-right{width:100px;height:100%;float:right;line-height:51px;}
+.header-right a{font-size:13px;color:#555555;margin-left:10px;}
+.header-right a:hover{color:#111;}
+/*end header*/
+/*aside start*/
+aside{width:51px;height:340px;background:#2A2A2A;float:left;}
+aside a{display:block;width:51px;height:51px;line-height:51px;text-align:center;font-size:14px;color:#fff;text-shadow:0 0 1px #ededed}
+aside a:hover{background:#f49484;}
+/*end aside*/
+/*article start*/
+article{background:rgba(255,255,255,0.9);margin:10px 0;}
+.main{width:700px;margin:0 auto;background:#fff;padding:5px;}
+article .main .main_top{padding:20px 0;overflow:hidden;box-shadow:0 1px 3px whitesmoke;}
+article .main .main_top a{display:block;}
+article .main .main_top a.person_img{width:34px;height:34px;border-radius:50%;float:left;overflow:hidden;border:1px solid transparent;}
+article .main .main_top a.person_img:hover{border:1px solid #e78170;}
+article .main .main_top a.follow{width:94px;height:28px;border-radius:20px;background:#49be38;float:right;text-align:center;line-height:28px;color:#fff;}
+article .main .main_top p{color:#fff;float:left;margin-left:10px;}
+article .main .main_top p a.author{padding:2px 3px;color:#4094c7;margin-bottom:5px;}
+article .main .main_top p span{color:#999;}
+article .main .main_top p a.author span{color:#e78170;padding:0 5px;border:1px solid #e78170;border-radius:5px;margin-right:5px;}
+.main p.hid span{color:#999;margin-right:15px;}
+.main h1.title{font-family:"楷体";font-size:26px;color:rgba(0,0,0,.8);}
+.main .main_content h1.title{font-size:22px;font-weight:bold;font-family:inherit;color:inherit;margin:10px 0;}
+.main .main_content pre{font-family:"微软雅黑";color:#657b83;background:#fdf6e3;padding:5px 0;line-height:20px;border:1px solid rgba(0,0,0,0.15);border-radius:4px;white-space:pre-wrap;word-wrap:break-word;}
+.main .main_content p.text-p{color:#2f2f2f;font-size:16px;text-align:justify;margin:20px 0;}
+/*end article*/

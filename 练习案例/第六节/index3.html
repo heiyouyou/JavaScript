@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		//var arr = [2,3,4];
+		//arr.push(5,3,4);//push这个方法是用来为数组在其后面依次添加值的,可以传入多个值,结果返回数组长度
+		//arr.push(function(){alert(2);});
+		//arr.unshift('d',3,3);//unshift这个方法是用来给数组在其前面依次添加值的，可以传入多个值,结果返回数组长度
+		//alert(arr.unshift('d',3,3));
+		//alert(arr.push(5,3,4));
+		//alert(arr);
+
+
+		//var s = [3,4,5,6,7];
+		//delete s[2];//这个方法只是删除了数组的值，位置还在.属于逻辑删除
+		//alert(s.pop());//pop()这个方法删除最后一个元素，返回删除元素。物理删除
+		//alert(s.shift());//shift()删除第一个元素，返回删除元素。物理删除
+		//alert(s);
+
+		//数组删除(剪切)方法 splice();
+		//var arr = [0,1,2,3,4,5,6,7,8,9];
+		//alert(arr.splice());//没给参数是什么也没删除，返回空
+		//alert(arr.splice(1));一个参数表示开始删除的起始位置，包括该位置的值,返回的是删除的值
+		//alert(arr.splice(19));当参数是正值，且又大于它的长度，同样什么也没有删除到，返回空白
+		//alert(arr.splice(-3));当参数是负值时，且它的绝对值小于长度，这时就用数组长度length加该值，就得出要开始删除的起始位置
+		//alert(arr.splice(-11));当参数是负值，且它的绝对值又大于它的长度，此时开始删除的起始位置就是0
+		//alert(arr.splice(2,3));当有两个参数时，第一个还是表示开始删除的起始位置，第二个表示要删除的个数，删除的个数没有负数，个数为负数就当做什么也没删除，就会返回空
+		//alert(arr.splice(2,-2));
+		//alert(arr.splice(2,3,3,'d',{},function(){alert(2);}));当有多个参数，第一个还是删除的位置，第二个还是表示删除的个数，多个参数就是为数组添加替换的，添加替换在删除了的元素所在的位置。返回的还是删除的值
+		//alert(arr);
+
+		var arr = [1,2,3,4,5,6,7,8];
+		alert(arr.splice(3,0,'a'));//当删除的个数为0，对应要删除的位置的值还在，此时‘a’是在该位置的前面添加
+		alert(arr);
+	</script>
+</body>
+</html>

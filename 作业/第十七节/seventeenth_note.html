@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第十七节课笔记集锦</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:14px;font-family:"微软雅黑";background:#222;word-wrap:break-word;background:rgba(201, 221, 230, 0.73);}
+	ul,li{list-style:none;}
+	a{text-decoration:none;color:red;background:#fff;border-radius:10px;padding:0 5px;}
+	.box{width:1000px;margin:0 auto;background:#ddd;padding:10px;overflow:hidden;}
+	.box p{margin-top:10px;border-bottom:1px dashed #c81263;padding-bottom:5px;}
+	pre{font-size:14px;font-family:"微软雅黑";}
+</style>
+</head>
+<body>
+	<div class="box">
+		<h1 style="text-align:center;">第十七节课笔记集锦</h1>
+		<a href="#bottom" name="top">到达底部</a>
+		<p>
+			/*var str = "ab.d1fdsfdsfadc";<br/>
+			/*转义字符：1.\.表示匹配字符串中的英文句号.；而.表示匹配字符之间可以有一个其他字符<br/>
+			2.\b表示将要匹配的字符进行划分为一个整体，只要在字符串里找到要匹配的字符然后看该字符前是以空格开始或者什么也没有的，只要在字符串里找到一个符合的就是返回true<br/>
+			3.\1或者\2找的是母体中第一个或者第二个子项；在匹配完母体后查看子项对应的字符紧接的后面中是否再出现一次，出现则返回true否则返回false*/<br/>
+			<pre>	
+				/*var reg = /ab\..+c/;
+				alert(reg.test(str))*/
+
+				/*var str = "abdeab343 ab fgab";
+				var reg = /\bab\b/;*/
+
+				/*var str = "2 4 2432";
+				var reg = /\b\d\b/;*/
+
+				/*var str = "fhjdshfjad ";
+				var reg = /ad\b/;
+				alert(reg.test(str));*/
+
+				/*正则表达式的另一种写法：
+				var str = "a b c";
+				var reg = new RegExp("\\bb\\b","g");//相当于var reg = /\bb\b/;
+				alert(reg.test(str));
+				*/
+
+				/*var str = "ababcdefcdgab";
+				var reg = /(ab)(cd)\2/;
+				alert(reg.test(str));*/ 
+			</pre>
+		</p>
+		<p>
+			<pre>	
+				//正则封装获取某一类样式的元素的兼容ie678的写法
+				function getClass(cN,obj){
+					obj = obj||document;
+					if(obj.getElementsByClassName){
+						return obj.getElementsByClassName(cN);
+					}else{
+						var arr = [];
+						/*var reg = /\bcN\b/;这样写不对！！!*/
+						var reg = new RegExp("\\b"+cN+"\\b");
+						var allE =  obj.getElementsByTagName("*");
+						for(var i=0;i&lt;allE.length;i++){
+							if(reg.test(allE[i].className)){
+								arr.push(allE[i]);
+							}
+						}
+						return arr;
+					}
+				};
+			</pre>
+		</p>
+		<p>
+			/*
+			字符集[]用来匹配多类字符如：[a-z][A-Z][0-9]或[a-zA-Z0-9][123456]
+			注意字符区间只能从小到大a-z不能z-a;还有可以[0-z][Z-z]但是不能[z-Z]
+			相当于.的功能
+			*/如下：
+			<pre>
+				/*var str = "dZd2443";
+				var reg = /d[A-Z]d/;
+				alert(reg.test(str));*/
+			</pre>
+		</p>
+		<p>
+			/*
+			{}是字符量词区间
+			1.{}如果这样子返回的是null；{2}表示匹配两个连续的字符；{1,}表示匹配1个或多个连续的字符；{1,5}表示匹配1到5个连续的字符；注意了{}的右边可以没有，但是左边一定要有如：{1,}<br/>
+			* 表示匹配零个或多个字符<br/>
+			? 表示匹配零个到一个字符相当于{0,1}<br/>
+			*/如下：
+			<pre>	
+				//var str = "ab3343cdef65fg12354";
+				//var reg = /\d{1,}/g;
+				//匹配不上的字符用逗号,切割成数组
+				//var reg = /\d*/g;
+				/*var reg = /\d?/g;
+				alert(str.match(reg));*/
+			</pre>
+		</p>
+		<p>
+			<pre>
+				/*
+				^表示开始；$表示结束；如：/^ab$/表示匹配的字符串要以这个字符类型开始并且结束
+				var str = "ab"
+				var reg = /^ab$/;
+				alert(reg.test(str));*/
+
+				//匹配QQ号码(5-10位，不能以0开头)：
+				/*var qq = "012458798";
+				var reg = /^[1-9]\d{4,9}$/;
+				alert(reg.test(qq));*/
+
+				//匹配注册账号(字母开头长度8-12不包括空格符)
+				/*var login = "a2433fsdfew;";
+				var reg = /^[a-zA-Z]\S{7,11}$/;
+				alert(reg.test(login));*/
+
+				//匹配邮箱(以字母、下划线_、横杆-开头加上@符号再次以字母、下划线_、横杆-拼接)：
+				/*var email = "1337238043@qq_-.com.cn.cnn";
+				var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;//或/^[\w-]+@[\w-]+(\.[\w-]+)+$/
+				alert(reg.test(email));*/
+
+				//匹配电话号码(数字1开头位数11位)
+				/*var tel = "15678390130";
+				var reg = /^1\d{10}$/;
+				alert(reg.test(tel));*/
+				
+				//匹配身份证号码(不能以数字0开头，有15位、17位加一个X或x、18位的)
+				/*var card = "450881199406095334";
+				//注意空格也算要匹配的字符，所以|之间不能有空格
+				var reg = /^[1-9]\d{14}$|^[1-9]\d{16}x|X$|^[1-9]\d{17}$/;
+				alert(reg.test(card));*/
+
+				//匹配中文(asiic码（[\u4E00-\u9FA5]）)
+				/*var chinese = "号华海中介费哈肯德基罕见的开发了空间";
+				var reg = /^[\u4E00-\u9FA5]+$/;
+				alert(reg.test(chinese));*/
+				
+				//正则封装
+				var json = {
+					"QQ":/^[1-9]\d{4,9}$/,
+					"ID":/^[1-9]\d{14}$|^[1-9]\d{16}x|X$|^[1-9]\d{17}$/,
+					"email":/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+					"tel":/^1\d{10}$/,
+					"CN":/^[\u4E00-\u9FA5]+$/,
+					"login":/^[a-zA-Z]\S{7,11}$/
+				};
+				var QQ = "1337238043";
+				var reg = json["QQ"];
+				alert(reg.test(QQ));
+			</pre>
+		</p>
+		<p>
+			<pre>
+				/*
+				面向对象编程（oop）的特点：
+				抽象：抓住核心问题（抽出对象）
+				封装：只能通过对象去执行方法（封装方法已达到共享）
+				继承：从已有的对象上继承成为新的对象
+				多态：多个对象的不同形态（例如usb接口）
+				*/
+				//new Array() new Date() new Object() new RegExp()这些都是系统对象
+				/*var obj1 = new Object();
+				obj1.name = "小明";
+				obj1.showname = function(){
+					alert(this.name);	
+				};
+				obj1.showname();
+
+				var obj2 = new Object();
+				obj2.name = "小红";
+				obj2.showname = function(){
+					alert(this.name);	
+				};
+				obj2.showname();
+				//两个对象比较既要比较值也要比较内存地址，只要通过new创建出来的对象都是不相等的
+				alert(obj1 === obj2);//输出false*/
+			</pre>
+		</p>
+		<p>
+			<pre>
+				/*
+				//设计模式：工厂模式（封装函数---->生产了obj），一般的模式都是属于这样子
+				function person(name){
+					//原料
+					var obj = new Object();
+					//加工
+					obj.name = name;
+					obj.showname = function(){
+						alert(this.name);		
+					};
+					//出厂
+					return obj;
+				};
+				var p1 = new person("小红");//可以这样 var p1 = person("小红");但是不符合创建对象的形式
+				var p2 = new person("小明");
+				alert(p1.name);
+				p2.showname();*/
+			</pre>
+		</p>
+		<p>
+			<pre>
+				/*构造函数(创建了一类对象，代码达到复用)的特点：
+				1.用new调用一个函数
+				2.这个函数创造的对象就是this
+				3.并且默认返回的就是该this对象（隐式返回）*/
+				/*function Person(name){
+					this.name = name;
+					this.showname = function(){
+						alert(this.name);		
+					};
+				};
+				var p1 = new Person("小红");
+				var p2 = new Person("小明");
+				alert(p1.name);
+				p2.showname();
+				//alert(p1.showname === p2.showname);//返回false*/
+
+				var arr = [1,3,4];
+				var arr1 = [2,4,6];
+				/*原型：prototype(只能绑定在构造函数上并且创造出一个原型对象)
+					特点：去改写对象下面的方法或者属性，为了让原本公用的方法或者属性在内存中只存在一份,让调用的对象一起指向同一个方法的内存地址
+				*/
+				/*Array.prototype.sum = function(){
+					var s = 0;
+					for(var i=0;i&lt;this.length;i++){
+						s += this[i];
+					}
+					return s;
+				};
+				alert(arr1.sum());
+				alert(arr.sum());
+				alert(arr1.sum === arr.sum);//弹出true*/
+
+				function Person(name){
+					this.name = name;
+				};
+				Person.prototype.zh = "很帅！！！";
+				var p1 = new Person("小红");
+				var p2 = new Person("小明");
+				alert(p1.zh);
+				alert(p2.zh);
+				alert(p1.zh == p2.zh);//弹出true
+			</pre>
+		</p>
+		<a href="#top" name="bottom">返回顶部</a>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*var Person = function(name,age){
+			this.name = name;
+			this.age = age;
+		};
+		//普通方法的执行默认绑定在window下面
+		var p = Person("wells",21);
+		alert(p+"==="+window.name+"==="+window.age);*/
+		//安全模式创建的对象
+		var Person = function(name1,age){
+			//判断调用者是否属于Person创造出来的对象
+			if(this instanceof Person){
+				this.name1 = name1;
+				this.age = age;
+			}else{
+				//返回一个创建好的对象
+				return new Person(name1,age);
+			}
+		};
+		var p = Person("wells",21);
+		alert(p+"==="+p.name1+"==="+p.age);
+		alert(window.name1+"==="+window.age);
+	</script>
+</body>
+</html>

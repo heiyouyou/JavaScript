@@ -1,0 +1,214 @@
+		<script type="text/javascript">
+	window.onload = function(){//先加载完页面的所有dom元素才执行以下脚本
+		var imgDom = document.getElementById("img-list");
+		var liDoms = imgDom.children;//通过children获取li的个数
+		imgDom.innerHTML += imgDom.innerHTML;//通过innerHTML为imgDom动态添加多个li
+		imgDom.style.width = liDoms[0].offsetWidth*(liDoms.length)+"px";//通过获取li的宽度offsetWidth来动态来给imgDom添加宽度，注意不要忘了加单位px
+		
+		function tab(){
+			if(imgDom.offsetLeft < -imgDom.offsetWidth/2){
+				imgDom.style.left = 0;	
+			}else{
+				imgDom.style.left = imgDom.offsetLeft-10+"px";//offsetLeft只是一个数值，而style.left返回的是字符串，所以要带上单位
+			}
+		}
+		setInterval(tab,20);
+	};
+	</script>	
+
+//alert(new Date());//new Date()是一个obj对象，返回的是当前系统格林时间
+		//var time = new Date();
+		//alert(typeof time);
+		//alert(Number(time));
+		//alert(time.getTime())//getTime()方法可返回指定的日期距1970年1月1日之间的毫秒数。
+		//alert(time.getFullYear());//可获取time的年份
+		//alert(time.getMonth()+1);//getMonth()获取time的月份，不过它返回的是从0到11的数字，所以0代表1月，以此类推11月代表12月
+		//alert(time.getDate());//getDate()获取的是time的日期
+		//alert(time.getDay());//getDay()获取的是time的星期,注意0代表星期天
+		//alert(time.getHours());//getHours()获取time的小时
+		//alert(time.getMinutes());//getMinutes()获取分钟
+		//alert(time.getSeconds());//getSeconds()获取秒数
+		//alert(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds());
+
+new Date();//默认是返回当前的时间		
+创建一个时间点的形式：
+1）new Date("month dd,yyyy hh:mm:ss"); 
+2）new Date("month dd,yyyy"); 
+3）new Date(yyyy,mth,dd,hh,mm,ss); 
+4）new Date(yyyy,mth,dd);
+5）new Date(ms);
+month:用英文 表示月份名称，从January到December mth:用整数表示月份，从0（1月）到11（12月） dd:表示一个月中的第几天，从1到31
+yyyy:四位数表示的年份 
+hh:小时数，从0（午夜）到23（晚11点） mm: 分钟数，从0到59的整数 
+ss:秒数，从0到59的整数
+ms:毫秒数，为大于等于0的整数
+
+<body>
+	<h1 id="time" style="text-align:center;margin:20px auto;background:#ccc;width:600px;border-radius:10px;"></h1>
+	<script type="text/javascript">
+		window.onload = function(){
+			var timeDom = document.getElementById("time");
+			//var startTime = new Date();//写在外面就只是获取你执行那一瞬间的系统时间，当方法time再执行时还是获取那时的时间,这样就不能达到动态变化了
+			function time(y,m,d){
+				var startTime = new Date();//注意这里不能放在time方法外！！！
+				var endTime = new Date(y,m-1,d);//传入要进行倒计时的时间
+				var ms = endTime.getTime() - startTime.getTime();//先拿到传入的时间与当前时间的差值 单位为毫秒
+				var sec = ms/1000;//然后将毫秒数转成秒除1000
+				var day = Math.floor(sec/60/60/24);//得到剩余多少整数天
+				var hour = Math.floor(sec/60/60%24);//将取余得到的小时赋值给hour
+				var min = Math.floor(sec/60%60);//将取余得到的分钟赋值给min
+				var ss = Math.floor(sec%60);//将取余得到的秒数赋值给ss
+				function two(n){//将分秒小于10时变成两位数
+					if(n<10){
+						n = "0"+n;
+					}
+					return n;
+				};
+				var text = "距离"+endTime.getFullYear()+"年"+(endTime.getMonth()+1)+"月"+endTime.getDate()+"日<span style='color:red;'>高考还有"+day+"日"+hour+"小时"+two(min)+"分钟"+two(ss)+"秒</span>";	
+				timeDom.innerHTML = text;
+			};
+			time(2016,6,7);//这里执行是为了消除等到定时器执行这段时间差
+			setInterval(function(){
+				time(2016,6,7);
+			},1000);
+		};
+	</script>
+</body>
+
+
+<body>
+	<div id="box">
+		<ul id="list">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<p>fdf</p>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		/*
+			Dom Document Object Model  文档对象模型
+			文档：html页面
+			文档对象：html里面元素
+			文档对象模型：定义（目的：让js更好的操作dom节点）最常用的有：
+			Element_Node 1 元素节点
+			Attribute_Node 2 属性节点
+			Text_Node 3 文本节点
+			注意：childNodes 在ie678 只能拿到元素节点，而其他浏览器能拿到元素节点和其他节点，其中空格也算文本节点
+			firstChild与lastChild在ie678只能拿到元素节点和文本节点；在其他浏览器都能拿到
+		*/
+		
+		window.onload = function(){
+			var boxDom = document.getElementById("box");
+			var ulDom = document.getElementById("list");
+			//alert(boxDom.childNodes.length);//childNodes获取目标对象的子类节点数，是一个类数组
+			//alert(ulDom.childNodes.length);
+			///alert(boxDom.childNodes[0]);//输出的是下标为0的节点
+			//alert(boxDom.childNodes[0].nodeType);//通过nodeType可以判断节点类型，返回的是数字1到9当中的其中一个节点代号
+			//alert(ulDom.children);//children只能取到的是由元素节点组成的类数组，只包含元素节点，推荐使用！！！
+			//alert(ulDom.children[0]);//输出下标为0的元素节点
+			//alert(ulDom.children.length);//输出长度
+			//alert(ulDom.firstChild);//firstChild取到的是目标对象下的第一个子节点
+			//alert(ulDom.lastChild);//lastChild取到的是目标对象下的最后一个子节点
+			//alert(ulDom.firstElementChild);//firstElementChild只能拿到目标对象下的第一个元素节点，可是在ie678不支持
+			//alert(ulDom.lastElementChild);//lastElementChild只能拿到目标对象下的最后一个元素节点，可是在ie678不支持
+			
+			/*//兼容浏览器写法：
+			if(ulDom.firstElementChild){//只有浏览器支持才会执行if语句里的代码
+				ulDom.firstElementChild.style.color = "red";
+			}else{
+				ulDom.firstChild.style.color = "red";//ie678支持
+			}
+			if(ulDom.children){//所有浏览器都支持
+				ulDom.children[ulDom.children.length-1].style.color = "yellow";
+			}*/
+		}
+	</script>
+</body>
+
+<body>
+	<div id="box"><p>dfff</p>
+		<ul id="list">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<p>wodhishifuh</p>
+	</div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var boxDom = document.getElementById("box");
+			var ulDom = document.getElementById("list");
+			//alert(ulDom.nextSibling);//就是获取ulDom对象后面的一个节点，与chidlren一样的情况，ie678都支持，只能拿到元素节点
+			//ulDom.nextSibling.style.color = "red";//这种形式在谷歌只能获取ulDom后面的文本节点,在谷歌上会报错
+			//ulDom.nextSibling.nextSibling.style.color = "red";//这种形式就可以获取ulDom后面的元素节点并添加样式
+			//alert(ulDom.nextSibling.nextSibling.nodeType);//输出1代表是元素节点
+			//ulDom.nextElementSibling.style.color = "red";//这种形式就是给ulDom元素后面的一个元素节点添加样式，不支持ie678
+			//alert(ulDom.nextElementSibling.nodeType);//输出1代表是元素节点
+			//alert(ulDom.previousSibling);//就是获取ulDom对象前面的一个节点，与chidlren一样的情况，ie678都支持，只能拿到元素节点
+			//alert(ulDom.previousElementSibling);//ie678不支持，只获取ulDom对象前面元素节点
+			if(ulDom.nextElementSibling){//只有支持这种形式的浏览器才会执行以下语句
+				ulDom.nextElementSibling.style.color = "red";
+			}else{
+				if(ulDom.nextSibling&&ulDom.nextSibling.nodetype==1){//这里是为了解决ulDom后面没有元素节点时ie678找不到元素节点报错和其他浏览器只有文本节点绑定属性报错的情况
+					ulDom.nextSibling.style.color = "red";//兼容了ie678
+				}
+			}
+		}
+	</script>
+</body>
+
+<body>
+	<div id="box" style="width:100px;margin:20px auto;">
+		<p>前面</p>
+		<ul id="list">
+			<li >1</li>
+			<li>2</li>
+			<li id="li">3</li>
+			<li>4</li>
+		</ul>
+		<p>后面</p>
+	</div>
+	<script type="text/javascript">
+		window.onload = function(){
+			var ulDom = document.getElementById("list");
+			//alert(ulDom.parentNode.id);//parentNode是获取ulDom对象元素的父节点div
+			var liDom = document.getElementById("li");
+			/*var liDoms = liDom.parentNode.children;//通过父节点获取ul下的元素节点
+			for(var i=0;i<liDoms.length;i++){//类似jQuery里的sibling()方法
+				if(liDoms[i]!=liDom){//通过遍历与id叫li的liDom元素匹配，匹配不上就添加以下样式
+					liDoms[i].style.color = "red";
+				}
+			}*/
+			//封装以上的方法
+			function sibling(obj,callback){
+				var liDoms = obj.parentNode.children;
+				for(var i=0;i<liDoms.length;i++){
+					if(liDoms[i]!=obj){
+						callback.call(liDoms[i]);//通过call()函数来返回一个对象给callback调用样式
+					}
+				}
+			}
+			sibling(liDom,function(){
+				this.style.border = "1px solid red";//this表示给call()返回回来的对象要添加样式的元素
+				this.style.background = "#eee";
+			});
+		};
+	</script>
+</body>
+
+		var oDiv3 = document.getElementById("div3");
+		var oDiv4 = document.getElementById("div4");
+		//alert(oDiv3.offsetParent.tagName);//offsetParent返回的是具有定位基点的父节点(元素)，如果没有设有定位基点父节点就以body为offsetParent,可是ie67因为有layout属性所以不管它的基点设给谁offsetParent总是它的直接父类
+		//alert(oDiv3.offsetLeft)//offsetLeft就是返回对象元素oDiv3到有定位基点的offsetParent的父节点的左边距，这个是没有单位的一个值，但是给自己本身加定位基点与没有加一样(除了ie67)，offsetLeft还是到offsetParent的左边距，但是ie67不管你给谁加定位基点它的offseftLeft还是到直接父节点的左边距，如果在ie67中元素给自己加定位基点，它的offsetLeft就是距父类offsetParent的左边距了
+		//alert(oDiv3.offsetTop);
+		//alert(oDiv3.style.height);//拿到的是内联样式中的height
+		//alert(oDiv3.clientHeight);//拿到的是height+padding的值不包括border,称之为可视高度
+		//alert(oDiv3.clientWidth);//clientWidth与clientHeight一样
+		//alert(oDiv3.offsetHeight);//拿到的height+padding+border的值，称之为真是高度
+		//alert(oDiv3.offsetWidth);//offsetWidth和offsetHeight一样
+		//注意:offsefWidth、offsetHeight offsetLeft offsetTop等都是不带单位的

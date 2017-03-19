@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>仿百度搜索提示</title>
+<style type="text/css">
+	* {margin:0;padding:0;outline:none;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	.box{width:640px;height:350px;background:#fff;margin:100px auto;}
+	.baidu-logo{width:270px;height:129px;background:#fff;margin:0 auto;margin-bottom:10px;}
+	.search-wrap{height:40px;}
+	.search-wrap input{float:left;}
+	#text{width:525px;height:28px;font:16px arial;background:#fff;padding:5px;border:1px solid #b8b8b8;border-bottom:1px solid #ccc;border-right:0;}
+	#btn{width:104px;height:40px;line-height:40px;text-align:center;font-size:16px;color:#fff;background:#38f;border:0;cursor:pointer;}
+	.tips{width:536px;height:auto;}
+	#text-list li a{display:block;font:16px arial;color:#111;padding:5px;}
+</style>
+</head>
+<body>
+	<!-- box start -->
+	<div class="box">
+		<!-- baidu-logo start -->
+		<div class="baidu-logo">
+			<a href="javascrip:void(0);"><img src="http://www.baidu.com/img/2016_4_4logo_d1c1a113701dabd975ae67ccaf8bece8.gif" width="270" height="129" alt="baidu-logo"></a>
+		</div>
+		<!-- end baidu-logo -->
+		<!-- search-wrap start -->
+		<div class="search-wrap">
+			<form action="#" method="get" style="overflow:hidden;">
+				<input type="text" id="text" autofocus>
+				<input type="submit" id="btn" value="百度一下">
+			</form>
+			<div class="tips">
+				<ul id="text-list">
+					
+				</ul>
+			</div>
+		</div>
+		<!-- end search-wrap -->
+	</div>
+	<!-- end box -->
+	<script type="text/javascript">
+		/*search-wrap start*/
+		function getId(id){
+			return document.getElementById(id);
+		};
+		var txtDom = getId("text");
+		var btnDom = getId("btn");
+		var listDom = getId("text-list");
+		txtDom.onfocus = function(){
+			this.style.borderColor = "#38f";
+		};
+		txtDom.onblur = function(){
+			this.style.borderColor = "#ccc";
+		};
+		//点击按钮搜索
+		btnDom.onclick = function(){
+			var val = txtDom.value;
+			if(val){
+				window.open("https://www.baidu.com/s?wd="+val,"_blank");
+			};
+		};
+		//按键按下提示或搜索
+		txtDom.onkeyup = function(ev){
+			var e = ev||event;
+			var Enter = e.keyCode;
+			var val = this.value;
+			var script = document.createElement("script");
+			listDom.style.cssText = "border:1px solid #ccc;border-top:0;";
+			script.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+val+"&cb=wells";
+			//当按下回车键时触发跳转搜索
+			if(Enter==13&&val){
+				window.open("https://www.baidu.com/s?wd="+val,"_blank");
+			}
+			document.body.appendChild(script);
+			document.body.removeChild(script);
+		};
+		//回调函数
+		function wells(mJson){
+			var data = mJson.s;
+			var str = "";
+			for(var i=0;i<data.length;i++){
+				str +="<li><a href='https://www.baidu.com/s?wd="+data[i]+"' target='_new'>"+data[i]+"</a></li>"
+			};
+			listDom.innerHTML = str;
+		};
+		listDom.onmouseover = function(ev){
+			var e = ev||event;
+			var target = e.target||e.srcElement;
+			target.style.backgroundColor ="#f0f0f0";
+		};
+		listDom.onmouseout = function(ev){
+			var e = ev||event;
+			var target = e.target||e.srcElement;
+			target.style.backgroundColor ="";
+		};
+		/*end search-wrap*/
+	</script>
+</body>
+</html>

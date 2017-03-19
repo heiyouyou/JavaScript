@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>js实现滚动响应式瀑布流</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background:url(images/bg.png);-webkit-user-select:none;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+	#container{margin:50px auto;position:relative;}
+	#container .items{position:absolute;border:1px solid transparent;background:#ccc;}
+	#container .items .pic-wrap{overflow:hidden;}
+	#container .items .pic-wrap img{transition:transform .8s ease;}
+	#container .items .pic-wrap:hover img{transform:scale(1.1);transition:transform .8s ease;}
+	#loader{position:fixed;bottom:0;left:0;width:100%;height:50px;background:url(images/loadm.gif) no-repeat;background-position:43% center;background-color:rgba(237,237,239,.9);text-align:center;line-height:50px;font-size:20px;color:#111;display:none;}
+	#container .items .text{color:#fff;background:#333;text-align:center;line-height:30px;}
+	#to-top{position:fixed;right:20px;bottom:50px;background:#efefef;width:50px;height:50px;text-align:center;line-height:50px;cursor:pointer;border-radius:4px;display:none;transition:all .5s ease;opacity:.7;}
+	#to-top i.iconfont{font-size:24px;font-weight:bold;}
+	.bc{background:#333 !important;color:#fff !important;opacity:1 !important;}
+	/*滚轮兼容*/
+	::-webkit-scrollbar{width:10px;height:6px;background:#ccc;}
+	::-webkit-scrollbar-button{background-color:#e5e5e5;}
+	::-webkit-scrollbar-track{background:#999;}
+	::-webkit-scrollbar-track-piece{background:#ccc}
+	::-webkit-scrollbar-thumb{background:#666;}
+	::-webkit-scrollbar-corner{background:#82AFFF;}
+	::-webkit-scrollbar-resizer{background:#FF0BEE;}
+	scrollbar{-moz-appearance:none !important;background:rgb(0,255,0) !important;}
+	scrollbarbutton{-moz-appearance:none !important;background-color:rgb(0,0,255) !important;}
+	scrollbarbutton:hover{-moz-appearance:none !important;background-color:rgb(255,0,0) !important;}
+</style>
+<link href="http://at.alicdn.com/t/font_1458615747_8569448.css" rel="stylesheet"/>
+</head>
+<body>
+	<div id="container">
+	</div>
+	<div id="loader">加载更多中······</div>
+	<div id="to-top"><i class="iconfont">&#xe601;</i></div>
+	<script type="text/javascript" src="js/jquery-1.12.2.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var $container = $("#container");
+			var $loader = $("#loader");
+			var $toTop = $("#to-top");
+			//定义列的初始宽度与图片宽度相等
+			var width = 200;
+			//定义列与列之间的初始间隔
+			var space = 15;
+			//得到每列所占的真实宽度
+			var outerWidth = width+space;
+			//定义一个初始的列数变量
+			var cells = 0;
+			//访问接口数据
+			var sURL = "http://www.wookmark.com/api/json/popular/?callback=?";
+			//定义图片的初始页码
+			var pageNo = 0;
+			//定义翻页加载图片的锁
+			var mark = true;
+			getCells();
+			//获取当前浏览器窗口可以放的列数
+			function getCells(){
+				//防止浏览器横向出现滚动条而向下取整
+				cells = Math.floor($(window).width()/outerWidth);
+				//动态给container盒子添加宽度
+				$container.width(outerWidth*cells-space);
+				//或者$container.css("width",outerWidth*cells);
+			};
+			//定义一个数组装每个$div盒子的top值
+			var arrTop = [];
+			//定义一个数组每个$div盒子的left值
+			var arrLeft = [];
+			//列数决定了left最大值
+			for(var i=0;i<cells;i++){
+				arrTop.push(0);//[0,0,0,0……]
+				arrLeft.push(i*outerWidth);//[0,210,420,630……]
+			};
+			//加载图片数据
+			loadData();
+			function loadData(){
+				if(mark){
+					//加载图片出现
+					$loader.show();
+					mark = false;
+					//通过jQuery方法getJSON(请求数据地址，请求的对象属性，回调函数)请求
+					$.getJSON(sURL,{page:pageNo},function(data){//data是请求拿到的数据（json数组），并且长度为50	
+						$.each(data,function(index,obj){//index为obj的索引，index与$div盒子的索引一一对应
+							//图片等比例缩小后的高度
+							var imgHeight = width/obj.width*obj.height;
+							//获取arrTop最小值下标
+							var minIndex = getMinIndex(arrTop);
+							//console.log(minIndex);
+							//创建装图片的盒子
+							$div = $("<div></div>");
+							//将图片拼接在盒子里以及将每个盒子添加样式
+							$div.addClass("items").animate({
+								left:arrLeft[minIndex],
+								top:arrTop[minIndex]
+							},600,function(){
+									$(this).mouseover(function(){
+										$(this).css("borderColor","#f60").siblings().css("borderColor","");
+									}).mouseout(function(){$(this).css("borderColor","")});
+								}).html("<div class='pic-wrap'><a href='"+obj.image+"' target='_new' title='"+obj.title+"'><img src='"+obj.preview+"' width='"+width+"' height='"+imgHeight+"' alt='"+obj.id+"'/></a></div><p class='text'>欢迎您的点击^-^</p>");
+							//将装有图片的盒子放进大盒子
+							$container.append($div);
+							//将每次循环得到的最小值高度的盒子与之前的值累加
+							arrTop[minIndex] +=$div.height()+space; 
+						});
+						//上一页图片加载完进行翻页打开锁
+						mark = true;
+						//加载当前页面图片时消失
+						$loader.hide();
+					});
+				};
+			};
+			//窗口变化重新进行布局
+			$(window).on("resize",function(){
+				//重新计算窗口变化后的列数
+				getCells();
+				var arrTop = [];
+				var arrLeft = [];
+				//列数决定了left最大值
+				for(var i=0;i<cells;i++){
+					arrTop.push(0);//[0,0,0,0……]
+					arrLeft.push(i*outerWidth);//[0,210,420,630……]
+				};
+				//找到已经存在的图片div
+				var $items = $container.find(".items");
+				//遍历每个div进行布局
+				$items.each(function(i){
+					var minIndex = getMinIndex(arrTop);
+					$(this).animate({
+						left:arrLeft[minIndex],
+						top:arrTop[minIndex]
+					});
+					arrTop[minIndex] +=$(this).height()+space;
+				});
+				//窗口用ctrl键缩小时触发
+				var minIndex = getMinIndex(arrTop);
+				var minHeight = arrTop[minIndex] + $container.offset().top;
+				var sHeight = $(window).height()+$(window).scrollTop();
+				if(minHeight <= sHeight && mark){
+					pageNo++;
+					loadData();
+				};
+			});
+			//滚轮翻页加载图片事件
+			$(window).on("scroll",function(){
+				//获取高度最小列的下标
+				var minIndex = getMinIndex(arrTop);
+				//获取高度最小的列加上盒子$container到达浏览器顶部的距离
+				var minHeight = arrTop[minIndex]+$container.offset().top;
+				//获取滚动条滚动的边界距离
+				var sHeight = $(window).height()+$(window).scrollTop();
+				console.log(sHeight+"==="+minHeight);
+				//当滚动条达到指定距离和上一页面图片加载完时进行翻页加载
+				if(sHeight>=minHeight&&mark){
+					pageNo++;
+					loadData();
+				};
+				//滚动条距离大于400出现置顶按钮
+				if($(window).scrollTop()>500){
+					//按钮淡入
+					$toTop.fadeIn(500).mouseover(function(){
+						//改变置顶按钮样式
+						$(this).addClass("bc");
+					}).mouseout(function(){$(this).removeClass("bc");}).click(function(){
+						$("html,body").stop(true).animate({scrollTop:0},500);
+						//或者$(document).scrollTop(0)/$("html,body").scrollTop(0);
+					});
+				}else{
+					//按钮淡出
+					$toTop.fadeOut(500);
+				};
+			});
+			//获取数组中最小值对应的索引
+			function getMinIndex(arr){
+				//先设定索引为零的为最小值
+				var value = arr[0];
+				//先设定最小索引为零
+				var index = 0;
+				//从下标为1遍历比较数组最小值拿到对应最小索引
+				for(var i=1;i<arr.length;i++){
+					if(arr[i]<value){
+						//将最小值重新赋值
+						value = arr[i];
+						//将最小索引重新赋值
+						index = i;
+					};
+				};
+				//返回最小索引
+				return index;
+			};
+			//防止拖拽选中的css样式
+			//  -moz-user-select: none; /*火狐*/
+			//   -webkit-user-select: none;  /*webkit浏览器*/
+			//   -ms-user-select: none;   /*IE10*/
+			//   -khtml-user-select: none; /*早期浏览器*/
+			//   user-select: none;
+		});
+	</script>
+</body>
+</html>

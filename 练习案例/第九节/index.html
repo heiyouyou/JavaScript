@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>banner图的制作</title>
+<style type="text/css">
+	*{margin: 0;padding: 0;}
+	body{font-size: 12px;font-family: "微软雅黑";background:#ddd;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:bottom;}
+	/*banner start*/
+	.banner{width:520px;height:280px;margin:100px auto;position:relative;overflow:hidden;}
+	/*img-list start*/
+	.banner #img-list img{width:520px;height:280px;}
+	.banner #img-list a{display:inline-block;}
+	.banner #img-list{position:absolute;top:0;left:0;}
+	.banner #img-list li{float:left;}
+	/*img-list end*/
+	/*btn-list start*/
+	.banner #btn-list{position:absolute;bottom:10px;right:34%;background:rgba(0, 0, 0, 0.3);padding:5px 15px 5px 5px;border-radius:20px;}
+	.banner #btn-list
+	li{width:20px;float:left;margin-left:10px;background:#fff;text-align:center;line-height:20px;border-radius:50%;cursor:pointer;}
+	.banner #btn-list li.none{background:#E96106;color:#fff;}
+	/*btn-list end*/
+	.prev,.next{position:absolute;top:35%;z-index:10;color:#fff;font-size:40px;font-weight:700;padding:10px;background:rgba(0, 0, 0, 0.3);opacity:0;transition: all 1s ease;}
+	.prev{left:10px;}
+	.next{right:10px;}
+	.banner:hover .prev{opacity:1;transition: all 1s ease;}
+	.banner:hover .next{opacity:1;transition: all 1s ease;}
+	/*end banner*/
+</style>
+</head>
+<body>
+	<div class="banner" id="banner">
+		<a class="prev" id="prev" href="javascrip:void(0);">&lt;</a>
+		<a class="next" id="next" href="javascrip:void(0);">&gt;</a>
+		<ul id="img-list">
+			<li><a href="javascrip:void(0);"><img src="images/1.jpg" alt="1"></a></li>
+			<li><a href="javascrip:void(0);"><img src="images/2.jpg" alt="2"></a></li>
+			<li><a href="javascrip:void(0);"><img src="images/3.jpg" alt="3"></a></li>
+			<li><a href="javascrip:void(0);"><img src="images/4.gif" alt="4"></a></li>
+			<li><a href="javascrip:void(0);"><img src="images/5.jpg" alt="5"></a></li>
+		</ul>
+		<ul id="btn-list">
+			<li class="none"><strong>1</strong></li>
+			<li><strong>2</strong></li>
+			<li><strong>3</strong></li>
+			<li><strong>4</strong></li>
+			<li><strong>5</strong></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+	window.onload = function(){//先加载完页面的所有dom元素才执行以下脚本
+		var imgDom = document.getElementById("img-list");
+		var liDoms = imgDom.children;//通过children获取li的个数
+		imgDom.innerHTML += imgDom.innerHTML;//通过innerHTML为imgDom动态添加多个li
+		imgDom.style.width = liDoms[0].offsetWidth*(liDoms.length)+"px";//通过获取li的宽度offsetWidth来动态来给imgDom添加宽度，注意不要忘了加单位px
+		
+		function tab(){
+			if(imgDom.offsetLeft < -imgDom.offsetWidth/2){
+				imgDom.style.left = 0;	
+			}else{
+				imgDom.style.left = imgDom.offsetLeft-10+"px";//offsetLeft只是一个数值，而style.left返回的是字符串，所以要带上单位
+			}
+		}
+		setInterval(tab,20);
+	};
+	</script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<script type="text/javascript">
+		var btns = $("list").children;
+		var imgs = $("imgbox").children;
+		var timer = null;
+		var cindex = 0;
+		//拿到每张图片的宽度
+		var width = imgs[0].offsetWidth;
+		//拿到每张图片的高度
+		var height = imgs[0].offsetHeight;
+		for(var i =0;i<btns.length;i++){
+			btns[i].index = i;
+			btns[i].onmouseover = function(){
+				//遍历去除所有样式
+				for(var i=0;i<btns.length;i++){
+					btns[i].className = "";
+				}
+				//点击谁再添加样式
+				this.className = "on";
+				//调用动画
+				//Run($("imgbox"),{left:-width*this.index},30);
+				Run($("imgbox"),{top:-height*this.index},30);
+				//自动索引与按钮索引同步
+				cindex = this.index;
+			}
+		}
+		timer = setInterval(autoPlay,3000);
+		function autoPlay(){
+			cindex++;
+			//当等于长度时从头开始切换
+			if(cindex==4){
+				cindex=0;
+			}
+			for(var i=0;i<btns.length;i++){
+				btns[i].className = "";
+			}
+			btns[cindex].className = "on";
+			//Run($("imgbox"),{left:-width*cindex},30);
+			Run($("imgbox"),{top:-height*cindex},30);
+		};
+		//清除定时器
+		$("box").onmouseover = function(){
+			clearInterval(timer);
+		}
+		//触发定时轮播
+		$("box").onmouseout = function(){
+			//这里注意得重新给timer赋值
+			timer = setInterval(autoPlay,3000);
+		}
+	</script>
+
+
+<body>
+	<div class="a" id="a">点我</div>
+	<script type="text/javascript">
+		/*一个元素绑定事件有两张
+			1.属性事件 如：元素名.事件名
+			2.动态绑定事件 如：attachEvent(事件名，回调函数)，addEventListener(事件名，回调函数，是否捕捉)
+			1.false 冒泡
+			2.true  捕捉*/
+		//querySelector()里面可以传入类名(".className")或者id("#id")或者元素名,但是多个相同元素或者相同类名的元素时，默认是第一个，所以一般类名用querySelectorAll()
+		/*document.querySelector("div").onclick = function(){
+			alert(2);
+		};*/
+		//querySelectorAll()里面也可以传入类名(".className")或者id("#id")或者元素名,返回的是一个类数组，相当于getElementsByTagName()或getElementsByClassName()
+		/*function fn(){
+			alert(1);
+		}*/
+		//动态绑定事件不会覆盖属性事件，而且迟于属性事件执行
+		/*document.querySelectorAll(".a")[0].addEventListener("click",function(){
+			alert(3);
+		})
+		document.querySelectorAll(".a")[0].onclick = function(){
+			alert(2);
+		};*/
+		//一般开发中不用事件捕获!!!
+		window.addEventListener("click",function(e){
+			console.log("window被点击了哦");
+			e.stopPropagation();
+		},true);
+		document.addEventListener("click",function(){
+			console.log("html被点击了哦");
+		},false);
+		document.body.addEventListener("click",function(){
+			console.log("body被点击了哦");
+		},true);
+		document.querySelectorAll(".a")[0].addEventListener("click",function(ev){
+			var e = ev||event;
+			console.log("div被点击了哦");
+			//阻止冒泡的方法
+			//e.cancelBubble = "true";//所有浏览器都支持，但不符合w3c的标准
+			e.stopPropagation();//只有ie9+以上的浏览器才支持,既可以用来阻止捕获也可以用来阻止冒泡
+		},true);
+
+		//阻止冒泡的兼容所有浏览器的写法
+		function stopBubble(e){
+			if(e && e.stopPropagation){
+				e.stopPropagation();			
+			}else{
+				event.cancelBubble = "true";
+			}
+		};
+
+
+<body>
+	<div>
+		<table>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>a222</td>
+				<td>a333</td>
+				<td>a444</td>
+				<td>a555</td>
+				<td><a href="javascript:void(0);" onclick="del(event,this);">删除</a></td>
+			</tr>			
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>b222</td>
+				<td>b333</td>
+				<td>b444</td>
+				<td>b555</td>
+				<td><a href="javascript:void(0);" onclick="del(event,this);">删除</a></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>c222</td>
+				<td>c333</td>
+				<td>c444</td>
+				<td>c555</td>
+				<td><a href="javascript:void(0);" onclick="del(event,this);">删除</a></td>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+		//拿到table下面的所有td
+		var tDoms = document.querySelector("table").querySelectorAll("td");
+		for(var i=0;i<tDoms.length;i++){
+			//点击按钮删除或添加样式,获取每个td下的input框
+			if(tDoms[i].children[0]){//有input框就为真
+				tDoms[i].children[0].addEventListener("click",function(e){
+					var mark = this.checked;
+					if(mark){
+						this.parentNode.parentElement.style.background = "yellow";
+					}else{
+						this.parentNode.parentElement.removeAttribute("style");
+					}
+					e.stopPropagation();
+				});
+			}
+			//给每一个tr动态绑定一个监听事件
+			tDoms[i].addEventListener("click",function(){
+				//alert(this.innerHTML);//可以拿到当前对象里面的内容和标签，而innerText只能拿到文本，并且火狐不支持！！！
+
+				//先获取到tr里面的复选框有没有选中
+				var mark = this.parentElement.querySelector("input").checked;
+				//没选中的时候取反，让点击任何一个td都能添加上样式或取消样式
+				if(!mark){
+					this.parentNode.style.background = "yellow";
+					//让复选框选中
+					this.parentElement.querySelector("input").checked = true;
+				}else{
+					this.parentNode.style.background = "";
+					this.parentElement.querySelector("input").checked = false;
+				} 
+			});
+		}
+		//删除tr的方法
+		function del(e,obj){
+			var tr = obj.parentNode.parentNode;
+			var table = tr.parentElement;
+			//移除指定的tr
+			table.removeChild(tr);
+			stopBubble(e);
+		}
+		//阻止冒泡的兼容所有浏览器的写法
+		function stopBubble(e){
+			if(e && e.stopPropagation){
+				e.stopPropagation();			
+			}else{
+				event.cancelBubble = "true";
+			}
+		};
+	</script>
+</body>
+
+<body>
+	<a href="http://www.baidu.com" onclick="clickme(event)">点我</a>
+	<input type="checkbox"/>
+	<input type="text"/>
+	<script type="text/javascript">
+		//preventDefault()用来阻止浏览器默认行为的发生
+		//阻止a链接的跳转
+		function clickme(e){
+			alert(1);
+			e.preventDefault();
+		}
+		//阻止复选框的选中
+		document.querySelector("input[type='checkbox']").addEventListener("click",function(e){
+			e.preventDefault();
+		},false)
+		//阻止文本框的键盘输入文本
+		document.querySelector("input[type='text']").addEventListener("keydown",function(e){
+			e.preventDefault();
+		},false)
+	</script>
+</body>
+
+	document.querySelector("a").addEventListener("click",function(e){
+		this.style.cssText = "background:#111;color:#fff;padding:10px;"
+		//e.target.tagName：获取作用目标对象的元素名称，e.currentTarget.tagName:获取当前触发事件的对象元素名称，返回的都是大写的
+		alert(e.target.tagName+"===="+e.currentTarget.tagName);
+	},false);
+
+
+<body>
+	<div id="box">
+		<a href="javascript:void(0);" >点我1</a>
+		<a href="javascript:void(0);" >点我2</a>
+		<a href="javascript:void(0);" >点我3</a>
+		<a href="javascript:void(0);" >点我4</a>
+		<span>4554</span>
+	</div>
+	<a href="javascript:void(0);" onclick="add();">增加</a>
+	<script type="text/javascript">
+		//方法二
+		/*function clickme(obj){
+			obj.style.cssText = "background:green;padding:10px;color:#fff;";
+		};*/
+		/*var i=4;
+		function add(){
+			i++;
+			var box = document.getElementById("box");
+			box.innerHTML += "<a href='javascript:void(0);' onclick='clickme(this)'>点我"+i+"</a>";
+		};*/
+		//方法三
+		document.querySelector("#box").addEventListener("click",function(e){
+			var ct = e.currentTarget;
+			var t = e.target;
+			//通过匹配目标对象是否是a元素，添加样式
+			if(t.tagName.toLowerCase() == "a"){
+				t.style.cssText = "background:green;padding:10px;color:#fff;";
+			}
+		},false);
+		var i=4;
+		function add(){
+			i++;
+			var box = document.getElementById("box");
+			box.innerHTML += "<a href='javascript:void(0);'>点我"+i+"</a>";
+		};
+	</script>
+</body>
+
+<body>
+	<div id="box">
+		<a href="javascript:void(0);">点我1</a>
+		<a href="javascript:void(0);">点我2</a>
+		<a href="javascript:void(0);">点我3</a>
+		<a href="javascript:void(0);">点我4</a>
+		<span>不要点我</span>
+	</div>
+	<a href="javascript:void(0);" onclick="add();">增加</a>
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript">
+		//on(事件名称,指定的目标target元素,回调函数)不填第二个参数，默认是当前触发事件的对象
+		//jQuery版的事件委托
+		/*$("#box").on("click","a",function(){
+			//这里的this指代的是target对象a链接
+			//alert($(this).html());
+			$(this).css({
+				background:"red",
+				padding:"10px",
+				color:"#fff",
+				border:"2px dotted #000"
+			});
+		})*/
+		//模仿jQuery版本的委托事件
+		var Hei = function(id){
+			var dom = document.getElementById(id);
+			return {
+				on:function(eventType,targetElement,callback){
+					dom.addEventListener(eventType,function(ev){
+						//获取目标对象的标签名称
+						var e = ev||event;
+						//兼容ie678的写法
+						var t = e.target||e.srcElement;
+						//如果目标对象的标签名与传递过来的标签名一致
+						if(t.tagName.toLowerCase() == targetElement){
+							//第一个参数表示改变回调函数this的指针，将其指向传递过来的目标元素，第二个参数表示事件类型
+							callback.call(t,e);
+						}
+					},false);
+				}
+			}
+		}
+		Hei("box").on("click","a",function(event){
+				//这里经过call调整重新指向目标对象target
+				this.style.background = "red";
+				this.style.padding = "10px";
+				this.style.color = "#fff";
+				this.style.border ="2px dotted #000";
+				//打印出事件类型
+				//alert(event);
+		});
+		var i=4;
+		function add(){
+			i++;
+			var box = document.getElementById("box");
+			box.innerHTML += "<a href='javascript:void(0);'>点我"+i+"</a>";
+		};
+	</script>
+</body>

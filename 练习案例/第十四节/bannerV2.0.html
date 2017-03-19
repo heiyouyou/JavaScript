@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>无缝向左banner轮播图</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;float:left;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	/*box start*/
+	#box{width:700px;height:300px;margin:50px auto;overflow:hidden;position:relative;}
+	#imgbox{width:1000%;position:absolute;}
+	#imgbox li img{width:700px;height:300px;vertical-align:top;}
+	#list{width:120px;height:30px;position:absolute;bottom:10px;left:50%;margin-left:-60px;}
+	#list li{width:20px;height:20px;background:#000;color:#fff;text-align:center;line-height:20px;border-radius:50%;margin:5px;cursor:pointer;float:left;}
+	#list .on{background:gray;}
+	/*box end*/
+</style>
+</head>
+<body>
+	<!--box start-->
+	<div id="box">
+		<ul id="imgbox">
+			<li><img src="images/1.jpg"/></li>
+			<li><img src="images/2.jpg"/></li>
+			<li><img src="images/3.jpg"/></li>
+			<li><img src="images/4.jpg"/></li>
+		</ul>
+		<ul id="list">
+			<li class="on">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+	<!--box end-->
+	<script src="js/run.js"></script>
+	<script type="text/javascript">
+		var btns = $("list").children;
+		var imgs = $("imgbox").children;
+		var timer = null;
+		//定义一个按钮样式改变的索引变量
+		var cindex = 0;
+		//定义一个盒子移动的索引变量
+		var cindex2 = 0;
+		//拿到每张图片的宽度
+		var width = imgs[0].offsetWidth;
+		//拿到每张图片的高度
+		var height = imgs[0].offsetHeight;
+		for(var i =0;i<btns.length;i++){
+			btns[i].index = i;
+			btns[i].onmouseover = function(){
+				//遍历去除所有样式
+				for(var i=0;i<btns.length;i++){
+					btns[i].className = "";
+					//当点击按钮时剔除每个li的所有内联样式,为了解决临界切换时出现的空白
+					imgs[i].removeAttribute("style");
+				}
+				//点击谁再添加样式
+				this.className = "on";
+				//调用动画
+				Run($("imgbox"),{left:-width*this.index},30);
+				//Run($("imgbox"),{top:-height*this.index},30);
+				//自动索引与按钮索引同步
+				cindex = this.index;
+				//移动索引与按钮索引同步
+				cindex2 = this.index;
+			}
+		}
+		timer = setInterval(autoPlay,2000);
+		function autoPlay(){
+			//这里为什么不能放在下面的if语句后面，放在后面会在最后一张图片和第一张图片之间出现有空白
+			if(cindex == 0){
+				//变成静态，第一张图片回到原始的位置
+				imgs[0].style.position = "static";
+				//让ul的下标为0的第一个空位移到第一张图片的位置
+				$("imgbox").style.left = "0px";
+				//重新赋值为零从下标为零的位置开始向左移动
+				cindex2 = 0;
+			}
+			//当下标等于最大的下标时
+			if(cindex==btns.length-1){
+				//这里不能使用绝对定位,它会破坏文档流的,使用相对定位不会破话文档流
+				imgs[0].style.position = "relative";
+				//相对自己原本的位置移动。让第一张图片移到最后一张图片后面
+				imgs[0].style.left = width*btns.length+"px";
+				cindex=0;
+			}else{
+				cindex++;
+			}
+			cindex2++;
+			console.log(cindex2);
+			for(var i=0;i<btns.length;i++){
+				btns[i].className = "";
+			}
+			btns[cindex].className = "on";
+			Run($("imgbox"),{left:-width*cindex2},30);
+			//Run($("imgbox"),{top:-height*cindex},30);
+		};
+		//清除定时器
+		$("box").onmouseover = function(){
+			clearInterval(timer);
+		}
+		//触发定时轮播
+		$("box").onmouseout = function(){
+			//这里注意得重新给timer赋值
+			timer = setInterval(autoPlay,2000);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>字符串的使用</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		//var str = "h ei有1 23";//字符串 空格也算一个字符
+		//alert(Array.isArray(str));返回数组，是一个类数组
+		//alert(str.length);
+		//alert(str[2]);//这种获取具体的字符是对ie678不兼容的，会返回undefined
+		//alert(str.charAt("2"));//str.charAt();返回某位置的字符，括号里写要找的位置,如果写的字符串默认按number转换
+		var str1 = "0123459";
+		var str2 = "abcdzABCDZ";
+		//alert(str1.charCodeAt("3"));//返回字符编码str.charCodeAt( ); //括号里写要找的位置,0-9的ascii编码是48-57(ascii编码都是数字)
+		//alert(str1.charCodeAt(100));//当方法找不到对应位置的值就会返回NaN
+		//alert(str2.charCodeAt(9));//小写的英文字母a-z的编码是：97-122，大写的英文字母A-Z的编码是:65-90
+		var num = 549;
+		//alert(String.fromCharCode(num));//从传入编码返回字符
+		//alert(String.fromCharCode(48,"90"));//可以直接传入编码多个，用逗号隔开,若传入的是字符串默认按number()转换
+		for(var i=0;i<=100;i++){
+			document.body.innerHTML += String.fromCharCode(i);//将0-100的编码全转成字符
+		}
+	</script>
+</body>
+</html>

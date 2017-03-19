@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>第十六节课笔记集锦</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:14px;font-family:"微软雅黑";background:#222;word-wrap:break-word;background:rgba(201, 221, 230, 0.73);}
+	ul,li{list-style:none;}
+	a{text-decoration:none;color:red;background:#fff;border-radius:10px;padding:0 5px;}
+	.box{width:1000px;margin:0 auto;background:#ddd;padding:10px;overflow:hidden;}
+	.box p{margin-top:10px;border-bottom:1px dashed #c81263;padding-bottom:5px;}
+	pre{font-size:14px;font-family:"微软雅黑"}
+	@media screen and (max-width:900px){
+		.box{width:100%;}
+		pre{font-size:12px;}
+	}
+</style>
+</head>
+<body>
+	<div class="box">
+		<h1 style="text-align:center;">第十六节课笔记集锦</h1>
+		<a href="#bottom" name="top">到达底部</a>
+		<p>	
+			<h3>普通方法获取字符串里的数字</h3>
+			<pre>
+				var str = "adasd13123asdada12513.+asd13ad1434323446";
+				for(var i=0;i&lt;str.length;i++){
+					//通过charAt(下标)，返回对应下标的字符
+					/*if(str.charAt(i) == parseInt(str.charAt(i))){
+						console.log(str.charAt(i));
+					}*/
+					//charCodeAt(下标)，返回对应下标字符的ascii编码
+					/*if(str.charCodeAt(i)>=48&&str.charCodeAt(i)&lt;=57){
+						console.log(str.charAt(i));
+					}*/
+					//通过比较字符串的大小
+					/*if(str.charAt(i)>="0"&&str.charAt(i)&lt;="9"){
+						console.log(str.charAt(i));
+					}*/
+				}
+				function getNum(str){
+					var arr = [];
+					var res = ""
+					for(var i=0;i&lt;str.length;i++){
+						if(str.charAt(i)>="0" && str.charAt(i)&lt;="9"){
+							res +=str.charAt(i);
+						}else{
+							//排除掉空字符
+							if(res){
+								arr.push(res);
+								//每次push完一个整体的数字字符就清空字符res
+								res = "";
+							}	
+						}
+					}
+					//防止字符串str最后一个字符为数字没有放进数组
+					if(res){
+						arr.push(res);
+					}
+					return arr;
+				};
+				console.log(getNum(str));
+			</pre>
+		</p>
+		<p>
+			<h3>正则的初试</h3>
+			<pre>
+				/*
+				正则表达式的两种形式：var reg = //;或var reg = new RegExp();
+				正则表达式的转义字符：
+					\n 换行 \t 制表符  \r回车 ……
+					\d:匹配数字   \D:匹配非数字
+					\s:用于匹配单个空格符，包括tab键和换行符
+					\S:用于匹配除\s匹配的字符之外的所有字符；
+					\w:用于匹配字母，数字或下划线字符；'[A-Za-z0-9_]'
+					\W:用于匹配所有与\w不匹配的字符；'[^A-Za-z0-9_]'
+
+					标识：//区分大小写
+					i(不区分大小写)
+					g(匹配字符串中的所有符合字符)
+				量词：+ ------指一个或多个的连续字符
+				*/
+				/*var str = "\n";
+				//斜杠里填的是要匹配的字符或字符类型
+				//var reg = /ddd/;
+				var reg = /\S/;
+				//test():匹配成功返回true,否则返回false，括号填要与reg匹配的字符串
+				if(reg.test(str)){
+					alert("不是纯数字");
+				}else{
+					alert("是纯数字");
+				}*/
+
+				/*var str = "123adsad";
+				var reg = /\W/;
+				//search()用来匹配括号里面的字符类型reg，如果匹配成功就返回对应字符串str里第一个字符的下标，如果匹配不成功就返回-1相当于indexOf()
+				alert(str.search(reg));*/
+
+				/*var str = "adadsa2018797aasd-242423=ad;'asd";
+				//var reg = /\d/;//只能匹配一个数字字符
+				//var reg = /A/i;//不区分大小写；但只能用来匹配第一次连续的数字
+				var reg = /\d+/g;//可以匹配连续多个数字的字符，并且可以匹配多次连续的数字字符
+				//match()用来匹配括号里的字符类型reg，如果匹配成功返回匹配字符的数组，否则返回null对象
+				alert(str.match(reg));*/
+
+				var str = "free很帅！free很勤奋！free认真！"
+				var reg = /\w+/g;
+				//replace(reg,新字符串)，用来替换匹配成功的字符串的某些字符，然后通过return返回出去，第一个参数是要匹配的字符串，第二参数是匹配成功后要替换成的新字符串
+				alert(str.replace(reg,"hei"));
+				/*
+				s表示母体：正则表达式的整体//
+				s0表示第一个子项：从正则表达式左边的第一个小括号开始(一个小括号表示一个子项)，当都没有小括号时第二个参数表示每个母体s的第一个字符在字符串str中的下标,第三个参数表示str字符串；当有小括号时且括号数与子参数的个数不同时，最后一个参数就表示每个母体s的第一个字符在字符串str中的下标
+				*/
+				var str = "2016--03--26";
+				var reg = /(\d+)(--)/g;
+				str = str.replace(reg,function(s,s0,s1,s2){
+					//alert(s+"===="+s0+"===="+s1+"==="+s2);
+					//return s.substring(0,s.length-2)+".";
+					return s0+".";
+				});
+				alert(str);
+			</pre>
+		</p>
+		<a href="#top" name="bottom">返回顶部</a>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

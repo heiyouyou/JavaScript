@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Document</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+	img{vertical-align:top;}
+</style>
+</head>
+<body>
+	<div class="box">
+		<p class="con"></p>
+		<p class="con second-p"></p>
+		<p class="con"></p>
+		<p class="con"></p>
+	</div>
+	<script type="text/javascript">
+		/*var str = "ab.d1fdsfdsfadc";
+		/*转义字符：\.表示匹配字符串中的英文句号.；而.表示匹配字符之间可以有一个其他字符
+					\b表示将要匹配的字符进行划分为一个整体，只要在字符串里找到要匹配的字符然后看该字符前是以空格开始或者什么也没有的，只要在字符串里找到一个符合的就是返回true
+					\1或者\2找的是母体中第一个或者第二个子项；在匹配完母体后查看子项对应的字符紧接的后面中是否再出现一次，出现则返回true否则返回false*/
+		/*var reg = /ab\..+c/;
+		alert(reg.test(str))*/
+	
+		/*var str = "abdeab343 ab fgab";
+		var reg = /\bab\b/;*/
+
+		/*var str = "2 4 2432";
+		var reg = /\b\d\b/;*/
+
+		/*var str = "fhjdshfjad ";
+		var reg = /ad\b/;
+		alert(reg.test(str));*/
+
+		/*正则表达式的另一种写法：
+		var str = "a b c";
+		var reg = new RegExp("\\bb\\b","g");//相当于var reg = /\bb\b/;
+		alert(reg.test(str));
+		*/
+
+		/*var str = "ababcdefcdgab";
+		var reg = /(ab)(cd)\2/;
+		alert(reg.test(str));*/ 
+		//alert(getClass("con").length);
+		//正则封装获取某一类样式的元素的兼容ie678的写法
+		function getClass(cN,obj){
+			obj = obj||document;
+			if(obj.getElementsByClassName){
+				return obj.getElementsByClassName(cN);
+			}else{
+				var arr = [];
+				/*var reg = /\bcN\b/;这样写不对！！!*/
+				var reg = new RegExp("\\b"+cN+"\\b");
+				var allE =  obj.getElementsByTagName("*");
+				for(var i=0;i<allE.length;i++){
+					if(reg.test(allE[i].className)){
+						arr.push(allE[i]);
+					}
+				}
+				return arr;
+			}
+		};
+	</script>
+</body>
+</html>

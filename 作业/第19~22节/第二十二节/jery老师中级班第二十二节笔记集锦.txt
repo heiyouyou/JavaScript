@@ -1,0 +1,242 @@
+/*
+			抽象工厂设计模式
+			通过对类的工厂抽象使其业务用于对产品簇的创建，而不负责创建某一类产品的实例
+
+			抽象类
+			是一种声明但不能使用的类，当你使用的时候就会报错。所以我们可以在类的方法中手动的抛出错误来模拟抽象类。
+		*/
+
+		/*var Car = function(){};
+		Car.prototype = {
+			getPrice:function(){
+				return new Error("抽象方法不能使用");
+			},
+			getSpeed:function(){
+				return new Error("抽象方法不能使用");
+			}
+		};
+		var car = new Car();
+		console.log(car.getPrice());//Error: 抽象方法不能使用(…)
+		console.log(car.getSpeed());//Error: 抽象方法不能使用(…)*/
+
+		//抽象工厂模式（方法）实现子类继承抽象类的方法和属性
+		var absFactory = function(subType,superType){//子类，父类（抽象类）
+			//判断抽象工厂是否有该抽象类
+			if(typeof absFactory[superType] === "function"){
+				//过渡类
+				function F(){};
+				//将过渡类的原型指向抽象类的实例
+				F.prototype = new absFactory[superType]();
+				//将子类的原型指向过渡类的实例
+				subType.prototype = new F();//子类的构造器为Object
+				//调整子类原型构造器
+				subType.prototype.constructor = subType;
+			}else{//没有指定抽象类时
+				return new Error("抽象方法不能使用");
+			};
+		};
+		//汽车抽象类
+		absFactory.Car = function(){
+			this.type = "car";
+		};
+		//汽车抽象类原型
+		absFactory.Car.prototype = {
+			getPrice:function(){
+				return new Error("抽象方法不能使用");
+			},
+			getSpeed:function(){
+				return new Error("抽象方法不能使用");
+			}
+		};
+		//子类
+		function BMW(price,speed){
+			this.price = price;
+			this.speed = speed;
+		}; 
+		//实现继承抽象类的方法和属性
+		absFactory(BMW,"Car");//注意继承抽象类的方法或属性要放在子类重写之前
+		BMW.prototype.getPrice = function(){
+			alert(this.price);
+		};
+		BMW.prototype.getSpeed = function(){
+			alert(this.speed);
+		};
+		var bwm = new BMW(200000,190);
+		//没有重写（覆盖）抽象类之前
+		//console.log(bwm.price+"=="+bwm.speed+"==+bwm.type+"=="+bwm.constructor);//200000==190==undefined==function BMW(price,speed){this.price = price;this.speed = speed;}
+		//重写抽象类之后
+		console.log(bwm.price+"=="+bwm.speed+"=="+bwm.type+"=="+bwm.constructor);//200000==190==car==function Object() { [native code] }
+		bwm.getPrice();//200000
+		bwm.getSpeed();//190
+
+		//巴士类
+		function Bus(price,speed){
+			this.price = price;
+			this.speed = speed;
+		};
+		absFactory(Bus,"Car");
+		Bus.prototype.getPrice = function(){
+			alert(this.price);
+		};
+		var bus = new Bus(1000,20);
+		console.log(bus.price+"=="+bus.speed+"=="+bus.type+"=="+bus.constructor);//1000==20==car==function Bus(price,speed){this.price = price;this.speed = speed;}
+		bus.getPrice();//1000
+		//没有重写抽象类的方法getSpeed()
+		console.log(bus.getSpeed());//Error: 抽象方法不能使用(…)
+
+
+/*
+			适配器模式
+			将一个类（对象）的接口转换成另外一个接口，以满足用户的需求。使得类（对象）之间的不兼容问题得以解决
+		*/
+		//适配异类框架 如适配A类框架（js）用jQuery
+		//var A = A||{};
+		/*//获取id
+		A.g = function(id){
+			return document.getElementById(id);
+		};
+		A.on = function(id,type,fn){
+			//判断传入的id是id名还是元素对象；
+			var dom = typeof id === "string"?this.g(id):id;
+			if(dom.addEventListener){//ie9+
+				dom.addEventListener(type,fn,false);
+			}else if(dom.attachEvent){//包括ie8以下
+				dom.attachEvent("on"+type,fn);
+			}else{//早期浏览器
+				dom["on"+type] = fn;
+			};
+		};
+		//调用
+		A.on(window,"load",function(){
+			A.on("btn","click",function(){
+				alert(3);
+			});
+		});*/
+		//适配成jQuery版
+		/*A.g = function(id){
+			return $("#"+id);
+		};
+		A.on = function(id,type,fn){
+			var dom = typeof id === "string"?this.g(id):$(id);
+			dom.on(type,fn);//调用jQuery对象的方法on
+		};
+		A.on(window,'load',function(){
+			A.on("btn","click",function(){
+				alert(2);
+			});
+		});*/
+
+		//参数适配
+		/*function doSomeThing(name,title,age,color,size,prize){
+			obj.name = name;
+			obj.title = title;
+			obj.age = age;
+			obj.color = color;
+			obj.size = size;
+			obj.prize = prizel;
+		};*/
+		/*function doSomeThing(obj){
+			//函数内置对象
+			var _adapter = {
+				name:"wells",
+				title:"设计模式",
+				age:24,
+				color:"pink",
+				size:100,
+				prize:50,
+				hei:"343"
+			};
+			//遍历内置对象比较传入对象的属性和方法（对象的混入）
+			for(var key in _adapter){
+				//查看传入对象是否有该属性有则赋值给内置对象，没有则保留原本的属性
+				_adapter[key] = obj[key] || _adapter[key];
+			};
+			return _adapter;
+		};
+		var json1 = doSomeThing({name:"wellfree",title:"设计模式43",age:25,color:"black",hei:'2424'});
+		console.log(JSON.stringify(json1));//{"name":"wellfree","title":"设计模式43","age":25,"color":"black","size":100,"prize":50,"hei":"2424"}*/
+
+		//数据适配
+		/*var arr = ['Javascript','book','前端编程语言','2016'];
+		var obj = {
+			name:'',
+			type:'',
+			title:'',
+			time:''
+		};
+		function arrToObjAdapter(arr){
+			var json = {
+				name:arr[0],
+				type:arr[1],
+				title:arr[2],
+				time:arr[3]
+			};
+			return json;
+		};
+		var json1 = arrToObjAdapter(arr);
+		console.log(JSON.stringify(json1));//{"name":"Javascript","type":"book","title":"前端编程语言","time":"2016"}*/
+
+
+/*
+			jQuery为开发插件提供了两个方法
+			$.extend();
+			$.fn.extend();
+		*/
+		//$.extend(obj)传入一个对象时，是为jQuery类添加方法或属性；只有jQuery（或者$）自己本身才能调用，它的实例不能调用，添加的方法为静态方法
+		/*$.extend({
+			min:function(a,b){
+				return a>b?b:a;
+			},
+			max:function(a,b){
+				return a>b?a:b;
+			}
+		});
+		alert($.min(1,2));//1
+		alert(jQuery.max(1,2));//2
+		alert($("#btn").min(1,2));//报错*/
+		//$.extend(obj1,obj2,obj3)传入多个对象时（多继承的原理），obj1是被扩展的对象，obj2和obj3是要被合并的对象，并且返回扩展后的obj1对象
+		/*var json = {name:"wells",age:19};
+		var json1 = {name:"Free",age:30,hobby:"baseketball"};
+		var json2 = {name:"Wells-Free",age:"20",tel:13242342};
+		var obj = $.extend(json,json1,json2);
+		console.log(obj);//Object {name: "Wells-Free", age: "20", hobby: "baseketball", tel: 13242342}
+		console.log(JSON.stringify(obj)+"==="+JSON.stringify(json));//{"name":"Wells-Free","age":"20","hobby":"baseketball","tel":13242342}==={"name":"Wells-Free","age":"20","hobby":"baseketball","tel":13242342}*/
+
+		/*
+			$.fn.extend(obj)即是jQuery.prototype.extend(obj)；传入的对象是对jQuery类原型对象的扩展，只要是jQuery对象/实例（$对象）就可以使用已经被扩展的属性或方法，当然jQuery原型对象本身也可以使用
+		*/
+		$.fn.extend({
+			Alert:function(){
+				alert("好好守爱学习");
+				return $(this);
+			},
+			On:function(){
+				$(this).on("click",function(){
+					alert(3);
+				});
+			}
+		});
+		$("#btn").Alert().On();//好好守爱学习、3
+		$.fn.Alert();//好好守爱学习
+
+
+var ulDom = document.getElementById("box");
+		/*
+			mouseenter：当鼠标指针穿过元素时，会发生 mouseenter 事件。该事件大多数时候会与mouseleave 事件一起使用。
+			与 mouseover 事件不同，只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。如果鼠标指针穿过任何子元素，同样会触发 mouseover 事件。
+			mouseout：当鼠标指针从元素上移开时，发生 mouseout 事件。
+			该事件大多数时候会与 mouseover 事件一起使用。
+			注释：与 mouseleave 事件不同，不论鼠标指针离开被选元素还是任何子元素，都会触发 mouseout 事件。只有在鼠标指针离开被选元素时，才会触发 mouseleave 事件。
+		*/
+		/*ulDom.onmouseover = function(){
+			console.log(1);
+		};
+		ulDom.onmouseout = function(){
+			console.log(2);
+		};*/
+		ulDom.onmouseenter = function(){
+			console.log(1);
+		};
+		ulDom.onmouseleave = function(){
+			console.log(2);
+		};

@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>replace的母体和子项</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/*
+			s表示母体：正则表达式的整体//
+			s0表示第一个子项：从正则表达式左边的第一个小括号开始(一个小括号表示一个子项)，当都没有小括号时第二个参数表示每个母体s的第一个字符在字符串str中的下标,第三个参数表示str字符串；当有小括号时且括号数与子参数的个数不同时，最后一个参数就表示每个母体s的第一个字符在字符串str中的下标
+		*/
+		var str = "2016--03--26";
+		var reg = /(\d+)(--)/g;
+		str = str.replace(reg,function(s,s0,s1,s2){
+			//alert(s+"===="+s0+"===="+s1+"==="+s2);
+			//return s.substring(0,s.length-2)+".";
+			return s0+".";
+		});
+		alert(str);
+	</script>
+</body>
+</html>

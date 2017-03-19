@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>return的用法</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		function fn(){
+			var sum = 1+2;
+			//return 默认的返回值为undefined,这是在内存中进行的,看不见
+			//return sum;
+		}
+		//alert(fn);输出一坨
+		//fn();函数执行出空白的页面
+		//alert(fn());//函数先执行再将返回的值打印出来
+		function fn1(){
+			var sum = 1+2;
+			return function(){
+				alert("hei");
+				return "you";
+			};
+		}
+		//alert(fn1);输出一坨
+		//alert(fn1());输出function(){alert("hei");};
+		//fn1()();函数打起圆括号，表示执行，输出hei
+		//alert(fn1()());返回值只能通过alert语句输出,输出you
+		function fn2(){
+			alert(1);
+			alert(2);
+			return;//这里return用于函数中代码的调试而终止后面代码的执行
+			alert(3);
+		}
+		//fn2();
+		//alert(typeof typeof []);//输出String,经过typeof转变后数据类型都默认变成了String
+	</script>
+</body>
+</html>

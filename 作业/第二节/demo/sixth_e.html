@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>input输入框的排序</title>
+<style type="text/css">
+	* {margin:0;padding:0;}
+	body{font-size:12px;font-family:"微软雅黑";background:#ddd;}
+	ul,li{list-style:none;}
+	a{text-decoration:none;}
+</style>
+</head>
+<body>
+	<div id="box" style="width:900px;margin:20px auto;">
+		<input type="text" oid="1" value="1"/><!-- oid用来标记input输入框 -->
+		<input type="text" oid="2" value="2"/>
+		<input type="text" oid="3" value="3"/>
+		<input type="text" oid="4" value="4"/>
+		<input type="text" oid="5" value="5"/>
+	</div>
+		<div style="text-align:center;"><input type="button" value="排序" onclick="sort();"/></div>
+	
+	<script type="text/javascript">
+		function sort(){
+			var boxDom = document.getElementById("box");
+			//var inputs = boxDom.getElementsByTagName("input");
+			var inputs = boxDom.children;//也可以通过children获取boxDom的子类元素
+			var arr = [];
+			var len = inputs.length;
+			for(var i=0;i<len;i++){
+				arr.push(inputs[i]);
+			}
+			arr.sort(function(a,b){//这个方法只支持数组
+				return b.value - a.value;
+			});
+			//boxDom.innerHTML = "";
+			for(var i=0;i<arr.length;i++){
+				//boxDom.innerHTML +=arr[i];//不能拼接出具体的值
+				boxDom.appendChild(arr[i]);//jQuery中的append方法可以拼接元素
+			}
+		};
+	</script>
+</body>
+</html>
